@@ -5,17 +5,18 @@ users firstname:string{30} lastname:string{30} email:string{60}:index birtdate:d
 trainers firstname:string{30} lastname:string{30} nickname:string{30} bio:text
 
 courses name:string{30} description:text start_booking_hours:integer{2} end_booking_minutes:integer{2}
-start_booking_hours:    ore inizio iscrizioni prima del'inizio dell'evento
-end_booking_minutes:    minuti entro i quali è possibile iscriversi prima del'inizio dell'evento
+#start_booking_hours:    ore inizio iscrizioni prima del'inizio dell'evento
+#end_booking_minutes:    minuti entro i quali è possibile iscriversi prima del'inizio dell'evento
 
-rooms course:references max_attendees:integer{1}
+rooms name:string{30} max_attendees:integer{1}
 
-# courses_trainers course_id:integer{4} trainer_id:integer{4}
-# courses_rooms course_id:integer{4} room_id:integer{4}
+# Without primary key id
+# rails g migration CreateCoursesTrainers course_id:integer{4} trainer_id:integer{4}
+# rails g migration CreateCoursesRooms course_id:integer{4} room_id:integer{4}
 
-course_schedules course:references room:references event_day:integer{1} event_time:time
+course_schedules course:references room:references trainer:references event_day:integer{1} event_time:time
 
-course_events course:references course_schedule:references event_date:datetime
+course_events course:references room:references trainer:references course_schedule:references event_date:datetime
 
 attendees user:references course_event:references
 

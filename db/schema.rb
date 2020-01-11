@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_11_155415) do
+ActiveRecord::Schema.define(version: 2020_01_11_172111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,4 +41,107 @@ ActiveRecord::Schema.define(version: 2020_01_11_155415) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "attendees", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_event_id"], name: "index_attendees_on_course_event_id"
+    t.index ["user_id"], name: "index_attendees_on_user_id"
+  end
+
+  create_table "course_event_comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_event_id", null: false
+    t.string "message", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_event_id"], name: "index_course_event_comments_on_course_event_id"
+    t.index ["user_id"], name: "index_course_event_comments_on_user_id"
+  end
+
+  create_table "course_events", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "room_id", null: false
+    t.bigint "trainer_id", null: false
+    t.bigint "course_schedule_id", null: false
+    t.datetime "event_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_course_events_on_course_id"
+    t.index ["course_schedule_id"], name: "index_course_events_on_course_schedule_id"
+    t.index ["room_id"], name: "index_course_events_on_room_id"
+    t.index ["trainer_id"], name: "index_course_events_on_trainer_id"
+  end
+
+  create_table "course_schedules", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "room_id", null: false
+    t.bigint "trainer_id", null: false
+    t.integer "event_day", limit: 2
+    t.time "event_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_course_schedules_on_course_id"
+    t.index ["room_id"], name: "index_course_schedules_on_room_id"
+    t.index ["trainer_id"], name: "index_course_schedules_on_trainer_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name", limit: 30
+    t.text "description"
+    t.integer "start_booking_hours", limit: 2
+    t.integer "end_booking_minutes", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "courses_rooms", id: false, force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "room_id"
+  end
+
+  create_table "courses_trainers", id: false, force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "trainer_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name", limit: 30
+    t.integer "max_attendees", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "trainers", force: :cascade do |t|
+    t.string "firstname", limit: 30
+    t.string "lastname", limit: 30
+    t.string "nickname", limit: 30
+    t.text "bio"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "firstname", limit: 30
+    t.string "lastname", limit: 30
+    t.string "email", limit: 60
+    t.date "birtdate"
+    t.string "gender", limit: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email"
+  end
+
+  add_foreign_key "attendees", "course_events"
+  add_foreign_key "attendees", "users"
+  add_foreign_key "course_event_comments", "course_events"
+  add_foreign_key "course_event_comments", "users"
+  add_foreign_key "course_events", "course_schedules"
+  add_foreign_key "course_events", "courses"
+  add_foreign_key "course_events", "rooms"
+  add_foreign_key "course_events", "trainers"
+  add_foreign_key "course_schedules", "courses"
+  add_foreign_key "course_schedules", "rooms"
+  add_foreign_key "course_schedules", "trainers"
 end
