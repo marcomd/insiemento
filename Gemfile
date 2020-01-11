@@ -18,7 +18,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -28,9 +28,21 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'activeadmin', '~> 2.6'
+
+gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
+
+gem 'devise'
+
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # RSpec for Rails - Need to be in development for mail preview
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -40,6 +52,24 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
+  gem 'rubocop'
+
+  # A static analysis security vulnerability scanner for Ruby on Rails applications
+  gem 'brakeman'
+
+  # A code metric tool for rails projects
+  gem 'rails_best_practices'
+
+  # Great Ruby dubugging companion: pretty print Ruby objects to visualize their structure
+  gem 'awesome_print'
+
+  # Provides a better error page for Rails
+  gem 'better_errors'
+
+  # Retrieve the binding of a method's caller.
+  gem 'binding_of_caller'
 end
 
 group :test do

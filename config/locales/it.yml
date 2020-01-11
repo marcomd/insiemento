@@ -1,0 +1,374 @@
+it:
+  date:
+    abbr_day_names:
+    - dom
+    - lun
+    - mar
+    - mer
+    - gio
+    - ven
+    - sab
+    abbr_month_names:
+    -
+    - gen
+    - feb
+    - mar
+    - apr
+    - mag
+    - giu
+    - lug
+    - ago
+    - set
+    - ott
+    - nov
+    - dic
+    day_names:
+    - domenica
+    - lunedì
+    - martedì
+    - mercoledì
+    - giovedì
+    - venerdì
+    - sabato
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d %B %Y"
+      short: "%d %b"
+    month_names:
+    -
+    - gennaio
+    - febbraio
+    - marzo
+    - aprile
+    - maggio
+    - giugno
+    - luglio
+    - agosto
+    - settembre
+    - ottobre
+    - novembre
+    - dicembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: circa un'ora
+        other: circa %{count} ore
+      about_x_months:
+        one: circa un mese
+        other: circa %{count} mesi
+      about_x_years:
+        one: circa un anno
+        other: circa %{count} anni
+      almost_x_years:
+        one: circa 1 anno
+        other: circa %{count} anni
+      half_a_minute: mezzo minuto
+      less_than_x_seconds:
+        one: meno di un secondo
+        other: meno di %{count} secondi
+      less_than_x_minutes:
+        one: meno di un minuto
+        other: meno di %{count} minuti
+      over_x_years:
+        one: oltre un anno
+        other: oltre %{count} anni
+      x_seconds:
+        one: 1 secondo
+        other: "%{count} secondi"
+      x_minutes:
+        one: 1 minuto
+        other: "%{count} minuti"
+      x_days:
+        one: 1 giorno
+        other: "%{count} giorni"
+      x_months:
+        one: 1 mese
+        other: "%{count} mesi"
+      x_years:
+        one: 1 anno
+        other: "%{count} anni"
+    prompts:
+      second: Secondi
+      minute: Minuto
+      hour: Ora
+      day: Giorno
+      month: Mese
+      year: Anno
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: deve essere accettata
+      blank: non può essere lasciato in bianco
+      confirmation: non coincide con %{attribute}
+      empty: non può essere vuoto
+      equal_to: deve essere uguale a %{count}
+      even: deve essere pari
+      exclusion: è riservato
+      greater_than: deve essere maggiore di %{count}
+      greater_than_or_equal_to: deve essere maggiore o uguale a %{count}
+      inclusion: non è compreso tra le opzioni disponibili
+      invalid: non è valido
+      less_than: deve essere minore di %{count}
+      less_than_or_equal_to: deve essere minore o uguale a %{count}
+      not_a_number: non è un numero
+      not_an_integer: non è un numero intero
+      odd: deve essere dispari
+      other_than: devono essere di numero diverso da %{count}
+      present: deve essere lasciato in bianco
+      required: deve esistere
+      taken: è già presente
+      too_long:
+        one: è troppo lungo (il massimo è 1 carattere)
+        other: è troppo lungo (il massimo è %{count} caratteri)
+      too_short:
+        one: è troppo corto (il minimo è 1 carattere)
+        other: è troppo corto (il minimo è %{count} caratteri)
+      wrong_length:
+        one: è della lunghezza sbagliata (deve essere di 1 carattere)
+        other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
+    template:
+      body: 'Ricontrolla i seguenti campi:'
+      header:
+        one: 'Non posso salvare questo %{model}: 1 errore'
+        other: 'Non posso salvare questo %{model}: %{count} errori.'
+  helpers:
+    select:
+      prompt: Seleziona...
+    submit:
+      create: Crea %{model}
+      submit: Invia %{model}
+      update: Aggiorna %{model}
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    format:
+      delimiter: "."
+      precision: 2
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Miliardi
+          million: Milioni
+          quadrillion: Biliardi
+          thousand: Mila
+          trillion: Bilioni
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Byte
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " e "
+      two_words_connector: " e "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%a %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y %H:%M"
+      short: "%d %b %H:%M"
+      detailed: "%d %B %Y %H:%M:%S"
+    pm: pm
+  activerecord: &activerecord
+    models: &models
+      system_log:
+        one: "Log sistema"
+        other: "Log sistema"
+      sms_communication:
+        one: "Messaggio Sms"
+        other: "Messaggi Sms"
+      email_communication:
+        one: "Email"
+        other: "Email"
+      document:
+        one: "Documento"
+        other: "Documenti"
+      dossier:
+        one: "Pratica"
+        other: "Pratiche"
+      customer:
+        one: "Cliente"
+        other: "Clienti"
+    errors:
+      messages:
+        record_invalid: 'Validazione fallita: %{errors}'
+        restrict_dependent_destroy:
+          has_one: Il record non può essere cancellato perchè esiste un %{record} dipendente
+          has_many: Il record non può essere cancellato perchè esistono %{record} dipendenti
+    attributes: &attributes
+      id: "Id"
+      created_at: "Data creazione"
+      updated_at: "Data modifica"
+      #Attributes zone - do not remove
+      system_log:
+        customer: "Cliente"
+        dossier: "Pratica"
+        log_level: "Livello log"
+        message: "Messaggio"
+      sms_communication:
+        dossier: "Pratica"
+        label: "Etichetta"
+        sent_at: "Data invio"
+        recipient_received_at: "Recipient received at"
+      email_communication:
+        dossier: "Pratica"
+        label: "Etichetta"
+        document: "Documento"
+        sent_at: "Data invio"
+      document:
+        one: "Documento"
+        dossier: "Pratica"
+        name: "Nome"
+        label: "Etichetta"
+        file_hash: "Hash"
+      dossier:
+        one: "Pratica"
+        state: "Stato"
+        customer_dossier_id: "Id esterno"
+        customer_contract_hash: "Hash contratto"
+        recipient_name: "Nome destinatario"
+        recipient_email: "Email destinatario"
+        recipient_phone_number: "Telefono destinatario"
+        recipient_language: "Lingua destinatario"
+        otp: "Otp"
+        last_otp_at: "Ultima verifica otp"
+        final_checksum: "Codice controllo finale"
+        unsigned_document_sent_date: "Data invio documento non firmato"
+        signed_document_sent_date: "Data invio documento firmato"
+        signed_document: "Documento firmato"
+        signed_document_id: "ID Documento firmato"
+        states:
+          just_created: "Nuovo"
+          notified: "Inviato"
+          signing: "In firma"
+          signed: "Firmato"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      customer:
+        one: "Cliente"
+        name: "Nome"
+        log_level: "Livello log"
+
+  formtastic:
+    titles:
+    labels:
+      <<: *attributes
+    hints:
+      #Hints zone - do not remove
+      system_log:
+        customer: "Choose the customer"
+        dossier: "Choose the dossier"
+        log_level: "Fill the log level with an integer number"
+        message: "Choose a good message for this system_log"
+
+      sms_communication:
+        dossier: "Choose the dossier"
+        label: "Fill the label with an integer number"
+        sent_at: "Choose a datetime for sent at"
+        recipient_received_at: "Choose a datetime for recipient received at"
+
+      email_communication:
+        dossier: "Choose the dossier"
+        document: "Choose the document"
+        sent_at: "Choose a datetime for sent at"
+
+      document:
+        dossier: "Choose the dossier"
+        hash: "Choose a good hash for this document"
+
+      dossier:
+        customer: "Choose the customer"
+        state: "Fill the state with an integer number"
+        customer_dossier_id: "Fill the customer dossier with an integer number"
+        customer_contract_hash: "Hash univoco del contratto sulla piattaforma cliente, genera l'url per la firma del contratto"
+        recipient_name: "Choose a good recipient name for this dossier"
+        recipient_email: "Choose a good recipient email for this dossier"
+        recipient_phone_number: "Choose a good recipient phone number for this dossier"
+        recipient_language: "Fill the recipient language with an integer number"
+        otp: "Choose a good otp for this dossier"
+        last_otp_at: "Choose a datetime for last otp at"
+        unsigned_document_sent_date: "Choose a datetime for unsigned document sent date"
+        signed_document_sent_date: "Choose a datetime for signed document sent date"
+        signed_document_id: "Fill the signed document with an integer number"
+
+      customer:
+        name: "Choose a good name for this customer"
+        log_level: "Fill the log level with an integer number"
+
+  communications:
+    sms:
+      otp:
+        name: Codice OTP
+        body: "%{otp} è il tuo codice di verifica da %{sender}"
+    email:
+      contract_to_sign:
+        name: Contratto da firmare
+        object: Ecco il tuo contratto "%{sender}" da firmare
+      contract_signed:
+        name: Contratto firmato
+        object: Il tuo contratto "%{sender}" che hai firmato
+
+  activeadmin:
+    footer:
+      env: Ambiente
+      version: Versione
+      last_update: Ultimo aggiornamento
+      last_commit: Ultima commit
+  menu:
+    diagnostics: Diagnostica
+    project_diagnostic: Diagnostica Progetto
+    sidekiq: Gestione code asincrone
+    users_management: "Gestione Utenti"
+    communications: "Comunicazioni"
+  project_diagnostic:
+    name: Dati diagnostici
+    last_deploy:
+      name: Dati ultimo rilascio
+      last_deploy_at: Data ultimo deploy
+      last_deployed_version: Ultimo rilascio
+      last_restart: Ultimo riavvio del server
+    database:
+      name: Dati inerenti il database
+      db_size: Dimensioni del database
+      table_size: Dimensioni della tabella %{table_name}
+      table_size_with_indexes: Dimensioni della tabella %{table_name} con indici
+    logs:
+      name: Logs
+    server:
+      name: Server
+      smtp_server: Server invio email
+      db_server: Database server

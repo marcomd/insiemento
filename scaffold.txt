@@ -1,0 +1,22 @@
+# Insiemento
+
+users firstname:string{30} lastname:string{30} email:string{60}:index birtdate:date gender:string{1}
+
+trainers firstname:string{30} lastname:string{30} nickname:string{30} bio:text
+
+courses name:string{30} description:text start_booking_hours:integer{2} end_booking_minutes:integer{2}
+start_booking_hours:    ore inizio iscrizioni prima del'inizio dell'evento
+end_booking_minutes:    minuti entro i quali è possibile iscriversi prima del'inizio dell'evento
+
+rooms course:references max_attendees:integer{1}
+
+# courses_trainers course_id:integer{4} trainer_id:integer{4}
+# courses_rooms course_id:integer{4} room_id:integer{4}
+
+course_schedules course:references room:references event_day:integer{1} event_time:time
+
+course_events course:references course_schedule:references event_date:datetime
+
+attendees user:references course_event:references
+
+course_event_comments user:references course_event:references message:string{255}
