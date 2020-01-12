@@ -16,6 +16,7 @@ if Course.count == 0
                          end_booking_minutes: 90,
                          state: :active,
   )
+  puts "Courses: #{Course.count}"
 else
   c_zumba, c_other = Course.all
 end
@@ -23,6 +24,7 @@ end
 if Trainer.count == 0
   t_miguel=Trainer.create!(firstname: 'Miguel', lastname: 'Dos Santos', nickname: 'El Nino', state: :active, bio: "Un caliente ballerino brasiliano, tra i tre più grandi ballerini italiani di zumba di tutti i tempi.")
   t_jenny=Trainer.create!(firstname: 'Jennifer', lastname: 'Santorini', nickname: 'Saint', state: :active, bio: "Percorso accademico completato negli states, eletta Miss chiappe d'oro 2019, con lei è vivamente consigliata una bombola di ossigeno!")
+  puts "Trainers: #{Trainer.count}"
 else
   t_miguel, t_jenny = Trainer.all
 end
@@ -30,6 +32,7 @@ end
 if User.count == 0
   u_stefania=User.create!(firstname: 'Stefania', lastname: 'Rossini', email: 'stefania@insiemento.io', birtdate: '1990-05-25', gender: 'F', state: :active,)
   u_marco=User.create!(firstname: 'Marco', lastname: 'Tonelli', email: 'marco@insiemento.io', birtdate: '1995-06-15', gender: 'M', state: :active,)
+  puts "Users: #{User.count}"
 else
   u_stefania, u_marco = User.all
 end
@@ -38,6 +41,7 @@ if Room.count == 0
   r_small=Room.create!(name: 'Piccola', max_attendees: 10, state: :active,)
   r_middle=Room.create!(name: 'Media', max_attendees: 20, state: :active,)
   r_large=Room.create!(name: 'Media', max_attendees: 30, state: :active,)
+  puts "Rooms: #{Room.count}"
 else
   r_small, r_middle, r_large = Room.all
 end
@@ -45,10 +49,11 @@ end
 if CourseSchedule.count == 0
   cs_zumba_monday_morning=CourseSchedule.create!(course_id: c_zumba.id, room_id: r_small.id, trainer_id: t_miguel.id, event_day: 1, event_time: '7:00', state: :active)
   cs_zumba_monday_afternoon=CourseSchedule.create!(course_id: c_zumba.id, room_id: r_middle.id, trainer_id: t_jenny.id, event_day: 1, event_time: '14:30', state: :active)
+  puts "CourseSchedules: #{CourseSchedule.count}"
 end
 
 if CourseEvent.count == 0
-  CourseSchedule.all do |cs|
+  CourseSchedule.all.each do |cs|
     CourseEvent.create!(course_id: cs.course.id,
                         room_id: cs.room_id,
                         trainer_id: cs.trainer_id,
@@ -56,12 +61,12 @@ if CourseEvent.count == 0
                         event_date: cs.next_event_datetime,
                         state: :active)
   end
-
-
+  puts "CourseEvents: #{CourseEvent.count}"
 end
 
 if Attendee.count == 0
-  CourseEvent.all do |ce|
+  CourseEvent.all.each do |ce|
     Attendee.create!(course_event_id: ce.id, user_id: u_stefania.id)
   end
+  puts "Attendees: #{Attendee.count}"
 end

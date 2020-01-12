@@ -99,16 +99,6 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "courses_rooms", id: false, force: :cascade do |t|
-    t.integer "course_id"
-    t.integer "room_id"
-  end
-
-  create_table "courses_trainers", id: false, force: :cascade do |t|
-    t.integer "course_id"
-    t.integer "trainer_id"
-  end
-
   create_table "rooms", force: :cascade do |t|
     t.string "name", limit: 30
     t.integer "max_attendees", limit: 2

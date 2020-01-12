@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
-  has_and_belongs_to_many :rooms
-  has_and_belongs_to_many :trainers
+  has_many :course_schedules
+  has_many :trainers, through: :course_schedules
+  has_many :rooms, through: :course_schedules
 
   STATES = { just_made: 10, active: 20, suspended: 30}
   enum state: STATES
