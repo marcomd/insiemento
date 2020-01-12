@@ -1,22 +1,22 @@
 # Insiemento
 
-users firstname:string{30} lastname:string{30} email:string{60}:index birtdate:date gender:string{1}
+users firstname:string{30} lastname:string{30} email:string{60}:index birtdate:date gender:string{1} state:integer{1}
 
-trainers firstname:string{30} lastname:string{30} nickname:string{30} bio:text
+trainers firstname:string{30} lastname:string{30} nickname:string{30} bio:text state:integer{1}
 
-courses name:string{30} description:text start_booking_hours:integer{2} end_booking_minutes:integer{2}
+courses name:string{30} description:text start_booking_hours:integer{2} end_booking_minutes:integer{2} state:integer{1}
 #start_booking_hours:    ore inizio iscrizioni prima del'inizio dell'evento
 #end_booking_minutes:    minuti entro i quali è possibile iscriversi prima del'inizio dell'evento
 
-rooms name:string{30} max_attendees:integer{1}
+rooms name:string{30} max_attendees:integer{1} state:integer{1}
 
 # Without primary key id
 # rails g migration CreateCoursesTrainers course_id:integer{4} trainer_id:integer{4}
 # rails g migration CreateCoursesRooms course_id:integer{4} room_id:integer{4}
 
-course_schedules course:references room:references trainer:references event_day:integer{1} event_time:time
+course_schedules course:references room:references trainer:references event_day:integer{1} event_time:time state:integer{1}
 
-course_events course:references room:references trainer:references course_schedule:references event_date:datetime
+course_events course:references room:references trainer:references course_schedule:references event_date:datetime state:integer{1}
 
 attendees user:references course_event:references
 

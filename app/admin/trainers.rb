@@ -10,7 +10,7 @@ ActiveAdmin.register Trainer do
   # or
 
   permit_params do
-    permitted = [:firstname, :lastname, :nickname, :bio]
+    permitted = [:firstname, :lastname, :nickname, :bio, :state]
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end

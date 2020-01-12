@@ -10,7 +10,7 @@ ActiveAdmin.register CourseSchedule do
   # or
 
   permit_params do
-    permitted = [:course_id, :room_id, :trainer_id, :event_day, :event_time]
+    permitted = [:course_id, :room_id, :trainer_id, :event_day, :event_time, :state]
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end

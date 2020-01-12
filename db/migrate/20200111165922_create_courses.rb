@@ -5,6 +5,7 @@ class CreateCourses < ActiveRecord::Migration[6.0]
       t.text :description
       t.integer :start_booking_hours, limit: 2
       t.integer :end_booking_minutes, limit: 2
+      t.integer :state, limit: 1, default: 10
 
       t.timestamps
     end

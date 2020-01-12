@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email, limit: 60
       t.date :birtdate
       t.string :gender, limit: 1
+      t.integer :state, limit: 1, default: 10
 
       t.timestamps
     end

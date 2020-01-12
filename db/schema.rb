@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
     t.bigint "trainer_id", null: false
     t.bigint "course_schedule_id", null: false
     t.datetime "event_date"
+    t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_course_events_on_course_id"
@@ -80,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
     t.bigint "trainer_id", null: false
     t.integer "event_day", limit: 2
     t.time "event_time"
+    t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_course_schedules_on_course_id"
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
     t.text "description"
     t.integer "start_booking_hours", limit: 2
     t.integer "end_booking_minutes", limit: 2
+    t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -109,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
   create_table "rooms", force: :cascade do |t|
     t.string "name", limit: 30
     t.integer "max_attendees", limit: 2
+    t.integer "state", limit: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -118,6 +122,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
     t.string "lastname", limit: 30
     t.string "nickname", limit: 30
     t.text "bio"
+    t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -128,6 +133,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_172111) do
     t.string "email", limit: 60
     t.date "birtdate"
     t.string "gender", limit: 1
+    t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email"

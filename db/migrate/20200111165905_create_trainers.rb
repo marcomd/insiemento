@@ -5,6 +5,7 @@ class CreateTrainers < ActiveRecord::Migration[6.0]
       t.string :lastname, limit: 30
       t.string :nickname, limit: 30
       t.text :bio
+      t.integer :state, limit: 1, default: 10
 
       t.timestamps
     end

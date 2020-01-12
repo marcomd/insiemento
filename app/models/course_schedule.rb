@@ -12,8 +12,10 @@ class CourseSchedule < ApplicationRecord
       saturday: 6,
       sunday: 7,
   }
-
   enum event_day: EVENT_DAYS
+
+  STATES = { just_made: 10, active: 20, suspended: 30}
+  enum state: STATES
 
   def name
     "#{event_day} #{event_time.strftime('%H:%M')}"

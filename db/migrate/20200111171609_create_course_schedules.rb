@@ -6,6 +6,7 @@ class CreateCourseSchedules < ActiveRecord::Migration[6.0]
       t.references :trainer, null: false, foreign_key: true
       t.integer :event_day, limit: 1
       t.time :event_time
+      t.integer :state, limit: 1, default: 10
 
       t.timestamps
     end

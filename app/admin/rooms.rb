@@ -10,7 +10,7 @@ ActiveAdmin.register Room do
   # or
 
   permit_params do
-    permitted = [:name, :max_attendees]
+    permitted = [:name, :max_attendees, :state]
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end
