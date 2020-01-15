@@ -1,0 +1,134 @@
+<template>
+  <v-app class='user-app'>
+    <Sidebar/>
+    <Header/>
+    <v-content>
+      <Alerts/>
+      <router-view/>
+    </v-content>
+    <Footer/>
+  </v-app>
+</template>
+
+<script>
+  import Vue from 'vue'
+  import { mapGetters } from 'vuex'
+  import Header from './layout/header'
+  import Sidebar from './layout/sidebar'
+  import Footer from './layout/footer'
+  import Alerts from './layout/alerts'
+
+  export default {
+    components: {
+      Header,
+      Sidebar,
+      Footer,
+      Alerts
+    },
+    props: {
+      urls: Object,
+      basePath: String,
+      current_organization: Object,
+    },
+    computed: {
+      ...mapGetters('session', [
+        'isLoggedIn'
+      ])
+    },
+    created() {
+      console.log('index.vue urls', this.urls)
+
+      Vue.http.interceptors.push(request => {
+        if (request.skipInterceptors) return
+
+        // Perchè un clear globale? Non consente di mostrare i messaggi impostati prima del routing
+        // this.$store.dispatch('layout/clearAlerts')
+        this.$store.dispatch('layout/submitting_request', true)
+
+        return response => {
+          this.$store.dispatch('layout/submitting_request', false)
+
+          switch (response.status) {
+            case 401:
+              this.$store.dispatch('layout/clearAlerts')
+              this.$store.dispatch('session/logout', true)
+              break
+            case 500:
+              console.log('Catched a 500!', response.body)
+              this.$store.dispatch('layout/replaceAlert', {
+                type: 'error',
+                key: 'error_500'
+              })
+              break
+          }
+          // if (response.status === 401) {
+          //   this.$store.dispatch('layout/clearAlerts')
+          //   this.$store.dispatch('session/logout', true)
+          // }
+        }
+      })
+
+      this.$store.dispatch('application/loadInitialProps', {
+        urls: this.urls,
+        basePath: this.basePath,
+        current_organization: this.current_organization,
+      })
+
+      if (this.isLoggedIn) {
+        Vue.http.headers.common['X-Auth-Token'] = 'Bearer ' + this.$store.state.session.authToken
+        this.$store.dispatch('profile/fetchUser')
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+  $body-font-family: 'Open Sans', sans-serif;
+
+  .v-application {
+    font-family: $body-font-family !important;
+    div.title, h1.title, h2.title, h3.title, h4.title, h5.title, h6.title,
+    div.headline, h1.headline, h2.headline, h3.headline, h4.headline, h5.headline, h6.headline {
+      font-family: $body-font-family !important;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $body-font-family !important;
+    &.subtitle {
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #555;
+    }
+  }
+
+  // background color moved to have a better styled checkin bottom navigation
+  /*.user-app.theme--light.v-application {
+    background-color: #ffffff;
+  }
+  .v-content__wrap {
+    background-color: #fafafa;
+  }*/
+  .v-input {
+    position: relative;
+  }
+  .v-input__append-outer {
+    position: absolute;
+    top: 5px;
+    right: -5px;
+    margin: 0 !important;
+    .v-input__icon.v-input__icon--append-outer {
+      width: auto;
+      min-width: auto;
+      height: auto;
+      flex: none;
+      .v-icon {
+        font-size: 10px;
+        &.mdi-asterisk {
+          color: #ff5252 !important;
+        }
+      }
+    }
+  }
+</style>

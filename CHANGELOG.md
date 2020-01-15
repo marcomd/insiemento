@@ -1,6 +1,10 @@
 # CHANGELOG
 
 
+# V0.0.0 14/01/2020 6h
+
+- Added vue frontend. It compiles but it does not work yet
+
 # V0.0.0 12/01/2020 2h
 
 - New relationships between course schedules. Relation has_and_belongs_to has been removed

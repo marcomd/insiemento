@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :trackable, :registerable, :confirmable
 
   has_many :attendees, dependent: :nullify
   has_many :course_events, through: :attendees

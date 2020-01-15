@@ -1,0 +1,313 @@
+it:
+  ui:
+    users:
+      header:
+        title: My Fitness
+      footer:
+        about: Chi siamo
+      home:
+        step1: Registrati
+        step2: Scegli il corso
+        step3: Goditi la lezione
+      commons:
+        go_back: Torna indietro
+        cancel: Annulla
+        confirm: Conferma
+        next: Avanti
+        prev: Indietro
+        of: di
+        end: Fine
+        save: Salva
+      locales:
+        it: Italiano
+        en: English
+      sidebar:
+        home: Home
+        login: Accedi
+        logout: Logout
+        sign_up: Registrati
+        profile: Profilo
+        dashboard: Corsi
+        help: Contattaci
+      session:
+        login_action: Entra
+        login_title: Login
+        sign_up_action: Registrati
+        sign_up_title: Registrazione
+        password_hint: Inserisci una password sicura, mi raccomando!
+        signed_up_body: Controlla la tua casella email per confermare la tua registrazione
+        password_forgotten: Hai dimenticato la password?
+        password_reset_title: Imposta una nuova password
+        password_reset_hint: Inserisci il tuo indirizzo email, riceverai il link per modificare la password
+        password_reset_action: Invia
+        password_label: Password
+        password_confirmation_label: Conferma password
+        resend_confirmation_email: Non hai ricevuto l'email di conferma?
+        confirmation_email_title: Ricevi l'email di conferma
+        confirmation_email_hint: Inserisci il tuo indirizzo per ricevere nuovamente l’email di conferma
+        confirmation_email_action: Invia
+        new_password_title: Imposta la nuova password
+        new_password_hint: Scegli una nuova password
+        new_password_action: Invia
+        email_already_exists_get_password: Imposta la Password
+        attributes:
+          email_confirmation: Conferma email
+          email: Email
+          firstname: Nome
+          lastname: Cognome
+          password_confirmation: Conferma password
+          password: Password
+          remember_me: Ricordami su questo dispositivo
+          type: Ti stai registrando per te o per altri?
+      profile:
+        edit_action: Modifica
+        completing_action: Continua
+        edit_title: Modifica il profilo
+        completing_title: Completa il profilo
+        email: Indirizzo email
+        title: Profilo
+        update_action: Aggiorna
+        phone_prefix_hint: Ricerca prefisso o nome della nazione
+        phone_hint: Lo utilizzeremo per organizzare il tuo check-in in appartamento
+        attributes:
+          birthdate: Data di nascita
+          cap: CAP
+          email: Email
+          female: Donna
+          firstname: Nome
+          fiscal_code: Codice fiscale
+          lastname: Cognome
+          male: Uomo
+          gender: Sesso
+        hints:
+          disabled_form: Il tuo account non consente la modifica di questi dati, nell'eventualità contattaci
+          fiscal_code: Inserisci il tuo codice fiscale
+      errors:
+        password_required: password richiesta
+        email_required: email richiesta
+        email_invalid_format: formato email non corretto
+        email_confirmation_not_equal: è diversa dalla mail inserita
+        required: obbligatorio
+        field_required: Questo dato è necessario
+        password_too_short: la password deve essere di almeno 8 caratteri
+        password_confirmation_not_equal: è diversa dalla password inserita
+        blank: non può essere vuoto
+        inclusion: "%{value} non è incluso nella lista dei valori"
+        invalid_value: valore non valido
+        already_exists: "già presente"
+        invoice_account_already_exists: "non valido in quanto esiste già un'anagrafica di fatturazione, contatta un nostro operatore"
+        fiscal_code_not_valid: deve essere lungo 16 caratteri nel formato AAABBB11C22D333E
+        fiscal_code_already_exists: è già presente ma non disponibile, contatta l'assistenza
+        vat_number_not_valid: deve essere un numero di 11 cifre
+        fiscal_code_or_vat_number_not_valid: deve essere un codice di 16 caratteri nel formato AAABBB11C22D333E o un numero di 11 cifre
+        codice_destinatario_sdi_not_valid: deve essere un codice alfanumerico lungo 6 o 7 caratteri
+        invoice_account_params_not_present: Un problema imprevisto con l'anagrafica di fatturazione impedisce di proseguire
+      alerts:
+        unauthorized: Autenticati per accedere alla pagina
+        login_success: Accesso effettuato con successo
+        login_error: Email o password errate
+        signed_up: Registrazione effettuata con successo
+        sign_up_error: Errore, ricontrolla i dati inseriti
+        logout: Sessione chiusa con successo
+        force_logout: Errore, è necessario autenticarsi nuovamente
+        password_reset_sent: Utilizza il link che hai ricevuto per modificare la tua password.
+        password_reset_error: Errore, indirizzo email non valido
+        new_password_saved: Password aggiornata con successo
+        new_password_error: Errore, password non valida
+        confirmation_email_sent: Controlla la tua casella email per confermare la tua registrazione
+        confirmation_email_error: Errore, indirizzo email già confermato
+        profile_error: Errore, ricontrolla i dati inseriti
+        profile_updated: Profilo aggiornato con successo!
+        profile_completed: Profilo completato, ora sei pronto per il Fast Check-in!
+        order_assigned: Ora puoi effettuare il Fast Check-in per la tua prenotazione %{code}
+        order_unassigned: Un errore imprevisto impedisce di associare la prenotazione al tuo account
+        order_not_found: La prenotazione che stai cercando non è stata trovata, verifica tra le tue prenotazioni
+        order_to_redeem_not_available: La prenotazione che stai cercando non è più disponibile o è già presente tra le tue prenotazioni
+        guest_error: Errore, ricontrolla i dati inseriti
+        guest_created: L'ospite è stato inserito correttamente
+        guest_updated: L'ospite è stato aggiornato correttamente
+        generic_api_error: Un problema sta impedendo la connessione al cloud, riprova fra qualche minuto
+        invoice_account_created: Anagrafica di fatturazione inserita
+        invoice_account_updated: Anagrafica di fatturazione aggiornata
+        checkin_info_before_session: Per iniziare il Fast Check-in devi accedere con le tue credenziali. Se è la prima volta, registrati. Bastano poche informazioni!
+        checkin_completed: Ottimo lavoro! Hai completato il Fast Check-in.
+        checkin_to_complete: Dati salvati! Il Fast Check-in non è concluso, ricordati di completarlo prima del tuo arrivo.
+        email_confirmed: Indirizzo e-mail confermato, inserisci le tue credenziali per completare il Fast Check-in
+        email_not_confirmed: Errore durante la conferma dell'indirizzo email, prova a richiedere nuovamente l'invio
+        invalid_token: Errore, il link usato non è più valido, si prega di chiedere nuovamente l'invio delle istruzioni per resettarla.
+        unconfirmed: Devi confermare il tuo indirizzo email per continuare
+        organization_not_found: Oh oh! Organizzazione non trovata, contatta l'assistenza
+        error_500: Oh oh! Un errore imprevisto sta impedendo di proseguire ma non temere, qualcuno è già al lavoro per risolvere
+      hints:
+        write_city_name: Scrivi il nome della città
+        search_city: Scrivi le iniziali per restringere la ricerca
+      customer:
+        type_business: Azienda
+        type_private: Privato
+        hints:
+          email: Ti verrà inviata un'email per confermare l'indirizzo
+      order:
+        checkin:
+          start: Inizia
+          show: Fast check-in
+          step1: Ospiti
+          step2: Contratto
+          step3: Fattura
+          step4: Completa
+          errors:
+            no_single_guest_typology_with_many_guests: "'Ospite singolo' non è una tipologia amessa in presenza di più ospiti."
+            not_a_room_chief_typology: È richiesta una tipologia di capocamera
+            not_a_valid_guest_typology: La tipologia di ospite selezionata non è ammessa
+        edit_action: Modifica
+        list:
+          to_complete: Seleziona la prenotazione per il Fast Check-in
+          completed: I tuoi precedenti soggiorni
+          none: Nessuna prenotazione disponibile
+        show:
+          title: "Prenotazione&nbsp;<strong>%{code}</strong>"
+        attributes:
+          code: Codice
+          total_amount: Totale
+          ota: Portale prenotazione
+          client_note: Note
+          trip_category: Tipologia ospite
+          trip_categories:
+            family: Famiglia
+            leisure: Leisure
+            business: Business
+          checkin_time_estimate: Orario di arrivo stimato
+          checkin_location: Dove vuoi ritirare le chiavi?
+          checkin_locations:
+            apartment: Appartamento
+            reception: Welcome point
+          checkin_locations_for_select:
+            apartment: In appartamento (solo previa conferma)
+            reception: Nel welcome point più vicino
+        hints:
+          client_note: Scrivi l'orario preferito per il check-in (12.00-21.00) o richieste speciali
+          checkin_time_estimate: ""
+          checkin_location: ""
+      reservation:
+        customer_contract_state_already_signed: Il contratto è stato firmato
+        customer_contract_state_already_signed_hint: Riceverai una nostra email con la copia del contratto, ora puoi procedere
+        customer_contract_chief_guest_not_present: Ospite capo camera non presente
+        customer_contract_chief_guest_not_present_hint: Per firmare il contratto devi almeno inserire i dati del primo ospite
+        attributes:
+          stay_period: Soggiorno dal <b>%{from}</b> al <b>%{to}</b>
+          checkin_date: Arrivo
+          checkout_date: Partenza
+          status: Stato
+          states:
+            new: Nuovo
+            checkin_closed: Checkin completato
+            checkin_pending: In sospeso
+            checkin_opened: In corso
+            checkout_closed: Checkout eseguito
+            overbook: Overbook
+            no_show: Ospite non presente
+          customer_contract_state: "Contratto"
+          customer_contract_states:
+            to_generate: "Da generare"
+            to_sign: "Da firmare"
+            signed: "Firmato"
+            sent: "Inviato"
+            aborted: "Interrotto"
+            manual: "Stampato su carta"
+            error: "Errore"
+          guest_checkin_state: "Stato checkin"
+          guest_checkin_states:
+            new: "Nuovo"
+            redeemed: "Da iniziare"
+            started: "Iniziato"
+            completed: "Completato"
+            warning: "Attenzione"
+          apartment: Appartamento
+          apartment_name: Nome appartamento
+          apartment_code: Codice appartamento
+          nights: Notti
+          ota: Portale prenotazione
+          guests: Ospiti
+      guest:
+        guest: "Ospite"
+        update_action: "Salva"
+        residence_as_birth: Nazione e città residenza come quelli di nascita
+        citizenship_as_birth: Nazione cittadinanza come quella di nascita
+        foreign_document_issued_location: Documento rilasciato fuori dall'italia
+        attributes:
+          citizenship: Cittadinanza
+          country_of_birth: Nazione di nascita
+          place_of_birth: Città di nascita
+          country_of_residence: Nazione di residenza
+          city_of_residence: Città di residenza
+          document_type: Tipo documento
+          document_number: Numero documento
+          document_issued_location: Luogo di rilascio
+          region: Regione
+          city: Città
+          typology: Tipologia
+          typologies:
+            single: Ospite singolo
+            family_head: Capo famiglia
+            family: Famigliare
+            group_head: Capo gruppo
+            group_member: Membro gruppo
+          typology_friendly: Con chi soggiorni?
+          typologies_friendly:
+            single: Da solo
+            family_head: Con la famiglia
+            group_head: In gruppo
+          email: Email
+          email_confirmation: Conferma email
+          first_name: Nome
+          last_name: Cognome
+          birthdate: Data nascita
+          sex: Sesso
+          genders:
+            male: Uomo
+            female: Donna
+          stay_from_date: Data inizio soggiorno
+          stay_to_date: Data fine soggiorno
+          guest_language: Lingua
+          phone_prefix: Prefisso
+          phone: Numero cellulare
+          address: Indirizzo residenza
+          fiscal_code: Codice fiscale
+        hints:
+          room_chief: "Completa il Fast Check-in inserendo i tuoi dati e quelli degli altri ospiti (minori compresi)."
+          phone_prefix: "Ricerca col prefisso o col nome della nazione. Es: +39 o Italia"
+          phone: "Nello step successivo ti invieremo un SMS per verificare il numero che verrà utilizzato per organizzare il tuo check-in in appartamento"
+          fiscal_code: "Inserisci il tuo codice fiscale"
+      invoice_account:
+        create_action: "Conferma"
+        update_action: "Aggiorna"
+        type_label: "Hai bisogno di"
+        natural: "Ricevuta"
+        legal: "Fattura"
+        attributes:
+          id: "ID"
+          business_name: "Ragione Sociale"
+          company_name: "Ragione Sociale"
+          address: "Indirizzo"
+          city_id: "Città"
+          city_name: "Città"
+          province: "Provincia"
+          zip: "CAP"
+          vat_number: "Partita iva"
+          fiscal_code: "Codice fiscale"
+          country_id: "Nazione"
+          account_type: "Tipologia"
+          account_type_natural: "Privato"
+          account_type_legal: "Azienda"
+          first_name: "Nome"
+          last_name: "Cognome"
+          invoice_account_type: "Tipologia profilo fatturazione"
+          vat_number_prefix: "Prefisso p.IVA"
+          pec: "PEC"
+          invoice_email: "Email per copia cortesia"
+          codice_destinatario_sdi: "Cod. Destinatario SDI"
+          created_at: "Inserito il"
+          recipient_organization_id: "Organizzazione collegata"
+          recipient_owner_id: "Proprietario collegato"
+          related_to: "Relativa a"
+          archived: "Archiviata"
+          disable_invoice_generation_flag: "Disabilita Generazione Fatture"
