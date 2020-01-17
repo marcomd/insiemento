@@ -15,5 +15,15 @@ module Insiemento
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.time_zone = 'Rome'
+
+    config.i18n.default_locale = :it
+    config.i18n.available_locales = [:en, :it]
+
+    #config.assets.precompile += %w[active_admin.scss active_admin.js]
+
+    #config.active_job.queue_adapter = :sidekiq
+    #config.action_mailer.deliver_later_queue_name = "default_mailer"
   end
 end

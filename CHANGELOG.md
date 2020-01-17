@@ -1,7 +1,12 @@
 # CHANGELOG
 
+# V0.0.2 16/01/2020 4h
 
-# V0.0.0 14/01/2020 6h
+- Start customization vuetify
+  - Signup form now manages only project fields. Login form is already ok.
+  - Customized logo and favicon
+
+# V0.0.1 14/01/2020 6h
 
 - Added vue frontend. It compiles but it does not work yet
 

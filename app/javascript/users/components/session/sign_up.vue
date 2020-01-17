@@ -10,87 +10,56 @@
           </v-toolbar>
           <v-card-text>
             <v-form id='sign-up-form' @submit.prevent='signUp'>
+
               <v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model='firstname'
+                    prepend-icon='mdi-account'
+                    :append-outer-icon='requiredIcon("firstname")'
+                    :label='labelFor("firstname")'
+                    :error-messages='firstNameErrors'
+                    @input='$v.firstname.$touch()'
+                    @blur='$v.firstname.$touch()'
+                  />
+                </v-col>
                 <v-col>
-                  <!--p class='ml-8'>
-                    {{ $t('session.attributes.type') }}
-                  </p-->
-                  <v-radio-group v-model='customer_type'
-                                 row
-                                 :error-messages="customerTypeErrors">
-                    <v-radio :label='$t("session.attributes.natural")' value='NATURAL_PERSON' />
-                    <v-radio :label='$t("session.attributes.legal")' value='LEGAL_PERSON' />
-                  </v-radio-group>
+                  <v-text-field
+                    v-model='lastname'
+                    prepend-icon='mdi-account'
+                    :append-outer-icon='requiredIcon("lastname")'
+                    :label='labelFor("lastname")'
+                    :error-messages='lastNameErrors'
+                    @input='$v.lastname.$touch()'
+                    @blur='$v.lastname.$touch()'
+                  />
                 </v-col>
               </v-row>
 
-              <transition name='slide-fade'>
-                <v-row>
-                  <v-col cols="12" sm="6">
-                    <v-text-field
-                      v-model='first_name'
-                      prepend-icon='mdi-account'
-                      :append-outer-icon='requiredIcon("first_name")'
-                      :label='labelFor(`first_name_${customer_type.toLowerCase()}`)'
-                      :error-messages='firstNameErrors'
-                      @input='$v.first_name.$touch()'
-                      @blur='$v.first_name.$touch()'
+              <v-row>
+                <v-col>
+                  <v-radio-group
+                    v-model='gender'
+                    row
+                    :error-messages="genderErrors"
+                    @change="$v.gender.$touch()"
+                    @blur="$v.gender.$touch()"
+                  >
+                    <v-radio
+                      :label='$t("profile.attributes.genders.male")'
+                      value='M'
                     />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model='last_name'
-                      prepend-icon='mdi-account'
-                      :append-outer-icon='requiredIcon("last_name")'
-                      :label='labelFor(`last_name_${customer_type.toLowerCase()}`)'
-                      :error-messages='lastNameErrors'
-                      @input='$v.last_name.$touch()'
-                      @blur='$v.last_name.$touch()'
+                    <v-radio
+                      :label='$t("profile.attributes.genders.female")'
+                      value='F'
                     />
-                  </v-col>
-                </v-row>
-              </transition>
-
-              <transition name='slide-fade'>
-                <v-row v-if='isLegal'>
-                  <v-col>
-                    <v-text-field
-                      v-model='business_name'
-                      prepend-icon='mdi-domain'
-                      :append-outer-icon='requiredIcon("business_name")'
-                      :label='labelFor("business_name")'
-                      :error-messages='businessNameErrors'
-                      @input='$v.business_name.$touch()'
-                      @blur='$v.business_name.$touch()'
+                    <v-radio
+                      :label='$t("profile.attributes.genders.robot")'
+                      value='R'
                     />
-                  </v-col>
-                </v-row>
-              </transition>
-
-              <transition name='slide-fade'>
-                <v-row v-if="!isLegal">
-                  <v-col>
-                    <v-radio-group
-                      v-model='sex'
-                      row
-                      :error-messages="sexErrors"
-                      :prepend-icon="!!sex ? (sex == 'M' ? 'mdi-gender-male' : 'mdi-gender-female') : 'mdi-gender-male-female'"
-                      @change="$v.sex.$touch()"
-                      @blur="$v.sex.$touch()"
-                    >
-                      <!--span class='mr-4'>{{ $t('user.attributes.sex') }}</span-->
-                      <v-radio
-                        :label='$t("user.attributes.genders.male")'
-                        value='M'
-                      />
-                      <v-radio
-                        :label='$t("user.attributes.genders.female")'
-                        value='F'
-                      />
-                    </v-radio-group>
-                  </v-col>
-                </v-row>
-              </transition>
+                  </v-radio-group>
+                </v-col>
+              </v-row>
 
               <v-row>
                 <v-col cols="12" sm="6">
@@ -103,7 +72,7 @@
                     @input='$v.email.$touch()'
                     @blur='$v.email.$touch()'
                     persistent-hint
-                    :hint='$t("customer.hints.email")'
+                    :hint='$t("profile.hints.email")'
                   >
                     <template v-slot:append>
                       <v-fade-transition leave-absolute group>
@@ -228,33 +197,29 @@
     ],
     validations() {
       return {
-        first_name:     { required },
-        last_name:      { required },
-        sex:            { required: requiredIf(_ => { return this.isNatural }) },
-        business_name:  { required: requiredIf(_ => { return this.isLegal }) },
+        firstname:     { required },
+        lastname:      { required },
+        gender:        { required },
         email: {
           required,
-          email,
-          isAvailable(value) {
-            // no need to check availability via API if email is not present or invalid
-            this.resultAvailability = null
-            if (!required(value) || !email(value)) return true
-            return this.checkEmailAvailability(value)
-          }
+          email
+          // isAvailable(value) {
+          //   // no need to check availability via API if email is not present or invalid
+          //   this.resultAvailability = null
+          //   if (!required(value) || !email(value)) return true
+          //   return this.checkEmailAvailability(value)
+          // }
         },
         email_confirmation:     { required, email, sameAsEmail: sameAs('email') },
         password:               { required, minLength: minLength(8) },
         password_confirmation:  { required, sameAsPassword: sameAs('password') },
-        customer_type:          { required },
       }
     },
     data() {
       return {
-        customer_type: 'NATURAL_PERSON',
-        first_name: '',
-        last_name: '',
-        sex: '',
-        business_name: '',
+        firstname: '',
+        lastname: '',
+        gender: '',
         email: '',
         email_confirmation: '',
         password: '',
@@ -265,12 +230,6 @@
       }
     },
     computed: {
-      isLegal() {
-        return this.customer_type == 'LEGAL_PERSON'
-      },
-      isNatural() {
-        return !this.isLegal
-      },
       showForgottenPasswordHint() {
         // return !this.checkingAvailability && !!this.serverSideErrors && !!this.serverSideErrors['email']
         return !this.checkingAvailability && this.resultAvailability == false && this.resultCustomerCreatedByWeb == false
@@ -294,16 +253,13 @@
         }
 
         this.$store.dispatch('session/signUp', {
-          customer_type: this.customer_type,
-          first_name: this.first_name,
-          last_name: this.last_name,
-          sex: this.sex,
-          business_name: this.business_name,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          gender: this.gender,
           email: this.email,
           email_confirmation: this.email_confirmation,
           password: this.password,
           password_confirmation: this.password_confirmation,
-          pending_order_uuid: this.getUuidFromPath(this.redirectToParam)
         })
         .catch(err => {
           console.log('submit signUp', err)

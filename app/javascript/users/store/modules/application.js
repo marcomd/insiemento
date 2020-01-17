@@ -3,6 +3,7 @@ export const namespaced = true
 export const state = {
   basePath: '',
   urls: {},
+  current_organization: {},
 }
 
 export const mutations = {

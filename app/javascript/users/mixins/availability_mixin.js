@@ -5,7 +5,6 @@ export const availabilityMixin = {
     return {
       checkingAvailability: false,
       resultAvailability: null,
-      resultCustomerCreatedByWeb: null,
     }
   },
   computed: {

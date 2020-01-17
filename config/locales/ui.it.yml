@@ -79,9 +79,14 @@ it:
           lastname: Cognome
           male: Uomo
           gender: Sesso
+          genders:
+            male: Maschio
+            female: Femmina
+            robot: Androide
         hints:
           disabled_form: Il tuo account non consente la modifica di questi dati, nell'eventualità contattaci
           fiscal_code: Inserisci il tuo codice fiscale
+          email: Ti verrà inviata un'email per confermare l'indirizzo
       errors:
         password_required: password richiesta
         email_required: email richiesta
@@ -141,173 +146,3 @@ it:
       hints:
         write_city_name: Scrivi il nome della città
         search_city: Scrivi le iniziali per restringere la ricerca
-      customer:
-        type_business: Azienda
-        type_private: Privato
-        hints:
-          email: Ti verrà inviata un'email per confermare l'indirizzo
-      order:
-        checkin:
-          start: Inizia
-          show: Fast check-in
-          step1: Ospiti
-          step2: Contratto
-          step3: Fattura
-          step4: Completa
-          errors:
-            no_single_guest_typology_with_many_guests: "'Ospite singolo' non è una tipologia amessa in presenza di più ospiti."
-            not_a_room_chief_typology: È richiesta una tipologia di capocamera
-            not_a_valid_guest_typology: La tipologia di ospite selezionata non è ammessa
-        edit_action: Modifica
-        list:
-          to_complete: Seleziona la prenotazione per il Fast Check-in
-          completed: I tuoi precedenti soggiorni
-          none: Nessuna prenotazione disponibile
-        show:
-          title: "Prenotazione&nbsp;<strong>%{code}</strong>"
-        attributes:
-          code: Codice
-          total_amount: Totale
-          ota: Portale prenotazione
-          client_note: Note
-          trip_category: Tipologia ospite
-          trip_categories:
-            family: Famiglia
-            leisure: Leisure
-            business: Business
-          checkin_time_estimate: Orario di arrivo stimato
-          checkin_location: Dove vuoi ritirare le chiavi?
-          checkin_locations:
-            apartment: Appartamento
-            reception: Welcome point
-          checkin_locations_for_select:
-            apartment: In appartamento (solo previa conferma)
-            reception: Nel welcome point più vicino
-        hints:
-          client_note: Scrivi l'orario preferito per il check-in (12.00-21.00) o richieste speciali
-          checkin_time_estimate: ""
-          checkin_location: ""
-      reservation:
-        customer_contract_state_already_signed: Il contratto è stato firmato
-        customer_contract_state_already_signed_hint: Riceverai una nostra email con la copia del contratto, ora puoi procedere
-        customer_contract_chief_guest_not_present: Ospite capo camera non presente
-        customer_contract_chief_guest_not_present_hint: Per firmare il contratto devi almeno inserire i dati del primo ospite
-        attributes:
-          stay_period: Soggiorno dal <b>%{from}</b> al <b>%{to}</b>
-          checkin_date: Arrivo
-          checkout_date: Partenza
-          status: Stato
-          states:
-            new: Nuovo
-            checkin_closed: Checkin completato
-            checkin_pending: In sospeso
-            checkin_opened: In corso
-            checkout_closed: Checkout eseguito
-            overbook: Overbook
-            no_show: Ospite non presente
-          customer_contract_state: "Contratto"
-          customer_contract_states:
-            to_generate: "Da generare"
-            to_sign: "Da firmare"
-            signed: "Firmato"
-            sent: "Inviato"
-            aborted: "Interrotto"
-            manual: "Stampato su carta"
-            error: "Errore"
-          guest_checkin_state: "Stato checkin"
-          guest_checkin_states:
-            new: "Nuovo"
-            redeemed: "Da iniziare"
-            started: "Iniziato"
-            completed: "Completato"
-            warning: "Attenzione"
-          apartment: Appartamento
-          apartment_name: Nome appartamento
-          apartment_code: Codice appartamento
-          nights: Notti
-          ota: Portale prenotazione
-          guests: Ospiti
-      guest:
-        guest: "Ospite"
-        update_action: "Salva"
-        residence_as_birth: Nazione e città residenza come quelli di nascita
-        citizenship_as_birth: Nazione cittadinanza come quella di nascita
-        foreign_document_issued_location: Documento rilasciato fuori dall'italia
-        attributes:
-          citizenship: Cittadinanza
-          country_of_birth: Nazione di nascita
-          place_of_birth: Città di nascita
-          country_of_residence: Nazione di residenza
-          city_of_residence: Città di residenza
-          document_type: Tipo documento
-          document_number: Numero documento
-          document_issued_location: Luogo di rilascio
-          region: Regione
-          city: Città
-          typology: Tipologia
-          typologies:
-            single: Ospite singolo
-            family_head: Capo famiglia
-            family: Famigliare
-            group_head: Capo gruppo
-            group_member: Membro gruppo
-          typology_friendly: Con chi soggiorni?
-          typologies_friendly:
-            single: Da solo
-            family_head: Con la famiglia
-            group_head: In gruppo
-          email: Email
-          email_confirmation: Conferma email
-          first_name: Nome
-          last_name: Cognome
-          birthdate: Data nascita
-          sex: Sesso
-          genders:
-            male: Uomo
-            female: Donna
-          stay_from_date: Data inizio soggiorno
-          stay_to_date: Data fine soggiorno
-          guest_language: Lingua
-          phone_prefix: Prefisso
-          phone: Numero cellulare
-          address: Indirizzo residenza
-          fiscal_code: Codice fiscale
-        hints:
-          room_chief: "Completa il Fast Check-in inserendo i tuoi dati e quelli degli altri ospiti (minori compresi)."
-          phone_prefix: "Ricerca col prefisso o col nome della nazione. Es: +39 o Italia"
-          phone: "Nello step successivo ti invieremo un SMS per verificare il numero che verrà utilizzato per organizzare il tuo check-in in appartamento"
-          fiscal_code: "Inserisci il tuo codice fiscale"
-      invoice_account:
-        create_action: "Conferma"
-        update_action: "Aggiorna"
-        type_label: "Hai bisogno di"
-        natural: "Ricevuta"
-        legal: "Fattura"
-        attributes:
-          id: "ID"
-          business_name: "Ragione Sociale"
-          company_name: "Ragione Sociale"
-          address: "Indirizzo"
-          city_id: "Città"
-          city_name: "Città"
-          province: "Provincia"
-          zip: "CAP"
-          vat_number: "Partita iva"
-          fiscal_code: "Codice fiscale"
-          country_id: "Nazione"
-          account_type: "Tipologia"
-          account_type_natural: "Privato"
-          account_type_legal: "Azienda"
-          first_name: "Nome"
-          last_name: "Cognome"
-          invoice_account_type: "Tipologia profilo fatturazione"
-          vat_number_prefix: "Prefisso p.IVA"
-          pec: "PEC"
-          invoice_email: "Email per copia cortesia"
-          codice_destinatario_sdi: "Cod. Destinatario SDI"
-          created_at: "Inserito il"
-          recipient_organization_id: "Organizzazione collegata"
-          recipient_owner_id: "Proprietario collegato"
-          related_to: "Relativa a"
-          archived: "Archiviata"
-          disable_invoice_generation_flag: "Disabilita Generazione Fatture"

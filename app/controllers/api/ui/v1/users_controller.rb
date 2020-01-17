@@ -1,4 +1,4 @@
-class API::Ui::V1::UsersController < API::Ui::BaseController
+xmp API::Ui::V1::UsersController < API::Ui::BaseController
   before_action :set_user, except: [:index, :availability]
   # before_action :set_paper_trail_whodunnit
   skip_before_action :authenticate_request, only: [:availability]

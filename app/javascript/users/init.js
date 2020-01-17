@@ -8,8 +8,8 @@ import store from './store/store'
 import router from './router'
 import moment from 'moment'
 // import * as VueGoogleMaps from 'vue2-google-maps'
-// import 'vuetify/dist/vuetify.min.css'
-// import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/dist/vuetify.min.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(VueResource)
 Vue.use(VueI18n)
@@ -18,18 +18,21 @@ Vue.use(Vuetify)
 
 // Alcuni colori sono parametri forniti dal backend, impostati nel primo componente index.vue
 let vuetify = new Vuetify({
-  // theme: {
-  //   light: true
-  //   themes: {
-  //     light: {
-  //       primary: '#e3696a',
-  //       secondary: '#b0bec5',
-  //       accent: '#e3696a',
-  //       error: '#b71c1c',
-  //       info: '#e3696a',
-  //     },
-  //   },
-  // }
+  icons: {
+    iconfont: 'mdi'
+  },
+  theme: {
+    light: true
+    // themes: {
+    //   light: {
+    //     primary: '#e3696a',
+    //     secondary: '#b0bec5',
+    //     accent: '#e3696a',
+    //     error: '#b71c1c',
+    //     info: '#e3696a',
+    //   },
+    // },
+  }
 })
 
 const init = function() {

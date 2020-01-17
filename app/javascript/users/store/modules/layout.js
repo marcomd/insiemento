@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import uuidv1 from 'uuid/v1'
+import uuidv1 from 'uuid/v1'
 
 export const namespaced = true
 

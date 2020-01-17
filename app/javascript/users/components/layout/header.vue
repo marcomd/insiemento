@@ -11,6 +11,7 @@
           height='45'
           class='logo'
         />
+        
         <v-icon v-else large color="primary">mdi-domain</v-icon>
       </router-link>
     </v-toolbar-title>
@@ -56,7 +57,7 @@
       ...mapState('application', ['current_organization']),
       organizationLogo() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
-        return this.current_organization.logo //|| '../../../../../../app/assets/images/not_available-file.png'
+        return this.current_organization.logo || '../../../../../../app/assets/images/logo.png' //
       },
       organizationBackgroundColor() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
