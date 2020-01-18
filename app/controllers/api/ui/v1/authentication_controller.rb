@@ -13,7 +13,6 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
       if @user.confirmed_at.nil?
         render json: { error: t('ui.users.alerts.unconfirmed') }, status: :unauthorized
       else
-        @user.log_devise_action('login success')
         render :authenticate
       end
     else

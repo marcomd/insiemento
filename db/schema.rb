@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_235900) do
   create_table "users", force: :cascade do |t|
     t.string "firstname", limit: 30
     t.string "lastname", limit: 30
-    t.date "birtdate"
+    t.date "birthdate"
     t.string "gender", limit: 1
     t.integer "state", limit: 2, default: 10
     t.string "phone", limit: 15

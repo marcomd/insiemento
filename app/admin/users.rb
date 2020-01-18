@@ -5,12 +5,12 @@ ActiveAdmin.register User do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :firstname, :lastname, :email, :birtdate, :gender
+  # permit_params :firstname, :lastname, :email, :birthdate, :gender
   #
   # or
 
   permit_params do
-    permitted = [:firstname, :lastname, :email, :birtdate, :gender, :state]
+    permitted = [:firstname, :lastname, :email, :birthdate, :password, :password_confirmation, :gender, :phone, :state]
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end

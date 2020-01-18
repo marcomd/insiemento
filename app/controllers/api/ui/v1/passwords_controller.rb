@@ -1,16 +1,10 @@
 class Api::Ui::V1::PasswordsController < Devise::PasswordsController
-  include GuestControllable
   protect_from_forgery with: :null_session
   respond_to :json
 
-  include ApplicationHelper
-
   # la password recovery usa l'action create per inviare una mail all'utente
   def create
-    organization = Organization.find_by_subdomain(parsed_subdomain_without_locale)
-    organization_id = organization.present? ? organization.id : resource_params[:organization_id]
-    resource = Customer.find_for_database_authentication(email: resource_params[:email],
-                                                         organization_id: organization_id)
+    resource = User.find_for_database_authentication(email: resource_params[:email])
     if resource.nil?
       render json: { success: false, email: resource_params[:email], errors: {email: [I18n.t('errors.messages.not_found')]} }, status: :unprocessable_entity
       return
@@ -27,18 +21,16 @@ class Api::Ui::V1::PasswordsController < Devise::PasswordsController
   def edit
     original_token = params[:reset_password_token]
     reset_password_token = Devise.token_generator.digest(self, :reset_password_token, original_token)
-    recoverable = Customer.find_by reset_password_token: reset_password_token
+    recoverable = User.find_by reset_password_token: reset_password_token
 
     if recoverable.present?
-      subdomain = build_partner_domain(recoverable.organization.subdomain, AppConfig.www_domain)
       if recoverable.persisted? && recoverable.reset_password_period_valid?
-        redirect_to "#{subdomain}#{guests_path}/new-password?reset_password_token=#{original_token}"
+        redirect_to "#{users_path}/new-password?reset_password_token=#{original_token}"
       else
-        redirect_to "#{subdomain}#{guests_path}/password-reset?error=invalid_token"
+        redirect_to "#{users_path}/password-reset?error=invalid_token"
       end
     else
-      subdomain = build_partner_domain(nil, AppConfig.www_domain)
-      redirect_to "#{subdomain}#{guests_path}/password-reset?error=invalid_token"
+      redirect_to "#{users_path}/password-reset?error=invalid_token"
     end
   end
 

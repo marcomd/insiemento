@@ -1,10 +1,8 @@
 class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
-  include JWTAuthenticable
-  include GuestControllable
+  # include JWTAuthenticable
   before_action :check_and_sanitize_email_confirmation, only: [:create]
-  #before_action :authenticate_request, if: :json_request, only: [:destroy]
 
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
 
   respond_to :json
 
@@ -41,7 +39,7 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
 
   def user_params
     params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
-                                 :firstname, :lastname, :phone_prefix, :phone, :birthdate, :gender, :format )
+                                 :firstname, :lastname, :phone, :birthdate, :gender, :format )
     # if params[:user].present?
     # else
     #   {}

@@ -34,14 +34,18 @@ else
 end
 
 if User.count == 0
-  u_stefania=User.create!(firstname: 'Stefania', lastname: 'Rossini', email: 'stefania@insiemento.io',
-                          birtdate: '1990-05-25', gender: 'F', state: :active, phone: '3391122333',
+  u_stefania=User.new(firstname: 'Stefania', lastname: 'Rossini', email: 'stefania@insiemento.io',
+                          birthdate: '1990-05-25', gender: 'F', state: :active, phone: '3391122333',
                           password: CONFIG.dig(:seed, :default_password),
                           password_confirmation: CONFIG.dig(:seed, :default_password))
-  u_marco=User.create!(firstname: 'Marco', lastname: 'Tonelli', email: 'marco@insiemento.io',
-                       birtdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455666',
+  u_stefania.skip_confirmation!
+  u_stefania.save!
+  u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: 'marco@insiemento.io',
+                       birthdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455666',
                        password: CONFIG.dig(:seed, :default_password),
                        password_confirmation: CONFIG.dig(:seed, :default_password))
+  u_marco.skip_confirmation!
+  u_marco.save!
   puts "Users: #{User.count}"
 else
   u_stefania, u_marco = User.all

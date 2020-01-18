@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# V0.0.5 18/01/2020 1h
+
+- Backend
+  - Added validations to user model
+  - Fixed an issue on registration controller: removed protect_from_forgery with: :null_session
+  - Fixed typo birtdate on user model
+  - Several improvements
+
 # V0.0.4 18/01/2020 2h
 
 - Backend
