@@ -24,16 +24,24 @@ else
 end
 
 if Trainer.count == 0
-  t_miguel=Trainer.create!(firstname: 'Miguel', lastname: 'Dos Santos', nickname: 'El Nino', state: :active, bio: "Un caliente ballerino brasiliano, tra i tre più grandi ballerini italiani di zumba di tutti i tempi.")
-  t_jenny=Trainer.create!(firstname: 'Jennifer', lastname: 'Santorini', nickname: 'Saint', state: :active, bio: "Percorso accademico completato negli states, eletta Miss chiappe d'oro 2019, con lei è vivamente consigliata una bombola di ossigeno!")
+  t_miguel=Trainer.create!(firstname: 'Miguel', lastname: 'Dos Santos', nickname: 'El Nino', state: :active,
+                           bio: "Un caliente ballerino brasiliano, tra i tre più grandi ballerini italiani di zumba di tutti i tempi.")
+  t_jenny=Trainer.create!(firstname: 'Jennifer', lastname: 'Santorini', nickname: 'Saint', state: :active,
+                          bio: "Percorso accademico completato negli states, eletta Miss chiappe d'oro 2019, con lei è vivamente consigliata una bombola di ossigeno!")
   puts "Trainers: #{Trainer.count}"
 else
   t_miguel, t_jenny = Trainer.all
 end
 
 if User.count == 0
-  u_stefania=User.create!(firstname: 'Stefania', lastname: 'Rossini', email: 'stefania@insiemento.io', birtdate: '1990-05-25', gender: 'F', state: :active,)
-  u_marco=User.create!(firstname: 'Marco', lastname: 'Tonelli', email: 'marco@insiemento.io', birtdate: '1995-06-15', gender: 'M', state: :active,)
+  u_stefania=User.create!(firstname: 'Stefania', lastname: 'Rossini', email: 'stefania@insiemento.io',
+                          birtdate: '1990-05-25', gender: 'F', state: :active, phone: '3391122333',
+                          password: CONFIG.dig(:seed, :default_password),
+                          password_confirmation: CONFIG.dig(:seed, :default_password))
+  u_marco=User.create!(firstname: 'Marco', lastname: 'Tonelli', email: 'marco@insiemento.io',
+                       birtdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455666',
+                       password: CONFIG.dig(:seed, :default_password),
+                       password_confirmation: CONFIG.dig(:seed, :default_password))
   puts "Users: #{User.count}"
 else
   u_stefania, u_marco = User.all

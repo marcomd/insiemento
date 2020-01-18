@@ -1,6 +1,6 @@
 en:
   ui:
-    guests:
+    users:
       header:
         title: My Italianway
       footer:
@@ -27,7 +27,7 @@ en:
         logout: Logout
         sign_up: Register
         profile: Profile
-        dashboard: Reservations
+        dashboard: Courses
         help: Contact us
       session:
         login_action: Log in
@@ -64,7 +64,6 @@ en:
           password_confirmation: Confirm password
           password: Password
           remember_me: Remember me on this device
-          type: Are you registering for yourself or for others?
       profile:
         edit_action: Edit
         completing_action: Continue
@@ -76,21 +75,16 @@ en:
         phone_prefix_hint: Search prefix or country name
         phone_hint: We will use it to organize your check-in in the apartment
         attributes:
-          address: Address
           birthdate: Birthday
-          business_name: Business name
-          cap: Postal code
-          document_number: ID number
           email: Email
-          female: Female
-          first_name: First name
-          fiscal_code: Fiscal code
-          last_name: Last name
-          male: Male
+          firstname: First name
+          lastname: Last name
           phone: Phone
-          phone_prefix: Prefix
-          sex: Sex
-          language: Choose your preferred language
+          gender: Gender
+          genders:
+            male: Male
+            female: Female
+            robot: Robot
         hints:
           disabled_form: Your account does not allow the update of these data. For this need please contact us
           fiscal_code: Enter your Italian tax code if you have one
@@ -107,13 +101,6 @@ en:
         inclusion: "%{value} is not included in the list of values"
         invalid_value: value not valid
         already_exists: "already exists"
-        invoice_account_already_exists: "invalid because a billing registry already exists, contact an operator"
-        fiscal_code_not_valid: must be 16 characters long in the AAABBB11C22D333E format
-        fiscal_code_already_exists: already exists but not available, contact support
-        vat_number_not_valid: must be an 11-digit number
-        fiscal_code_or_vat_number_not_valid: must be 16 characters long in the AAABBB11C22D333E format or an 11-digit number
-        codice_destinatario_sdi_not_valid: must be 6 or 7 characters long
-        invoice_account_params_not_present: An unexpected problem with the billing registry prevents you from continuing
       alerts:
         unauthorized: Sign in to access the page
         login_success: Successful login
@@ -131,196 +118,13 @@ en:
         profile_error: Error, double check the data entered
         profile_updated: Profile successfully updated!
         profile_completed: Profile completed, you are now ready for Fast Check-in!
-        order_assigned: Order N. %{code} has been linked to your account
-        order_unassigned: An unexpected error prevents from linking this reservation to your account
-        order_not_found: The reservation you are looking for is not found, check your reservations
-        order_to_redeem_not_available: The reservation you are looking for is not available or has already been assigned to you, check your reservations
-        guest_error: Error, double check the data entered
-        guest_created: The guest has been entered correctly
-        guest_updated: The guest has been updated successfully
         generic_api_error: A problem is preventing the connection to the cloud, please try again in a few minutes
-        invoice_account_created: Invoice account created successfully
-        invoice_account_updated: Invoice account updated successfully
-        checkin_info_before_session: To start the Fast Check-in you need to log in with your credentials. If this is the first time, please register. Only few information is needed!
-        checkin_completed: Good job! You have completed the Fast Check-in.
-        checkin_to_complete: Saved! Fast Check-in is not complete, remember to fill it in before your arrival.
         email_confirmed: E-mail address confirmed, enter your credentials to complete the Fast Check-in
         email_not_confirmed: Error, email not confirmed
         invalid_token: Error, invalid link. Enter your email address, you will be sent instructions to reset it
         unconfirmed: You have to confirm your email address before continuing
-        organization_not_found: Oh oh! Organization not found, please contact assistance
         error_500: Oh oh! An unexpected error has occurred but do not worry, someone is already working to resolve
       hints:
         write_city_name: Write the name of the city
         search_city: Write the initials to narrow your search
-      customer:
-        type_business: Business
-        type_private: Private
-        hints:
-          email: An email will be sent to confirm the address
-      order:
-        checkin:
-          start: Let's go
-          show: Fast check-in
-          step1: Guests
-          step2: Contract
-          step3: Invoice
-          step4: Complete
-          errors:
-            no_single_guest_typology_with_many_guests: "'Single' is not a valid typology when many guests are present"
-            not_a_room_chief_typology: "A room chief typology is required"
-            not_a_valid_guest_typology: "The given guest typology is not valid"
-        edit_action: Edit
-        show:
-          title: "Reservation&nbsp;<strong>%{code}</strong>"
-        list:
-          to_complete: Select the reservation for the Fast Check-in
-          completed: Your previous stays
-          none: No reservation available
-        attributes:
-          code: Code
-          total_amount: Total
-          ota: Booking portal
-          client_note: Notes
-          trip_category: Guest type
-          trip_categories:
-            family: Family
-            leisure: Leisure
-            business: Business
-          checkin_time_estimate: Estimated arrival time
-          checkin_location: Where do you want to collect the keys?
-          checkin_locations:
-            apartment: Apartment
-            reception: Welcome point
-          checkin_locations_for_select:
-            apartment: At the apartment (subject to confirmation)
-            reception: At the nearest welcome point
-        hints:
-          client_note: Write your preferred time for check-in (12.00-21.00) or special requests
-          checkin_time_estimate: ""
-          checkin_location: ""
-      reservation:
-        customer_contract_state_already_signed: The contract has been signed
-        customer_contract_state_already_signed_hint: You will receive an email from us with a copy of the contract, now you can proceed
-        customer_contract_chief_guest_not_present: Chief guest not present
-        customer_contract_chief_guest_not_present_hint: To sign the contract you must at least enter the data of the first guest
-        attributes:
-          stay_period: Stay from <b>%{from}</b> to <b>%{to}</b>
-          checkin_date: Arrival
-          checkout_date: Departure
-          status: State
-          states:
-            new: New
-            checkin_closed: Checkin completed
-            checkin_pending: Pending
-            checkin_opened: In progress
-            checkout_closed: Checkout performed
-            overbook: Overbook
-            no_show: No show
-          customer_contract_state: "Contract"
-          customer_contract_states:
-            to_generate: "To generate"
-            to_sign: "To sign"
-            signed: "Signed"
-            sent: "Sent"
-            aborted: "Aborted"
-            manual: "Printed on paper"
-            error: "Error"
-          guest_checkin_state: "Checkin state"
-          guest_checkin_states:
-            new: "New"
-            redeemed: "To start"
-            started: "Started"
-            completed: "Completed"
-            warning: "Warning"
-          apartment: Apartment
-          apartment_name: Apartment name
-          apartment_code: Apartment code
-          nights: Nights
-          ote: Booking portal
-          guests: Guests
-      guest:
-        guest: Guest
-        update_action: Save
-        residence_as_birth: Country and city of residence as those of birth
-        citizenship_as_birth: Citizenship as country of birth
-        foreign_document_issued_location: Document released outside Italy
-        attributes:
-          citizenship: Citizenship
-          country_of_birth: Country of birth
-          place_of_birth: City of birth
-          country_of_residence: Country of residence
-          city_of_residence: City of residence
-          document_type: Document type
-          document_number: Document number
-          document_issued_location: Document issue location
-          region: Region
-          city: City
-          typology: Typology
-          typologies:
-            single: Single guest
-            family_head: Head of family
-            family: Family
-            group_head: Group leader
-            group_member: Group member
-          typology_friendly: Who are you staying with?
-          typologies_friendly:
-            single: I'm alone
-            family_head: With my family
-            group_head: I'm in a group
-          email: Email
-          email_confirmation: Email confirmation
-          first_name: Name
-          last_name: Surname
-          birthdate: Birth date
-          sex: Gender
-          genders:
-            male: Male
-            female: Female
-          stay_from_date: Start of stay date
-          stay_to_date: End of stay date
-          document_number: Identity document number
-          guest_language: Language
-          phone_prefix: International prefix
-          phone: Mobile number
-          address: Address
-          fiscal_code: Tax code
-        hints:
-          room_chief: "Complete the Fast Check-in by entering your details and those of other guests (including minors)."
-          phone_prefix: "Search with the prefix or with the name of the country. Ex: +1 or United"
-          phone: "In the next step we will send you an SMS to check the number that will be used to organize your check-in in the apartment"
-          fiscal_code: "Enter your Italian tax code if you have one"
-      invoice_account:
-        create_action: "Confirm"
-        update_action: "Update"
-        type_label: "You need"
-        natural: "a receipt"
-        legal: "an invoice"
-        attributes:
-          id: "ID"
-          business_name: "Business name"
-          company_name: "Company name"
-          address: "Address"
-          city_id: "City"
-          city_name: "City"
-          province: "Province"
-          zip: "Zip"
-          vat_number: "VAT number"
-          fiscal_code: "Fiscal Code"
-          country_id: "Country"
-          account_type: "Typology"
-          account_type_natural: "Natural person"
-          account_type_legal: "Legal person"
-          first_name: "First name"
-          last_name: "Last name"
-          invoice_account_type: "Invoice account type"
-          vat_number_prefix: "VAT number prefix"
-          pec: "PEC"
-          invoice_email: "Email for courtesy copy"
-          codice_destinatario_sdi: "Cod. Destinatario SDI"
-          created_at: "Created at"
-          recipient_organization_id: "Organization connected"
-          recipient_owner_id: "Owner connected"
-          related_to: "Related to"
-          archived: "Archived"
-          disable_invoice_generation_flag: "Disable Invoice Generation"
+        email: An email will be sent to confirm the address

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# V0.0.4 18/01/2020 2h
+
+- Backend
+  - Added capability to use accepted language from the header
+  - Added phone field to user
+  - Fixed password issue for user set by the seed
+  - Fixed labels from locales
+ 
 # V0.0.3 17/01/2020 3h
 
 - Fix a conflict with devise 4.7 and a custom class AuthenticateUser, it was renamed to AuthenticateApiUser

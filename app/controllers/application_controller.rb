@@ -1,9 +1,31 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, unless: :json_request
+  before_action :set_locale
 
   protected
 
   def json_request
     request.format.json?
+  end
+
+  def set_locale
+    # if we got an empy header e.g. we are running features we serve the default locale
+    # this way we also preserve the entire admin section from being localized in IT!
+    I18n.locale = get_language_header.present? ? get_language_header.first : I18n.default_locale
+  end
+
+  def get_language_header
+    accepts_languages       = request.env['HTTP_ACCEPT_LANGUAGE'] || 'en'
+    languages               = HTTP::Accept::Languages.parse(accepts_languages) rescue [HTTP::Accept::Languages::LanguageRange.new('en')]
+    available_locales       = I18n.available_locales.map(&:to_s).reverse
+    available_localizations = HTTP::Accept::Languages::Locales.new(available_locales)
+    desired_localizations   = available_localizations & languages
+    # IE headers fix for IT locale!
+    return ['it'] if request.env['HTTP_ACCEPT_LANGUAGE'] == 'it-IT'
+    # if desired_localizations is an empty array this means
+    # that the user does not have any available language configured on
+    # the browser that matches any of our locales ['it', 'en']
+    # so we just fallback to EN by serving the ['en'] array
+    desired_localizations.empty? ? ['en'] : desired_localizations
   end
 end

@@ -58,7 +58,6 @@ it:
           password_confirmation: Conferma password
           password: Password
           remember_me: Ricordami su questo dispositivo
-          type: Ti stai registrando per te o per altri?
       profile:
         edit_action: Modifica
         completing_action: Continua
@@ -71,13 +70,10 @@ it:
         phone_hint: Lo utilizzeremo per organizzare il tuo check-in in appartamento
         attributes:
           birthdate: Data di nascita
-          cap: CAP
           email: Email
-          female: Donna
           firstname: Nome
           fiscal_code: Codice fiscale
           lastname: Cognome
-          male: Uomo
           gender: Sesso
           genders:
             male: Maschio
@@ -100,13 +96,6 @@ it:
         inclusion: "%{value} non è incluso nella lista dei valori"
         invalid_value: valore non valido
         already_exists: "già presente"
-        invoice_account_already_exists: "non valido in quanto esiste già un'anagrafica di fatturazione, contatta un nostro operatore"
-        fiscal_code_not_valid: deve essere lungo 16 caratteri nel formato AAABBB11C22D333E
-        fiscal_code_already_exists: è già presente ma non disponibile, contatta l'assistenza
-        vat_number_not_valid: deve essere un numero di 11 cifre
-        fiscal_code_or_vat_number_not_valid: deve essere un codice di 16 caratteri nel formato AAABBB11C22D333E o un numero di 11 cifre
-        codice_destinatario_sdi_not_valid: deve essere un codice alfanumerico lungo 6 o 7 caratteri
-        invoice_account_params_not_present: Un problema imprevisto con l'anagrafica di fatturazione impedisce di proseguire
       alerts:
         unauthorized: Autenticati per accedere alla pagina
         login_success: Accesso effettuato con successo
@@ -124,24 +113,11 @@ it:
         profile_error: Errore, ricontrolla i dati inseriti
         profile_updated: Profilo aggiornato con successo!
         profile_completed: Profilo completato, ora sei pronto per il Fast Check-in!
-        order_assigned: Ora puoi effettuare il Fast Check-in per la tua prenotazione %{code}
-        order_unassigned: Un errore imprevisto impedisce di associare la prenotazione al tuo account
-        order_not_found: La prenotazione che stai cercando non è stata trovata, verifica tra le tue prenotazioni
-        order_to_redeem_not_available: La prenotazione che stai cercando non è più disponibile o è già presente tra le tue prenotazioni
-        guest_error: Errore, ricontrolla i dati inseriti
-        guest_created: L'ospite è stato inserito correttamente
-        guest_updated: L'ospite è stato aggiornato correttamente
         generic_api_error: Un problema sta impedendo la connessione al cloud, riprova fra qualche minuto
-        invoice_account_created: Anagrafica di fatturazione inserita
-        invoice_account_updated: Anagrafica di fatturazione aggiornata
-        checkin_info_before_session: Per iniziare il Fast Check-in devi accedere con le tue credenziali. Se è la prima volta, registrati. Bastano poche informazioni!
-        checkin_completed: Ottimo lavoro! Hai completato il Fast Check-in.
-        checkin_to_complete: Dati salvati! Il Fast Check-in non è concluso, ricordati di completarlo prima del tuo arrivo.
         email_confirmed: Indirizzo e-mail confermato, inserisci le tue credenziali per completare il Fast Check-in
         email_not_confirmed: Errore durante la conferma dell'indirizzo email, prova a richiedere nuovamente l'invio
         invalid_token: Errore, il link usato non è più valido, si prega di chiedere nuovamente l'invio delle istruzioni per resettarla.
         unconfirmed: Devi confermare il tuo indirizzo email per continuare
-        organization_not_found: Oh oh! Organizzazione non trovata, contatta l'assistenza
         error_500: Oh oh! Un errore imprevisto sta impedendo di proseguire ma non temere, qualcuno è già al lavoro per risolvere
       hints:
         write_city_name: Scrivi il nome della città

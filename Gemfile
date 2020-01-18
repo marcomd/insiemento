@@ -28,17 +28,32 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# Active Admin is a Ruby on Rails framework for creating elegant backends for website administration.
 gem 'activeadmin', '~> 2.6'
 
 #gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 
+# Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.7.0'
 
+# Simple, efficient background processing for Ruby
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
 # A simple, standardized way to build and use Service Objects (aka Commands) in Ruby
 gem 'simple_command', '~> 0.0.9'
+
+# A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
+gem 'jwt', '~> 2.2.1'
+
+# Consuming restful web services
+gem 'http'
+
+# Parse Accept and Accept-Language HTTP headers in Ruby.
+gem 'http-accept', '~> 2.1.0'
+
+# Find out which locale the user preferes by reading the languages they specified in their browser or in the header
+#gem 'http_accept_language' #, '~> 2.1.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

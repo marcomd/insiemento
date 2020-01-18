@@ -40,7 +40,6 @@
                 <v-col>
                   <v-radio-group
                     v-model='gender'
-                    row
                     :error-messages="genderErrors"
                     @change="$v.gender.$touch()"
                     @blur="$v.gender.$touch()"
