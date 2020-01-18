@@ -27,14 +27,14 @@ export const actions = {
       .then(response => {
         const body = response.body
         const authToken = body.auth_token
-        const customerAttributes = body.customer
+        const userAttributes = body.user
         if (credentials.rememberMe) localStorage.setItem('authToken', authToken)
         Vue.http.headers.common['X-Auth-Token'] = 'Bearer ' + authToken
         commit('LOGIN_SUCCESS', authToken)
-        if (!!customerAttributes) {
-          dispatch('profile/setUser', customerAttributes, { root: true })
+        if (!!userAttributes) {
+          dispatch('profile/setUser', userAttributes, { root: true })
         } else {
-          // ...se per qualche motivo non si dovessero ricevere i dati del customer dalla authenticate
+          // ...se per qualche motivo non si dovessero ricevere i dati del user dalla authenticate
           // si tenta una chiamata specifica
           dispatch('profile/fetchUser', null, { root: true })
         }
@@ -54,7 +54,7 @@ export const actions = {
   signUp({ commit, dispatch, rootState }, userData) {
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.signUp, {
-        customer: userData
+        user: userData
       }).then(response => {
         router.push({ name: 'signedUp' })
         dispatch('layout/addAlert', {
@@ -76,7 +76,7 @@ export const actions = {
   passwordReset({ commit, dispatch, rootState }, email) {
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.passwordReset, {
-        customer: { email: email }
+        user: { email: email }
       }).then(response => {
         router.push({ name: 'login' })
         dispatch('layout/addAlert', {
@@ -96,7 +96,7 @@ export const actions = {
   newPassword({ commit, dispatch, rootState }, data) {
     return new Promise((resolve, reject) => {
       Vue.http.put(rootState.application.urls.passwordReset, {
-        customer: {
+        user: {
           password: data.password,
           reset_password_token: data.token
         }
@@ -119,7 +119,7 @@ export const actions = {
   sendConfirmationEmail({ commit, dispatch, rootState }, email) {
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.confirmationEmail, {
-        customer: { email: email }
+        user: { email: email }
       }).then(response => {
         router.push({ name: 'login' })
         dispatch('layout/addAlert', {

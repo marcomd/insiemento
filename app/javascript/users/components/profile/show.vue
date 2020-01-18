@@ -2,25 +2,19 @@
   <v-container>
     <v-row align='center' justify='center'>
       <v-col cols='12' sm='8' lg='4'>
-        <v-card class="card--profile" elevation='1' v-if='hasCurrentUser'>
+        <v-card class="card--profile" elevation='1'>
           <v-toolbar flat>
             <v-toolbar-title>
               {{ $t('profile.title') }}
             </v-toolbar-title>
           </v-toolbar>
           <v-card-text if='!!currentUser'>
-            <h5 class='subtitle-1' v-if='isLegal'>
-              {{ currentUser.business_name }}
-            </h5>
             <h3 class='title font-weight-black font-weight-bold mb-3'>
               {{ fullName }}
-              <v-icon v-if='!isLegal'>
-                {{ !!currentUser.sex ? (currentUser.sex == 'M' ? 'mdi-gender-male' : 'mdi-gender-female') : 'mdi-gender-male-female' }}
+              <v-icon>
+                {{ !!currentUser.gender ? (currentUser.gender == 'M' ? 'mdi-gender-male' : 'mdi-gender-female') : 'mdi-gender-male-female' }}
               </v-icon>
             </h3>
-            <p class='subtitle' v-if='!isLegal && !isCurrentUserForeign'>
-              {{ currentUser.fiscal_code }}
-            </p>
             <v-row class="info-entry mb-1" dense>
               <v-col class="info-entry__value" cols='12'>
                 <v-icon>mdi-email</v-icon>
@@ -29,7 +23,7 @@
             </v-row>
             <v-row class="info-entry"
                    dense
-                   v-if="!!this.currentUser.phone_prefix || !!this.currentUser.phone"
+                   v-if="this.currentUser.phone"
             >
               <v-col class="info-entry__value" cols='12'>
                 <v-icon>mdi-phone</v-icon>
@@ -103,11 +97,8 @@
         'fullName',
         'hasCurrentUser'
       ]),
-      isLegal() {
-        return this.currentUser.customer_type == 'LEGAL_PERSON'
-      },
       phoneWithPrefix() {
-        return `${this.currentUser.phone_prefix || '--'} ${this.currentUser.phone || '--'}`
+        return `+39 ${this.currentUser.phone || '--'}`
       }
       // fullAddress() {
       //   const fullAddress = this.$store.getters['profile/fullAddress']

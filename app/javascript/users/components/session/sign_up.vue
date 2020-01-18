@@ -245,12 +245,6 @@
         this.$v.$touch()
         if (this.$v.$invalid) return
 
-        if (this.isLegal) {
-          this.sex = null
-        } else {
-          this.business_name = null
-        }
-
         this.$store.dispatch('session/signUp', {
           firstname: this.firstname,
           lastname: this.lastname,

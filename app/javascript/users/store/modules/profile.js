@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import router from '../../router'
 
 export const namespaced = true
 
@@ -25,7 +24,7 @@ export const actions = {
   },
   update({ commit, dispatch, rootState }, payload) {
     return new Promise((resolve, reject) => {
-      Vue.http.put(rootState.application.urls.profile, { customer: payload })
+      Vue.http.put(rootState.application.urls.profile, { user: payload })
       .then(response => {
         commit('SET_USER', response.body)
         resolve(response)
@@ -51,12 +50,12 @@ export const getters = {
   // },
   fullName: (state, getters) => {
     const _user = getters.currentUser
-    //return _user.customer_type == 'LEGAL_PERSON' ? _user.business_name : [_user.first_name, _user.last_name].join(' ')
-    return [_user.first_name, _user.last_name].join(' ')
+    //return _user.user_type == 'LEGAL_PERSON' ? _user.business_name : [_user.first_name, _user.last_name].join(' ')
+    return [_user.firstname, _user.lastname].join(' ')
   },
-  fullAddress: (state, getters) => {
-    if (!!getters.currentUser.address && !!getters.currentUser.cap) {
-      return [getters.currentUser.address, getters.currentUser.cap].join(', ')
-    }
-  }
+  // fullAddress: (state, getters) => {
+  //   if (!!getters.currentUser.address && !!getters.currentUser.cap) {
+  //     return [getters.currentUser.address, getters.currentUser.cap].join(', ')
+  //   }
+  // }
 }
