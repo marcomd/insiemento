@@ -57,7 +57,7 @@
       ...mapState('application', ['current_organization']),
       organizationLogo() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
-        return this.current_organization.logo || '../../../../../../app/assets/images/logo.png' //
+        return this.current_organization.logo || '../../../../../../app/assets/images/logo_50.png' //
       },
       organizationBackgroundColor() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)

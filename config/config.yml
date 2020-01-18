@@ -1,0 +1,64 @@
+defaults: &defaults
+  application:
+    name: "Insiemento"
+    version: "0.0.3"
+    started_at: "11/01/2020"
+    updated_at: "18/01/2020"
+    host: "insiemento.io"
+    commercial:
+      brand: "My Fitness"
+      payoff: "Run, Jump, Burn!"
+      support_phone: "+39 02 12345678"
+      support_email: "support"
+      address: "Via Dostoevskij 5, San Giuliano Milanese"
+      ceo: "Marco Mastrodonato"
+      main_background_color: "white"
+      main_foreground_color: "#e3696a"
+  seed:
+    default_password: "abcd1234!"
+  sms:
+    provider: "twilio"
+    twilio:
+      username: <%= Rails.application.credentials.sms.dig(:test, :twilio, :username) %>
+      password: <%= Rails.application.credentials.sms.dig(:test, :twilio, :password) %>
+    skebby:
+      username: <%= Rails.application.credentials.sms.dig(:test, :skebby, :username) %>
+      password: <%= Rails.application.credentials.sms.dig(:test, :skebby, :password) %>
+    from: "+1 334 326 3183"
+  smtp:
+    host: "smtp.mailtrap.io"
+    domain: "smtp.mailtrap.io"
+    port: "2525"
+    authentication: :cram_md5
+    user: <%= Rails.application.credentials.smtp.dig(:test, :user) %>
+    password: <%= Rails.application.credentials.smtp.dig(:test, :password) %>
+  authentication:
+    customer:
+      jwt_expiration_hours: 24
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  customer_dossier_url: http://localhost/admin/reservations/#{customer_dossier_id}/checkin_contracts
+
+production:
+  <<: *defaults
+  sms:
+    provider: "twilio"
+    twilio:
+      username: <%= Rails.application.credentials.sms.dig(:production, :twilio, :username) %>
+      password: <%= Rails.application.credentials.sms.dig(:production, :twilio, :password) %>
+    skebby:
+      username: <%= Rails.application.credentials.sms.dig(:production, :skebby, :username) %>
+      password: <%= Rails.application.credentials.sms.dig(:production, :skebby, :password) %>
+    from: "+1 334 326 3183"
+  smtp:
+    host: "smtp.sendgrid.net"
+    port: "587"
+    domain: "set_your_domain"
+    authentication: :plain
+    enable_starttls_auto: true
+    user: <%= Rails.application.credentials.smtp.dig(:production, :user) %>
+    password: <%= Rails.application.credentials.smtp.dig(:production, :password) %>

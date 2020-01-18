@@ -1,10 +1,10 @@
-class API::Ui::BaseController < ApplicationController
+class Api::Ui::BaseController < ApplicationController
   include JWTAuthenticable
-  protect_from_forgery if: :json_request # return null session when API call
+  # protect_from_forgery if: :json_request # return null session when API call
 
   respond_to :json
 
-  before_action :authenticate_request, if: :json_request
+  before_action :authenticate_request #, if: :json_request
 
   attr_reader :current_user
 
@@ -35,9 +35,9 @@ class API::Ui::BaseController < ApplicationController
     puts "#{log_level}: #{message}" if Rails.env.development?
   end
 
-  def json_request
-    request.format.json?
-  end
+  # def json_request
+  #   request.format.json?
+  # end
 
   def simulate_delay_for_development
     sleep(rand(0.0..1.5)) if Rails.env.development?

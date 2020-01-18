@@ -1,0 +1,27 @@
+$waiting_color: rgb(218,176,231);
+$yes_color: rgb(96, 144, 219);
+$complete_color: rgb(141, 170, 146);
+$warning_color: rgb(226, 155, 32);
+$error_color: rgb(212, 95, 83);
+$critical_color: rgb(160,70,70);
+
+.status_tag {
+  &.notified, &.waiting {
+    background-color: $waiting_color;
+  }
+  &.active {
+    background-color: $yes_color;
+  }
+  &.completed {
+    background-color: $complete_color;
+  }
+  &.warning {
+    background-color: $warning_color;
+  }
+  &.failed, &.error {
+    background-color: $error_color;
+  }
+  &.critical {
+    background-color: $critical_color;
+  }
+}

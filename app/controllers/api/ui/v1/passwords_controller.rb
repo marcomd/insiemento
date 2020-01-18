@@ -1,4 +1,4 @@
-class API::Ui::V1::PasswordsController < Devise::PasswordsController
+class Api::Ui::V1::PasswordsController < Devise::PasswordsController
   include GuestControllable
   protect_from_forgery with: :null_session
   respond_to :json

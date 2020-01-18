@@ -1,12 +1,12 @@
 <%= vue component: 'users', props: {
       basePath: users_path,
       current_organization: {
-        logo: image_url('logo.png'),
+        logo: image_url('logo_50.png'),
         theme: {
             primary: '#aaaaaa',
             background_color: '#ffffff',
         },
-        cs_email: 'info@insiemento.io',
+        cs_email: "#{CONFIG.dig(:application, :commercial, :support_email)}@#{CONFIG.dig(:application, :host)}",
       },
       urls: {
         login: api_ui_v1_authenticate_url,

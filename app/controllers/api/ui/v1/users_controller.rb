@@ -1,7 +1,7 @@
-xmp API::Ui::V1::UsersController < API::Ui::BaseController
+class Api::Ui::V1::UsersController < Api::Ui::BaseController
   before_action :set_user, except: [:index, :availability]
   # before_action :set_paper_trail_whodunnit
-  skip_before_action :authenticate_request, only: [:availability]
+  skip_before_action :authenticate_request, only: [:availability], raise: false
 
   respond_to :json
 
@@ -26,12 +26,12 @@ xmp API::Ui::V1::UsersController < API::Ui::BaseController
     sleep(rand(0.0..0.8)) if Rails.env.development?
     permitted_params = [:email, :format]
     email = params.permit(*permitted_params)[:email]
-    raise API::Exceptions::BadRequest, I18n.t('ui.guests.errors.email_required') unless email
+    raise API::Exceptions::BadRequest, I18n.t('ui.users.errors.email_required') unless email
 
     regexp_email = /\A([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})\Z/
-    raise API::Exceptions::BadRequest, I18n.t('ui.guests.errors.email_invalid_format') unless regexp_email === email
+    raise API::Exceptions::BadRequest, I18n.t('ui.users.errors.email_invalid_format') unless regexp_email === email
 
-    user = User.where(organization_id: current_organization.id).find_by_email(email)
+    user = User.find_by_email(email)
     json_attributes = { available: !user }
     render json: json_attributes, status: :ok
   end
@@ -45,7 +45,7 @@ xmp API::Ui::V1::UsersController < API::Ui::BaseController
 
   def user_params
     params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
-                                     :firstname, :lastname, :gender, :birthdate, :format)
+                                 :firstname, :lastname, :phone_prefix, :phone, :birthdate, :gender, :format)
   end
 
 end

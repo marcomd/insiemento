@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# V0.0.3 17/01/2020 3h
+
+- Fix a conflict with devise 4.7 and a custom class AuthenticateUser, it was renamed to AuthenticateApiUser
+- Several fixes to api controllers and json views
+- Customized Activeadmin with a brand new footer
+- Added a config costant for the whole project
+- Logo was down resized 
+
 # V0.0.2 16/01/2020 4h
 
 - Start customization vuetify

@@ -1,4 +1,4 @@
-class API::Ui::V1::ConfirmationsController < Devise::ConfirmationsController
+class Api::Ui::V1::ConfirmationsController < Devise::ConfirmationsController
   include GuestControllable
   protect_from_forgery with: :null_session
   respond_to :json

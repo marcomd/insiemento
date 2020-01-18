@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         post 'authenticate', to: 'authentication#authenticate'
         get 'profile',        to: 'users#show'
         put 'profile',        to: 'users#update'
-        get 'available/customer', to: 'users#availability'
+        get 'available/user', to: 'users#availability'
         resources :course_events
       end
     end

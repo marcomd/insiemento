@@ -32,13 +32,13 @@ gem 'activeadmin', '~> 2.6'
 
 #gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 
-gem 'devise'
+gem 'devise', '~> 4.7.0'
 
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
 # A simple, standardized way to build and use Service Objects (aka Commands) in Ruby
-gem 'simple_command', '~> 0.1.0'
+gem 'simple_command', '~> 0.0.9'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

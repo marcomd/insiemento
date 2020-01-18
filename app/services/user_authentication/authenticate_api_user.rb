@@ -1,10 +1,9 @@
-class AuthenticateUser
+class AuthenticateApiUser
   prepend SimpleCommand
 
-  attr_accessor :email, :password, :organization_id, :request
+  attr_accessor :email, :password, :request
 
   def initialize(email, password, request=nil)
-    require_relative Rails.root.join 'lib/fg/json_web_token.rb'
     @email = email
     @password = password
     @request = request
@@ -17,7 +16,6 @@ class AuthenticateUser
 
   def user
     @user ||= begin
-      # Come opzione meno restrittiva si potrebbe eliminare il filtro organization per ottenere il primo user inserito
       user = User.find_by(email: email)
       if user && user.valid_password?(password)
         user.update_tracked_fields! request if request

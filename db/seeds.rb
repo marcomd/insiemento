@@ -6,7 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 if AdminUser.count == 0
-  AdminUser.create!(email: 'admin@insiemento.com', password: 'abcd1234!', password_confirmation: 'abcd1234!') if Rails.env.development?
+  AdminUser.create!(email: "admin@#{CONFIG.dig(:application, :host)}",
+                    password: CONFIG.dig(:seed, :default_password),
+                    password_confirmation: CONFIG.dig(:seed, :default_password)) if Rails.env.development?
 end
 
 if Course.count == 0
