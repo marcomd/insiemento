@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.8 20/01/2020 0,5h
+
+- Fixed password validations on user model
+- Added sass-loader dependency
+
 # v0.0.7 18/01/2020 1,5h Bug
 
 - Found a workaround for a rails bug including a ActiveSupport::Concern module

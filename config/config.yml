@@ -1,9 +1,9 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.0.6"
+    version: "0.0.8"
+    updated_at: "20/01/2020"
     started_at: "11/01/2020"
-    updated_at: "18/01/2020"
     host: "insiemento.io"
     commercial:
       brand: "My Fitness"
