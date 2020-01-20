@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.0.7 18/01/2020 1,5h Bug
+
+- Found a workaround for a rails bug including a ActiveSupport::Concern module
+ - After the module JWTAuthenticable was included, the before action authenticate_request was not executed and
+   the variabel current_user was not set.
+ - Fixed AuthorizeApiRequest to work with user model
+ - Several little fixes
+
 # v0.0.6 18/01/2020 0,5h
 
 - User Ui

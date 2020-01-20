@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, unless: :json_request?
+  protect_from_forgery with: :null_session, if: :json_request? # return null session when API call
   before_action :set_locale
+
+  # Non funzionano più i moduli concerns, oscura il before_action, verificare
+  # include JWTAuthenticable
+  before_action :authenticate_request, if: :json_request?
 
   respond_to :html, :json
 
@@ -30,4 +35,12 @@ class ApplicationController < ActionController::Base
     # so we just fallback to EN by serving the ['en'] array
     desired_localizations.empty? ? ['en'] : desired_localizations
   end
+
+  def authenticate_request
+    require_relative Rails.root.join "app/services/user_authentication/authorize_api_request.rb"
+    @current_user = AuthorizeApiRequest.call(request.headers).result
+    render json: { error: 'Not Authorized' }, status: 401 unless @current_user
+  end
+
+  attr_reader :current_user
 end

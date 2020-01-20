@@ -1,5 +1,4 @@
 json.extract! user, :id,
               :email, :firstname, :lastname,
-              :birthdate, :gender,
-              # :phone_prefix, :phone,
+              :birthdate, :gender, :phone,
               :created_at, :updated_at

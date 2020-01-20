@@ -4,21 +4,20 @@ class AuthorizeApiRequest
   HEADER_NAME = 'X-Auth-Token'
 
   def initialize(headers = {})
-    require_relative Rails.root.join 'lib/fg/json_web_token.rb'
     @headers = headers
   end
 
   def call
-    customer
+    user
   end
 
   private
 
   attr_reader :headers
 
-  def customer
-    @customer ||= Customer.find(decoded_auth_token[:customer_id]) if decoded_auth_token
-    @customer || errors.add(:token, 'Invalid token') && nil
+  def user
+    @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+    @user || errors.add(:token, 'Invalid token') && nil
   end
 
   def decoded_auth_token

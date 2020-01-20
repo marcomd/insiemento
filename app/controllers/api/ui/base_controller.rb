@@ -1,14 +1,6 @@
 class Api::Ui::BaseController < ApplicationController
-  include JWTAuthenticable
-  # protect_from_forgery if: :json_request # return null session when API call
-
   respond_to :json
 
-  before_action :authenticate_request #, if: :json_request
-
-  attr_reader :current_user
-
-  # See also GuestControllable...
   rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |exception|
     add_system_log exception.message, log_level: 'info'
     respond_to do |format|
@@ -39,8 +31,5 @@ class Api::Ui::BaseController < ApplicationController
     sleep(rand(0.0..1.5)) if Rails.env.development?
   end
 
-  def localized_attr_name
-    @localized_attr_name ||= I18n.locale.to_s.downcase == 'it' ? :name_it : :name
-  end
 
 end

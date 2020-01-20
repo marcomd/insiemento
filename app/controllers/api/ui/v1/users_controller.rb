@@ -1,6 +1,5 @@
 class Api::Ui::V1::UsersController < Api::Ui::BaseController
   before_action :set_user, except: [:index, :availability]
-  # before_action :set_paper_trail_whodunnit
   skip_before_action :authenticate_request, only: [:availability], raise: false
 
   respond_to :json
@@ -40,12 +39,11 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
 
   def set_user
     @user = current_user
-    localized_attr_name
   end
 
   def user_params
-    params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
-                                 :firstname, :lastname, :phone_prefix, :phone, :birthdate, :gender, :format)
+    params.require(:user).permit(:email, :email_confirmation,
+                                 :firstname, :lastname, :phone, :birthdate, :gender, :format)
   end
 
 end

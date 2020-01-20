@@ -35,17 +35,16 @@ class Api::Ui::V1::PasswordsController < Devise::PasswordsController
   end
 
   def update
-    original_token = params[:customer][:reset_password_token]
+    original_token = params[:user][:reset_password_token]
     reset_password_token = Devise.token_generator.digest(self, :reset_password_token, original_token)
     recoverable = Customer.find_by reset_password_token: reset_password_token
-    recoverable.update_attribute(:password, params[:customer][:password])
+    recoverable.update_attribute(:password, params[:user][:password])
     render :update
   end
 
   private
 
   def resource_params
-    params[:customer][:organization_id] ||= current_organization.id
-    params.require(:customer).permit(:email, :password, :password_confirmation, :reset_password_token, :organization_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :reset_password_token)
   end
 end
