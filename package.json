@@ -9,6 +9,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
     "turbolinks": "^5.2.0",
     "uuid": "^3.4.0",
     "vue": "^2.6.11",
