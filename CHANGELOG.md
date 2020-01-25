@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.0.9 21/01/2020 2h
+
+- Backend
+  - Added course events API (controller methods and views)
+- Frontend
+  - Added course event module to store
+
 # v0.0.8 20/01/2020 0,5h
 
 - Fixed password validations on user model

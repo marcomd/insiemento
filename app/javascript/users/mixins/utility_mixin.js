@@ -8,6 +8,9 @@ export const utilityMixin = {
     formattedTime(time, outFormat='HH:mm') {
       return !!time ? moment(time).format(outFormat) : ''
     },
+    formattedDateTime(datetime, outFormat='LLLL') {
+      return !!datetime ? moment(datetime).format(outFormat) : null
+    },
     // Used to show translated error below the form's field
     show_error_form_field(errors) {
       //return errors.map(error => this.isObject(error) ? this.$t(`errors.${error.error}`) : this.$t(`errors.${error}`) ).join(' - ')

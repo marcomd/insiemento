@@ -88,6 +88,23 @@ en:
         hints:
           disabled_form: Your account does not allow the update of these data. For this need please contact us
           fiscal_code: Enter your Italian tax code if you have one
+      course_event:
+        edit_action: Change
+        list:
+          select_label: Select the course you wish to attend
+          select_action: Details
+          completed: Your previous courses
+          none: No courses available yet
+        show:
+          title: "<strong>% {name} </strong> course"
+        attributes:
+          course: Course
+          room: Room
+          trainer: Trainer
+          event_date: Date and time
+          state: State
+          attendees_count: Participants
+          subscribed: Membership
       errors:
         password_required: password required
         email_required: request email

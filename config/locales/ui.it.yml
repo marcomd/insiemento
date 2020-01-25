@@ -83,6 +83,23 @@ it:
           disabled_form: Il tuo account non consente la modifica di questi dati, nell'eventualità contattaci
           fiscal_code: Inserisci il tuo codice fiscale
           email: Ti verrà inviata un'email per confermare l'indirizzo
+      course_event:
+        edit_action: Modifica
+        list:
+          select_label: Seleziona il corso a cui desideri partecipare
+          select_action: Dettagli
+          completed: I tuoi precedenti corsi
+          none: Nessun corso ancora disponibile
+        show:
+          title: "Corso di <strong>%{name}</strong>"
+        attributes:
+          course: Corso
+          room: Sala
+          trainer: Istruttore
+          event_date: Data e orario
+          state: Stato
+          attendees_count: Partecipanti
+          subscribed: Iscritto
       errors:
         password_required: password richiesta
         email_required: email richiesta

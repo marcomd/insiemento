@@ -4,6 +4,7 @@ import * as application from './modules/application'
 import * as session from './modules/session'
 import * as layout from './modules/layout'
 import * as profile from './modules/profile'
+import * as course_event from './modules/course_event'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     session,
     layout,
     profile,
+    course_event,
   },
   state: {},
   strict: debug,
