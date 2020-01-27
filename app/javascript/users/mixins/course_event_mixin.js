@@ -1,11 +1,17 @@
 
 export const courseEventMixin = {
   computed: {
-    courseEvent() {
-      return  null //this.$store.state.order.order || null
+    course() {
+      return this.course_event.course
+    },
+    room() {
+      return this.course_event.room
+    },
+    trainer() {
+      return this.course_event.trainer
     },
     support_email() {
-      return this.order && this.order.support_email
+      return ''
     },
   },
 }

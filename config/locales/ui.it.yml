@@ -85,6 +85,8 @@ it:
           email: Ti verrà inviata un'email per confermare l'indirizzo
       course_event:
         edit_action: Modifica
+        subscribe_action: Partecipa
+        unsubscribe_action: Disdici
         list:
           select_label: Seleziona il corso a cui desideri partecipare
           select_action: Dettagli

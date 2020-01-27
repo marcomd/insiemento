@@ -25,9 +25,6 @@ export const mutations = {
     state.course_events.push(course_event)
     // console.log('  - replaced! New items:', state.course_events.length)
   },
-  SET_INVOICE_ACCOUNT_ID(state, invoice_account_id) {
-    state.course_event.invoice_account_id = invoice_account_id
-  },
 }
 
 export const actions = {
@@ -83,13 +80,28 @@ export const actions = {
       }
     })
   },
+  updateSubscription({ commit, dispatch, rootState }, { course_event_id, params }) {
+    dispatch('layout/set_submitting', true, { root: true })
+    return new Promise((resolve, reject) => {
+      const url = rootState.application.urls.course_event_subscribe.replace(':id', course_event_id)
+      let course_event
+      Vue.http.put(url, params)
+        .then(response => {
+          course_event = response.body
+          console.log(`updateSubscription course_event`, course_event)
+          commit('SET_COURSE_EVENT', course_event)
+          commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS', course_event)
+          resolve(response)
+        }, error => {
+          reject(error)
+        })
+        .finally(() => (dispatch('layout/set_submitting', false, { root: true })))
+    })
+  },
 }
 
 export const getters = {
   getCourseEventById: state => id => {
     return state.course_events.find(course_event => course_event.id == id)
-  },
-  getCourseEventByUuid: state => uuid => {
-    return state.course_events.find(course_event => course_event.uuid === uuid)
   },
 }

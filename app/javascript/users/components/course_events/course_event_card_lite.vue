@@ -5,7 +5,6 @@
       flat
       outlined
       hover
-      :dark="course_event.subscribed"
     >
       <router-link :to="{ name: 'courseEventShow', params: { id: course_event.id } }" class="no-underline">
         <img
@@ -44,12 +43,12 @@
 
 <script>
   import { utilityMixin } from '../../mixins/utility_mixin'
+  import { courseEventMixin } from '../../mixins/course_event_mixin'
 
   export default {
     components: {
-
     },
-    mixins: [ utilityMixin ],
+    mixins: [ utilityMixin, courseEventMixin ],
     props: {
       course_event: {
         type: Object,
@@ -57,15 +56,6 @@
       }
     },
     computed: {
-      course() {
-        return this.course_event.course
-      },
-      room() {
-        return this.course_event.room
-      },
-      trainer() {
-        return this.course_event.trainer
-      },
       courseEventImage() {
         return `../../assets/images/course_${this.course.name.toLowerCase()}_600.jpg`
       },

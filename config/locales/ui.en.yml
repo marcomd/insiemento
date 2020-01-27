@@ -90,6 +90,8 @@ en:
           fiscal_code: Enter your Italian tax code if you have one
       course_event:
         edit_action: Change
+        subscribe_action: Subscribe
+        unsubscribe_action: Unsubscribe
         list:
           select_label: Select the course you wish to attend
           select_action: Details

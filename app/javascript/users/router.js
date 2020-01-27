@@ -12,6 +12,7 @@ import EditProfile from './components/profile/edit'
 import NotFound from './pages/not_found'
 import Home from './pages/home'
 import Dashboard from './pages/dashboard'
+import courseEventShow from './pages/course_event_show'
 
 Vue.use(VueRouter)
 
@@ -93,6 +94,16 @@ const routes = [
     path: '/edit-profile',
     name: 'editProfile',
     component: EditProfile
+  },
+  {
+    path: '/course_event',
+    name: 'editProfile',
+    component: EditProfile
+  },
+  {
+    path: '/course_event/:id',
+    name: 'courseEventShow',
+    component: courseEventShow
   },
   {
     path: '*',

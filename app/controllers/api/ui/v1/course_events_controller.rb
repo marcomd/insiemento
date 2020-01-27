@@ -34,17 +34,26 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     render :show
   end
 
+  def subscribe
+    if course_event_filter_params[:subscribe] == true
+      @course_event.attendees << Attendee.new(user_id: current_user.id)
+    else
+      @course_event.attendees.find_by_user_id(current_user.id).destroy
+    end
+    render :show
+  end
+
   private
 
   def set_course_event
-    @course_event = current_user.course_events.find(params[:id])
+    @course_event = CourseEvent.find(params[:id])
   end
 
   def course_event_filter_params
-    params.permit(:course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state)
+    params.permit(:id, :course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state, :subscribe)
   end
 
   def course_event_params
-    params.require(:course_event).permit(:course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state)
+    params.require(:course_event).permit(:course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state, :subscribe)
   end
 end

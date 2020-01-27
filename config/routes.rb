@@ -16,7 +16,11 @@ Rails.application.routes.draw do
         get 'profile',        to: 'users#show'
         put 'profile',        to: 'users#update'
         get 'available/user', to: 'users#availability'
-        resources :course_events
+        resources :course_events do
+          member do
+            put 'subscribe'
+          end
+        end
       end
     end
   end

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.10 25/01/2020 2,5h
+
+- Added Course event show page which shows more details and where user can subscribes the course event
+- Added new endpoint to subscribe / unsubscribe a course event
+
 # v0.0.9 21/01/2020 2h
 
 - Backend
