@@ -9,12 +9,20 @@
                     class="elevation-1"
                     @click:row="selectRow"
                     :multi-sort="true"
-            ></v-data-table>
+            >
+                <template v-slot:item.event_date="{ item }">
+                    {{ formattedDateTime(item.event_date, 'dddd D MMMM H:mm') }}
+                </template>
+                <template v-slot:item.subscribed="{ item }">
+                    <v-chip :color="item.subscribed ? 'green' : '#cccccc'" dark>{{ item.subscribed ? $t('commons.say_yes') : $t('commons.say_no') }}</v-chip>
+                </template>
+            </v-data-table>
         </v-col>
     </v-row>
 </template>
 
 <script>
+    import { utilityMixin } from '../../mixins/utility_mixin'
     import { courseEventMixin } from "../../mixins/course_event_mixin"
 
     export default {
@@ -26,7 +34,8 @@
       }
     },
     mixins: [
-      courseEventMixin
+      utilityMixin,
+      courseEventMixin,
     ],
     data() {
       return {
@@ -36,6 +45,7 @@
           { text: this.$t('course_event.attributes.room'), value: 'room.name' },
           { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
           { text: this.$t('course_event.attributes.event_date'), value: 'event_date' },
+          { text: this.$t('course_event.attributes.subscribed'), value: 'subscribed' },
         ]
       }
     },

@@ -18,6 +18,8 @@ it:
         of: di
         end: Fine
         save: Salva
+        say_yes: "Si"
+        say_no: "No"
       locales:
         it: Italiano
         en: English

@@ -2,7 +2,7 @@ en:
   ui:
     users:
       header:
-        title: My Italianway
+        title: My Fitness
       footer:
         about: About us
       home:
@@ -18,6 +18,8 @@ en:
         of: of
         end: End
         save: Save
+        say_yes: "Yes"
+        say_no: "No"
       locales:
         it: Italiano
         en: English
@@ -94,7 +96,7 @@ en:
         unsubscribe_action: Unsubscribe
         list:
           select_label: Select the course you wish to attend
-          selected_label: These are the courses you will attend
+          subscribed_label: These are the courses you will attend
           select_action: Details
           completed: Your previous courses
           none: No courses available yet

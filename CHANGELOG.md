@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.12 30/01/2020 1h
+
+- Added new column subscribed to course events table
+- Course events cards list now shows only subscribed events
+
 # v0.0.11 29/01/2020 2h
 
 - Added course events table to the dashboard to show all course events. The cards list will be turned into a selection
