@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.11 29/01/2020 2h
+
+- Added course events table to the dashboard to show all course events. The cards list will be turned into a selection
+  list. Backend is ready, course events must be filtered with a computed.
+
 # v0.0.10 25/01/2020 2,5h
 
 - Added Course event show page which shows more details and where user can subscribes the course event

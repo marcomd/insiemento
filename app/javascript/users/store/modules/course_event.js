@@ -81,7 +81,7 @@ export const actions = {
     })
   },
   updateSubscription({ commit, dispatch, rootState }, { course_event_id, params }) {
-    dispatch('layout/set_submitting', true, { root: true })
+    dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.course_event_subscribe.replace(':id', course_event_id)
       let course_event
@@ -95,7 +95,7 @@ export const actions = {
         }, error => {
           reject(error)
         })
-        .finally(() => (dispatch('layout/set_submitting', false, { root: true })))
+        .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
 }

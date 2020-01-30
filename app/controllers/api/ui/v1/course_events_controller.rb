@@ -8,7 +8,10 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   def index
     # To simulate a network delay...
     simulate_delay_for_development
-    @course_events = current_user.course_events.where(course_event_filter_params).includes(:course, :room, :trainer).order('course_events.id')
+    @course_events = CourseEvent.where(course_event_filter_params).includes(:course, :room, :trainer).order('course_events.id')
+    if params[:subscribed]
+      @course_events = @course_events.where(user_id: current_user.id)
+    end
     if params[:state].present?
       if params[:state].downcase == 'active'
         @course_events = @course_events

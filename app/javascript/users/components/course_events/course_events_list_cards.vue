@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h3 class="d-flex justify-center subtitle">{{ $t('course_event.list.select_label') }}:</h3>
+    <h3 class="d-flex justify-center subtitle">{{ $t('course_event.list.subscribed_label') }}:</h3>
     <v-row>
       <v-col cols="12">
         <v-row align="center" justify="center">

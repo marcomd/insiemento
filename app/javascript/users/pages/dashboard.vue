@@ -1,16 +1,20 @@
 <template>
   <v-container fill-height class="d-flex justify-center">
 
+    <CourseEventsTable :course_events="course_events" @select-course_event="setCourseEvent"/>
+    <h3 v-if="course_events.length == 0 && !loading"
+        class="d-flex justify-center subtitle">{{ $t('course_event.list.none') }}</h3>
+
     <CourseEventsListCards v-if="course_events.length > 0" :course_events="course_events" />
     <h3 v-else-if="course_events.length == 0 && !loading"
-        class="d-flex justify-center subtitle">{{ $t('course_event.list.none') }}</h3>
+        class="d-flex justify-center subtitle">{{ $t('course_event.list.none_subscribed') }}</h3>
     <v-card v-else
             elevation="0"
             class="mb-12">
       <v-progress-circular
-        color="primary"
-        size="50"
-        indeterminate>
+              color="primary"
+              size="50"
+              indeterminate>
       </v-progress-circular>
     </v-card>
   </v-container>
@@ -19,6 +23,7 @@
 <script>
   // Components
   import CourseEventsListCards from '../components/course_events/course_events_list_cards'
+  import CourseEventsTable from '../components/course_events/course_events_table'
 
   import { mapState, mapActions } from 'vuex'
 
@@ -27,7 +32,8 @@
       this.fetchCourseEvents()
     },
     components: {
-      CourseEventsListCards
+      CourseEventsListCards,
+      CourseEventsTable,
     },
     data() {
       return {
@@ -38,7 +44,11 @@
       ...mapState('layout', ['loading']),
     },
     methods: {
-     ...mapActions('course_event', ['fetchCourseEvents'])
+     ...mapActions('course_event', ['fetchCourseEvents']),
+      setCourseEvent({course_event}) {
+        console.log(' dashboard setCourseEvent', course_event)
+        this.$router.push({ name: 'courseEventShow', params: { id: course_event.id } })
+      }
     },
   }
 </script>

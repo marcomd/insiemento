@@ -89,9 +89,11 @@ it:
         unsubscribe_action: Disdici
         list:
           select_label: Seleziona il corso a cui desideri partecipare
+          subscribed_label: Questi sono i corsi che hai selezionato
           select_action: Dettagli
           completed: I tuoi precedenti corsi
-          none: Nessun corso ancora disponibile
+          none: Nessun corso ancora disponibile, scalda i polpacci e torna prossimamente
+          none_subscribed: Non hai selezionato nessun corso, cosa aspetti?
         show:
           title: "Corso di <strong>%{name}</strong>"
         attributes:

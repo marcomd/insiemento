@@ -94,6 +94,7 @@ en:
         unsubscribe_action: Unsubscribe
         list:
           select_label: Select the course you wish to attend
+          selected_label: These are the courses you will attend
           select_action: Details
           completed: Your previous courses
           none: No courses available yet
