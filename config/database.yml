@@ -83,6 +83,7 @@ test:
 #
 production:
   <<: *default
-  database: insiemento_p
-  username: insiemento
-  password: <%= ENV['INSIEMENTO_DATABASE_PASSWORD'] %>
+  host: <%= Rails.application.credentials.dig(:aws, :database, :production, :host) %>
+  database: insiemento-production
+  username: <%= Rails.application.credentials.dig(:aws, :database, :production, :username) %>
+  password: <%= Rails.application.credentials.dig(:aws, :database, :production, :password) %>
