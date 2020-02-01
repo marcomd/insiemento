@@ -3,7 +3,7 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
   skip_before_action :authenticate_request, only: [:authenticate], raise: false
 
   def authenticate
-    require_relative Rails.root.join 'app/services/user_authentication/authenticate_api_user.rb'
+    #require_relative Rails.root.join 'app/services/authenticate_api_user.rb'
     service = AuthenticateApiUser.call(params[:email],
                                        params[:password],
                                        request)

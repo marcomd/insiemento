@@ -1,7 +1,7 @@
 class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   # include JwtAuthenticable
   before_action :check_and_sanitize_email_confirmation, only: [:create]
-
+  skip_before_action :authenticate_request, only: [:create]
   # protect_from_forgery with: :null_session
 
   respond_to :json
@@ -11,7 +11,7 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
     result = begin
       User.transaction do
         if user.save
-          require_relative Rails.root.join 'app/services/user_authentication/authenticate_api_user.rb'
+          # require_relative Rails.root.join 'app/services/authenticate_api_user.rb'
           service = AuthenticateApiUser.call(user_params[:email],
                                              user_params[:password],
                                              request)
