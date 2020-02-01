@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   # Non funzionano più i moduli concerns, oscura il before_action, verificare
-  # include JWTAuthenticable
+  # include JwtAuthenticable
   before_action :authenticate_request, if: :json_request?
 
   respond_to :html, :json

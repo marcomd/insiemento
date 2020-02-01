@@ -30,6 +30,29 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  errors:
-    messages:
-      already_subscribed: already subscribed to this course
+  activerecord: &activerecord
+    models: &models
+      system_log:
+        one: "Log sistema"
+        other: "Log sistema"
+      course:
+        one: "Course"
+        other: "Courses"
+      room:
+        one: "Hall"
+        other: "Salt"
+      trainer:
+        one: "Instructor"
+        other: "Instructors"
+      course_event:
+        one: "Event"
+        other: "Events"
+      course_schedule:
+        one: "Scheduling"
+        other: "Schedules"
+      user:
+        one: "User"
+        other: "Users"
+    errors:
+      messages:
+        already_subscribed: already subscribed to this course

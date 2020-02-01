@@ -16,6 +16,10 @@ class User < ApplicationRecord
   STATES = { just_made: 10, active: 20, suspended: 30}
   enum state: STATES
 
+  def full_name
+    "#{firstname} #{lastname}"
+  end
+
   # Checks whether a password is needed or not. For validations only.
   # Passwords are always required if it's a new record, or if the password
   # or confirmation are being set somewhere.

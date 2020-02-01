@@ -18,9 +18,15 @@ if Course.count == 0
                          end_booking_minutes: 90,
                          state: :active,
   )
+  c_yoga=Course.create!(name: 'Yoga',
+                         description: "Lo Yoga porta equilibrio e calma, oltre che benessere fisico e mentale.",
+                         start_booking_hours: 96,
+                         end_booking_minutes: 360,
+                         state: :active,
+                         )
   puts "Courses: #{Course.count}"
 else
-  c_zumba, c_other = Course.all
+  c_zumba, c_yoga = Course.all
 end
 
 if Trainer.count == 0
@@ -46,9 +52,15 @@ if User.count == 0
                        password_confirmation: CONFIG.dig(:seed, :default_password))
   u_marco.skip_confirmation!
   u_marco.save!
+  u_linda=User.new(firstname: 'Linda', lastname: 'Sacco', email: 'linda@insiemento.io',
+                   birthdate: '2000-01-12', gender: 'F', state: :active, phone: '3382244666',
+                   password: CONFIG.dig(:seed, :default_password),
+                   password_confirmation: CONFIG.dig(:seed, :default_password))
+  u_linda.skip_confirmation!
+  u_linda.save!
   puts "Users: #{User.count}"
 else
-  u_stefania, u_marco = User.all
+  u_stefania, u_marco, u_linda = User.all
 end
 
 if Room.count == 0
@@ -61,8 +73,16 @@ else
 end
 
 if CourseSchedule.count == 0
-  cs_zumba_monday_morning=CourseSchedule.create!(course_id: c_zumba.id, room_id: r_small.id, trainer_id: t_miguel.id, event_day: 1, event_time: '7:00', state: :active)
-  cs_zumba_monday_afternoon=CourseSchedule.create!(course_id: c_zumba.id, room_id: r_middle.id, trainer_id: t_jenny.id, event_day: 1, event_time: '14:30', state: :active)
+  course_event_attributes = []
+  (1..7).each do |event_day|
+    course_event_attributes << {course_id: c_zumba.id, room_id: r_small.id, trainer_id: t_miguel.id, event_day: event_day, event_time: '7:00', state: :active}
+    course_event_attributes << {course_id: c_zumba.id, room_id: r_middle.id, trainer_id: t_miguel.id, event_day: event_day, event_time: '10:00', state: :active}
+    course_event_attributes << {course_id: c_zumba.id, room_id: r_large.id, trainer_id: t_miguel.id, event_day: event_day, event_time: '13:00', state: :active}
+    course_event_attributes << {course_id: c_yoga.id, room_id: r_small.id, trainer_id: t_jenny.id, event_day: event_day, event_time: '14:30', state: :active}
+    course_event_attributes << {course_id: c_yoga.id, room_id: r_middle.id, trainer_id: t_jenny.id, event_day: event_day, event_time: '16:30', state: :active}
+    course_event_attributes << {course_id: c_yoga.id, room_id: r_large.id, trainer_id: t_jenny.id, event_day: event_day, event_time: '18:30', state: :active}
+  end
+  CourseSchedule.create!(course_event_attributes)
   puts "CourseSchedules: #{CourseSchedule.count}"
 end
 
@@ -73,14 +93,18 @@ if CourseEvent.count == 0
                         trainer_id: cs.trainer_id,
                         course_schedule_id: cs.id,
                         event_date: cs.next_event_datetime,
-                        state: :active)
+                        state: cs.state)
   end
   puts "CourseEvents: #{CourseEvent.count}"
 end
 
 if Attendee.count == 0
-  CourseEvent.all.each do |ce|
-    Attendee.create!(course_event_id: ce.id, user_id: u_stefania.id)
-  end
+  Attendee.create!(course_event_id:  1, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  4, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  7, user_id: u_stefania.id)
+  Attendee.create!(course_event_id: 11, user_id: u_stefania.id)
+  Attendee.create!(course_event_id: 14, user_id: u_stefania.id)
+  Attendee.create!(course_event_id: 17, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  2, user_id: u_marco.id)
   puts "Attendees: #{Attendee.count}"
 end

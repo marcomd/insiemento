@@ -209,21 +209,24 @@ it:
       system_log:
         one: "Log sistema"
         other: "Log sistema"
-      sms_communication:
-        one: "Messaggio Sms"
-        other: "Messaggi Sms"
-      email_communication:
-        one: "Email"
-        other: "Email"
-      document:
-        one: "Documento"
-        other: "Documenti"
-      dossier:
-        one: "Pratica"
-        other: "Pratiche"
-      customer:
-        one: "Cliente"
-        other: "Clienti"
+      course:
+        one: "Corso"
+        other: "Corsi"
+      room:
+        one: "Sala"
+        other: "Sale"
+      trainer:
+        one: "Istruttore"
+        other: "Istruttori"
+      course_event:
+        one: "Evento"
+        other: "Eventi"
+      course_schedule:
+        one: "Schedulazione"
+        other: "Schedulazioni"
+      user:
+        one: "Utente"
+        other: "Utenti"
     errors:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'
@@ -236,53 +239,62 @@ it:
       updated_at: "Data modifica"
       #Attributes zone - do not remove
       system_log:
-        customer: "Cliente"
-        dossier: "Pratica"
+        user: "User"
+        couse_event: "Evento"
         log_level: "Livello log"
         message: "Messaggio"
-      sms_communication:
-        dossier: "Pratica"
-        label: "Etichetta"
-        sent_at: "Data invio"
-        recipient_received_at: "Recipient received at"
-      email_communication:
-        dossier: "Pratica"
-        label: "Etichetta"
-        document: "Documento"
-        sent_at: "Data invio"
-      document:
-        one: "Documento"
-        dossier: "Pratica"
+      course:
         name: "Nome"
-        label: "Etichetta"
-        file_hash: "Hash"
-      dossier:
-        one: "Pratica"
+        description: "Descrizione"
+        start_booking_hours: "Ore inizio iscrizione"
+        end_booking_minutes: "Minuti disdetta"
         state: "Stato"
-        customer_dossier_id: "Id esterno"
-        customer_contract_hash: "Hash contratto"
-        recipient_name: "Nome destinatario"
-        recipient_email: "Email destinatario"
-        recipient_phone_number: "Telefono destinatario"
-        recipient_language: "Lingua destinatario"
-        otp: "Otp"
-        last_otp_at: "Ultima verifica otp"
-        final_checksum: "Codice controllo finale"
-        unsigned_document_sent_date: "Data invio documento non firmato"
-        signed_document_sent_date: "Data invio documento firmato"
-        signed_document: "Documento firmato"
-        signed_document_id: "ID Documento firmato"
-        states:
-          just_created: "Nuovo"
-          notified: "Inviato"
-          signing: "In firma"
-          signed: "Firmato"
         created_at: "Data creazione"
         updated_at: "Data modifica"
-      customer:
-        one: "Cliente"
+      room:
+        one: "Sala"
         name: "Nome"
-        log_level: "Livello log"
+        max_attendees: "Capienza"
+        state: "Stato"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      trainer:
+        one: "Istruttore"
+        firstname: "Nome"
+        lastname: "Cognome"
+        nickname: "Nickname"
+        bio: "Biografia"
+        state: "Stato"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      course_event:
+        one: "Evento"
+        course: "Corso"
+        room: "Sala"
+        trainer: "Istruttore"
+        course_schedule: "Schedulazione"
+        event_date: "Data evento"
+        users: "Utenti"
+        attendees: "Partecipanti"
+        attendees_count: "Numero partecipanti"
+        state: "Stato"
+        states:
+          just_made: "Nuovo"
+          active: "Attivo"
+          suspended: "Sospeso"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      user:
+        email: "eMail"
+        firstname: "Nome"
+        lastname: "Cognome"
+        birthdate: "Data nascita"
+        gender: "Sesso"
+        phone: "Telefono"
+        state: "Stato"
+        confirmed_at: "Data attivazione"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
 
   formtastic:
     titles:
@@ -296,53 +308,6 @@ it:
         log_level: "Fill the log level with an integer number"
         message: "Choose a good message for this system_log"
 
-      sms_communication:
-        dossier: "Choose the dossier"
-        label: "Fill the label with an integer number"
-        sent_at: "Choose a datetime for sent at"
-        recipient_received_at: "Choose a datetime for recipient received at"
-
-      email_communication:
-        dossier: "Choose the dossier"
-        document: "Choose the document"
-        sent_at: "Choose a datetime for sent at"
-
-      document:
-        dossier: "Choose the dossier"
-        hash: "Choose a good hash for this document"
-
-      dossier:
-        customer: "Choose the customer"
-        state: "Fill the state with an integer number"
-        customer_dossier_id: "Fill the customer dossier with an integer number"
-        customer_contract_hash: "Hash univoco del contratto sulla piattaforma cliente, genera l'url per la firma del contratto"
-        recipient_name: "Choose a good recipient name for this dossier"
-        recipient_email: "Choose a good recipient email for this dossier"
-        recipient_phone_number: "Choose a good recipient phone number for this dossier"
-        recipient_language: "Fill the recipient language with an integer number"
-        otp: "Choose a good otp for this dossier"
-        last_otp_at: "Choose a datetime for last otp at"
-        unsigned_document_sent_date: "Choose a datetime for unsigned document sent date"
-        signed_document_sent_date: "Choose a datetime for signed document sent date"
-        signed_document_id: "Fill the signed document with an integer number"
-
-      customer:
-        name: "Choose a good name for this customer"
-        log_level: "Fill the log level with an integer number"
-
-  communications:
-    sms:
-      otp:
-        name: Codice OTP
-        body: "%{otp} è il tuo codice di verifica da %{sender}"
-    email:
-      contract_to_sign:
-        name: Contratto da firmare
-        object: Ecco il tuo contratto "%{sender}" da firmare
-      contract_signed:
-        name: Contratto firmato
-        object: Il tuo contratto "%{sender}" che hai firmato
-
   activeadmin:
     footer:
       env: Ambiente
@@ -354,7 +319,6 @@ it:
     project_diagnostic: Diagnostica Progetto
     sidekiq: Gestione code asincrone
     users_management: "Gestione Utenti"
-    communications: "Comunicazioni"
   project_diagnostic:
     name: Dati diagnostici
     last_deploy:

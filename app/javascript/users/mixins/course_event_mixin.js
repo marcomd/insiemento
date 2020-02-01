@@ -13,5 +13,10 @@ export const courseEventMixin = {
     support_email() {
       return ''
     },
+    courseImageName() {
+      const planned_courses = ['zumba', 'yoga']
+      const course_name_lowered = this.course.name.toLowerCase()
+      return `course_${planned_courses.includes(course_name_lowered) ? course_name_lowered : planned_courses[0]}_600.jpg`
+    },
   },
 }

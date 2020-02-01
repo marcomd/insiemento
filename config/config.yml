@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.0.12"
-    updated_at: "30/01/2020"
+    version: "0.0.13"
+    updated_at: "01/02/2020"
     started_at: "11/01/2020"
     host: "insiemento.io"
     commercial:
@@ -24,7 +24,7 @@ defaults: &defaults
     skebby:
       username: <%= Rails.application.credentials.sms.dig(:test, :skebby, :username) %>
       password: <%= Rails.application.credentials.sms.dig(:test, :skebby, :password) %>
-    from: "+1 334 326 3183"
+    from: "Insiemento"
   smtp:
     host: "smtp.mailtrap.io"
     domain: "smtp.mailtrap.io"
@@ -53,7 +53,7 @@ production:
     skebby:
       username: <%= Rails.application.credentials.sms.dig(:production, :skebby, :username) %>
       password: <%= Rails.application.credentials.sms.dig(:production, :skebby, :password) %>
-    from: "+1 334 326 3183"
+    from: "Insiemento"
   smtp:
     host: "smtp.sendgrid.net"
     port: "587"

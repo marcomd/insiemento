@@ -7,24 +7,23 @@
       hover
     >
       <router-link :to="{ name: 'courseEventShow', params: { id: course_event.id } }" class="no-underline">
-        <img
+        <v-img
           class="white--text"
-          height="250px"
-          src="../../assets/images/course_zumba_600.jpg"
+          width="100%"
+          max-height="200px"
+          :src="require(`../../assets/images/${courseImageName}`)"
           alt="course image"
         >
-          <v-card-title class="align-end fill-height"></v-card-title>
-        </img>
+        <v-card-title class="align-end fill-height"></v-card-title>
+        </v-img>
 
         <v-card-text>
-          <!--span v-html="i18n_reservation_code"></span><br>
-          <span v-html="this.$t('reservation.attributes.stay_period', { from: this.formattedDate(this.order.checkin_date), to: this.formattedDate(this.order.checkout_date) })"-->
-            <v-icon>mdi-calendar-arrow-right</v-icon> {{ formattedDateTime(course_event.event_date) }}
+          <strong>{{ course.name }}</strong> <v-icon>mdi-calendar-arrow-right</v-icon> {{ formattedDateTime(course_event.event_date) }}
             <!--v-icon>mdi-ray-start-arrow</v-icon> {{ order.checkout_date }}-->
           </span><br>
-          <span>{{ $t('course_event.attributes.course') }}: <strong>{{ course.name }}</strong></span><br>
+          <!--span>{{ $t('course_event.attributes.course') }}: <strong>{{ course.name }}</strong></span><br>
           <span>{{ $t('course_event.attributes.room') }}: <strong>{{ room.name }}</strong></span><br>
-          <span>{{ $t('course_event.attributes.trainer') }}: <strong>{{ trainer.nickname }}</strong></span><br>
+          <span>{{ $t('course_event.attributes.trainer') }}: <strong>{{ trainer.nickname }}</strong></span><br-->
           <span>{{ $t('course_event.attributes.attendees_count') }}: <strong>{{ course_event.attendees_count }}</strong> / <strong>{{ room.max_attendees }}</strong></span>
           <span v-if="course_event.subscribed"><strong>{{ $t('course_event.attributes.subscribed') }}</strong> <v-icon color="success">mdi-check-bold</v-icon></span>
         </v-card-text>
@@ -56,9 +55,6 @@
       }
     },
     computed: {
-      courseEventImage() {
-        return `../../assets/images/course_${this.course.name.toLowerCase()}_600.jpg`
-      },
     }
   }
 </script>

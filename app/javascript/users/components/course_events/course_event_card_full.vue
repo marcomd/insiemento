@@ -1,7 +1,7 @@
 <template>
   <v-card
     elevation='1'>
-    <v-card-title>Corso</v-card-title>
+    <v-card-title>{{ $t('course_event.attributes.course') }}</v-card-title>
 
     <v-card-text>
       <v-row>

@@ -33,6 +33,13 @@
           {{ course_event.subscribed ? $t('course_event.unsubscribe_action') : $t('course_event.subscribe_action') }}
         </v-btn>
       </v-col>
+      <v-col class="text-center">
+        <v-btn x-large
+               class='mr-2 mb-2'
+               :to='{name: "dashboard"}'>
+          {{ $t('commons.go_back') }}
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>

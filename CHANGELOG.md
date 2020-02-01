@@ -1,5 +1,19 @@
 # CHANGELOG
 
+# v0.0.13 01/02/2020 3h
+
+- Frontend
+  - Improved event card lite
+    - Fixed an image issue, now it remains inside the card and it has a max height
+    - Image now is shown dinamically depending on the course, zumba is the default image. Added yoga image.
+    - Reduced the informations on the card
+  - Added a button in the show course event to go back to the dashboard
+  - Course events table now show only one row on mobile
+- Backend
+  - Added italian localization
+  - Added more elements to seeds
+  - Other little improvements
+
 # v0.0.12 30/01/2020 1h
 
 - Added new column subscribed to course events table

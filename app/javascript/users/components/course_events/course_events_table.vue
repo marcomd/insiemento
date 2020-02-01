@@ -5,7 +5,7 @@
             <v-data-table
                     :headers="headers"
                     :items="course_events"
-                    :items-per-page="5"
+                    :items-per-page="$vuetify.breakpoint.xsOnly ? 1 : 5"
                     class="elevation-1"
                     @click:row="selectRow"
                     :multi-sort="true"
