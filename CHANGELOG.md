@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.0.15 06/02/2020 1h
+
+- Several fixes
+  - Fixed JsonWebToken: secret token now is obtained from credentials
+  - Fixed confirmation url used in the confirmation email
+  - Fixed password controller
+
 # v0.0.14 06/02/2020 4h
 
 - Sending email account confirmation and password reset via sendgrid

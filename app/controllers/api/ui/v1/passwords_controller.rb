@@ -1,5 +1,6 @@
 class Api::Ui::V1::PasswordsController < Devise::PasswordsController
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
+  skip_before_action :authenticate_request
   respond_to :json
 
   # la password recovery usa l'action create per inviare una mail all'utente
@@ -25,19 +26,19 @@ class Api::Ui::V1::PasswordsController < Devise::PasswordsController
 
     if recoverable.present?
       if recoverable.persisted? && recoverable.reset_password_period_valid?
-        redirect_to "#{users_path}/new-password?reset_password_token=#{original_token}"
+        redirect_to "#{users_url}/new-password?reset_password_token=#{original_token}"
       else
-        redirect_to "#{users_path}/password-reset?error=invalid_token"
+        redirect_to "#{users_url}/password-reset?error=invalid_token"
       end
     else
-      redirect_to "#{users_path}/password-reset?error=invalid_token"
+      redirect_to "#{users_url}/password-reset?error=invalid_token"
     end
   end
 
   def update
     original_token = params[:user][:reset_password_token]
     reset_password_token = Devise.token_generator.digest(self, :reset_password_token, original_token)
-    recoverable = Customer.find_by reset_password_token: reset_password_token
+    recoverable = User.find_by reset_password_token: reset_password_token
     recoverable.update_attribute(:password, params[:user][:password])
     render :update
   end

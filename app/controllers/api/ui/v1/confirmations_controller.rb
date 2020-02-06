@@ -1,5 +1,6 @@
 class Api::Ui::V1::ConfirmationsController < Devise::ConfirmationsController
-  protect_from_forgery with: :null_session
+  #protect_from_forgery with: :null_session
+  skip_before_action :authenticate_request
   respond_to :json
 
   def create
@@ -25,9 +26,9 @@ class Api::Ui::V1::ConfirmationsController < Devise::ConfirmationsController
     yield resource if block_given?
 
     if resource.errors.empty?
-      redirect_to "#{users_path}/login?confirmed=true"
+      redirect_to "#{users_url}/login?confirmed=true"
     else
-      redirect_to "#{users_path}/confirmation-email?confirmed=false"
+      redirect_to "#{users_url}/confirmation-email?confirmed=false"
     end
   end
 
