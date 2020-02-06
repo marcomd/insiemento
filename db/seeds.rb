@@ -5,10 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+default_password = Rails.application.credentials.seed.dig(:default_password)
 if AdminUser.count == 0
   AdminUser.create!(email: "admin@#{CONFIG.dig(:application, :host)}",
-                    password: CONFIG.dig(:seed, :default_password),
-                    password_confirmation: CONFIG.dig(:seed, :default_password)) if Rails.env.development?
+                    password: default_password,
+                    password_confirmation: default_password) if Rails.env.development?
 end
 
 if Course.count == 0
@@ -42,20 +43,20 @@ end
 if User.count == 0
   u_stefania=User.new(firstname: 'Stefania', lastname: 'Rossini', email: 'stefania@insiemento.io',
                           birthdate: '1990-05-25', gender: 'F', state: :active, phone: '3391122333',
-                          password: CONFIG.dig(:seed, :default_password),
-                          password_confirmation: CONFIG.dig(:seed, :default_password))
+                          password: default_password,
+                          password_confirmation: default_password)
   u_stefania.skip_confirmation!
   u_stefania.save!
   u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: 'marco@insiemento.io',
                        birthdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455666',
-                       password: CONFIG.dig(:seed, :default_password),
-                       password_confirmation: CONFIG.dig(:seed, :default_password))
+                       password: default_password,
+                       password_confirmation: default_password)
   u_marco.skip_confirmation!
   u_marco.save!
   u_linda=User.new(firstname: 'Linda', lastname: 'Sacco', email: 'linda@insiemento.io',
                    birthdate: '2000-01-12', gender: 'F', state: :active, phone: '3382244666',
-                   password: CONFIG.dig(:seed, :default_password),
-                   password_confirmation: CONFIG.dig(:seed, :default_password))
+                   password: default_password,
+                   password_confirmation: default_password)
   u_linda.skip_confirmation!
   u_linda.save!
   puts "Users: #{User.count}"

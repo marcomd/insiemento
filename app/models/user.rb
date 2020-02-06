@@ -2,7 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :registerable, :confirmable
 
-  has_many :attendees, dependent: :nullify
+  has_many :attendees, dependent: :destroy
   has_many :course_events, through: :attendees
 
   validates_uniqueness_of :email, allow_blank: false, if: :email_changed?

@@ -56,3 +56,33 @@ en:
     errors:
       messages:
         already_subscribed: already subscribed to this course
+
+activeadmin:
+  footer:
+    env: Environment
+    version: Version
+    last_update: Last update
+    last_commit: Last commit
+  menu:
+    diagnostics: Diagnostics
+    project_diagnostic: Project diagnostics
+    sidekiq: Asynchronous queue management
+    users_management: User Management
+  project_diagnostic:
+    name: Diagnostic data
+    last_deploy:
+      name: Last release data
+      last_deploy_at: Last deployed date
+      last_deployed_version: Last release
+      last_restart: Last server restart
+    database:
+      name: Data related to the database
+      db_size: Size of the database
+      table_size: Dimensions of table %{table_name}
+      table_size_with_indexes: Size of table %{table_name} with indexes
+    logs:
+      name: Logs
+    server:
+      name: Server
+      smtp_server: Server sending email
+      db_server: Database server

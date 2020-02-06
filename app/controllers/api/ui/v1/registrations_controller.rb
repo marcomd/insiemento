@@ -1,7 +1,7 @@
 class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   # include JwtAuthenticable
   before_action :check_and_sanitize_email_confirmation, only: [:create]
-  skip_before_action :authenticate_request, only: [:create]
+  skip_before_action :authenticate_request
   # protect_from_forgery with: :null_session
 
   respond_to :json

@@ -37,8 +37,8 @@ gem 'activeadmin', '~> 2.6'
 gem 'devise', '~> 4.7.0'
 
 # Simple, efficient background processing for Ruby
-gem 'sidekiq'
-gem 'sidekiq-cron'
+gem 'sidekiq', '~> 6.0.4'
+gem 'sidekiq-cron', '~> 1.1.0'
 
 # A simple, standardized way to build and use Service Objects (aka Commands) in Ruby
 gem 'simple_command', '~> 0.0.9'
@@ -47,7 +47,7 @@ gem 'simple_command', '~> 0.0.9'
 gem 'jwt', '~> 2.2.1'
 
 # Consuming restful web services
-gem 'http'
+gem 'http', '~> 4.3.0'
 
 # Parse Accept and Accept-Language HTTP headers in Ruby.
 gem 'http-accept', '~> 2.1.0'
@@ -55,12 +55,15 @@ gem 'http-accept', '~> 2.1.0'
 # Find out which locale the user preferes by reading the languages they specified in their browser or in the header
 #gem 'http_accept_language' #, '~> 2.1.1'
 
+# A simple HTTP and REST client for Ruby
+gem 'rest-client', '~> 2.0.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 
   # RSpec for Rails - Need to be in development for mail preview
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.9.0'
 end
 
 group :development do
@@ -68,34 +71,34 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '~> 2.1.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-  gem 'rubocop'
+  gem 'rubocop', '~> 0.79.0'
 
   # A static analysis security vulnerability scanner for Ruby on Rails applications
-  gem 'brakeman'
+  gem 'brakeman', '~> 4.7.2'
 
   # A code metric tool for rails projects
-  gem 'rails_best_practices'
+  gem 'rails_best_practices', '~> 1.19.5'
 
   # Great Ruby dubugging companion: pretty print Ruby objects to visualize their structure
-  gem 'awesome_print'
+  gem 'awesome_print', '~> 1.8.0'
 
   # Provides a better error page for Rails
-  gem 'better_errors'
+  gem 'better_errors', '~> 2.5.1'
 
   # Retrieve the binding of a method's caller.
-  gem 'binding_of_caller'
+  gem 'binding_of_caller', '~> 0.8.0'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 3.142.7'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'webdrivers', '~> 4.2.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

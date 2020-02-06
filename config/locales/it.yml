@@ -318,7 +318,7 @@ it:
     diagnostics: Diagnostica
     project_diagnostic: Diagnostica Progetto
     sidekiq: Gestione code asincrone
-    users_management: "Gestione Utenti"
+    users_management: Gestione Utenti
   project_diagnostic:
     name: Dati diagnostici
     last_deploy:

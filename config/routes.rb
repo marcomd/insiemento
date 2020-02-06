@@ -24,4 +24,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  require 'sidekiq/web'
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/admin/sidekiq'
+  end
+
 end

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.0.14 06/02/2020 4h
+
+- Sending email account confirmation and password reset via sendgrid
+  - New mailer to create the json with the necessary data for the mailmerge to be executed through the external service
+    Register to app.sendgrid.com and get your apikey, write it into the app credential `rails credentials:edit`
+    Create your template and put down the {{ variables }}: firstname, application_name and link_url
+- New entity system log
+
 # v0.0.13 01/02/2020 3h
 
 - Frontend

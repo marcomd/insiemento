@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.0.13"
-    updated_at: "01/02/2020"
+    version: "0.0.14"
+    updated_at: "06/02/2020"
     started_at: "11/01/2020"
     host: "insiemento.io"
     commercial:
@@ -14,8 +14,6 @@ defaults: &defaults
       ceo: "Marco Mastrodonato"
       main_background_color: "white"
       main_foreground_color: "#e3696a"
-  seed:
-    default_password: "abcd1234!"
   sms:
     provider: "twilio"
     twilio:
@@ -32,6 +30,8 @@ defaults: &defaults
     authentication: :cram_md5
     user: <%= Rails.application.credentials.smtp.dig(:test, :user) %>
     password: <%= Rails.application.credentials.smtp.dig(:test, :password) %>
+  sendgrid:
+    apipath: https://api.sendgrid.com/v3
   authentication:
     customer:
       jwt_expiration_hours: 24
