@@ -108,8 +108,9 @@ class SendgridService
   def send_email(**args)
     return [false, required_params_not_filled(args)] if required_params_not_filled(args).any?
     payload = send_email_payload(args)
-    payload.merge!(sandbox_mode) if is_development? && !args[:debug]
-    payload = faking_recipients(payload) if is_not_production? && !args[:debug]
+    # Comment sandbox_mode to test real email
+    payload.merge!(sandbox_mode) if is_development?
+    payload = faking_recipients(payload) if is_not_production?
     @status_code, body = post(method_name: __method__, payload: payload)
     unless request_succeded?(@status_code)
       errors.add :base, body

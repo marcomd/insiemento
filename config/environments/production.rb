@@ -1,3 +1,5 @@
+Rails.application.default_url_options = { host: 'insiemento.io' }
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -65,6 +67,25 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.default_url_options   = { :host => 'insiemento.io' }
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.delivery_method = :smtp
+
+  # SendGrid SMTP SERVER
+  config.action_mailer.smtp_settings = {
+      :user_name => Rails.application.credentials.smtp_username,
+      :password => Rails.application.credentials.smtp_password,
+      :domain => 'insiemento.io',
+      :address => 'smtp.sendgrid.net',
+      :port => 587,
+      :authentication => :plain,
+      :enable_starttls_auto => true
+  }
+
+  # Uses sidekiq for the "mailers" and "default" queues
+  config.active_job.queue_adapter = :sidekiq
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
