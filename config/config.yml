@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.0.15"
-    updated_at: "06/02/2020"
+    version: "0.0.16"
+    updated_at: "09/02/2020"
     started_at: "11/01/2020"
     host: "insiemento.io"
     commercial:
@@ -10,7 +10,7 @@ defaults: &defaults
       payoff: "Run, Jump, Burn!"
       support_phone: "+39 02 12345678"
       support_email: "support"
-      address: "Via Dostoevskij 5, San Giuliano Milanese"
+      address: "San Giuliano Milanese"
       ceo: "Marco Mastrodonato"
       main_background_color: "white"
       main_foreground_color: "#e3696a"

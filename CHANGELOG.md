@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v0.0.16 08/02/2020 3h
+
+- Added search text field to course event table
+  - You can filter rows with the new search text field. Notice that filter is persisted so if you navigate then come 
+    back, it will be retrieved from vuex. 
+- Completed profile section
+- Customized default vuetify colors:
+  - Entry point with style parameters in app/views/users/index.html.erb which you can customize colors and dark mode 
+
 # v0.0.15 06/02/2020 1h
 
 - Several fixes

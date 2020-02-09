@@ -1,11 +1,22 @@
 <template>
-    <v-row>
-        <v-col>
-            <h3 class="d-flex justify-center subtitle">{{ $t('course_event.list.select_label') }}:</h3><br>
+    <v-container fluid>
+        <v-card>
+            <v-card-title>
+                {{ $t('course_event.list.select_label') }}
+                <v-spacer></v-spacer>
+                <v-text-field
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                        :label="$t('commons.search')"
+                        single-line
+                        hide-details
+                ></v-text-field>
+            </v-card-title>
             <v-data-table
                     :headers="headers"
                     :items="course_events"
-                    :items-per-page="$vuetify.breakpoint.xsOnly ? 1 : 5"
+                    :search="search"
+                    :items-per-page="$vuetify.breakpoint.xsOnly ? 1 : 15"
                     class="elevation-1"
                     @click:row="selectRow"
                     :multi-sort="true"
@@ -17,13 +28,14 @@
                     <v-chip :color="item.subscribed ? 'green' : '#cccccc'" dark>{{ item.subscribed ? $t('commons.say_yes') : $t('commons.say_no') }}</v-chip>
                 </template>
             </v-data-table>
-        </v-col>
-    </v-row>
+        </v-card>
+    </v-container>
 </template>
 
 <script>
     import { utilityMixin } from '../../mixins/utility_mixin'
     import { courseEventMixin } from "../../mixins/course_event_mixin"
+    import { mapState, mapActions } from 'vuex'
 
     export default {
     name: 'CourseEventsTable',
@@ -37,8 +49,12 @@
       utilityMixin,
       courseEventMixin,
     ],
+    created() {
+      this.search = this.$store.state.layout.search
+    },
     data() {
       return {
+        search: '',
         headers: [
           { text: 'ID', value: 'id' },
           { text: this.$t('course_event.attributes.course'), value: 'course.name' },
@@ -50,17 +66,19 @@
       }
     },
     methods: {
+      ...mapActions('layout', ['setSearch']),
       selectRow(course_event) {
         this.$emit('select-course_event', {
-          // id: course_event.id,
-          // course: course_event.course,
-          // room: course_event.room,
-          // trainer: course_event.trainer,
-          // event_date: course_event.event_date,
           course_event: course_event
         })
       }
-    }
+    },
+    watch: {
+      search(value) {
+        // console.log('watch search', value)
+        this.setSearch(value)
+      },
+    },
   }
 </script>
 

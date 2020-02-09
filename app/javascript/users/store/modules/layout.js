@@ -8,12 +8,7 @@ export const state = {
   loading: false,
   sidebarOpened: false,
   alerts: [],
-  // completedCheckinSteps: {
-  //   1: false,
-  //   2: false,
-  //   3: false,
-  //   4: false
-  // }
+  search: null,
 }
 
 export const mutations = {
@@ -37,9 +32,9 @@ export const mutations = {
       return alert.id !== alertId
     })
   },
-  // SET_STEPS(state, steps) {
-  //   state.completedCheckinSteps = steps
-  // }
+  SET_SEARCH(state, search) {
+    state.search = search
+  },
 }
 
 export const actions = {
@@ -71,16 +66,7 @@ export const actions = {
   removeAlert({ commit }, alertId) {
     commit('REMOVE_ALERT', alertId)
   },
-  // checkSteps({ commit, rootState }) {
-  //   if (!!rootState.order && !!rootState.order.order && !!rootState.order.order.id) {
-  //     const url = rootState.application.urls.checkin_steps.replace(':order_id', rootState.order.order.id).replace(':reservation_id', rootState.order.order.reservations[0].id)
-  //     return Vue.http.get(url)
-  //     .then(response => {
-  //       commit('SET_STEPS', response.data)
-  //       return response.data
-  //     }).catch(error => {
-  //       return error
-  //     })
-  //   }
-  // }
+  setSearch({ commit }, search) {
+    commit('SET_SEARCH', search)
+  },
 }

@@ -37,6 +37,25 @@
     },
     created() {
       console.log('index.vue urls', this.urls)
+      if (this.current_organization.theme.dark_mode) {
+        this.$vuetify.theme.dark = true
+        if (this.current_organization.theme.primary_color)    this.$vuetify.theme.themes.dark.primary = this.current_organization.theme.primary_color
+        if (this.current_organization.theme.secondary_color)  this.$vuetify.theme.themes.dark.secondary = this.current_organization.theme.secondary_color
+        if (this.current_organization.theme.accent_color)     this.$vuetify.theme.themes.dark.accent = this.current_organization.theme.accent_color
+        if (this.current_organization.theme.info_color)       this.$vuetify.theme.themes.dark.info = this.current_organization.theme.info_color
+        if (this.current_organization.theme.success_color)    this.$vuetify.theme.themes.dark.success = this.current_organization.theme.success_color
+        if (this.current_organization.theme.error_color)      this.$vuetify.theme.themes.dark.error = this.current_organization.theme.error_color
+        if (this.current_organization.theme.warning_color)    this.$vuetify.theme.themes.dark.warning = this.current_organization.theme.warning_color
+      } else {
+        this.$vuetify.theme.light = true
+        if (this.current_organization.theme.primary_color)    this.$vuetify.theme.themes.light.primary = this.current_organization.theme.primary_color
+        if (this.current_organization.theme.secondary_color)  this.$vuetify.theme.themes.light.secondary = this.current_organization.theme.secondary_color
+        if (this.current_organization.theme.accent_color)     this.$vuetify.theme.themes.light.accent = this.current_organization.theme.accent_color
+        if (this.current_organization.theme.info_color)       this.$vuetify.theme.themes.light.info = this.current_organization.theme.info_color
+        if (this.current_organization.theme.success_color)    this.$vuetify.theme.themes.light.success = this.current_organization.theme.success_color
+        if (this.current_organization.theme.error_color)      this.$vuetify.theme.themes.light.error = this.current_organization.theme.error_color
+        if (this.current_organization.theme.warning_color)    this.$vuetify.theme.themes.light.warning = this.current_organization.theme.warning_color
+      }
 
       Vue.http.interceptors.push(request => {
         if (request.skipInterceptors) return

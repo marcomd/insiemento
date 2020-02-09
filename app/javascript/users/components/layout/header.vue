@@ -61,7 +61,7 @@
       },
       organizationBackgroundColor() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
-        return this.current_organization.theme.background_color || 'white' //|| '../../../../../../app/assets/images/img-logo.svg'
+        return this.current_organization.theme.header_background_color || 'white' //|| '../../../../../../app/assets/images/img-logo.svg'
       },
       useDark() {
         // return ["white", "#fff", "#ffffff"].includes(this.current_organization.theme.color)

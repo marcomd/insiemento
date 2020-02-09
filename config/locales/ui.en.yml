@@ -20,6 +20,7 @@ en:
         save: Save
         say_yes: "Yes"
         say_no: "No"
+        search: "Search"
       locales:
         it: Italiano
         en: English
@@ -90,12 +91,13 @@ en:
         hints:
           disabled_form: Your account does not allow the update of these data. For this need please contact us
           fiscal_code: Enter your Italian tax code if you have one
+          email: An email will be sent to confirm the address
       course_event:
         edit_action: Change
         subscribe_action: Subscribe
         unsubscribe_action: Unsubscribe
         list:
-          select_label: Select the course you wish to attend
+          select_label: Select your courses
           subscribed_label: These are the courses you will attend
           select_action: Details
           completed: Your previous courses
@@ -139,9 +141,9 @@ en:
         confirmation_email_error: Error, email address already confirmed
         profile_error: Error, double check the data entered
         profile_updated: Profile successfully updated!
-        profile_completed: Profile completed, you are now ready for Fast Check-in!
+        profile_completed: Profile completed, you are now ready to start!
         generic_api_error: A problem is preventing the connection to the cloud, please try again in a few minutes
-        email_confirmed: E-mail address confirmed, enter your credentials to complete the Fast Check-in
+        email_confirmed: E-mail address confirmed, enter your credentials to start
         email_not_confirmed: Error, email not confirmed
         invalid_token: Error, invalid link. Enter your email address, you will be sent instructions to reset it
         unconfirmed: You have to confirm your email address before continuing
@@ -149,4 +151,3 @@ en:
       hints:
         write_city_name: Write the name of the city
         search_city: Write the initials to narrow your search
-        email: An email will be sent to confirm the address

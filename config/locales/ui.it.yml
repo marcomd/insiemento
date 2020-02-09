@@ -20,6 +20,7 @@ it:
         save: Salva
         say_yes: "Si"
         say_no: "No"
+        search: "Cerca"
       locales:
         it: Italiano
         en: English
@@ -71,11 +72,11 @@ it:
         phone_prefix_hint: Ricerca prefisso o nome della nazione
         phone_hint: Lo utilizzeremo per organizzare il tuo check-in in appartamento
         attributes:
-          birthdate: Data di nascita
           email: Email
           firstname: Nome
-          fiscal_code: Codice fiscale
           lastname: Cognome
+          birthdate: Data di nascita
+          phone: Telefono
           gender: Sesso
           genders:
             male: Maschio
@@ -90,7 +91,7 @@ it:
         subscribe_action: Partecipa
         unsubscribe_action: Disdici
         list:
-          select_label: Seleziona il corso a cui desideri partecipare
+          select_label: Seleziona i tuoi corsi
           subscribed_label: Questi sono i corsi che hai selezionato
           select_action: Dettagli
           completed: I tuoi precedenti corsi
@@ -135,9 +136,9 @@ it:
         confirmation_email_error: Errore, indirizzo email già confermato
         profile_error: Errore, ricontrolla i dati inseriti
         profile_updated: Profilo aggiornato con successo!
-        profile_completed: Profilo completato, ora sei pronto per il Fast Check-in!
+        profile_completed: Profilo completato, ora sei pronto per iniziare!
         generic_api_error: Un problema sta impedendo la connessione al cloud, riprova fra qualche minuto
-        email_confirmed: Indirizzo e-mail confermato, inserisci le tue credenziali per completare il Fast Check-in
+        email_confirmed: Indirizzo e-mail confermato, inserisci le tue credenziali per iniziare
         email_not_confirmed: Errore durante la conferma dell'indirizzo email, prova a richiedere nuovamente l'invio
         invalid_token: Errore, il link usato non è più valido, si prega di chiedere nuovamente l'invio delle istruzioni per resettarla.
         unconfirmed: Devi confermare il tuo indirizzo email per continuare

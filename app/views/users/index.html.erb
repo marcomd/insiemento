@@ -3,8 +3,16 @@
       current_organization: {
         logo: image_url('logo_50.png'),
         theme: {
-            primary: '#aaaaaa',
-            background_color: '#ffffff',
+            dark_mode: false,
+            header_dark_mode: false,
+            header_background_color: '#ffffff',
+            primary_color: '#ff008d',
+            secondary_color: '#424242',
+            accent_color: '#ff008d',
+            info_color: '#2196f3',
+            success_color: '#4caf50',
+            error_color: '#b71c1c',
+            warning_color: '#ffc107',
         },
         cs_email: "#{CONFIG.dig(:application, :commercial, :support_email)}@#{CONFIG.dig(:application, :host)}",
       },

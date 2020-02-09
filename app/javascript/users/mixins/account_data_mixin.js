@@ -51,12 +51,6 @@ export const accountDataMixin = {
       !this.$v.password_confirmation.sameAsPassword && errors.push(this.$t('errors.password_confirmation_not_equal'))
       return errors
     },
-    phonePrefixErrors() {
-      const errors = []
-      !!this.serverSideErrors.phone_prefix && errors.push(this.show_error_form_field(this.serverSideErrors.phone_prefix))
-      !this.$v.phone_prefix.required && errors.push(this.$t('errors.required'))
-      return errors
-    },
     phoneErrors() {
       const errors = []
       !!this.serverSideErrors.phone && errors.push(this.show_error_form_field(this.serverSideErrors.phone))

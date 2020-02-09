@@ -24,105 +24,92 @@
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field
-                    v-model='first_name'
+                    v-model='firstname'
                     prepend-icon='mdi-account-outline'
-                    :append-outer-icon='requiredIcon("first_name")'
-                    :label='labelFor("first_name")'
+                    :append-outer-icon='requiredIcon("firstname")'
+                    :label='labelFor("firstname")'
                     :error-messages='firstNameErrors'
-                    @input='$v.first_name.$touch()'
-                    @blur='$v.first_name.$touch()'
+                    @input='$v.firstname.$touch()'
+                    @blur='$v.firstname.$touch()'
                     :disabled="disableForm"
                   />
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
-                    v-model='last_name'
+                    v-model='lastname'
                     prepend-icon='mdi-account'
-                    :append-outer-icon='requiredIcon("last_name")'
-                    :label='labelFor("last_name")'
+                    :append-outer-icon='requiredIcon("lastname")'
+                    :label='labelFor("lastname")'
                     :error-messages='lastNameErrors'
-                    @input='$v.last_name.$touch()'
-                    @blur='$v.last_name.$touch()'
-                    :disabled="disableForm"
-                  />
-                </v-col>
-              </v-row>
-
-              <v-row v-if='isLegal'>
-                <v-col >
-                  <v-text-field
-                    v-model='business_name'
-                    prepend-icon='mdi-domain'
-                    :append-outer-icon='requiredIcon("business_name")'
-                    :label='labelFor("business_name")'
-                    :error-messages='businessNameErrors'
-                    @input='$v.business_name.$touch()'
-                    @blur='$v.business_name.$touch()'
-                    :disabled="disableForm"
-                  />
-                </v-col>
-              </v-row>
-
-              <v-row v-if="!isLegal">
-                <v-col cols='12' sm='6'>
-                  <v-radio-group
-                    v-model='sex'
-                    row
-                    :error-messages="sexErrors"
-                    :prepend-icon="!!sex ? (sex == 'M' ? 'mdi-gender-male' : 'mdi-gender-female') : 'mdi-gender-male-female'"
-                    @change="$v.sex.$touch()"
-                    @blur="$v.sex.$touch()"
-                    :disabled="disableForm"
-                  >
-                    <!--span class='mr-4'>{{ $t('user.attributes.sex') }}</span-->
-                    <v-radio
-                      :label='$t("user.attributes.genders.male")'
-                      value='M'
-                    />
-                    <v-radio
-                      :label='$t("user.attributes.genders.female")'
-                      value='F'
-                    />
-                  </v-radio-group>
-                </v-col>
-                <v-col cols='12' sm='6' v-if="!isCurrentUserForeign">
-                  <v-text-field
-                    v-model='fiscal_code'
-                    :append-outer-icon='requiredIcon("fiscal_code")'
-                    :label='labelFor("fiscal_code")'
-                    :error-messages='fiscalCodeErrors'
-                    @input='$v.fiscal_code.$touch()'
-                    @blur='$v.fiscal_code.$touch()'
-                    prepend-icon='mdi-account-badge'
-                    persistent-hint
-                    :hint="$t('profile.hints.fiscal_code')"
+                    @input='$v.lastname.$touch()'
+                    @blur='$v.lastname.$touch()'
                     :disabled="disableForm"
                   />
                 </v-col>
               </v-row>
 
               <v-row>
-                <v-col cols="12" sm="6">
-                  <v-autocomplete
-                    v-model='phone_prefix'
-                    :items='phonePrefixes'
-                    item-text='label'
-                    item-value='phone_prefix'
-                    :append-outer-icon='requiredIcon("phone_prefix")'
-                    :label='labelFor("phone_prefix")'
-                    prepend-icon='mdi-earth'
-                    persistent-hint
-                    clearable
-                    :hint='$t("profile.phone_prefix_hint")'
-                    :search-input.sync="phonePrefixSearch"
-                    :loading="phonePrefixesLoading"
-                    hide-no-data
-                    :error-messages='phonePrefixErrors'
-                    @input='$v.phone_prefix.$touch()'
-                    @blur='$v.phone_prefix.$touch()'
+                <v-col cols='12' sm='6'>
+                  <v-radio-group
+                    v-model='gender'
+                    row
+                    :error-messages="genderErrors"
+                    :prepend-icon="!!gender ? (gender == 'M' ? 'mdi-gender-male' : 'mdi-gender-female') : 'mdi-gender-male-female'"
+                    @change="$v.gender.$touch()"
+                    @blur="$v.gender.$touch()"
                     :disabled="disableForm"
-                  />
+                  >
+                    <!--span class='mr-4'>{{ $t('user.attributes.gender') }}</span-->
+                    <v-radio
+                      :label='$t("profile.attributes.genders.male")'
+                      value='M'
+                    />
+                    <v-radio
+                      :label='$t("profile.attributes.genders.female")'
+                      value='F'
+                    />
+                  </v-radio-group>
                 </v-col>
+                <v-col cols='12' sm='6'>
+                  <v-menu
+                          ref="menu_birthdate"
+                          v-model="birthdatePickerOpened"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          :return-value.sync="birthdate"
+                          transition="scale-transition"
+                          offset-y
+                          max-width="290px"
+                          min-width="290px"
+                  >
+                    <template v-slot:activator='{ on }'>
+                      <v-text-field
+                              :value='formattedDate(birthdate)'
+                              :append-outer-icon='requiredIcon("birthdate")'
+                              :label='labelFor("birthdate")'
+                              prepend-icon='mdi-calendar'
+                              :error-messages="birthdateErrors"
+                              readonly
+                              v-on='on'
+                      />
+                    </template>
+                    <v-date-picker
+                            scrollable
+                            ref="birthday_picker"
+                            v-model='birthdate'
+                            first-day-of-week='1'
+                            :locale='$i18n.locale'
+                            :max="new Date().toISOString().substr(0, 10)"
+                            min="1900-01-01"
+                            @input="$v.birthdate.$touch()"
+                            @blur="$v.birthdate.$touch()"
+                            @click:date="$refs.menu_birthdate.save(birthdate)"
+                    />
+                  </v-menu>
+                </v-col>
+              </v-row>
+
+              <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field
                     v-model='phone'
@@ -137,97 +124,21 @@
                     :disabled="disableForm"
                   />
                 </v-col>
-              </v-row>
-
-              <v-row>
-                <v-col>
+                <v-col cols='12' sm='6'>
                   <v-text-field
-                    v-model='email'
-                    prepend-icon='mdi-at'
-                    :append-outer-icon='requiredIcon("email")'
-                    :label='labelFor("email")'
-                    :error-messages='emailErrors'
-                    @input='$v.email.$touch()'
-                    @blur='$v.email.$touch()'
-                    persistent-hint
-                    :hint='$t("customer.hints.email")'
-                    :disabled="disableForm"
-                  />
-                </v-col>
-
-                <v-col>
-                  <v-select
-                    v-model='language'
-                    :items="surveyLanguages"
-                    item-text='name'
-                    item-value='value'
-                    :label='labelFor("language")'
-                    prepend-icon="mdi-forum-outline"
-                    :append-outer-icon='requiredIcon("language")'
-                    @input="$v.language.$touch()"
-                    @blur="$v.language.$touch()"
-                    :error-messages='languageErrors'
+                          v-model='email'
+                          prepend-icon='mdi-at'
+                          :append-outer-icon='requiredIcon("email")'
+                          :label='labelFor("email")'
+                          :error-messages='emailErrors'
+                          @input='$v.email.$touch()'
+                          @blur='$v.email.$touch()'
+                          persistent-hint
+                          :hint='$t("profile.hints.email")'
+                          :disabled="disableForm"
                   />
                 </v-col>
               </v-row>
-
-              <!-- <v-text-field
-                v-model='address'
-                :label='labelFor("address")'
-              />
-              <v-text-field
-                v-model='cap'
-                :label='labelFor("cap")'
-              />
-              <v-text-field required
-                v-model='fiscal_code'
-                :label='labelFor("fiscal_code")'
-                :error-messages='fiscalCodeErrors'
-                @input='$v.fiscal_code.$touch()'
-                @blur='$v.fiscal_code.$touch()'
-              />
-              <v-text-field required
-                v-model='document_number'
-                :label='labelFor("document_number")'
-                :error-messages='documentNumberErrors'
-                @input='$v.document_number.$touch()'
-                @blur='$v.document_number.$touch()'
-              />
-              <v-dialog
-                ref='dialog'
-                v-model='birthdatePickerOpened'
-                :return-value.sync='birthdate'
-                persistent
-                width='290px'
-              >
-                <template v-slot:activator='{ on }'>
-                  <v-text-field
-                    :value='formattedDate(birthdate)'
-                    :label='labelFor("birthdate")'
-                    readonly
-                    v-on='on'
-                  />
-                </template>
-                <v-date-picker
-                  v-model='birthdate'
-                  first-day-of-week='1'
-                  :locale='$i18n.locale'
-                  scrollable
-                >
-                  <v-btn text @click='birthdatePickerOpened = false'>
-                    {{ $t('commons.cancel') }}
-                  </v-btn>
-                  <div class='flex-grow-1'></div>
-                  <v-btn text color='primary' @click='$refs.dialog.save(birthdate)'>
-                    {{ $t('commons.confirm') }}
-                  </v-btn>
-                </v-date-picker>
-              </v-dialog>
-              <v-radio-group v-model='sex' row>
-                <span class='mr-4'>{{ $t('profile.attributes.sex') }}</span>
-                <v-radio :label='$t("profile.attributes.male")' value='M'/>
-                <v-radio :label='$t("profile.attributes.female")' value='F'/>
-              </v-radio-group> -->
 
             </v-form>
           </v-card-text>
@@ -275,21 +186,12 @@
     validations() {
       const fiscalCodeRequired = false
       return {
-        first_name:      { required: requiredIf(_ => { return !this.isLegal }) },
-        last_name:       { required: requiredIf(_ => { return !this.isLegal }) },
-        business_name:   { required: requiredIf(_ => { return this.isLegal }) },
-        sex:             { required: requiredIf(_ => { return !this.isLegal }) },
+        firstname:       { required },
+        lastname:        { required },
+        gender:          { required },
         email:           { required, email },
         phone:           { required },
-        phone_prefix:    { required },
-        language:        { required },
-        fiscal_code: {
-          required: requiredIf(_ => { return fiscalCodeRequired }),
-          fiscalCodeValidator(value) {
-            if (!value || value == '') return true
-            return /^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/i.test(value)
-          },
-        },
+        birthdate:       { required: requiredIf(_ => { return false }) }
       }
     },
     data() {
@@ -297,25 +199,14 @@
 
       return {
         serverSideErrors: {},
-        phonePrefixesLoading: false,
-        initialCurrentUserCompleted: !!currentUser.phone && !!currentUser.phone_prefix && !!currentUser.language,
-        business_name: currentUser.business_name,
-        first_name: currentUser.first_name,
-        last_name: currentUser.last_name,
-        sex: currentUser.sex,
+        initialCurrentUserCompleted: !!currentUser.phone,
+        firstname: currentUser.firstname,
+        lastname: currentUser.lastname,
+        gender: currentUser.gender,
         email: currentUser.email,
-        phone_prefix: currentUser.phone_prefix,
-        phonePrefixSearch: currentUser.phone_prefix,
         phone: currentUser.phone,
-        // address: currentUser.address,
-        // birthdate: currentUser.birthdate,
-        // cap: currentUser.cap,
-        // document_number: currentUser.document_number,
-        fiscal_code: currentUser.fiscal_code,
-        // sex: currentUser.sex,
-        // serverSideErrors: {},
-        // birthdatePickerOpened: false,
-        language: currentUser.language,
+        birthdate: currentUser.birthdate,
+        birthdatePickerOpened: false,
       }
     },
     created() {
@@ -334,41 +225,14 @@
       ...mapState('mappings', [
         'phonePrefixes'
       ]),
-      isLegal() {
-        return this.currentUser.customer_type == 'LEGAL_PERSON'
+      phoneErrors() {
+        const errors = []
+        !!this.serverSideErrors.phone && errors.push(this.show_error_form_field(this.serverSideErrors.phone))
+        !this.$v.phone.required && errors.push(this.$t('errors.required'))
+        return errors
       },
-      isNatural() {
-        return !this.isLegal
-      },
-      hasPhonePrefix() {
-        return !!this.phone_prefix
-      },
-      hasPhone() {
-        return !!this.phone
-      },
-      surveyLanguages() {
-        return [
-          { value: 'it', name: 'Italiano' },
-          { value: 'en', name: 'English' },
-          { value: 'de', name: 'Deutsch' },
-          { value: 'fr', name: 'Français' },
-          { value: 'es', name: 'Español' },
-        ]
-      },
-      // phonePrefixErrors() {
-      //   const errors = []
-      //   !!this.serverSideErrors.phone_prefix && errors.push(this.show_error_form_field(this.serverSideErrors.phone_prefix))
-      //   !this.$v.phone_prefix.required && errors.push(this.$t('errors.required'))
-      //   return errors
-      // },
-      // phoneErrors() {
-      //   const errors = []
-      //   !!this.serverSideErrors.phone && errors.push(this.show_error_form_field(this.serverSideErrors.phone))
-      //   !this.$v.phone.required && errors.push(this.$t('errors.required'))
-      //   return errors
-      // },
       disableForm() {
-        return this.currentUserByAdmin && this.isLegal
+        return false
       },
     },
     methods: {
@@ -380,25 +244,15 @@
         if (this.$v.$invalid) return
 
         this.$store.dispatch('profile/update', {
-          business_name: this.business_name,
-          first_name: this.first_name,
-          last_name: this.last_name,
-          sex: this.sex,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          gender: this.gender,
           email: this.email,
-          phone_prefix: this.phone_prefix,
           phone: this.phone,
-          // address: this.address,
-          // birthdate: this.birthdate,
-          // cap: this.cap,
-          // document_number: this.document_number,
-          fiscal_code: this.fiscal_code,
-          // sex: this.sex
-          language: this.language,
+          birthdate: this.birthdate,
         })
           .then(_ => {
-            if (this.currentUser.pending_order_uuid) {
-              this.$router.push({ name: 'orderShow', params: { id: this.currentUser.pending_order_uuid } })
-            } else if (!this.initialCurrentUserCompleted) {
+            if (!this.initialCurrentUserCompleted) {
               this.$router.push({ name: 'dashboard' })
               this.$store.dispatch('layout/addAlert', {
                 type: 'success',
@@ -422,26 +276,6 @@
             }
             this.serverSideErrors = error.body ? error.body.errors : {}
           })
-      }
-    },
-    watch: {
-      phonePrefixSearch: {
-        immediate: true,
-        handler: function(search) {
-          if (!search) return
-          if (this.phonePrefixesLoading) return
-          this.phonePrefixesLoading = true
-
-          this.$store
-            .dispatch('mappings/fetchPhonePrefixes', { name: search })
-            .catch(err => {
-              this.$store.dispatch('layout/replaceAlert', {
-                type: 'error',
-                message: err
-              })
-            })
-            .finally(() => (this.phonePrefixesLoading = false))
-        }
       }
     },
   }
