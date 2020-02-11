@@ -1,10 +1,10 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.0.18"
+    version: "0.0.19"
     updated_at: "11/02/2020"
     started_at: "11/01/2020"
-    host: "insiemento.herokuapp.com"
+    host: "insiemento.io"
     commercial:
       brand: "My Fitness"
       payoff: "Run, Jump, Burn!"
@@ -12,8 +12,6 @@ defaults: &defaults
       support_email: "support"
       address: "San Giuliano Milanese"
       ceo: "Marco Mastrodonato"
-      main_background_color: "white"
-      main_foreground_color: "#e3696a"
   sms:
     provider: "twilio"
     twilio:

@@ -55,15 +55,10 @@ en:
         email_already_exists_hints: You have already been an Italianway guest, we have recognized your email. Now you just have to choose a password.
         email_already_exists_get_password: Set Password
         attributes:
-          business_name: Company name
           email_confirmation: Confirm email
           email: Email
-          first_name_natural_person: Name
-          last_name_natural_person: Surname
-          first_name_legal_person: Contact Name
-          last_name_legal_person: Contact Surname
-          legal: For others (company account)
-          natural: For me (private account)
+          firstname: Name
+          lastname: Surname
           password_confirmation: Confirm password
           password: Password
           remember_me: Remember me on this device

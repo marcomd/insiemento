@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 default_password = Rails.application.credentials.seed.dig(:default_password)
 if AdminUser.count == 0
-  AdminUser.create!(email: "admin@#{CONFIG.dig(:application, :host)}",
+  AdminUser.create!(email: 'admin@insiemento.io',
                     password: default_password,
-                    password_confirmation: default_password) if Rails.env.development?
+                    password_confirmation: default_password)
 end
 
 if Course.count == 0

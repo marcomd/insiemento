@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.0.19 11/02/2020 0,5h 44h
+
+- Several minor fixes
+
 # v0.0.18 11/02/2020 0h 44h
 
 - Changed the host configuration when delivering emails
