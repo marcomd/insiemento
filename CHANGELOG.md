@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.0.17 11/02/2020 1h
+
+- Improved admin ui
+  - Resources lists are now optimized (eager loading)
+  - Customized course event list and show
+
 # v0.0.16 08/02/2020 3h
 
 - Added search text field to course event table

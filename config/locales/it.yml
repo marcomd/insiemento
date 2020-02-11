@@ -227,6 +227,9 @@ it:
       user:
         one: "Utente"
         other: "Utenti"
+      attendee:
+        one: "Partecipante"
+        other: "Partecipanti"
     errors:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'

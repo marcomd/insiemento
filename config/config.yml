@@ -4,7 +4,7 @@ defaults: &defaults
     version: "0.0.16"
     updated_at: "09/02/2020"
     started_at: "11/01/2020"
-    host: "insiemento.io"
+    host: "insiemento.herokuapp.com"
     commercial:
       brand: "My Fitness"
       payoff: "Run, Jump, Burn!"

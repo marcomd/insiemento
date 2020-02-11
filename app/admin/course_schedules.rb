@@ -14,5 +14,12 @@ ActiveAdmin.register CourseSchedule do
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end
-  
+
+  controller do
+    def scoped_collection
+      myscope = super
+      myscope = myscope.includes :course, :room, :trainer
+      myscope
+    end
+  end
 end
