@@ -58,6 +58,9 @@ gem 'http-accept', '~> 2.1.0'
 # A simple HTTP and REST client for Ruby
 gem 'rest-client', '~> 2.0.2'
 
+# Pure Ruby library for Handlebars templates
+gem 'ruby-handlebars', '~> 0.4.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

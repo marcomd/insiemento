@@ -59,7 +59,7 @@ class SendgridService
   # Get remote template id by method_name
   #
     def get_remote_template_id(mailer)
-    YAML.load(ERB.new(File.read("#{Rails.root}/config/sendgrid/templates.yml")).result).fetch(mailer.to_s)
+    YAML.load(File.read("#{Rails.root}/config/sendgrid/templates.yml").result).fetch(mailer.to_s)
   end
 
   #

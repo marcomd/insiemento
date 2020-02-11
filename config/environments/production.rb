@@ -1,4 +1,5 @@
-Rails.application.default_url_options = { host: 'insiemento.io' }
+host = 'insiemento.herokuapp.com'
+Rails.application.default_url_options = { host: host }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -68,8 +69,8 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options   = { :host => 'insiemento.io' }
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options   = { :host => host }
+  config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.delivery_method = :smtp
 
@@ -77,7 +78,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :user_name => Rails.application.credentials.smtp_username,
       :password => Rails.application.credentials.smtp_password,
-      :domain => 'insiemento.io',
+      :domain => host,
       :address => 'smtp.sendgrid.net',
       :port => 587,
       :authentication => :plain,

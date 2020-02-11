@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.18 11/02/2020 0h 44h
+
+- Changed the host configuration when delivering emails
+- Added handlebars gem
+
 # v0.0.17 11/02/2020 1h
 
 - Improved admin ui

@@ -1,4 +1,6 @@
-Rails.application.default_url_options = { host: 'localhost', port: '3100' }
+host = 'localhost'
+host_port = 3100
+Rails.application.default_url_options = { host: host, port: host_port }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -62,11 +64,11 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Configure action mailer
-  config.default_url_options = { host: 'localhost', port: '3100' }
+  config.default_url_options = { host: host, port: host_port }
   config.action_mailer.default_url_options = config.default_url_options
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :host => 'localhost', :port => 1025 }
+  config.action_mailer.smtp_settings = { host: host, port: 1025 }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
 end
