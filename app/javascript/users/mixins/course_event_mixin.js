@@ -10,9 +10,6 @@ export const courseEventMixin = {
     trainer() {
       return this.course_event.trainer
     },
-    support_email() {
-      return ''
-    },
     courseImageName() {
       const planned_courses = ['zumba', 'yoga']
       const course_name_lowered = this.course.name.toLowerCase()

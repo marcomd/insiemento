@@ -1,6 +1,11 @@
 # CHANGELOG
 
-# v0.0.19 11/02/2020 0,5h 44h
+# v0.0.20 11/02/2020 0,5h
+
+- Added contact label on sidebar and it is also improved: it sets a subject depending on current page. 
+  On course event page the subject includes its data otherwise a generic subject is used.
+
+# v0.0.19 11/02/2020 0,5h
 
 - Several minor fixes
 

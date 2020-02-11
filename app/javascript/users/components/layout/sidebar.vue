@@ -7,14 +7,14 @@
       <LocaleSelector/>
     </div>
     <v-list>
-      <!--v-list-item exact :to='{name: "home"}' v-if='!isLoggedIn'>
+      <v-list-item exact :to='{name: "home"}' v-if='!isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-home</v-icon>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>{{ $t('sidebar.home') }}</v-list-item-title>
         </v-list-item-content>
-      </v-list-item-->
+      </v-list-item>
       <v-list-item :to='{name: "login"}' v-if='!isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-account-arrow-right</v-icon>
@@ -84,21 +84,22 @@
       ...mapState('application', [
         'current_organization'
       ]),
+      ...mapState('course_event', [
+        'course_event'
+      ]),
       ...mapGetters('session', [
         'isLoggedIn'
       ]),
       privateOrderSection() {
-        return ['dashboard', 'orderShow', 'checkinGuests', 'checkinContract', 'checkinInvoice', 'checkinSummary'].includes(this.$route.name)
+        return ['courseEventShow'].includes(this.$route.name)
       },
       supportLink() {
-        return this.privateOrderSection && !!this.support_email ? this.orderSupportLink : this.genericSupportLink
+        return this.privateOrderSection ? this.courseSupportLink : this.genericSupportLink
       },
-      orderSupportLink() {
-        return `mailto:${this.support_email}?subject=${this.$t('footer.support_email.subject_with_order', {code: this.order.code})}`
+      courseSupportLink() {
+        return `mailto:${this.current_organization.cs_email}?subject=${this.$t('footer.support_email.subject_with_course', {name: this.course.name, code: this.course_event.id})}`
       },
       genericSupportLink() {
-        // return 'https://www.italianway.house/contattaci'
-        // return `mailto:${this.support_email}?subject=${this.$t('footer.support_email.subject')}`
         return `mailto:${this.current_organization.cs_email}?subject=${this.$t('footer.support_email.subject')}`
       }
     },

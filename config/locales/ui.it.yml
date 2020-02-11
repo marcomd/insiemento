@@ -5,6 +5,9 @@ it:
         title: My Fitness
       footer:
         about: Chi siamo
+        support_email:
+          subject: "Richiesta assistenza generica"
+          subject_with_course: "Richiesta assistenza corso %{name} evento id %{code}"
       home:
         step1: Registrati
         step2: Scegli il corso

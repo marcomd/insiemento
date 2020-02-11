@@ -5,6 +5,9 @@ en:
         title: My Fitness
       footer:
         about: About us
+        support_email:
+          subject: "Generic assistance request"
+          subject_with_course: "Assistance request on course %{name} event id %{code}"
       home:
         step1: Register
         step2: Choose your course
