@@ -83,7 +83,7 @@ end
 
 if CourseSchedule.count == 0
   course_event_attributes = []
-  (1..7).each do |event_day|
+  [1,2,3,4,5,6,0].each do |event_day|
     course_event_attributes << {course_id: c_zumba.id, room_id: r_small.id, trainer_id: t_miguel.id, event_day: event_day, event_time: '7:00', state: :active}
     course_event_attributes << {course_id: c_zumba.id, room_id: r_middle.id, trainer_id: t_miguel.id, event_day: event_day, event_time: '10:00', state: :active}
     course_event_attributes << {course_id: c_zumba.id, room_id: r_large.id, trainer_id: t_miguel.id, event_day: event_day, event_time: '13:00', state: :active}
@@ -96,14 +96,21 @@ if CourseSchedule.count == 0
   puts "CourseSchedules: #{CourseSchedule.count}"
 end
 
+# Calculate next monday date
+starting_date = Time.zone.today
+# starting_date = Date.parse('monday')
+# delta = starting_date > Time.zone.today ? 0 : 7
+# starting_date = starting_date + delta
+
 if CourseEvent.count == 0
   CourseSchedule.all.each do |cs|
-    CourseEvent.create!(course_id: cs.course.id,
+    ce=CourseEvent.create!(course_id: cs.course.id,
                         room_id: cs.room_id,
                         trainer_id: cs.trainer_id,
                         course_schedule_id: cs.id,
-                        event_date: cs.next_event_datetime,
+                        event_date: cs.next_event_datetime(starting_date),
                         state: cs.state)
+    starting_date = ce.event_date.to_date
   end
   puts "CourseEvents: #{CourseEvent.count}"
 end

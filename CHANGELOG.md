@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.0.23 15/02/2020 2h
+
+- Improved CourseSchedule next_event_date
+  - Now accept a date as params as it use it to return the next week date
+  - Added the CourseSchedule model spec. Seed is loaded before the suite to access uses cases
+- Seed now creates scheduling starting from the current date
+
 # v0.0.22 15/02/2020 1,5h
 
 - Improved the course selection in the dashboard page
