@@ -2,7 +2,11 @@
     <v-container fluid>
         <v-card>
             <v-card-title>
-                {{ $t('course_event.list.select_label') }}
+                <v-select
+                        v-model="search"
+                        :items="courses"
+                        :label="$t('course_event.list.select_label')"
+                ></v-select>
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -55,15 +59,21 @@
     data() {
       return {
         search: '',
+        selectedCourse: null,
         headers: [
-          { text: 'ID', value: 'id' },
+          // { text: 'ID', value: 'id' },
           { text: this.$t('course_event.attributes.course'), value: 'course.name' },
-          { text: this.$t('course_event.attributes.room'), value: 'room.name' },
-          { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
           { text: this.$t('course_event.attributes.event_date'), value: 'event_date' },
           { text: this.$t('course_event.attributes.subscribed'), value: 'subscribed' },
+          { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
+          { text: this.$t('course_event.attributes.room'), value: 'room.name' },
         ]
       }
+    },
+    computed: {
+      courses() {
+        return ['Zumba', 'Yoga']
+      },
     },
     methods: {
       ...mapActions('layout', ['setSearch']),
@@ -71,7 +81,10 @@
         this.$emit('select-course_event', {
           course_event: course_event
         })
-      }
+      },
+      handleCourseSelected(value) {
+        this.search = this.selectedCourse.join(' ')
+      },
     },
     watch: {
       search(value) {

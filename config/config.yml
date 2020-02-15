@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.0.20"
-    updated_at: "11/02/2020"
+    version: "0.0.21"
+    updated_at: "15/02/2020"
     started_at: "11/01/2020"
     host: "insiemento.io"
     commercial:

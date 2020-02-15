@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.21 15/02/2020 0,5h
+
+- Added a course selection on top of the events table
+  - Added a select above the table linked to search with which you can select the course from a static list
+
 # v0.0.20 11/02/2020 0,5h
 
 - Added contact label on sidebar and it is also improved: it sets a subject depending on current page. 

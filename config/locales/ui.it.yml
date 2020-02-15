@@ -94,7 +94,7 @@ it:
         subscribe_action: Partecipa
         unsubscribe_action: Disdici
         list:
-          select_label: A quale corso desideri partecipare?
+          select_label: Seleziona i corsi
           subscribed_label: Questi sono i corsi che hai selezionato
           select_action: Dettagli
           completed: I tuoi precedenti corsi

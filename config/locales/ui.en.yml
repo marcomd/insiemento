@@ -95,7 +95,7 @@ en:
         subscribe_action: Subscribe
         unsubscribe_action: Unsubscribe
         list:
-          select_label: Which course do you want to attend?
+          select_label: Select courses
           subscribed_label: These are the courses you will attend
           select_action: Details
           completed: Your previous courses
