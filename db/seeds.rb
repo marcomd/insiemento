@@ -14,17 +14,23 @@ end
 
 if Course.count == 0
   c_zumba=Course.create!(name: 'Zumba',
-                         description: "L'allenamento più divertente in assoluto. Balla al ritmo di musiche energetiche insieme a gente fantastica e brucia una tonnellata di calorie divertendoti.",
+                         description: 'L''allenamento più divertente in assoluto. Balla al ritmo di musiche energetiche insieme a gente fantastica e brucia una tonnellata di calorie divertendoti.',
                          start_booking_hours: 48,
                          end_booking_minutes: 90,
                          state: :active,
   )
   c_yoga=Course.create!(name: 'Yoga',
-                         description: "Lo Yoga porta equilibrio e calma, oltre che benessere fisico e mentale.",
+                         description: 'Lo Yoga porta equilibrio e calma, oltre che benessere fisico e mentale.',
                          start_booking_hours: 96,
                          end_booking_minutes: 360,
                          state: :active,
                          )
+  c_pilates=Course.create!(name: 'Pilates',
+                        description: 'Il pilates è una ginnastica funzionale, posturale e globale basata sul riequilibrio di corpo e mente, che agisce sulla consapevolezza del proprio corpo, sulla forza e sulla flessibilità insegnando a dare maggiore armonia e fluidità nei movimenti.',
+                        start_booking_hours: 24,
+                        end_booking_minutes: 60,
+                        state: :active,
+                        )
   puts "Courses: #{Course.count}"
 else
   c_zumba, c_yoga = Course.all
@@ -35,9 +41,11 @@ if Trainer.count == 0
                            bio: "Un caliente ballerino brasiliano, tra i tre più grandi ballerini italiani di zumba di tutti i tempi.")
   t_jenny=Trainer.create!(firstname: 'Jennifer', lastname: 'Santorini', nickname: 'Saint', state: :active,
                           bio: "Percorso accademico completato negli states, eletta Miss chiappe d'oro 2019, con lei è vivamente consigliata una bombola di ossigeno!")
+  t_sandy=Trainer.create!(firstname: 'Sandy', lastname: 'Marton', nickname: 'Sese', state: :active,
+                         bio: "È un artista in grado di interpretare la musica e tradurla attraverso il linguaggio del corpo.")
   puts "Trainers: #{Trainer.count}"
 else
-  t_miguel, t_jenny = Trainer.all
+  t_miguel, t_jenny, t_sandy = Trainer.all
 end
 
 if User.count == 0
@@ -67,7 +75,7 @@ end
 if Room.count == 0
   r_small=Room.create!(name: 'Piccola', max_attendees: 10, state: :active,)
   r_middle=Room.create!(name: 'Media', max_attendees: 20, state: :active,)
-  r_large=Room.create!(name: 'Media', max_attendees: 30, state: :active,)
+  r_large=Room.create!(name: 'Grande', max_attendees: 30, state: :active,)
   puts "Rooms: #{Room.count}"
 else
   r_small, r_middle, r_large = Room.all
@@ -82,6 +90,7 @@ if CourseSchedule.count == 0
     course_event_attributes << {course_id: c_yoga.id, room_id: r_small.id, trainer_id: t_jenny.id, event_day: event_day, event_time: '14:30', state: :active}
     course_event_attributes << {course_id: c_yoga.id, room_id: r_middle.id, trainer_id: t_jenny.id, event_day: event_day, event_time: '16:30', state: :active}
     course_event_attributes << {course_id: c_yoga.id, room_id: r_large.id, trainer_id: t_jenny.id, event_day: event_day, event_time: '18:30', state: :active}
+    course_event_attributes << {course_id: c_pilates.id, room_id: r_large.id, trainer_id: t_sandy.id, event_day: event_day, event_time: '21:00', state: :active}
   end
   CourseSchedule.create!(course_event_attributes)
   puts "CourseSchedules: #{CourseSchedule.count}"
@@ -101,11 +110,15 @@ end
 
 if Attendee.count == 0
   Attendee.create!(course_event_id:  1, user_id: u_stefania.id)
-  Attendee.create!(course_event_id:  4, user_id: u_stefania.id)
-  Attendee.create!(course_event_id:  7, user_id: u_stefania.id)
-  Attendee.create!(course_event_id: 11, user_id: u_stefania.id)
-  Attendee.create!(course_event_id: 14, user_id: u_stefania.id)
-  Attendee.create!(course_event_id: 17, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  1, user_id: u_marco.id)
+  Attendee.create!(course_event_id:  1, user_id: u_linda.id)
+
+  Attendee.create!(course_event_id:  2, user_id: u_stefania.id)
   Attendee.create!(course_event_id:  2, user_id: u_marco.id)
+
+  Attendee.create!(course_event_id:  3, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  4, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  5, user_id: u_stefania.id)
+
   puts "Attendees: #{Attendee.count}"
 end

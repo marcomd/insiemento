@@ -6,6 +6,9 @@
                         v-model="search"
                         :items="courses"
                         :label="$t('course_event.list.select_label')"
+                        hide-details
+                        cache-items
+                        clearable
                 ></v-select>
                 <v-spacer></v-spacer>
                 <v-text-field
@@ -14,13 +17,15 @@
                         :label="$t('commons.search')"
                         single-line
                         hide-details
+                        clearable
+                        v-if="$vuetify.breakpoint.smAndUp"
                 ></v-text-field>
             </v-card-title>
             <v-data-table
                     :headers="headers"
                     :items="course_events"
                     :search="search"
-                    :items-per-page="$vuetify.breakpoint.xsOnly ? 1 : 15"
+                    :items-per-page="itemsPerPage"
                     class="elevation-1"
                     @click:row="selectRow"
                     :multi-sort="true"
@@ -72,8 +77,11 @@
     },
     computed: {
       courses() {
-        return ['Zumba', 'Yoga']
+        return Array.from(new Set(this.course_events.map(course_event => course_event.course.name)))
       },
+      itemsPerPage() {
+        return this.$vuetify.breakpoint.xsOnly ? 1 : (this.$vuetify.breakpoint.mdAndUp ? 15 : 5)
+      }
     },
     methods: {
       ...mapActions('layout', ['setSearch']),
@@ -81,9 +89,6 @@
         this.$emit('select-course_event', {
           course_event: course_event
         })
-      },
-      handleCourseSelected(value) {
-        this.search = this.selectedCourse.join(' ')
       },
     },
     watch: {

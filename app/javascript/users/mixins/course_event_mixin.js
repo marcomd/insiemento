@@ -11,7 +11,7 @@ export const courseEventMixin = {
       return this.course_event.trainer
     },
     courseImageName() {
-      const planned_courses = ['zumba', 'yoga']
+      const planned_courses = ['zumba', 'yoga', 'pilates']
       const course_name_lowered = this.course.name.toLowerCase()
       return `course_${planned_courses.includes(course_name_lowered) ? course_name_lowered : planned_courses[0]}_600.jpg`
     },

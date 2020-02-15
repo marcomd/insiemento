@@ -6,7 +6,7 @@ class CourseEvent < ApplicationRecord
   has_many :attendees
   has_many :users, through: :attendees
 
-  STATES = { just_made: 10, active: 20, suspended: 30}
+  STATES = { just_made: 10, active: 20, suspended: 30, closed: 40}
   enum state: STATES
 
   def attendees_count

@@ -28,11 +28,11 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchCourseEvents({ commit, dispatch, rootState }, status_param = 'ACTIVE') {
+  fetchCourseEvents({ commit, dispatch, rootState }, state_param = 'active') {
     return new Promise((resolve, reject) => {
       dispatch('layout/set_loading', true, { root: true })
       // console.log(`fetchCourseEvents rootState ${rootState.application.urls.course_events_index}`)
-      let url = `${rootState.application.urls.course_events_index}?status=${status_param}`
+      let url = `${rootState.application.urls.course_events_index}?state=${state_param}`
       Vue.http.get(url, null, {
         responseType: 'json',
       }).then(response => {

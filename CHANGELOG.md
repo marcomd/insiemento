@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# v0.0.22 15/02/2020 1,5h
+
+- Improved the course selection in the dashboard page
+  - Now list of courses is built dinamically
+  - Search text field now is shown only stating from small display and up
+- Added new data to the seed
+  - new course Pilates with relative image
+  - a new trainer and new schedules 
+- Improved course events table visualization on small display
+- Fixed a bug in the course event module, now it retrieves only events with active state
+- Other little improvements
+
 # v0.0.21 15/02/2020 0,5h
 
 - Added a course selection on top of the events table
