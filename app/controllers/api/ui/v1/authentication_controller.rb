@@ -3,9 +3,8 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
   skip_before_action :authenticate_request, only: [:authenticate], raise: false
 
   def authenticate
-    #require_relative Rails.root.join 'app/services/authenticate_api_user.rb'
-    service = AuthenticateApiUser.call(params[:email],
-                                       params[:password],
+    service = AuthenticateApiUser.call(login_params[:email].downcase,
+                                       login_params[:password],
                                        request)
     if service.success?
       @auth_token = service.result
@@ -18,5 +17,11 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
     else
       render json: { error: t('ui.users.alerts.login_error') }, status: :unauthorized
     end
+  end
+
+  private
+
+  def login_params
+    params.require(:authentication).permit(:email, :password, :rememberMe, :format )
   end
 end

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.0.24 16/02/2020 0,5h
+
+- Fixed a bug when the user registered with an email address with some uppercase characters
+
 # v0.0.23 15/02/2020 2h
 
 - Improved CourseSchedule next_event_date

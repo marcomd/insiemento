@@ -7,13 +7,15 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
   def create
-    user = User.new(user_params.except(:email_confirmation))
+    user_attributes = user_params.to_h
+    user_attributes[:email] = user_attributes[:email].downcase
+    user = User.new(user_attributes.except(:email_confirmation))
     result = begin
       User.transaction do
         if user.save
           # require_relative Rails.root.join 'app/services/authenticate_api_user.rb'
-          service = AuthenticateApiUser.call(user_params[:email],
-                                             user_params[:password],
+          service = AuthenticateApiUser.call(user_attributes[:email],
+                                             user_attributes[:password],
                                              request)
           @auth_token = service.result
           @user = service.user
@@ -40,10 +42,6 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   def user_params
     params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
                                  :firstname, :lastname, :phone, :birthdate, :gender, :format )
-    # if params[:user].present?
-    # else
-    #   {}
-    # end
   end
 
   def check_and_sanitize_email_confirmation
