@@ -31,7 +31,7 @@ class SendgridMailer < ApplicationMailer
         link_url: link_url
     }
 
-    template_id = SendgridService.get_remote_template_id(__method__)[language]
+    template_id = get_remote_template_id(__method__)[language]
 
     SendgridService.call(:send_email, {from: { email: 'please-do-not-replay@insiemento.io', name: 'Customer Service' },
                                        to: user.email,

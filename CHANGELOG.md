@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.0.25 19/02/2020 0,5h
+
+- Fixed reset password
+  - Now it sends the email with the reset password link
+
 # v0.0.24 16/02/2020 0,5h
 
 - Fixed a bug when the user registered with an email address with some uppercase characters
