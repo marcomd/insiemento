@@ -12,6 +12,8 @@ if AdminUser.count == 0
                     password_confirmation: default_password)
 end
 
+generic_user_names = %w(user1 user2 user3 user4 user5 user6 user7)
+
 if Course.count == 0
   c_zumba=Course.create!(name: 'Zumba',
                          description: 'L''allenamento più divertente in assoluto. Balla al ritmo di musiche energetiche insieme a gente fantastica e brucia una tonnellata di calorie divertendoti.',
@@ -67,6 +69,14 @@ if User.count == 0
                    password_confirmation: default_password)
   u_linda.skip_confirmation!
   u_linda.save!
+  generic_user_names.each do |name|
+    user=User.new(firstname: name.capitalize, lastname: 'Generic', email: "#{name}@insiemento.io",
+                     birthdate: '2000-01-12', gender: 'M', state: :active, phone: '3382244666',
+                     password: default_password,
+                     password_confirmation: default_password)
+    user.skip_confirmation!
+    user.save!
+  end
   puts "Users: #{User.count}"
 else
   u_stefania, u_marco, u_linda = User.all
@@ -119,6 +129,10 @@ if Attendee.count == 0
   Attendee.create!(course_event_id:  1, user_id: u_stefania.id)
   Attendee.create!(course_event_id:  1, user_id: u_marco.id)
   Attendee.create!(course_event_id:  1, user_id: u_linda.id)
+  generic_user_names.each do |name|
+    user=User.find_by_email("#{name}@insiemento.io")
+    Attendee.create!(course_event_id:  1, user_id: user.id)
+  end
 
   Attendee.create!(course_event_id:  2, user_id: u_stefania.id)
   Attendee.create!(course_event_id:  2, user_id: u_marco.id)

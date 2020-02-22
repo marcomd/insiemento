@@ -30,6 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  errors:
+    messages:
+      already_subscribed: "already subscribed to this course!"
+      max_attendees_reached: "max attendees has been reached!"
   activerecord: &activerecord
     models: &models
       system_log:
@@ -53,9 +57,6 @@ en:
       user:
         one: "User"
         other: "Users"
-    errors:
-      messages:
-        already_subscribed: already subscribed to this course
 
 activeadmin:
   footer:

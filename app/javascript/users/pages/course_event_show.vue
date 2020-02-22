@@ -29,6 +29,7 @@
                class='mr-2 mb-2'
                :loading="submitting"
                @click="updateCourseEventSubscription"
+               :disabled="isCourseEventFull && !course_event.subscribed"
         >
           {{ course_event.subscribed ? $t('course_event.unsubscribe_action') : $t('course_event.subscribe_action') }}
         </v-btn>
@@ -89,6 +90,13 @@
             console.log(`updateCourseEventSubscription OK to ${this.course_event.subscribed}`)
           })
           .catch(error => {
+            // const myObject = error && error.body ? error.body : error
+            // const message = Object.keys(myObject).map( (key, index) => myObject[key]).join(', ')
+            const message = error && error.body ? (error.body.course_event_id ? error.body.course_event_id.join(', ') : error.body) : error
+            this.$store.dispatch('layout/replaceAlert', {
+              type: 'error',
+              message: message
+            })
             console.log(`Cannot updateCourseEventSubscription`, error)
           })
       },

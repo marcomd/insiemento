@@ -50,10 +50,9 @@ export const actions = {
   fetchCourseEvent({ commit, dispatch, getters, rootState }, {id, fresh=false}) {
     return new Promise((resolve, reject) => {
       console.log(`course_event/fetchCourseEvent id ${id} fresh ${fresh}`)
-      let uuid = /[a-z]*[0-9]*\-/.exec(id) ? id : null
       let course_event
       if (!fresh) {
-        course_event = uuid ? getters.getCourseEventByUuid(uuid) : getters.getCourseEventById(id)
+        course_event = getters.getCourseEventById(id)
         console.log(`  - course_event retrieved from cache`, course_event)
       }
       if (course_event) {

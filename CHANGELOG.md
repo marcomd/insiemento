@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.0.26 22/02/2020 3h
+
+- Backend
+  - Added max attendee validation
+  - Configured rspec
+  - Improved seed with new cases
+- Frontend
+  - Course events list now shows a new chip when it is full
+  - Course event show button is disabled when it is full 
+
 # v0.0.25 19/02/2020 0,5h
 
 - Fixed reset password

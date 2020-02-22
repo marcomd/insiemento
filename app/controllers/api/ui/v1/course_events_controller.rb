@@ -38,12 +38,22 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   end
 
   def subscribe
-    if course_event_filter_params[:subscribe] == true
-      @course_event.attendees << Attendee.new(user_id: current_user.id)
+    status =
+      if course_event_filter_params[:subscribe] == true
+        attendee = Attendee.new(user_id: current_user.id)
+        @course_event.attendees << attendee
+      else
+        attendee = @course_event.attendees.find_by_user_id(current_user.id)
+        attendee&.destroy
+      end
+
+    if status
+      render :show
+    elsif attendee
+      render json: attendee.errors, status: :unprocessable_entity
     else
-      @course_event.attendees.find_by_user_id(current_user.id).destroy
+      render json: {}, status: :not_found
     end
-    render :show
   end
 
   private

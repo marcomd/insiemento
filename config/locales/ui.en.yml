@@ -99,7 +99,9 @@ en:
           subscribed_label: These are the courses you will attend
           select_action: Details
           completed: Your previous courses
-          none: No courses available yet
+          none: No course available yet, warm your calves and come back soon
+          none_subscribed: You have not selected any courses, what are you waiting for?
+          full: Full
         show:
           title: "<strong>% {name} </strong> course"
         attributes:

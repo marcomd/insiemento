@@ -36,6 +36,9 @@
                 <template v-slot:item.subscribed="{ item }">
                     <v-chip :color="item.subscribed ? 'green' : '#cccccc'" dark>{{ item.subscribed ? $t('commons.say_yes') : $t('commons.say_no') }}</v-chip>
                 </template>
+                <template v-slot:item.full="{ item }">
+                    <v-chip :color="isFullThis(item) ? 'orange' : '#cccccc'" v-if="isFullThis(item)" dark>{{ $t('course_event.list.full') }}</v-chip>
+                </template>
             </v-data-table>
         </v-card>
     </v-container>
@@ -44,7 +47,7 @@
 <script>
     import { utilityMixin } from '../../mixins/utility_mixin'
     import { courseEventMixin } from "../../mixins/course_event_mixin"
-    import { mapState, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
 
     export default {
     name: 'CourseEventsTable',
@@ -72,6 +75,7 @@
           { text: this.$t('course_event.attributes.subscribed'), value: 'subscribed' },
           { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
           { text: this.$t('course_event.attributes.room'), value: 'room.name' },
+          { text: 'Info', value: 'full' },
         ]
       }
     },
@@ -81,7 +85,7 @@
       },
       itemsPerPage() {
         return this.$vuetify.breakpoint.xsOnly ? 1 : (this.$vuetify.breakpoint.mdAndUp ? 15 : 5)
-      }
+      },
     },
     methods: {
       ...mapActions('layout', ['setSearch']),
@@ -89,6 +93,10 @@
         this.$emit('select-course_event', {
           course_event: course_event
         })
+      },
+      isFullThis(course_event) {
+        if (!course_event || !course_event.room) return null
+        return course_event.attendees_count >= course_event.room.max_attendees
       },
     },
     watch: {
