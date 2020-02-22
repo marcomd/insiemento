@@ -1,0 +1,16 @@
+language: ruby
+services:
+  - redis-server
+  - postgresql
+addons:
+  postgresql: "11"
+before_install:
+  - psql -c 'create database insiemento_t;' -U postgres
+install:
+  - bundle install
+rvm:
+  - 2.6.3
+env:
+  - CI_ENV=default
+script:
+  - bundle exec rspec

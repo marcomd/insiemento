@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.1.0 22/02/2020
+
+- Added readme and travis configuration
+
 # v0.0.26 22/02/2020 3h
 
 - Backend
