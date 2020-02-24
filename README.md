@@ -1,6 +1,6 @@
 ![](/app/assets/images/logo_100.png)
 
-[![Travis CI   ](http://img.shields.io/travis/marcomd/insiemento/master.svg)     ](https://travis-ci.org/marcomd/insiemento)
+[![CircleCI](https://circleci.com/gh/marcomd/insiemento.svg?style=svg)](https://circleci.com/gh/marcomd/insiemento)
 
 # Insiemento
 

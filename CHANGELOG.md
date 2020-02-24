@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.2.0 24/02/2020
+
+- Added CircleCI configuration, removed TravisCI
+
 # v0.1.0 22/02/2020
 
 - Added readme and travis configuration

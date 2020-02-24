@@ -1,0 +1,93 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.0.1 # Invoke the Heroku orb
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+
+jobs:
+  build:
+    working_directory: ~/insiemento
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+        environment: # environment variables for primary container
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          DATABASE_URL: postgres://insiemento:insiemento01@localhost:5432/insiemento_t
+          RAILS_ENV: test
+          REDIS_URL: redis://127.0.0.1:6379
+      - image: circleci/postgres:11-alpine
+        environment: # environment variables for database
+          POSTGRES_USER: insiemento
+          POSTGRES_DB: insiemento_t
+          POSTGRES_PASSWORD: "insiemento01"
+      - image: circleci/redis:3.2-alpine
+    steps:
+      - checkout
+      # Install dependencies for Ruby Gems
+      - restore_cache:
+          keys:
+            - insiemento-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - insiemento-bundle-v1-
+
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: insiemento-bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - insiemento-yarn-v1-{{ checksum "yarn.lock" }}
+            - insiemento-yarn-v1-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: insiemento-yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # Preparing database
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:create db:schema:load --trace
+
+      # Run test suits
+
+      - run:
+          name: Run rspec in parallel
+          command: |
+            bundle exec rspec --profile 10 \
+                             --out /tmp/test-results/rspec.xml \
+                             --format progress \
+                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
