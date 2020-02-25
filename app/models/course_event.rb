@@ -6,6 +6,9 @@ class CourseEvent < ApplicationRecord
   has_many :attendees
   has_many :users, through: :attendees
 
+  validates :course_id, uniqueness: { scope: [:room_id, :trainer_id, :event_date],
+                                 message: 'already exists' }
+
   STATES = { just_made: 10, active: 20, suspended: 30, closed: 40}
   enum state: STATES
 

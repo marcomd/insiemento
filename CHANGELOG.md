@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.3.0 25/02/2020
+
+- New ScheduleService to create course events weekly
+
 # v0.2.0 24/02/2020
 
 - Added CircleCI configuration, removed TravisCI

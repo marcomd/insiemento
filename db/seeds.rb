@@ -113,15 +113,17 @@ starting_date = Time.zone.today
 # starting_date = starting_date + delta
 
 if CourseEvent.count == 0
-  CourseSchedule.all.each do |cs|
-    ce=CourseEvent.create!(course_id: cs.course.id,
-                        room_id: cs.room_id,
-                        trainer_id: cs.trainer_id,
-                        course_schedule_id: cs.id,
-                        event_date: cs.next_event_datetime(starting_date),
-                        state: cs.state)
-    starting_date = ce.event_date.to_date
-  end
+  # CourseSchedule.all.each do |cs|
+  #   ce=CourseEvent.create!(course_id: cs.course.id,
+  #                       room_id: cs.room_id,
+  #                       trainer_id: cs.trainer_id,
+  #                       course_schedule_id: cs.id,
+  #                       event_date: cs.next_event_datetime(starting_date),
+  #                       state: cs.state)
+  #   starting_date = ce.event_date.to_date
+  # end
+  # puts "CourseEvents: #{CourseEvent.count}"
+  ScheduleService.call(starting_date: Date.parse('2020-02-01'))
   puts "CourseEvents: #{CourseEvent.count}"
 end
 
