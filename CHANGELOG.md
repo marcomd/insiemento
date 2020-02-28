@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.4.1 28/02/2020
+
+- Updated nokogiri from 1.10.7 to 1.10.8
+
 # v0.4.0 28/02/2020
 
 - Added ScheduleJob to create next week events
