@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   end
 
   require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+  require 'sidekiq-status/web'
   authenticate :admin_user do
     mount Sidekiq::Web => '/admin/sidekiq'
   end

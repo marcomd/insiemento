@@ -1,0 +1,8 @@
+---
+:concurrency: 1
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - [default_mailer, 1]
+  - [course_events, 1]
+  - [active_storage_analysis, 1]

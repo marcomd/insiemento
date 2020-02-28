@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.4.0 28/02/2020
+
+- Added ScheduleJob to create next week events
+- Added sidekiq cron and sidekiq status gem
+- Added sidekiq configuration
+
 # v0.3.0 25/02/2020
 
 - New ScheduleService to create course events weekly

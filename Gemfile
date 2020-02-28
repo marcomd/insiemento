@@ -38,7 +38,12 @@ gem 'devise', '~> 4.7.0'
 
 # Simple, efficient background processing for Ruby
 gem 'sidekiq', '~> 6.0.4'
+
+# A scheduling add-on for Sidekiq.
 gem 'sidekiq-cron', '~> 1.1.0'
+
+# An extension to the sidekiq message processing to track your jobs
+gem 'sidekiq-status', '~> 1.1.4'
 
 # A simple, standardized way to build and use Service Objects (aka Commands) in Ruby
 gem 'simple_command', '~> 0.0.9'

@@ -1,0 +1,4 @@
+create_course_events:
+  cron: "0 0 * * 7"
+  class: ScheduleJob
+  queue: course_events
