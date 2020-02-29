@@ -9,8 +9,9 @@ class SendgridService
 
   attr_reader :status_code
 
-  def initialize(operation, params={})
+  def initialize(operation, organization, params={})
     @operation  = operation
+    @organization = organization
     @params     = params
   end
 
@@ -20,7 +21,7 @@ class SendgridService
 
   private
 
-  attr_reader :operation, :params
+  attr_reader :operation, :organization, :params
 
   def execute_operation
     response_body =
@@ -245,7 +246,8 @@ class SendgridService
   end
 
   def log_request(payload, response)
-    SystemLog.create!(message: "payload:#{payload} url:#{response.request.url} status:#{response.code}")
+    SystemLog.create!(organization: organization,
+                      message: "payload:#{payload} url:#{response.request.url} status:#{response.code}")
   end
 
   def is_development?

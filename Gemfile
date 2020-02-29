@@ -66,6 +66,11 @@ gem 'rest-client', '~> 2.0.2'
 # Pure Ruby library for Handlebars templates
 gem 'ruby-handlebars', '~> 0.4.0'
 
+# ActiveRecord::Store allows you to put data, like a hash, in a single column.
+# The problem is that when you retrieve these values, they are strings. Storext aims to solve that.
+# This is a layer on top of ActiveRecord::Store that uses Virtus to typecast the values
+gem 'storext', '~> 3.1.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

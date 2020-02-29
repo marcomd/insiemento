@@ -2,6 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :registerable, :confirmable
 
+  belongs_to :organization
   has_many :attendees, dependent: :destroy
   has_many :course_events, through: :attendees
 

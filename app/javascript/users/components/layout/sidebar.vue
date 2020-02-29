@@ -55,7 +55,7 @@
           <v-list-item-title>{{ $t('sidebar.logout') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item @click='askForSupport'>
+      <v-list-item @click='askForSupport' v-if="emailSupport">
         <v-list-item-action>
           <v-icon>mdi-help-circle-outline</v-icon>
         </v-list-item-action>
@@ -96,11 +96,14 @@
       supportLink() {
         return this.privateOrderSection ? this.courseSupportLink : this.genericSupportLink
       },
+      emailSupport() {
+        return this.current_organization.email
+      },
       courseSupportLink() {
-        return `mailto:${this.current_organization.cs_email}?subject=${this.$t('footer.support_email.subject_with_course', {name: this.course.name, code: this.course_event.id})}`
+        return `mailto:${this.emailSupport}?subject=${this.$t('footer.support_email.subject_with_course', {name: this.course.name, code: this.course_event.id})}`
       },
       genericSupportLink() {
-        return `mailto:${this.current_organization.cs_email}?subject=${this.$t('footer.support_email.subject')}`
+        return `mailto:${this.emailSupport}?subject=${this.$t('footer.support_email.subject')}`
       }
     },
     methods: {

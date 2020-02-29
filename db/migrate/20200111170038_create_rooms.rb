@@ -1,6 +1,7 @@
 class CreateRooms < ActiveRecord::Migration[6.0]
   def change
     create_table :rooms do |t|
+      t.references :organization, null: false, foreign_key: true
       t.string :name, limit: 30
       t.integer :max_attendees, limit: 1
       t.integer :state, limit: 1

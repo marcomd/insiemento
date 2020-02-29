@@ -1,4 +1,5 @@
 class CourseSchedule < ApplicationRecord
+  belongs_to :organization
   belongs_to :course
   belongs_to :room
   belongs_to :trainer

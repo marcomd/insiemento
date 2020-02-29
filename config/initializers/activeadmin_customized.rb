@@ -8,7 +8,7 @@ module ActiveAdmin
         @namespace = namespace
 
         div :id => "footer" do
-          ar_footer = [CONFIG.dig(:application, :commercial, :brand),
+          ar_footer = [CONFIG.dig(:application, :name),
                        "#{I18n.t('activeadmin.footer.env')} <b>#{Rails.env}</b>",
                        "#{I18n.t('activeadmin.footer.version')} <b>#{CONFIG.dig(:application, :version)}</b>",
                        "#{I18n.t('activeadmin.footer.last_update')} <b>#{CONFIG.dig(:application, :updated_at)}</b>"]

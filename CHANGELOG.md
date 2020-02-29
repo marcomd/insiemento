@@ -1,16 +1,26 @@
 # CHANGELOG
 
+# v0.5.0 28/02/2020 4h 60h
+
+- Added organizations management
+  - Added organization model and added this relation to all existing models
+    The theme attribute is a jsonb type field and this is used to customize the frontend UI from the backend UI.
+  - Added the current organization callback to application controller, set it by ENV.
+    In this way we can set an organization for each instance and this is the first step through the multi tenant management.
+  - Updated SendgridService to accept organization param
+  - Updated the frontend to use new organization attributes
+
 # v0.4.1 28/02/2020
 
 - Updated nokogiri from 1.10.7 to 1.10.8
 
-# v0.4.0 28/02/2020
+# v0.4.0 28/02/2020 1h
 
 - Added ScheduleJob to create next week events
 - Added sidekiq cron and sidekiq status gem
 - Added sidekiq configuration
 
-# v0.3.0 25/02/2020
+# v0.3.0 25/02/2020 2h
 
 - New ScheduleService to create course events weekly
 

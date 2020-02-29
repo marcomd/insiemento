@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
   end
 
   create_table "course_events", force: :cascade do |t|
+    t.bigint "organization_id", null: false
     t.bigint "course_id", null: false
     t.bigint "room_id", null: false
     t.bigint "trainer_id", null: false
@@ -71,11 +72,13 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_course_events_on_course_id"
     t.index ["course_schedule_id"], name: "index_course_events_on_course_schedule_id"
+    t.index ["organization_id"], name: "index_course_events_on_organization_id"
     t.index ["room_id"], name: "index_course_events_on_room_id"
     t.index ["trainer_id"], name: "index_course_events_on_trainer_id"
   end
 
   create_table "course_schedules", force: :cascade do |t|
+    t.bigint "organization_id", null: false
     t.bigint "course_id", null: false
     t.bigint "room_id", null: false
     t.bigint "trainer_id", null: false
@@ -85,11 +88,13 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_course_schedules_on_course_id"
+    t.index ["organization_id"], name: "index_course_schedules_on_organization_id"
     t.index ["room_id"], name: "index_course_schedules_on_room_id"
     t.index ["trainer_id"], name: "index_course_schedules_on_trainer_id"
   end
 
   create_table "courses", force: :cascade do |t|
+    t.bigint "organization_id", null: false
     t.string "name", limit: 30
     t.text "description"
     t.integer "start_booking_hours", limit: 2
@@ -97,24 +102,42 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_courses_on_organization_id"
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.string "name", limit: 30
-    t.integer "max_attendees", limit: 2
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", limit: 60
+    t.string "payoff", limit: 255
+    t.string "email", limit: 100
+    t.string "phone", limit: 15
+    t.string "domain", limit: 100
+    t.jsonb "theme"
     t.integer "state", limit: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "name", limit: 30
+    t.integer "max_attendees", limit: 2
+    t.integer "state", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_rooms_on_organization_id"
+  end
+
   create_table "system_logs", force: :cascade do |t|
+    t.bigint "organization_id", null: false
     t.integer "log_level", limit: 2
     t.string "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_system_logs_on_organization_id"
   end
 
   create_table "trainers", force: :cascade do |t|
+    t.bigint "organization_id", null: false
     t.string "firstname", limit: 30
     t.string "lastname", limit: 30
     t.string "nickname", limit: 30
@@ -122,9 +145,11 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_trainers_on_organization_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.bigint "organization_id", null: false
     t.string "firstname", limit: 30
     t.string "lastname", limit: 30
     t.date "birthdate"
@@ -149,6 +174,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -158,9 +184,16 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
   add_foreign_key "course_event_comments", "users"
   add_foreign_key "course_events", "course_schedules"
   add_foreign_key "course_events", "courses"
+  add_foreign_key "course_events", "organizations"
   add_foreign_key "course_events", "rooms"
   add_foreign_key "course_events", "trainers"
   add_foreign_key "course_schedules", "courses"
+  add_foreign_key "course_schedules", "organizations"
   add_foreign_key "course_schedules", "rooms"
   add_foreign_key "course_schedules", "trainers"
+  add_foreign_key "courses", "organizations"
+  add_foreign_key "rooms", "organizations"
+  add_foreign_key "system_logs", "organizations"
+  add_foreign_key "trainers", "organizations"
+  add_foreign_key "users", "organizations"
 end

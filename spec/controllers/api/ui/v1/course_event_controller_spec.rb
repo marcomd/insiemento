@@ -5,6 +5,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     header 'Content-Type', 'application/json; charset=utf-8'
     header 'X-Auth-Token', jwt_token
     header 'Accept-Language', language
+    ENV['ORGANIZATION']='1'
   end
   let(:user) { user_stefania }
   let(:jwt_token) { authenticated_user(user.email) }

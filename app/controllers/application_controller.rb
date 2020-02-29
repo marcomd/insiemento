@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, unless: :json_request?
   protect_from_forgery with: :null_session, if: :json_request? # return null session when API call
-  before_action :set_locale
+  before_action :set_locale, :current_organization
 
   # Non funzionano più i moduli concerns, oscura il before_action, verificare
   # include JwtAuthenticable
@@ -10,6 +10,16 @@ class ApplicationController < ActionController::Base
   respond_to :html, :json
 
   protected
+
+  def current_organization
+    @current_organization ||= Organization.find(ENV['ORGANIZATION'])
+  end
+
+  # def current_organization
+  #   Organization.find(ENV['ORGANIZATION'])
+  # rescue ActiveRecord::NotFound
+  #   raise "Please set ORGANIZATION env with the id"
+  # end
 
   def json_request?
     request.format.json?
