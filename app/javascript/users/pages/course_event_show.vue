@@ -91,8 +91,9 @@
           })
           .catch(error => {
             // const myObject = error && error.body ? error.body : error
+            const message = error && error.body ? (error.body.course_event_id ? error.body.course_event_id.join(', ') : error.body.error || error.body) : error
             // const message = Object.keys(myObject).map( (key, index) => myObject[key]).join(', ')
-            const message = error && error.body ? (error.body.course_event_id ? error.body.course_event_id.join(', ') : error.body) : error
+
             this.$store.dispatch('layout/replaceAlert', {
               type: 'error',
               message: message

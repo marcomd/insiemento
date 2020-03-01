@@ -35,7 +35,7 @@
         <v-icon large>mdi-account-multiple</v-icon>
         <v-col>
           {{ $t('course_event.attributes.attendees_count') }}<br>
-          <strong>{{ course_event.attendees_count }}</strong> / <strong>{{ room.max_attendees }}</strong>
+          <span :class="isCourseEventFull ? 'red--text' : ''"><strong>{{ course_event.attendees_count }}</strong> / <strong>{{ room.max_attendees }}</strong></span>
         </v-col>
         <v-icon large>mdi-human-greeting</v-icon>
         <v-col v-if="course_event.subscribed">

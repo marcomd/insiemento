@@ -9,6 +9,7 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   def create
     user_attributes = user_params.to_h
     user_attributes[:email] = user_attributes[:email].downcase
+    user_attributes[:organization_id] = ENV['ORGANIZATION']
     user = User.new(user_attributes.except(:email_confirmation))
     result = begin
       User.transaction do

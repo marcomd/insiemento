@@ -1,6 +1,13 @@
 # CHANGELOG
 
-# v0.5.0 28/02/2020 4h 60h
+# v0.5.1 01/03/2020 0,5h
+
+- Fixed registration
+  - Now users are created with current organization attributes
+- When users unsubscribes courses which never subscribed now a message is shown. It is a situation we would avoid but
+  now backend manages it correctly.   
+
+# v0.5.0 29/02/2020 4h 60h
 
 - Added organizations management
   - Added organization model and added this relation to all existing models

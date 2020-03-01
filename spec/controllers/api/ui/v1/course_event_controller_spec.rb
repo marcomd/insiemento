@@ -92,7 +92,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
           put url, params.to_json
 
           expect(json).to be_a(Hash)
-          expect(json['course_event_id']).to include 'è stato raggiunto il numero massimo di partecipanti!'
+          expect(json['course_event_id']).to include 'È stato raggiunto il numero massimo di partecipanti!'
           expect(last_response.status).to eq 422
         end
       end
@@ -118,7 +118,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
           expect(last_response.status).to eq 422
 
           expect(json).to be_a(Hash)
-          expect(json['course_event_id']).to include 'iscrizione già presente per questo corso'
+          expect(json['course_event_id']).to include 'Iscrizione già presente per questo corso'
         end
       end
     end

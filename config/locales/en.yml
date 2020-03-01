@@ -32,8 +32,9 @@
 en:
   errors:
     messages:
-      already_subscribed: "already subscribed to this course!"
-      max_attendees_reached: "max attendees has been reached!"
+      already_subscribed: "Already subscribed to this course!"
+      max_attendees_reached: "Max attendees has been reached!"
+      attending_not_found: "Sorry, attending was not found!"
   activerecord: &activerecord
     models: &models
       system_log:

@@ -52,7 +52,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     elsif attendee
       render json: attendee.errors, status: :unprocessable_entity
     else
-      render json: {}, status: :not_found
+      render json: { course_event_id: [t('errors.messages.attending_not_found')] }, status: :not_found
     end
   end
 

@@ -130,8 +130,9 @@ it:
       wrong_length:
         one: è della lunghezza sbagliata (deve essere di 1 carattere)
         other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
-      already_subscribed: "iscrizione già presente per questo corso"
-      max_attendees_reached: "è stato raggiunto il numero massimo di partecipanti!"
+      already_subscribed: "Iscrizione già presente per questo corso"
+      max_attendees_reached: "È stato raggiunto il numero massimo di partecipanti!"
+      attending_not_found: "Siamo spiacenti, non è stata trovata l'iscrizione!"
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:
