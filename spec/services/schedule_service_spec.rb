@@ -19,7 +19,7 @@ describe ScheduleService do
     it 'creates course events' do
       expect do
         expect(subject.result).to be_truthy
-      end.to change(CourseEvent, :count).by(49)
+      end.to change(CourseEvent, :count).by(70)
     end
 
     context 'when course events have been already created' do

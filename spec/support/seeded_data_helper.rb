@@ -3,6 +3,10 @@ module SeededDataHelper
     User.find(1)
   end
 
+  def user_elena
+    User.find_by_email('elena@fitness.io')
+  end
+
   def stefania_subscribed_course_event_id
     1
   end

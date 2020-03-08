@@ -1,6 +1,6 @@
 # Insiemento
 
-organization name:string{60} payoff:string{255} domain:string{100} email:string{100} phone:string{15} theme:jsonb state:integer{1}
+organization name:string{60} payoff:string{255} domain:string{100} email:string{100} phone:string{15} theme:jsonb state:integer{1} use_subscriptions:boolean
 
 users organization:references firstname:string{30} lastname:string{30} email:string{60}:index birthdate:date gender:string{1} state:integer{1}
 
@@ -25,10 +25,11 @@ attendees user:references course_event:references
 # Social
 # course_event_comments organization:references user:references course_event:references message:string{255}
 
-
-
+# Categories of products
 category organization:references name:string{60}
 
-product organization:references name:string{60} description:string{255} price_cents:integer{4}
+# Products that gyms sell as subscriptions
+product organization:references name:string{60} description:string{255} price_cents:integer{4} days:integer{2} category:references premium:boolean
 
-subscription uuid:string{36} organization:references user:references category:integer{1} start_on:date end_on:date premium:boolean
+# To manage users subscriptions: fitness, swimming pool, spa etc.
+subscription uuid:string{36} organization:references product:references user:references start_on:date end_on:date

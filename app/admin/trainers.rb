@@ -1,5 +1,5 @@
 ActiveAdmin.register Trainer do
-
+  menu parent: 'gym_management', if: proc{ can?(:read, Trainer) }
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -14,5 +14,12 @@ ActiveAdmin.register Trainer do
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end
-  
+
+  controller do
+    def scoped_collection
+      myscope = super
+      myscope = myscope.includes :organization
+      myscope
+    end
+  end
 end

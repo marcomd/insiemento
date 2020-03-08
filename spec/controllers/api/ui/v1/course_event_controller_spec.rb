@@ -80,10 +80,10 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     let(:url) { "/api/ui/v1/course_events/#{course_event_id}/subscribe" }
     let(:params) { {subscribe: subscribe} }
 
-    context 'when it tries to subscribe' do
+    context 'when user tries to subscribe' do
       let(:subscribe) { true }
 
-      context 'but events is full' do
+      context 'when events is full' do
         before { stefania_unsubscribed_course_event.room.update max_attendees: 0 }
 
         let(:course_event_id) { stefania_unsubscribed_course_event_id }
@@ -97,19 +97,35 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
       end
 
-      context 'and it has not yet subscribed' do
+      context 'when user has not yet subscribed' do
         let(:course_event_id) { stefania_unsubscribed_course_event_id }
 
-        it 'returns a status 200' do
-          put url, params.to_json
+        # Subscription let user to subscribe a course event
+        context 'when user has an active subscription' do
+          it 'can subscribes' do
+            put url, params.to_json
 
-          expect(json).to be_a(Hash)
-          expect(json['errors']).to be_nil
-          expect(last_response.status).to eq 200
+            expect(json).to be_a(Hash)
+            expect(json['errors']).to be_nil
+            expect(last_response.status).to eq 200
+          end
+        end
+
+        # Without active subscription user cannot partecipate to a course event
+        context 'when user does NOT have an active subscription' do
+          let(:user) { user_elena }
+
+          it 'cannot subscribes' do
+            put url, params.to_json
+
+            expect(json).to be_a(Hash)
+            expect(json['course_event_id']).to include 'Puoi procedere solo disponendo di un abbonamento, contattaci!'
+            expect(last_response.status).to eq 422
+          end
         end
       end
 
-      context 'and it has already subscribed' do
+      context 'when user has already subscribed' do
         let(:course_event_id) { stefania_subscribed_course_event_id }
 
         it 'returns a unprocessable entity status' do
@@ -123,10 +139,10 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
       end
     end
 
-    context 'when it tries to UNsubscribe' do
+    context 'when user tries to UNsubscribe' do
       let(:subscribe) { false }
 
-      context 'and it has not yet subscribed' do
+      context 'when user is not subscribed' do
         let(:course_event_id) { stefania_unsubscribed_course_event_id }
 
         it 'returns a status 404' do
@@ -137,7 +153,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
       end
 
-      context 'and it has subscribed' do
+      context 'when user is subscribed' do
         let(:course_event_id) { stefania_subscribed_course_event_id }
 
         it 'returns a status 200' do

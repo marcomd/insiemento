@@ -1,4 +1,6 @@
 ActiveAdmin.register AdminUser do
+  menu parent: 'platform_management', if: proc{ can?(:manage, AdminUser) }
+
   permit_params :email, :password, :password_confirmation
 
   index do

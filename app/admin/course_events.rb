@@ -1,4 +1,5 @@
 ActiveAdmin.register CourseEvent do
+  menu parent: 'courses_management', if: proc{ can?(:read, CourseEvent) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -18,7 +19,7 @@ ActiveAdmin.register CourseEvent do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :course, :room, :trainer, :course_schedule
+      myscope = myscope.includes :organization, :course, :room, :trainer, :course_schedule
       myscope
     end
 

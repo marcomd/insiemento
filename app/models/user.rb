@@ -5,6 +5,10 @@ class User < ApplicationRecord
   belongs_to :organization
   has_many :attendees, dependent: :destroy
   has_many :course_events, through: :attendees
+  # No, user can have multiple active subscriptions
+  #has_one :last_subscription, -> { order id: :desc }, class_name: 'Subscription'
+  has_many :subscriptions
+  has_many :active_subscriptions, -> { active }, class_name: 'Subscription'
 
   validates_uniqueness_of :email, allow_blank: false, if: :email_changed?
   validates_format_of     :email, with: URI::MailTo::EMAIL_REGEXP, allow_blank: true, if: :email_changed?

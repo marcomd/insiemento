@@ -1,5 +1,20 @@
 # CHANGELOG
 
+# v0.6.0 07/03/2020 5h
+
+- Added new models to manage products:
+  - Categories: courses and subscriptions classification, which means what the user can attendee
+  - Products: things a user can buy to extend his attending
+  - Subscriptions: when a user buys a subscription product, this grant him access to courses
+- Added new models management to admin UI  
+- Added category reference to course, course_schedule and course_event model  
+- Updated seed:
+  - Added a second organization
+  - Added categories, products and subscriptions
+- Added subscription validation to attendee model
+  - Before create an attendee now a validation check on subscription is performed. The user must have an active
+    subscription of the same category. 
+
 # v0.5.1 01/03/2020 0,5h
 
 - Fixed registration

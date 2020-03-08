@@ -6,8 +6,9 @@ class CreateOrganizations < ActiveRecord::Migration[6.0]
       t.string :email, limit: 100
       t.string :phone, limit: 15
       t.string :domain, limit: 100
-      t.jsonb :theme
+      t.jsonb :theme, default: {}
       t.integer :state, limit: 1
+      t.boolean :use_subscription, default: false
 
       t.timestamps
     end

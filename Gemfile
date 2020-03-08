@@ -71,6 +71,13 @@ gem 'ruby-handlebars', '~> 0.4.0'
 # This is a layer on top of ActiveRecord::Store that uses Virtus to typecast the values
 gem 'storext', '~> 3.1.0'
 
+# This library provides integration of the money gem with Rails.
+# A Ruby Library for dealing with money and currency conversion.
+gem 'money-rails', '~>1.12'
+
+# Simple authorization solution for Rails. All permissions are stored in a single location.
+gem 'cancancan', '>= 3.0.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

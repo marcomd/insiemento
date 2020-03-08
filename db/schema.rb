@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_223219) do
+ActiveRecord::Schema.define(version: 2020_03_04_182631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,14 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.index ["user_id"], name: "index_attendees_on_user_id"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "name", limit: 60
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_categories_on_organization_id"
+  end
+
   create_table "course_event_comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "course_event_id", null: false
@@ -62,14 +70,16 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
 
   create_table "course_events", force: :cascade do |t|
     t.bigint "organization_id", null: false
+    t.bigint "category_id", null: false
     t.bigint "course_id", null: false
     t.bigint "room_id", null: false
-    t.bigint "trainer_id", null: false
+    t.bigint "trainer_id"
     t.bigint "course_schedule_id", null: false
     t.datetime "event_date"
     t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_course_events_on_category_id"
     t.index ["course_id"], name: "index_course_events_on_course_id"
     t.index ["course_schedule_id"], name: "index_course_events_on_course_schedule_id"
     t.index ["organization_id"], name: "index_course_events_on_organization_id"
@@ -79,14 +89,16 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
 
   create_table "course_schedules", force: :cascade do |t|
     t.bigint "organization_id", null: false
+    t.bigint "category_id", null: false
     t.bigint "course_id", null: false
     t.bigint "room_id", null: false
-    t.bigint "trainer_id", null: false
+    t.bigint "trainer_id"
     t.integer "event_day", limit: 2
     t.time "event_time"
     t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_course_schedules_on_category_id"
     t.index ["course_id"], name: "index_course_schedules_on_course_id"
     t.index ["organization_id"], name: "index_course_schedules_on_organization_id"
     t.index ["room_id"], name: "index_course_schedules_on_room_id"
@@ -95,6 +107,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
 
   create_table "courses", force: :cascade do |t|
     t.bigint "organization_id", null: false
+    t.bigint "category_id", null: false
     t.string "name", limit: 30
     t.text "description"
     t.integer "start_booking_hours", limit: 2
@@ -102,6 +115,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["organization_id"], name: "index_courses_on_organization_id"
   end
 
@@ -111,10 +125,24 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.string "email", limit: 100
     t.string "phone", limit: 15
     t.string "domain", limit: 100
-    t.jsonb "theme"
+    t.jsonb "theme", default: {}
     t.integer "state", limit: 2
+    t.boolean "use_subscription", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "category_id", null: false
+    t.string "name", limit: 60
+    t.string "description", limit: 255
+    t.integer "price_cents"
+    t.integer "days", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["organization_id"], name: "index_products_on_organization_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -125,6 +153,23 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_rooms_on_organization_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "code", limit: 14
+    t.bigint "organization_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "user_id"
+    t.date "start_on"
+    t.date "end_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_subscriptions_on_category_id"
+    t.index ["code"], name: "index_subscriptions_on_code", unique: true
+    t.index ["organization_id"], name: "index_subscriptions_on_organization_id"
+    t.index ["product_id"], name: "index_subscriptions_on_product_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "system_logs", force: :cascade do |t|
@@ -180,19 +225,29 @@ ActiveRecord::Schema.define(version: 2020_02_01_223219) do
 
   add_foreign_key "attendees", "course_events"
   add_foreign_key "attendees", "users"
+  add_foreign_key "categories", "organizations"
   add_foreign_key "course_event_comments", "course_events"
   add_foreign_key "course_event_comments", "users"
+  add_foreign_key "course_events", "categories"
   add_foreign_key "course_events", "course_schedules"
   add_foreign_key "course_events", "courses"
   add_foreign_key "course_events", "organizations"
   add_foreign_key "course_events", "rooms"
   add_foreign_key "course_events", "trainers"
+  add_foreign_key "course_schedules", "categories"
   add_foreign_key "course_schedules", "courses"
   add_foreign_key "course_schedules", "organizations"
   add_foreign_key "course_schedules", "rooms"
   add_foreign_key "course_schedules", "trainers"
+  add_foreign_key "courses", "categories"
   add_foreign_key "courses", "organizations"
+  add_foreign_key "products", "categories"
+  add_foreign_key "products", "organizations"
   add_foreign_key "rooms", "organizations"
+  add_foreign_key "subscriptions", "categories"
+  add_foreign_key "subscriptions", "organizations"
+  add_foreign_key "subscriptions", "products"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "system_logs", "organizations"
   add_foreign_key "trainers", "organizations"
   add_foreign_key "users", "organizations"

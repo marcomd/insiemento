@@ -16,6 +16,7 @@ class ScheduleService
     attribute_course_events = []
     CourseSchedule.all.each do |cs|
       ce = {  organization_id: cs.organization_id,
+              category_id: cs.category_id,
               course_id: cs.course_id,
               room_id: cs.room_id,
               trainer_id: cs.trainer_id,

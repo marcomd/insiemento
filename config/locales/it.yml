@@ -133,6 +133,7 @@ it:
       already_subscribed: "Iscrizione già presente per questo corso"
       max_attendees_reached: "È stato raggiunto il numero massimo di partecipanti!"
       attending_not_found: "Siamo spiacenti, non è stata trovata l'iscrizione!"
+      active_subscription_needed: "Puoi procedere solo disponendo di un abbonamento, contattaci!"
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:
@@ -232,6 +233,18 @@ it:
       attendee:
         one: "Partecipante"
         other: "Partecipanti"
+      organization:
+        one: "Organizzazione"
+        other: "Organizzazioni"
+      category:
+        one: "Categoria"
+        other: "Categorie"
+      product:
+        one: "Prodotto"
+        other: "Prodotti"
+      subscription:
+        one: "Abbonamento"
+        other: "Abbonamenti"
     errors:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'
@@ -244,12 +257,14 @@ it:
       updated_at: "Data modifica"
       #Attributes zone - do not remove
       system_log:
-        user: "User"
+        organization: "Organizzazione"
+        user: "Utente"
         couse_event: "Evento"
         log_level: "Livello log"
         message: "Messaggio"
       course:
         name: "Nome"
+        organization: "Organizzazione"
         description: "Descrizione"
         start_booking_hours: "Ore inizio iscrizione"
         end_booking_minutes: "Minuti disdetta"
@@ -258,6 +273,7 @@ it:
         updated_at: "Data modifica"
       room:
         one: "Sala"
+        organization: "Organizzazione"
         name: "Nome"
         max_attendees: "Capienza"
         state: "Stato"
@@ -265,6 +281,7 @@ it:
         updated_at: "Data modifica"
       trainer:
         one: "Istruttore"
+        organization: "Organizzazione"
         firstname: "Nome"
         lastname: "Cognome"
         nickname: "Nickname"
@@ -274,6 +291,7 @@ it:
         updated_at: "Data modifica"
       course_event:
         one: "Evento"
+        organization: "Organizzazione"
         course: "Corso"
         room: "Sala"
         trainer: "Istruttore"
@@ -290,6 +308,7 @@ it:
         created_at: "Data creazione"
         updated_at: "Data modifica"
       user:
+        organization: "Organizzazione"
         email: "eMail"
         firstname: "Nome"
         lastname: "Cognome"
@@ -300,7 +319,25 @@ it:
         confirmed_at: "Data attivazione"
         created_at: "Data creazione"
         updated_at: "Data modifica"
-
+      category:
+        organization: "Organizzazione"
+        name: "Nome"
+      product:
+        organization: "Organizzazione"
+        category: "Categoria"
+        name: "Nome"
+        description: "Descrizione"
+        price_cents: "Prezzo"
+        days: "Giorni"
+        premium: "Premium"
+      subscription:
+        organization: "Organizzazione"
+        category: "Categoria"
+        product: "Prodotto"
+        user: "Cliente"
+        code: "Codice abbonamento"
+        start_on: "Data inizio"
+        end_on: "Data fine"
   formtastic:
     titles:
     labels:
@@ -315,30 +352,34 @@ it:
 
   activeadmin:
     footer:
-      env: Ambiente
-      version: Versione
-      last_update: Ultimo aggiornamento
-      last_commit: Ultima commit
+      env: "Ambiente"
+      version: "Versione"
+      last_update: "Ultimo aggiornamento"
+      last_commit: "Ultima commit"
   menu:
-    diagnostics: Diagnostica
-    project_diagnostic: Diagnostica Progetto
-    sidekiq: Gestione code asincrone
-    users_management: Gestione Utenti
+    diagnostics: "Diagnostica"
+    project_diagnostic: "Diagnostica Progetto"
+    sidekiq: "Gestione code asincrone"
+    users_management: "Gestione Utenti"
+    products_management: "Gestione Prodotti"
+    courses_management: "Gestione Corsi"
+    gym_management: "Gestione Palestra"
+    platform_management: "Amministrazione"
   project_diagnostic:
-    name: Dati diagnostici
+    name: "Dati diagnostici"
     last_deploy:
-      name: Dati ultimo rilascio
-      last_deploy_at: Data ultimo deploy
-      last_deployed_version: Ultimo rilascio
-      last_restart: Ultimo riavvio del server
+      name: "Dati ultimo rilascio"
+      last_deploy_at: "Data ultimo deploy"
+      last_deployed_version: "Ultimo rilascio"
+      last_restart: "Ultimo riavvio del server"
     database:
-      name: Dati inerenti il database
-      db_size: Dimensioni del database
-      table_size: Dimensioni della tabella %{table_name}
-      table_size_with_indexes: Dimensioni della tabella %{table_name} con indici
+      name: "Dati inerenti il database"
+      db_size: "Dimensioni del database"
+      table_size: "Dimensioni della tabella %{table_name}"
+      table_size_with_indexes: "Dimensioni della tabella %{table_name} con indici"
     logs:
-      name: Logs
+      name: "Logs"
     server:
-      name: Server
-      smtp_server: Server invio email
-      db_server: Database server
+      name: "Server"
+      smtp_server: "Server invio email"
+      db_server: "Database server"
