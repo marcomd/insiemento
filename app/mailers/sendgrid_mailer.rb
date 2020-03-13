@@ -16,7 +16,7 @@ class SendgridMailer < ApplicationMailer
     SendgridService.call(:send_email,
                          current_organization,
                          {
-                           from: { email: "please-do-not-replay@#{CONFIG.dig(:application, :host)}", name: current_organization.name },
+                           from: { email: "please-do-not-reply@#{current_organization.domain}", name: current_organization.name },
                            to: user.email,
                            reply_to: nil,
                            template_id: template_id,
@@ -40,7 +40,7 @@ class SendgridMailer < ApplicationMailer
     SendgridService.call(:send_email,
                          current_organization,
                          {
-                           from: { email: 'please-do-not-replay@insiemento.io', name: current_organization.name },
+                           from: { email: "please-do-not-reply@#{current_organization.domain}", name: current_organization.name },
                            to: user.email,
                            reply_to: nil,
                            template_id: template_id,

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.6.1 13/03/2020 0,5h
+
+- Emails are now sent with organization domain
+  - Previously were sent with the insiemento domain. In the future this may be a feature based on the organization's fee
+
 # v0.6.0 07/03/2020 5h
 
 - Added new models to manage products:
