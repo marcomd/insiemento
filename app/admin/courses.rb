@@ -19,7 +19,7 @@ ActiveAdmin.register Course do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
+      myscope = myscope.includes :organization, :category
       myscope
     end
   end

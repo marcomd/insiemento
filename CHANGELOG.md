@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.6.2 13/03/2020 0,5h
+
+- Fixed a bug in the subscription list
+- Improved courses list which now preload category
+
 # v0.6.1 13/03/2020 0,5h
 
 - Emails are now sent with organization domain

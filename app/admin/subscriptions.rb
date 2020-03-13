@@ -19,7 +19,7 @@ ActiveAdmin.register Subscription do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category_id, :product
+      myscope = myscope.includes :organization, :category, :product
       myscope
     end
   end
