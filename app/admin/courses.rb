@@ -12,7 +12,7 @@ ActiveAdmin.register Course do
 
   permit_params do
     permitted = [:category_id, :name, :description, :start_booking_hours, :end_booking_minutes, :state]
-    # permitted << :other if params[:action] == 'create' && current_user.admin?
+    permitted << :organization_id if current_admin_user.is_root?
     permitted
   end
 
@@ -23,5 +23,34 @@ ActiveAdmin.register Course do
       myscope
     end
   end
-  
+
+  index do
+    selectable_column
+    id_column
+    if current_admin_user.is_root?
+      column(:organization)
+    end
+    column(:category)
+    column(:name)
+    column(:description)
+    column(:start_booking_hours)
+    column(:end_booking_minutes)
+    column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:created_at)
+    column(:updated_at)
+    actions
+  end
+
+  filter :organization    , if: proc { current_admin_user.is_root? }
+  filter :category        , collection: proc { current_admin_user.categories }
+  filter :course_schedule , collection: proc { current_admin_user.course_schedules }
+  filter :room            , collection: proc { current_admin_user.rooms }
+  filter :trainer         , collection: proc { current_admin_user.trainers }
+  filter :name
+  filter :description
+  filter :start_booking_hours
+  filter :end_booking_minutes
+  filter :state       , as: :select, collection: Course.localized_states
+  filter :created_at
+  filter :updated_at
 end

@@ -1,4 +1,6 @@
 class Trainer < ApplicationRecord
+  include Stateable
+
   belongs_to :organization
   has_many :course_schedules
   has_many :courses, through: :course_schedules

@@ -11,6 +11,17 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  rescue_from ::CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { redirect_to root_url, :alert => exception.message }
+      format.json { render json: { error: exception.message }, status: :forbidden }
+    end
+  end
+
+  # def current_ability
+  #   @current_ability ||= ::Ability.new(current_admin_user)
+  # end
+
   def current_organization
     @current_organization ||= Organization.find(ENV['ORGANIZATION'])
   end
@@ -26,9 +37,19 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    # if we got an empy header e.g. we are running features we serve the default locale
-    # this way we also preserve the entire admin section from being localized in IT!
-    I18n.locale = get_language_header.present? ? get_language_header.first : I18n.default_locale
+    I18n.locale =
+      if json_request?
+        # if we got an empy header e.g. we are running features we serve the default locale
+        # this way we also preserve the entire admin section from being localized in IT!
+        get_language_header.present? ? get_language_header.first : I18n.default_locale
+      else
+        if params[:locale]
+          session[:locale] = params[:locale]
+        else
+          session[:locale] ||= I18n.default_locale
+        end
+        session[:locale]
+      end
   end
 
   def get_language_header

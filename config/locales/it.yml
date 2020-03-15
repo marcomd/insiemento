@@ -216,8 +216,8 @@ it:
         one: "Corso"
         other: "Corsi"
       room:
-        one: "Sala"
-        other: "Sale"
+        one: "Stanza"
+        other: "Stanze"
       trainer:
         one: "Istruttore"
         other: "Istruttori"
@@ -263,20 +263,29 @@ it:
         log_level: "Livello log"
         message: "Messaggio"
       course:
-        name: "Nome"
         organization: "Organizzazione"
+        category: "Categoria"
+        name: "Nome"
         description: "Descrizione"
         start_booking_hours: "Ore inizio iscrizione"
         end_booking_minutes: "Minuti disdetta"
         state: "Stato"
+        states:
+          just_made: "Nuovo"
+          active: "Attivo"
+          suspended: "Sospeso"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       room:
-        one: "Sala"
+        one: "Stanza"
         organization: "Organizzazione"
         name: "Nome"
         max_attendees: "Capienza"
         state: "Stato"
+        states:
+          just_made: "Nuovo"
+          active: "Attivo"
+          suspended: "Sospeso"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       trainer:
@@ -287,15 +296,36 @@ it:
         nickname: "Nickname"
         bio: "Biografia"
         state: "Stato"
+        states:
+          just_made: "Nuovo"
+          active: "Attivo"
+          suspended: "Sospeso"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      course_schedule:
+        one: "Schedulazione"
+        organization: "Organizzazione"
+        course: "Corso"
+        room: "Stanza"
+        trainer: "Istruttore"
+        category: "Categoria"
+        event_day: "Giorno della settimana"
+        event_time: "Orario"
+        state: "Stato"
+        states:
+          just_made: "Nuovo"
+          active: "Attivo"
+          suspended: "Sospeso"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       course_event:
         one: "Evento"
         organization: "Organizzazione"
         course: "Corso"
-        room: "Sala"
+        room: "Stanza"
         trainer: "Istruttore"
         course_schedule: "Schedulazione"
+        category: "Categoria"
         event_date: "Data evento"
         users: "Utenti"
         attendees: "Partecipanti"
@@ -305,6 +335,7 @@ it:
           just_made: "Nuovo"
           active: "Attivo"
           suspended: "Sospeso"
+          closed: "Chiuso"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       user:
@@ -316,12 +347,18 @@ it:
         gender: "Sesso"
         phone: "Telefono"
         state: "Stato"
+        states:
+          just_made: "Nuovo"
+          active: "Attivo"
+          suspended: "Sospeso"
         confirmed_at: "Data attivazione"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       category:
         organization: "Organizzazione"
         name: "Nome"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
       product:
         organization: "Organizzazione"
         category: "Categoria"
@@ -329,7 +366,8 @@ it:
         description: "Descrizione"
         price_cents: "Prezzo"
         days: "Giorni"
-        premium: "Premium"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
       subscription:
         organization: "Organizzazione"
         category: "Categoria"
@@ -338,6 +376,19 @@ it:
         code: "Codice abbonamento"
         start_on: "Data inizio"
         end_on: "Data fine"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      organization:
+        name: "Nome"
+        email: "Email"
+        phone: "Telefono"
+        state: "Stato"
+        states:
+          activating: "Attivazione"
+          active: "Attivo"
+          suspended: "Sospeso"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
   formtastic:
     titles:
     labels:

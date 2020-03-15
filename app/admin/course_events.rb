@@ -11,15 +11,15 @@ ActiveAdmin.register CourseEvent do
   # or
 
   permit_params do
-    permitted = [:course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state]
-    # permitted << :other if params[:action] == 'create' && current_user.admin?
+    permitted = [:category_id, :course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state]
+    permitted << :organization_id if current_admin_user.is_root?
     permitted
   end
 
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :course, :room, :trainer, :course_schedule
+      myscope = myscope.includes :organization, :category, :course, :room, :trainer, :course_schedule
       myscope
     end
 
@@ -31,12 +31,18 @@ ActiveAdmin.register CourseEvent do
   index do
     selectable_column
     id_column
+    if current_admin_user.is_root?
+      column(:organization)
+    end
+    column(:category)
     column(:course)
     column(:room)
     column(:trainer)
     column(:course_schedule)
     column(:event_date)
     column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:created_at)
+    column(:updated_at)
     actions
   end
 
@@ -44,6 +50,10 @@ ActiveAdmin.register CourseEvent do
     columns do
       column do
         attributes_table do
+          if current_admin_user.is_root?
+            column(:organization)
+          end
+          row(:category)
           row(:course)
           row(:room)
           row(:trainer)
@@ -63,4 +73,15 @@ ActiveAdmin.register CourseEvent do
       end
     end
   end
+
+  filter :organization, if: proc { current_admin_user.is_root? }
+  filter :category    , collection: proc { current_admin_user.categories }
+  filter :course      , collection: proc { current_admin_user.courses }
+  filter :room        , collection: proc { current_admin_user.rooms }
+  filter :trainer     , collection: proc { current_admin_user.trainers }
+  filter :user        , collection: proc { current_admin_user.users }
+  filter :state       , as: :select, collection: CourseEvent.localized_states
+  filter :event_date
+  filter :created_at
+  filter :updated_at
 end

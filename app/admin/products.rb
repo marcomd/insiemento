@@ -6,15 +6,15 @@ ActiveAdmin.register Product do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :organization_id, :name, :description, :price_cents, :days, :category_id
+  # permit_params :organization_id, :name, :description, :price_cents, :days, :category_id
   #
   # or
   #
-  # permit_params do
-  #   permitted = [:organization_id, :name, :description, :price_cents, :days, :category_id, :premium]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params do
+    permitted = [:name, :description, :price_cents, :days, :category_id]
+    permitted << :organization_id if current_admin_user.is_root?
+    permitted
+  end
 
   controller do
     def scoped_collection
@@ -23,4 +23,31 @@ ActiveAdmin.register Product do
       myscope
     end
   end
+
+  index do
+    selectable_column
+    id_column
+    if current_admin_user.is_root?
+      column(:organization)
+    end
+    column(:category)
+    column(:name)
+    column(:description)
+    column(:price_cents)
+    column(:days)
+    # column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:created_at)
+    column(:updated_at)
+    actions
+  end
+
+  filter :organization    , if: proc { current_admin_user.is_root? }
+  filter :category        , collection: proc { current_admin_user.categories }
+  filter :name
+  filter :description
+  filter :price_cents
+  filter :days
+  # filter :state       , as: :select, collection: Course.localized_states
+  filter :created_at
+  filter :updated_at
 end

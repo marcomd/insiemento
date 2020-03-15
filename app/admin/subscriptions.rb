@@ -6,15 +6,15 @@ ActiveAdmin.register Subscription do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :uuid, :organization_id, :category_id, :product_id, :user_id, :start_on, :end_on
+  # permit_params :uuid, :organization_id, :category_id, :product_id, :user_id, :start_on, :end_on
   #
   # or
   #
-  # permit_params do
-  #   permitted = [:uuid, :organization_id, :product_id, :user_id, :start_on, :end_on]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params do
+    permitted = [:uuid, :organization_id, :category_id, :product_id, :user_id, :start_on, :end_on]
+    permitted << :organization_id if current_admin_user.is_root?
+    permitted
+  end
 
   controller do
     def scoped_collection

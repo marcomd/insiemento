@@ -1,4 +1,6 @@
 class CourseSchedule < ApplicationRecord
+  include Stateable
+
   belongs_to :organization
   belongs_to :category
   belongs_to :course
@@ -31,5 +33,21 @@ class CourseSchedule < ApplicationRecord
 
   def next_event_datetime(date=Time.zone.today)
     Time.zone.parse("#{next_event_date(date).strftime('%Y-%m-%d')} #{event_time}")
+  end
+
+  def event_time_short
+    self.event_time.strftime('%H:%M') if self.event_time
+  end
+
+  def localized_event_day
+    I18n.t('date.day_names')[read_attribute_before_type_cast(:event_day)]
+  end
+
+  class << self
+    def localized_event_days
+      EVENT_DAYS.values.map do |day_value|
+        [ I18n.t('date.day_names')[day_value], day_value]
+      end
+    end
   end
 end

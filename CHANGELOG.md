@@ -1,5 +1,32 @@
 # CHANGELOG
 
+# v0.7.0 14/03/2020 10h
+
+- Improved admin UI management
+  - Added roles to admin users
+    - With root role: admin can manage all resources of all organizations
+    - With manager or accountant role: admins can manage only their organization, any other organizations are hidden
+    - Added rules to the ability class to manage authorizations.
+      Unfortunately, a bug was found that forced an escamotage to obtain the desired result. 
+      The ability class is instantiated twice, the second without passing the admin user which effectively prevents
+      from applying the rules. The trick is to store the admin user of the previous instance in a class variable. 
+      I added a technical debt in order to find a definitive solution. 
+  - Improved all index of all resources, some form and some show
+    - Many views have been customized, from the activeadmin default to a tailored view
+    - Filters have been customized with different solutions for root and non root admin users
+  - Added categories, products and subscriptions relation to organization
+  - Added many relationship methods (categories, courses etc.) to admin user to show the organization data depending on
+    the role
+  - Improved localization
+    - Admin UI now accept params `locale` in the query string to change the default language
+    - All resources which have the state now show localized names
+    - Course schedule now shows a localized day of the week 
+- Improved favicon
+  - Added favicon to backend UI and added a gray favicon for non production environment
+- Updated activeadmin from 2.6 to 2.6.1
+  - Updated also related gems 
+- Several minor improvements
+
 # v0.6.2 13/03/2020 0,5h
 
 - Fixed a bug in the subscription list

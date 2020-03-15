@@ -12,7 +12,7 @@ ActiveAdmin.register Room do
 
   permit_params do
     permitted = [:name, :max_attendees, :state]
-    # permitted << :other if params[:action] == 'create' && current_user.admin?
+    permitted << :organization_id if current_admin_user.is_root?
     permitted
   end
 
@@ -23,4 +23,25 @@ ActiveAdmin.register Room do
       myscope
     end
   end
+
+  index do
+    selectable_column
+    id_column
+    if current_admin_user.is_root?
+      column(:organization)
+    end
+    column(:name)
+    column(:max_attendees)
+    column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:created_at)
+    column(:updated_at)
+    actions
+  end
+
+  filter :organization, if: proc { current_admin_user.is_root? }
+  filter :name
+  filter :max_attendees
+  filter :state       , as: :select, collection: Trainer.localized_states
+  filter :created_at
+  filter :updated_at
 end

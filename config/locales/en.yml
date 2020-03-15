@@ -48,8 +48,8 @@ en:
         one: "Hall"
         other: "Salt"
       trainer:
-        one: "Instructor"
-        other: "Instructors"
+        one: "Trainer"
+        other: "Trainers"
       course_event:
         one: "Event"
         other: "Events"
@@ -74,33 +74,185 @@ en:
       subscription:
         one: "Subscription"
         other: "Subscriptions"
-
-activeadmin:
-  footer:
-    env: Environment
-    version: Version
-    last_update: Last update
-    last_commit: Last commit
+    attributes: &attributes
+      id: "Id"
+      created_at: "Created at"
+      updated_at: "Updated at"
+      #Attributes zone - do not remove
+      system_log:
+        organization: "Organization"
+        user: "User"
+        couse_event: "Event"
+        log_level: "Log level"
+        message: "Message"
+      course:
+        organization: "Organization"
+        category: "Category"
+        name: "Name"
+        description: "Description"
+        start_booking_hours: "Registration start hours"
+        end_booking_minutes: "Cancellation minutes"
+        state: "State"
+        states:
+          just_made: "New"
+          active: "Active"
+          suspended: "Suspended"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      room:
+        one: "Room"
+        organization: "Organization"
+        name: "Name"
+        max_attendees: "Capacity"
+        state: "State"
+        states:
+          just_made: "New"
+          active: "Active"
+          suspended: "Suspended"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      trainer:
+        one: "Trainer"
+        organization: "Organization"
+        firstname: "Name"
+        lastname: "Surname"
+        nickname: "Nickname"
+        bio: "Biography"
+        state: "State"
+        states:
+          just_made: "New"
+          active: "Active"
+          suspended: "Suspended"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      course_schedule:
+        one: "Scheduling"
+        organization: "Organization"
+        course: "Course"
+        room: "Room"
+        trainer: "Trainer"
+        category: "Category"
+        event_day: "Day of the week"
+        event_time: "Timetable"
+        state: "State"
+        states:
+          just_made: "New"
+          active: "Active"
+          suspended: "Suspended"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      course_event:
+        one: "Event"
+        organization: "Organization"
+        course: "Course"
+        room: "Room"
+        trainer: "Trainer"
+        course_schedule: "Scheduling"
+        category: "Category"
+        event_date: "Event date"
+        users: "Users"
+        attendees: "Participants"
+        awaes_count: "Number of participants"
+        state: "State"
+        states:
+          just_made: "New"
+          active: "Active"
+          suspended: "Suspended"
+          closed: "Closed"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      user:
+        organization: "Organization"
+        email: "eMail"
+        firstname: "Name"
+        lastname: "Surname"
+        birthdate: "Date of birth"
+        gender: "Sex"
+        phone: "Telephone"
+        state: "State"
+        states:
+          just_made: "New"
+          active: "Active"
+          suspended: "Suspended"
+        confirmed_at: "Activation date"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      category:
+        organization: "Organization"
+        name: "Name"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      product:
+        organization: "Organization"
+        category: "Category"
+        name: "Name"
+        description: "Description"
+        price_cents: "Price"
+        days: "Days"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      subscription:
+        organization: "Organization"
+        category: "Category"
+        product: "Product"
+        user: "Customer"
+        code: "Subscription code"
+        start_on: "Start date"
+        end_on: "End date"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      organization:
+        name: "Name"
+        email: "Email"
+        phone: "Telephone"
+        state: "State"
+        states:
+          activating: "Activation"
+          active: "Active"
+          suspended: "Suspended"
+        created_at: "Created at"
+        updated_at: "Updated at"
+  formtastic:
+    titles:
+    labels:
+      <<: *attributes
+    hints:
+      #Hints zone - do not remove
+      system_log:
+        customer: "Choose the customer"
+        dossier: "Choose the dossier"
+        log_level: "Fill the log level with an integer number"
+        message: "Choose a good message for this system_log"
+  activeadmin:
+    footer:
+      env: "Environment"
+      version: "Version"
+      last_update: "Last update"
+      last_commit: "Last commit"
   menu:
-    diagnostics: Diagnostics
-    project_diagnostic: Project diagnostics
-    sidekiq: Asynchronous queue management
-    users_management: User Management
+    diagnostics: "Diagnostics"
+    project_diagnostic: "Project diagnostics"
+    sidekiq: "Asynchronous queue management"
+    users_management: "User Management"
+    products_management: "Product Management"
+    courses_management: "Course Management"
+    gym_management: "Gym Management"
+    platform_management: "Administration"
   project_diagnostic:
-    name: Diagnostic data
+    name: "Diagnostic data"
     last_deploy:
-      name: Last release data
-      last_deploy_at: Last deployed date
-      last_deployed_version: Last release
-      last_restart: Last server restart
+      name: "Last release data"
+      last_deploy_at: "Last deployed date"
+      last_deployed_version: "Last release"
+      last_restart: "Last server restart"
     database:
-      name: Data related to the database
-      db_size: Size of the database
-      table_size: Dimensions of table %{table_name}
-      table_size_with_indexes: Size of table %{table_name} with indexes
+      name: "Data related to the database"
+      db_size: "Size of the database"
+      table_size: "Dimensions of table %{table_name}"
+      table_size_with_indexes: "Size of table %{table_name} with indexes"
     logs:
-      name: Logs
+      name: "Logs"
     server:
-      name: Server
-      smtp_server: Server sending email
-      db_server: Database server
+      name: "Server"
+      smtp_server: "Server sending email"
+      db_server: "Database server"

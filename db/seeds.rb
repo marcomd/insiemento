@@ -6,11 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 default_password = Rails.application.credentials.seed.dig(:default_password)
-if AdminUser.count == 0
-  AdminUser.create!(email: 'admin@insiemento.io',
-                    password: default_password,
-                    password_confirmation: default_password)
-end
+default_root_admin_password = Rails.application.credentials.seed.dig(:default_root_admin_password)
+default_admin_password = Rails.application.credentials.seed.dig(:default_admin_password)
 
 if Organization.count == 0
   o_dance = Organization.create(name: 'Fitness center', payoff: 'Run, Jump, Burn!',
@@ -49,6 +46,28 @@ else
   o_dance, o_swim = Organization.all
 end
 
+if AdminUser.count == 0
+  admin_user = AdminUser.new(email: 'admin@insiemento.io',
+                             password: default_root_admin_password,
+                             password_confirmation: default_root_admin_password)
+  admin_user.roles = ['root']
+  admin_user.save!
+
+  # Create admins with different roles for each organization
+  Organization.all.each do |organization|
+    %w[manager accountant].each do |role|
+      admin_user = AdminUser.new(email: "#{role}@#{organization.domain}",
+                                 organization: organization,
+                                 password: default_admin_password,
+                                 password_confirmation: default_admin_password)
+      admin_user.roles = [role]
+      admin_user.save!
+    end
+  end
+
+  puts "AdminUser: #{AdminUser.count}"
+end
+
 if Category.count == 0
   ca_fitness = Category.create!(organization: o_dance,  name: 'Palestra',)
   ca_spa     = Category.create!(organization: o_dance,  name: 'Spa',)
@@ -83,8 +102,8 @@ if Course.count == 0
                           organization: o_dance,
                           category: ca_fitness,
                         )
-  c_spa=Course.create!(name: 'Pilates',
-                           description: 'Il pilates è una ginnastica funzionale, posturale e globale basata sul riequilibrio di corpo e mente, che agisce sulla consapevolezza del proprio corpo, sulla forza e sulla flessibilità insegnando a dare maggiore armonia e fluidità nei movimenti.',
+  c_spa=Course.create!(name: 'Relax',
+                           description: 'Il nostro corso Relax mostra le tecniche per sfruttare al massimo i trattamenti del nostrop centro, per un totale benessere. Lasciati coccolare dagli esperti della nostra struttura.',
                            start_booking_hours: 24,
                            end_booking_minutes: 60,
                            state: :active,

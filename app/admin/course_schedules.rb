@@ -19,8 +19,37 @@ ActiveAdmin.register CourseSchedule do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :course, :room, :trainer
+      myscope = myscope.includes :organization, :category, :course, :room, :trainer
       myscope
     end
   end
+
+  index do
+    selectable_column
+    id_column
+    if current_admin_user.is_root?
+      column(:organization)
+    end
+    column(:category)
+    column(:course)
+    column(:room)
+    column(:trainer)
+    column(:event_day) { |obj|  obj.localized_event_day }
+    column(:event_time) { |obj|  obj.event_time_short }
+    column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:created_at)
+    column(:updated_at)
+    actions
+  end
+
+  filter :organization    , if: proc { current_admin_user.is_root? }
+  filter :category        , collection: proc { current_admin_user.categories }
+  filter :course          , collection: proc { current_admin_user.courses }
+  filter :room            , collection: proc { current_admin_user.rooms }
+  filter :trainer         , collection: proc { current_admin_user.trainers }
+  filter :event_day       , as: :select, collection: CourseSchedule.localized_event_days
+ #filter :event_time
+  filter :state           , as: :select, collection: CourseSchedule.localized_states
+  filter :created_at
+  filter :updated_at
 end

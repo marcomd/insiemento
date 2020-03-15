@@ -1,5 +1,5 @@
 ActiveAdmin.register Organization do
-  menu parent: 'platform_management', if: proc{ can?(:manage, Organization) }
+  menu parent: 'platform_management', if: proc{ can?(:update, Organization) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -36,6 +36,13 @@ ActiveAdmin.register Organization do
     column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
     actions
   end
+
+  filter :name
+  filter :email
+  filter :phone
+  filter :state       , as: :select, collection: CourseEvent.localized_states
+  filter :created_at
+  filter :updated_at
 
   show do |organization|
     columns do

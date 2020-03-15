@@ -30,14 +30,17 @@ ActiveRecord::Schema.define(version: 2020_03_04_182631) do
   end
 
   create_table "admin_users", force: :cascade do |t|
+    t.bigint "organization_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "roles_mask"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_admin_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
@@ -223,6 +226,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_182631) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "admin_users", "organizations"
   add_foreign_key "attendees", "course_events"
   add_foreign_key "attendees", "users"
   add_foreign_key "categories", "organizations"

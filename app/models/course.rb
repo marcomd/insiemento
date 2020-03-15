@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  include Stateable
+
   belongs_to :organization
   belongs_to :category
   has_many :course_schedules

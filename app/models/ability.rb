@@ -6,14 +6,31 @@ class Ability
   def initialize(admin_user)
     alias_action :batch_action, to: :update
 
-    admin_user ||= AdminUser.new
+    # Bug: ability is called twice, the second time admin user is nil so try to store in a class attribute
+    @@admin_user = admin_user if admin_user
+    @@admin_user ||= AdminUser.new
 
-    if admin_user.root?
+    if @@admin_user.is_root?
       can :manage, :all
-      return true
+    else
+      can :read, ActiveAdmin::Page, name: "Dashboard"
+      if @@admin_user.has_role? :manager
+        can [:read, :update], Organization, id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], User, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], Course, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], CourseEvent, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], CourseSchedule, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], Room, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], Trainer, organization_id: @@admin_user.organization_id
+      end
+      if @@admin_user.has_role? :accountant
+        can [:read, :update, :create, :destroy], Category, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], Product, organization_id: @@admin_user.organization_id
+        can [:read, :update, :create, :destroy], Subscription, organization_id: @@admin_user.organization_id
+      end
     end
 
-    can :read, :all
+
 
     #
     # The first argument to `can` is the action you are giving the user

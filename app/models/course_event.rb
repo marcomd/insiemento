@@ -1,4 +1,6 @@
 class CourseEvent < ApplicationRecord
+  include Stateable
+
   belongs_to :organization
   belongs_to :category
   belongs_to :course

@@ -9,7 +9,7 @@ ActiveAdmin.setup do |config|
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  config.site_title_link = "/admin"
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -62,7 +62,7 @@ ActiveAdmin.setup do |config|
   # method in a before filter of all controller actions to
   # ensure that there is a user with proper rights. You can use
   # CanCanAdapter or make your own. Please refer to documentation.
-  # config.authorization_adapter = ActiveAdmin::CanCanAdapter
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
 
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
@@ -173,6 +173,7 @@ ActiveAdmin.setup do |config|
   # == Setting a Favicon
   #
   # config.favicon = 'favicon.ico'
+  config.favicon = "favicon_backend#{'_dev' unless Rails.env.production?}.png"
 
   # == Meta Tags
   #
@@ -252,7 +253,7 @@ ActiveAdmin.setup do |config|
       menu.add id: 'users_management', label: I18n.t('menu.users_management'), priority: 50
       menu.add id: 'platform_management', label: I18n.t('menu.platform_management'), priority: 60
       menu.add id: 'diagnostics', label: I18n.t('menu.diagnostics'), priority: 70 do |pages|
-        pages.add label: I18n.t('menu.sidekiq'), url: '/admin/sidekiq', html_options: { target: :blank }, if: proc{ current_admin_user.root? }
+        pages.add label: I18n.t('menu.sidekiq'), url: '/admin/sidekiq', html_options: { target: :blank }, if: proc{ current_admin_user.is_root? }
       end
     end
   end
