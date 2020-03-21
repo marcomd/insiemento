@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.8.1 21/03/2020 0,5h
+
+- Updated many node modules
+
 # v0.8.0 21/03/2020 0,5h
 
 - Improved admin UI management #2
