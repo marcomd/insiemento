@@ -4,34 +4,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(admin_user)
-    alias_action :batch_action, to: :update
-
-    # Bug: ability is called twice, the second time admin user is nil so try to store in a class attribute
-    @@admin_user = admin_user if admin_user
-    @@admin_user ||= AdminUser.new
-
-    if @@admin_user.is_root?
-      can :manage, :all
-    else
-      can :read, ActiveAdmin::Page, name: "Dashboard"
-      if @@admin_user.has_role? :manager
-        can [:read, :update], Organization, id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], User, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], Course, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], CourseEvent, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], CourseSchedule, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], Room, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], Trainer, organization_id: @@admin_user.organization_id
-      end
-      if @@admin_user.has_role? :accountant
-        can [:read, :update, :create, :destroy], Category, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], Product, organization_id: @@admin_user.organization_id
-        can [:read, :update, :create, :destroy], Subscription, organization_id: @@admin_user.organization_id
-      end
-    end
-
-
-
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
@@ -50,5 +22,29 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+
+    alias_action :batch_action, to: :update
+
+    admin_user ||= AdminUser.new
+
+    if admin_user.is_root?
+      can :manage, :all
+    else
+      can :read, ActiveAdmin::Page, name: "Dashboard"
+      if admin_user.has_role? :manager
+        can [:read, :update], Organization, id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], User, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], Course, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], CourseEvent, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], CourseSchedule, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], Room, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], Trainer, organization_id: admin_user.organization_id
+      end
+      if admin_user.has_role? :accountant
+        can [:read, :update, :create, :destroy], Category, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], Product, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], Subscription, organization_id: admin_user.organization_id
+      end
+    end
   end
 end

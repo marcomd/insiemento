@@ -1,17 +1,10 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.7.0"
-    updated_at: "15/03/2020"
+    version: "0.8.0"
+    updated_at: "21/03/2020"
     started_at: "13/01/2020"
     host: "insiemento.io"
-#    commercial:
-#      brand: "My Fitness"
-#      payoff: "Run, Jump, Burn!"
-#      support_phone: "+39 02 12345678"
-#      support_email: "support"
-#      address: "San Giuliano Milanese"
-#      ceo: "Marco Mastrodonato"
   sms:
     provider: "twilio"
     twilio:

@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def current_ability
-  #   @current_ability ||= ::Ability.new(current_admin_user)
-  # end
+  def current_ability
+    @current_ability ||= ::Ability.new(current_admin_user)
+  end
 
   def current_organization
     @current_organization ||= Organization.find(ENV['ORGANIZATION'])

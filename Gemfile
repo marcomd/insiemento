@@ -4,21 +4,29 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
+gem 'rails', '~> 6.0.2.2'
+
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.2.3', '< 2.0'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
+
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+gem 'sass-rails', '~> 6.0.0'
+
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
+
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -29,7 +37,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Active Admin is a Ruby on Rails framework for creating elegant backends for website administration.
-gem 'activeadmin', '~> 2.6'
+gem 'activeadmin', '~> 2.6.0'
 
 #gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 
@@ -76,7 +84,7 @@ gem 'storext', '~> 3.1.0'
 gem 'money-rails', '~>1.12'
 
 # Simple authorization solution for Rails. All permissions are stored in a single location.
-gem 'cancancan', '>= 3.0.2'
+gem 'cancancan', '>= 3.1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

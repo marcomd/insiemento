@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.8.0 21/03/2020 0,5h
+
+- Improved admin UI management #2
+  - Fixed the ability's bug: defined the method current ability in the application controller
+  - Customized the section to manage users 
+- Updated several gems: Rails to 6.0.2.2, pg to 1.2.3, cancancan to 3.1
+
 # v0.7.0 14/03/2020 10h
 
 - Improved admin UI management
