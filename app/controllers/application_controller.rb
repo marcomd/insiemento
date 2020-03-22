@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
     request.format.json?
   end
 
+  # Set locale by param in the query string
   def set_locale
     I18n.locale =
       if json_request?
@@ -52,6 +53,7 @@ class ApplicationController < ActionController::Base
       end
   end
 
+  # Set locale by http header
   def get_language_header
     accepts_languages       = request.env['HTTP_ACCEPT_LANGUAGE'] || 'en'
     languages               = HTTP::Accept::Languages.parse(accepts_languages) rescue [HTTP::Accept::Languages::LanguageRange.new('en')]
@@ -67,8 +69,9 @@ class ApplicationController < ActionController::Base
     desired_localizations.empty? ? ['en'] : desired_localizations
   end
 
+  # This should authenticate only api calls (devise included)
   def authenticate_request
-    #require_relative Rails.root.join "app/services/authorize_api_request.rb"
+    return true if /\/admin\// === request.referrer
     @current_user = AuthorizeApiRequest.call(request.headers).result
     render json: { error: 'Not Authorized' }, status: 401 unless @current_user
   end

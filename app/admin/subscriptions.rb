@@ -23,4 +23,22 @@ ActiveAdmin.register Subscription do
       myscope
     end
   end
+
+  form do |f|
+    f.inputs do
+      if current_admin_user.is_root?
+        f.input :organization
+      end
+      f.input :category, collection: f.object.organization.categories
+      f.input :product, as: :select, collection: f.object.organization.products
+      # Root admin could access all users so ability is not sufficient
+      f.input :user_id, as: :search_select, url: admin_users_path('q[organization_id_equals]' => f.object.organization_id),
+              fields: [:email], display_name: 'email', minimum_input_length: 3,
+              order_by: 'email_asc'
+      f.input :code
+      f.input :start_on
+      f.input :end_on
+    end
+    f.actions
+  end
 end

@@ -374,6 +374,7 @@ it:
         product: "Prodotto"
         user: "Cliente"
         code: "Codice abbonamento"
+        active_code: "Codice abbonamento attivo"
         start_on: "Data inizio"
         end_on: "Data fine"
         created_at: "Data creazione"
@@ -402,6 +403,8 @@ it:
         message: "Choose a good message for this system_log"
 
   activeadmin:
+    panels:
+      active_subscriptions: "Abbonamenti attivi"
     footer:
       env: "Ambiente"
       version: "Versione"

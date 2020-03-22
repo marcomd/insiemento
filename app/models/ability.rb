@@ -39,8 +39,15 @@ class Ability
         can [:read, :update, :create, :destroy], CourseSchedule, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Room, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Trainer, organization_id: admin_user.organization_id
+        can [:read], Category, organization_id: admin_user.organization_id
+        can [:read], Product, organization_id: admin_user.organization_id
+        can [:read], Subscription, organization_id: admin_user.organization_id
       end
       if admin_user.has_role? :accountant
+        can [:read], Organization, id: admin_user.organization_id
+        can [:read, :update], User, organization_id: admin_user.organization_id
+        can [:read], Course, organization_id: admin_user.organization_id
+        can [:read, :update], CourseEvent, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Category, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Product, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Subscription, organization_id: admin_user.organization_id

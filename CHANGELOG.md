@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.10.0 22/03/2020 1h
+
+- Improved admin UI users management
+  - Users, in the admin UI, has now a custom view with on the right the list of active subscriptions
+  - Subscriptions can now be associated to user by dynamic search
+- Added activeadmin addons to the project  
+- Several little improvements
+
 # v0.9.0 22/03/2020 0,5h
 
 - Improved admin UI management #3

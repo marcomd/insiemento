@@ -46,6 +46,17 @@ ActiveAdmin.register CourseEvent do
     actions
   end
 
+  filter :organization, if: proc { current_admin_user.is_root? }
+  filter :category    , collection: proc { current_admin_user.categories }
+  filter :course      , collection: proc { current_admin_user.courses }
+  filter :room        , collection: proc { current_admin_user.rooms }
+  filter :trainer     , collection: proc { current_admin_user.trainers }
+  filter :user        , collection: proc { current_admin_user.users }
+  filter :state       , as: :select, collection: CourseEvent.localized_states
+  filter :event_date
+  filter :created_at
+  filter :updated_at
+
   show do |course_event|
     columns do
       column do
@@ -73,15 +84,4 @@ ActiveAdmin.register CourseEvent do
       end
     end
   end
-
-  filter :organization, if: proc { current_admin_user.is_root? }
-  filter :category    , collection: proc { current_admin_user.categories }
-  filter :course      , collection: proc { current_admin_user.courses }
-  filter :room        , collection: proc { current_admin_user.rooms }
-  filter :trainer     , collection: proc { current_admin_user.trainers }
-  filter :user        , collection: proc { current_admin_user.users }
-  filter :state       , as: :select, collection: CourseEvent.localized_states
-  filter :event_date
-  filter :created_at
-  filter :updated_at
 end

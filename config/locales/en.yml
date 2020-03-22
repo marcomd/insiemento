@@ -197,6 +197,7 @@ en:
         product: "Product"
         user: "Customer"
         code: "Subscription code"
+        active_code: "Active subscription code"
         start_on: "Start date"
         end_on: "End date"
         created_at: "Created at"
@@ -224,6 +225,8 @@ en:
         log_level: "Fill the log level with an integer number"
         message: "Choose a good message for this system_log"
   activeadmin:
+    panels:
+      active_subscriptions: "Active subscriptions"
     footer:
       env: "Environment"
       version: "Version"

@@ -81,10 +81,13 @@ gem 'storext', '~> 3.1.0'
 
 # This library provides integration of the money gem with Rails.
 # A Ruby Library for dealing with money and currency conversion.
-gem 'money-rails', '~>1.12'
+gem 'money-rails', '~> 1.12'
 
 # Simple authorization solution for Rails. All permissions are stored in a single location.
-gem 'cancancan', '>= 3.1.0'
+gem 'cancancan', '~> 3.1.0'
+
+# Extends ActiveAdmin to enable a set of great optional UX improving add-ons
+gem 'activeadmin_addons', '~> 1.7.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -109,7 +112,7 @@ group :development do
   gem 'brakeman', '~> 4.7.2'
 
   # A code metric tool for rails projects
-  gem 'rails_best_practices', '~> 1.19.5'
+  #gem 'rails_best_practices', '~> 1.20'
 
   # Great Ruby dubugging companion: pretty print Ruby objects to visualize their structure
   gem 'awesome_print', '~> 1.8.0'
