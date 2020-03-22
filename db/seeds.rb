@@ -49,7 +49,9 @@ end
 if AdminUser.count == 0
   admin_user = AdminUser.new(email: 'admin@insiemento.io',
                              password: default_root_admin_password,
-                             password_confirmation: default_root_admin_password)
+                             password_confirmation: default_root_admin_password,
+                             firstname: 'Admin', lastname: 'Platform'
+                             )
   admin_user.roles = ['root']
   admin_user.save!
 
@@ -59,7 +61,8 @@ if AdminUser.count == 0
       admin_user = AdminUser.new(email: "#{role}@#{organization.domain}",
                                  organization: organization,
                                  password: default_admin_password,
-                                 password_confirmation: default_admin_password)
+                                 password_confirmation: default_admin_password,
+                                 firstname: role.capitalize, lastname: organization.name)
       admin_user.roles = [role]
       admin_user.save!
     end

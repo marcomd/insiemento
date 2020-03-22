@@ -2,13 +2,16 @@ class AdminUser < ApplicationRecord
   belongs_to :organization, optional: true
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, 
-         :recoverable, :rememberable, :validatable
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable, :trackable
 
   ROLES = %w[root manager accountant]
   scope :with_role   , ->(role) { where("roles_mask & #{2**ROLES.index(role.to_s)} > 0 ") }
   scope :without_role, ->(role) { where("roles_mask & #{2**ROLES.index(role.to_s)} = 0 ") }
+
+  def fullname
+    "#{firstname} #{lastname}"
+  end
 
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum

@@ -4,7 +4,7 @@ ActiveAdmin.register AdminUser do
   # permit_params :email, :password, :password_confirmation
   permit_params do
     permitted = [:email, :password, :password_confirmation]
-    permitted << :organization_id if current_admin_user.root?
+    permitted.concat([:organization_id, :roles_mask, roles: []]) if current_admin_user.is_root?
     permitted
   end
 
@@ -14,12 +14,22 @@ ActiveAdmin.register AdminUser do
       myscope = myscope.includes :organization
       myscope
     end
+
+    def update
+      unless params[:admin_user][:password].present?
+        params[:admin_user].delete 'password'
+        params[:admin_user].delete 'password_confirmation'
+      end
+      super
+    end
   end
 
   index do
     selectable_column
     id_column
     column :organization
+    column :firstname
+    column :lastname
     column :email
     column :current_sign_in_at
     column :sign_in_count
@@ -29,11 +39,16 @@ ActiveAdmin.register AdminUser do
 
   show do |admin_user|
     attributes_table do
-      row(:email)
       row(:organization)
+      row(:email)
+      row(:firstname)
+      row(:lastname)
       row(:roles_mask)  { |obj| obj.roles.join(', ') }
-      row(:current_sign_in_at)
       row(:sign_in_count)
+      row(:current_sign_in_at)
+      row(:last_sign_in_at)
+      row(:current_sign_in_ip)
+      row(:last_sign_in_ip)
       row(:reset_password_token)
       row(:reset_password_sent_at)
       row(:remember_created_at)
@@ -49,8 +64,11 @@ ActiveAdmin.register AdminUser do
   filter :created_at
 
   form do |f|
+    f.inputs 'Admin' do
+      f.input :organization
+      f.input :roles, as: :check_boxes, collection: AdminUser::ROLES
+    end if current_admin_user.is_root?
     f.inputs do
-      f.input(:organization) if current_admin_user.root?
       f.input :email
       f.input :password
       f.input :password_confirmation

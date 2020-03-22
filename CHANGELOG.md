@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.9.0 22/03/2020 0,5h
+
+- Improved admin UI management #3
+  - Added new fields to admin users: firstname, lastname, trackable fields (sign in date and ip)
+  - Added roles of admin users to the form only available for root admin users
+
 # v0.8.1 21/03/2020 0,5h
 
 - Updated many node modules
