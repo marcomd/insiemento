@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.10.1 28/03/2020 0h
+
+- Little improvement to admin UI and updated circleci configuration 
+  - Added firstname and lastname to admin user management
+  - Added dm:migrate after deploy on master branch
+
 # v0.10.0 22/03/2020 1h
 
 - Improved admin UI users management

@@ -69,6 +69,8 @@ ActiveAdmin.register AdminUser do
       f.input :roles, as: :check_boxes, collection: AdminUser::ROLES
     end if current_admin_user.is_root?
     f.inputs do
+      f.input :firstname
+      f.input :lastname
       f.input :email
       f.input :password
       f.input :password_confirmation

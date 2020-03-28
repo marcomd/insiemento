@@ -33,3 +33,7 @@ product organization:references name:string{60} description:string{255} price_ce
 
 # To manage users subscriptions: fitness, swimming pool, spa etc.
 subscription uuid:string{36} organization:references product:references user:references start_on:date end_on:date
+
+order organization:references product_ids:array
+
+# To manage payments

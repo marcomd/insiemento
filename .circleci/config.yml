@@ -3,20 +3,11 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.0.1 # Invoke the Heroku orb
 
-workflows:
-  heroku_deploy:
-    jobs:
-      - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-
-jobs:
-  build:
-    working_directory: ~/insiemento
+executors:
+  ruby:
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+  ruby_with_db:
     docker:
       - image: circleci/ruby:2.6.3-node-browsers
         environment: # environment variables for primary container
@@ -32,6 +23,28 @@ jobs:
           POSTGRES_DB: insiemento_t
           POSTGRES_PASSWORD: "insiemento01"
       - image: circleci/redis:3.2-alpine
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - heroku-db-migrate:
+          requires:
+            - build
+            - heroku/deploy-via-git
+          filters:
+            branches:
+              only: master
+jobs:
+  build:
+    working_directory: ~/insiemento
+    executor: ruby_with_db
     steps:
       - checkout
       # Install dependencies for Ruby Gems
@@ -83,7 +96,6 @@ jobs:
           command: bin/rails db:create db:schema:load --trace
 
       # Run test suits
-
       - run:
           name: Run rspec in parallel
           command: |
@@ -91,3 +103,13 @@ jobs:
                              --out /tmp/test-results/rspec.xml \
                              --format progress \
                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+  heroku-db-migrate:
+    working_directory: ~/insiemento
+    executor: ruby
+    steps:
+      - run:
+          name: Run latest migrations
+          command: |
+            heroku run rake db:migrate
+            sleep 5 # sleep for 5 seconds to wait for dynos
+            heroku restart
