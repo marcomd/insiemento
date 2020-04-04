@@ -32,7 +32,7 @@ ActiveAdmin.register Room do
     end
     column(:name)
     column(:max_attendees)
-    column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
     column(:created_at)
     column(:updated_at)
     actions
@@ -41,7 +41,7 @@ ActiveAdmin.register Room do
   filter :organization, if: proc { current_admin_user.is_root? }
   filter :name
   filter :max_attendees
-  filter :state       , as: :select, collection: Trainer.localized_states
+  filter :state       , as: :select, collection: Room.localized_states
   filter :created_at
   filter :updated_at
 end

@@ -38,7 +38,10 @@ Allows administrators of each organization to configure:
 - Trainers
 - Rooms where the courses will be phisically done
 - Define the program of the week: course, trainer, room, day and time
-- Categories, products and subscriptions
+- Categories and products (to manage subscriptions)
+
+_In progress_: users can buy products to extend their subscriptions. They create orders with choosen products, 
+then pay and gain access. The goal is to create a simple ecommerce to allow users to independently extend their subscription.
 
 An automatism:
 
@@ -90,7 +93,8 @@ Currently, only administrators can associate a subscription with a customer but 
 - [x] Milestone2: Organizations for multitenant management `v0.5.0`
 - [x] Products management
 - [x] Milestone3: Customers subscription management `v0.6.0`
-- [ ] Milestone4: Organizations fee management
+- [ ] Milestone5: Orders and payments management, in progress `v0.11.0`
+- [ ] Milestone6: Organizations fee management
 
 ## Cos'è?
 

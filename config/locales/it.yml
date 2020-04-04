@@ -222,8 +222,8 @@ it:
         one: "Istruttore"
         other: "Istruttori"
       course_event:
-        one: "Evento"
-        other: "Eventi"
+        one: "Sessione"
+        other: "Sessioni"
       course_schedule:
         one: "Schedulazione"
         other: "Schedulazioni"
@@ -245,6 +245,12 @@ it:
       subscription:
         one: "Abbonamento"
         other: "Abbonamenti"
+      order:
+        one: "Ordine"
+        other: "Ordini"
+      payment:
+        one: "Pagamento"
+        other: "Pagamenti"
     errors:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'
@@ -259,7 +265,7 @@ it:
       system_log:
         organization: "Organizzazione"
         user: "Utente"
-        couse_event: "Evento"
+        couse_event: "Sessione"
         log_level: "Livello log"
         message: "Messaggio"
       course:
@@ -319,7 +325,7 @@ it:
         created_at: "Data creazione"
         updated_at: "Data modifica"
       course_event:
-        one: "Evento"
+        one: "Sessione"
         organization: "Organizzazione"
         course: "Corso"
         room: "Stanza"
@@ -390,6 +396,38 @@ it:
           suspended: "Sospeso"
         created_at: "Data creazione"
         updated_at: "Data modifica"
+      order:
+        organization: "Organizzazione"
+        user: "Cliente"
+        phone: "Telefono"
+        state: "Stato"
+        states:
+          just_made: "Nuovo"
+          processing: "In lavorazione"
+          canceled: "Cancellato"
+          completed: "Completato"
+        total_amount_cents: "Importo totale"
+        discount_cents: "Importo da scontare"
+        amount_to_pay_cents: "Importo da pagare"
+        amount_paid_cents: "Importo pagato"
+        currency: "Valuta"
+        paid_at: "Pagato il"
+        approver_admin_user_id: "Approvatore"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      payment:
+        organization: "Organizzazione"
+        user: "Cliente"
+        order: "Ordine"
+        source: "Origine"
+        state: "Stato"
+        states:
+          just_made: "Nuovo"
+          canceled: "Cancellato"
+          confirmed: "Confermato"
+        amount_cents: "Importo"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
   formtastic:
     titles:
     labels:
@@ -416,6 +454,7 @@ it:
     sidekiq: "Gestione code asincrone"
     users_management: "Gestione Utenti"
     products_management: "Gestione Prodotti"
+    payments_management: "Gestione Pagamenti"
     courses_management: "Gestione Corsi"
     gym_management: "Gestione Palestra"
     platform_management: "Amministrazione"

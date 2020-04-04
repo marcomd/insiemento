@@ -250,9 +250,10 @@ ActiveAdmin.setup do |config|
       menu.add id: 'courses_management', label: I18n.t('menu.courses_management'), priority: 20
       menu.add id: 'gym_management', label: I18n.t('menu.gym_management'), priority: 30
       menu.add id: 'products_management', label: I18n.t('menu.products_management'), priority: 40
-      menu.add id: 'users_management', label: I18n.t('menu.users_management'), priority: 50
-      menu.add id: 'platform_management', label: I18n.t('menu.platform_management'), priority: 60
-      menu.add id: 'diagnostics', label: I18n.t('menu.diagnostics'), priority: 70 do |pages|
+      menu.add id: 'payments_management', label: I18n.t('menu.payments_management'), priority: 50
+      menu.add id: 'users_management', label: I18n.t('menu.users_management'), priority: 60
+      menu.add id: 'platform_management', label: I18n.t('menu.platform_management'), priority: 70
+      menu.add id: 'diagnostics', label: I18n.t('menu.diagnostics'), priority: 80 do |pages|
         pages.add label: I18n.t('menu.sidekiq'), url: '/admin/sidekiq', html_options: { target: :blank }, if: proc{ current_admin_user.is_root? }
       end
     end

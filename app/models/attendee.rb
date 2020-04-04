@@ -8,6 +8,8 @@ class Attendee < ApplicationRecord
                                  message: I18n.t('errors.messages.already_subscribed') }
   validate :check_max_attendees, :check_valid_subscriptions
 
+  # TODO private
+
   def check_max_attendees
     if attendees.count >= room.max_attendees
       errors.add(:course_event_id, I18n.t('errors.messages.max_attendees_reached'))

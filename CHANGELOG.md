@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.11.0 04/04/2020 11h
+
+- Added orders and payments
+  - An order can have many products (many to many) and many payments (one to many. 
+  - When the amount to pay is equal to the amount payed, the order is completed. Next step will be to create 
+    subscriptions from purchased products after an order has been completed.
+  - Added the two new resources and several improvements to the Admin UI
+- Improved spec with shoulda, factory bot and VCR
+- Updated seed with new resources
+
 # v0.10.1 28/03/2020 0h
 
 - Little improvement to admin UI and updated circleci configuration 

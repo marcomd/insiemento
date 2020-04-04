@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.sendgrid.com/v3/mail/send
+    body:
+      encoding: UTF-8
+      string: '{"from":{"email":"please-do-not-reply@fitness.io","name":"Fitness center"},"personalizations":[{"to":[{"email":"m.mastrodonato@gmail.com"}],"dynamic_template_data":{"firstname":"John4","application_name":"Fitness
+        center","link_url":"http://localhost:3100/api/ui/v1/users/confirmation?confirmation_token=zquKgHeeecDsSDKT1VJK"}}],"template_id":"d-86dd760afd9243feb25dd5cc5fefd9b8"}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin19.2.0 x86_64) ruby/2.6.3p62
+      Authorization:
+      - Bearer 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
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '379'
+      Host:
+      - api.sendgrid.com
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 30 Mar 2020 07:55:20 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Message-Id:
+      - WP1Dd1pyQR-pr0KMBmTpAg
+      Access-Control-Allow-Origin:
+      - https://sendgrid.api-docs.io
+      Access-Control-Allow-Methods:
+      - POST
+      Access-Control-Allow-Headers:
+      - Authorization, Content-Type, On-behalf-of, x-sg-elas-acl
+      Access-Control-Max-Age:
+      - '600'
+      X-No-Cors-Reason:
+      - https://sendgrid.com/docs/Classroom/Basics/API/cors.html
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: null
+  recorded_at: Mon, 30 Mar 2020 07:55:20 GMT
+recorded_with: VCR 5.1.0

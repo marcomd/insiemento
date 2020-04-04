@@ -1,10 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+###                READ CAREFULLY BEFORE UPDATE                    ###
+# This seed is used by specs, don't change the order of items creation
+# and execute all specs after each changement
+######################################################################
+
 default_password = Rails.application.credentials.seed.dig(:default_password)
 default_root_admin_password = Rails.application.credentials.seed.dig(:default_root_admin_password)
 default_admin_password = Rails.application.credentials.seed.dig(:default_admin_password)
@@ -144,13 +142,13 @@ generic_user_names = %w(user1 user2 user3 user4 user5 user6 user7)
 generic_lastname = 'Generic'
 
 if User.count == 0
-  u_stefania=User.new(firstname: 'Stefania', lastname: 'Rossini', email: "stefania@#{o_dance.domain}",
+  u_stefy=User.new(firstname: 'Stefania', lastname: 'Rossini', email: "stefania@#{o_dance.domain}",
                       organization: o_dance,
                       birthdate: '1990-05-25', gender: 'F', state: :active, phone: '3391122333',
                       password: default_password,
                       password_confirmation: default_password)
-  u_stefania.skip_confirmation!
-  u_stefania.save!
+  u_stefy.skip_confirmation!
+  u_stefy.save!
   u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: "marco@#{o_dance.domain}",
                    organization: o_dance,
                    birthdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455555',
@@ -197,7 +195,7 @@ if User.count == 0
   end
   puts "Users: #{User.count}"
 else
-  u_stefania, u_marco, u_linda = User.all
+  u_stefy, u_marco, u_linda = User.all
 end
 
 generic_users = User.where(lastname: generic_lastname)
@@ -251,14 +249,31 @@ else
   p_fitness_try, p_fitness_month, p_fitness_year, p_spa_day, p_spa_month, p_swim_month, p_swim_year = Product.all
 end
 
+if Order.count == 0
+  ord_stefy  = Order.create!(organization: o_dance, user: u_stefy, products: [p_fitness_year, p_spa_month]  )
+  ord_paolo  = Order.create!(organization: o_dance, user: u_paolo, products: [p_fitness_month]  )
+  ord_elena  = Order.create!(organization: o_dance, user: u_elena, products: [p_fitness_month]  )
+  puts "Orders: #{Order.count}"
+else
+  ord_stefy, ord_other = Order.all
+end
+
+if Payment.count == 0
+  pay_stefy  = Payment.create!(organization: o_dance, user: u_stefy, order: ord_stefy, source: :stripe, state: :confirmed, amount_cents: 34800  )
+  pay_paolo  = Payment.create!(organization: o_dance, user: u_paolo, order: ord_paolo, source: :stripe, state: :just_made, amount_cents:  1900  )
+  puts "Payments: #{Payment.count}"
+else
+  pay_stefy, pay_other = Payment.all
+end
+
 if Subscription.count == 0
   subscription_attributes = []
   # Redeemed active subscriptions...
-  subscription_attributes << { organization: o_dance, category: p_fitness_year.category , product: p_fitness_year , user: u_stefania, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_year.days  }
-  subscription_attributes << { organization: o_dance, category: p_spa_month.category    , product: p_spa_month    , user: u_stefania, start_on: Time.zone.today, end_on: Time.zone.today + p_spa_month.days     }
-  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco,    start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_month.days }
-  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_linda,    start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_month.days }
-  subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo,    start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_try.days   }
+  subscription_attributes << { organization: o_dance, category: p_fitness_year.category , product: p_fitness_year , user: u_stefy, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_year.days, order: ord_stefy  }
+  subscription_attributes << { organization: o_dance, category: p_spa_month.category    , product: p_spa_month    , user: u_stefy, start_on: Time.zone.today, end_on: Time.zone.today + p_spa_month.days   , order: ord_stefy  }
+  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_month.days }
+  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_linda, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_month.days }
+  subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_try.days   }
   generic_users.each do |user|
     subscription_attributes << { organization: o_dance, category: p_fitness_try.category, product: p_fitness_try  , user: user,    start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_try.days }
   end
@@ -271,7 +286,7 @@ if Subscription.count == 0
 end
 
 if Attendee.count == 0
-  Attendee.create!(course_event_id:  1, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  1, user_id: u_stefy.id)
   Attendee.create!(course_event_id:  1, user_id: u_marco.id)
   Attendee.create!(course_event_id:  1, user_id: u_linda.id)
 
@@ -279,12 +294,12 @@ if Attendee.count == 0
     Attendee.create!(course_event_id:  1, user_id: user.id)
   end
 
-  Attendee.create!(course_event_id:  2, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  2, user_id: u_stefy.id)
   Attendee.create!(course_event_id:  2, user_id: u_marco.id)
 
-  Attendee.create!(course_event_id:  3, user_id: u_stefania.id)
-  Attendee.create!(course_event_id:  4, user_id: u_stefania.id)
-  Attendee.create!(course_event_id:  5, user_id: u_stefania.id)
+  Attendee.create!(course_event_id:  3, user_id: u_stefy.id)
+  Attendee.create!(course_event_id:  4, user_id: u_stefy.id)
+  Attendee.create!(course_event_id:  5, user_id: u_stefy.id)
 
   puts "Attendees: #{Attendee.count}"
 end

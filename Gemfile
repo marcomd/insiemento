@@ -89,12 +89,19 @@ gem 'cancancan', '~> 3.1.0'
 # Extends ActiveAdmin to enable a set of great optional UX improving add-ons
 gem 'activeadmin_addons', '~> 1.7.0'
 
+# Ruby state machines
+gem 'aasm', '~> 5.0.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 
   # RSpec for Rails - Need to be in development for mail preview
   gem 'rspec-rails', '~> 3.9.0'
+
+  # fixtures replacement with a straightforward definition syntax
+  gem 'factory_bot', '5.1.1'
+  gem 'factory_bot_rails', '~> 5.1.0'
 end
 
 group :development do
@@ -130,6 +137,15 @@ group :test do
   gem 'selenium-webdriver', '~> 3.142.7'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers', '~> 4.2.0'
+
+  # RSpec and Minitest-compatible one-liners to test common Rails functionality
+  gem 'shoulda-matchers', '~> 4.3'
+
+  # Record your test suite's HTTP interactions and replay them during future test
+  gem 'vcr', '~> 5.1.0'
+
+  # Library for stubbing and setting expectations on HTTP requests in Ruby.
+  gem  'webmock', '~> 3.8.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -12,7 +12,7 @@ $critical_color: rgb(160,70,70);
   &.active {
     background-color: $yes_color;
   }
-  &.completed {
+  &.completed, &.confirmed {
     background-color: $complete_color;
   }
   &.warning {

@@ -30,13 +30,14 @@ ActiveAdmin.register User do
     if current_admin_user.is_root?
       column(:organization)
     end
-    column :firstname
-    column :lastname
-    column :email
-    column :phone
-    column :current_sign_in_at
-    column :sign_in_count
-    column :created_at
+    column(:firstname)
+    column(:lastname)
+    column(:email)
+    column(:phone)
+    column(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:current_sign_in_at)
+    column(:sign_in_count)
+    column(:created_at)
     actions
   end
 
@@ -63,7 +64,7 @@ ActiveAdmin.register User do
           row(:firstname)
           row(:lastname)
           row(:phone)
-          row(:state)
+          row(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
           row(:reset_password_token)
           row(:reset_password_sent_at)
           row(:remember_created_at)

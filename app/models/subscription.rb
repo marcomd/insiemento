@@ -3,6 +3,7 @@ class Subscription < ApplicationRecord
   belongs_to :category
   belongs_to :product
   belongs_to :user, optional: true
+  belongs_to :order, optional: true
   before_validation :set_code
 
   scope :active, -> (date=Time.zone.today) { where('start_on <= ? and end_on > ?', date, date) }

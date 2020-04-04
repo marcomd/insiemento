@@ -36,7 +36,7 @@ ActiveAdmin.register CourseSchedule do
     column(:trainer)
     column(:event_day) { |obj|  obj.localized_event_day }
     column(:event_time) { |obj|  obj.event_time_short }
-    column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
     column(:created_at)
     column(:updated_at)
     actions

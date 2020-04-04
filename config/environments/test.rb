@@ -3,6 +3,10 @@
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
 
+host = 'localhost'
+host_port = 3100
+Rails.application.default_url_options = { host: host, port: host_port }
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

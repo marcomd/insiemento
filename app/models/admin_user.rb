@@ -61,5 +61,13 @@ class AdminUser < ApplicationRecord
     is_root? ? Product.all : organization&.products || []
   end
 
+  def orders
+    is_root? ? Order.all : organization&.orders || []
+  end
+
+  def payments
+    is_root? ? Payment.all : organization&.payments || []
+  end
+
 
 end

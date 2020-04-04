@@ -7,4 +7,8 @@ module Stateable
     end
   end
 
+  def localized_state
+    I18n.t!("activerecord.attributes.#{self.class.name.underscore}.states.#{state}")
+  end
+
 end

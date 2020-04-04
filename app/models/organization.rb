@@ -8,6 +8,8 @@ class Organization < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :payments, dependent: :destroy
   has_many :system_logs, dependent: :destroy
 
   STATES = { activating: 10, active: 20, suspended: 30}

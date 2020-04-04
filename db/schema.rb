@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_182631) do
+ActiveRecord::Schema.define(version: 2020_03_29_133932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,31 @@ ActiveRecord::Schema.define(version: 2020_03_04_182631) do
     t.index ["organization_id"], name: "index_courses_on_organization_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "state", limit: 2, default: 10
+    t.integer "total_amount_cents", default: 0
+    t.integer "amount_to_pay_cents", default: 0
+    t.integer "amount_paid_cents", default: 0
+    t.integer "discount_cents", default: 0
+    t.integer "currency", limit: 2, default: 0
+    t.datetime "paid_at"
+    t.bigint "approver_admin_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["approver_admin_user_id"], name: "index_orders_on_approver_admin_user_id"
+    t.index ["organization_id"], name: "index_orders_on_organization_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "orders_products", id: false, force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.index ["order_id"], name: "index_orders_products_on_order_id"
+    t.index ["product_id"], name: "index_orders_products_on_product_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name", limit: 60
     t.string "payoff", limit: 255
@@ -140,6 +165,20 @@ ActiveRecord::Schema.define(version: 2020_03_04_182631) do
     t.boolean "use_subscription", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id"
+    t.bigint "order_id"
+    t.integer "source", limit: 2
+    t.integer "state", limit: 2, default: 10
+    t.integer "amount_cents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["organization_id"], name: "index_payments_on_organization_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -171,12 +210,14 @@ ActiveRecord::Schema.define(version: 2020_03_04_182631) do
     t.bigint "category_id", null: false
     t.bigint "product_id", null: false
     t.bigint "user_id"
+    t.bigint "order_id"
     t.date "start_on"
     t.date "end_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_subscriptions_on_category_id"
     t.index ["code"], name: "index_subscriptions_on_code", unique: true
+    t.index ["order_id"], name: "index_subscriptions_on_order_id"
     t.index ["organization_id"], name: "index_subscriptions_on_organization_id"
     t.index ["product_id"], name: "index_subscriptions_on_product_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
@@ -252,10 +293,19 @@ ActiveRecord::Schema.define(version: 2020_03_04_182631) do
   add_foreign_key "course_schedules", "trainers"
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "organizations"
+  add_foreign_key "orders", "admin_users", column: "approver_admin_user_id"
+  add_foreign_key "orders", "organizations"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders_products", "orders"
+  add_foreign_key "orders_products", "products"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "payments", "organizations"
+  add_foreign_key "payments", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "organizations"
   add_foreign_key "rooms", "organizations"
   add_foreign_key "subscriptions", "categories"
+  add_foreign_key "subscriptions", "orders"
   add_foreign_key "subscriptions", "organizations"
   add_foreign_key "subscriptions", "products"
   add_foreign_key "subscriptions", "users"

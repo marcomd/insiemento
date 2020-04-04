@@ -42,6 +42,7 @@ class Ability
         can [:read], Category, organization_id: admin_user.organization_id
         can [:read], Product, organization_id: admin_user.organization_id
         can [:read], Subscription, organization_id: admin_user.organization_id
+        can [:read], Order, organization_id: admin_user.organization_id
       end
       if admin_user.has_role? :accountant
         can [:read], Organization, id: admin_user.organization_id
@@ -51,6 +52,7 @@ class Ability
         can [:read, :update, :create, :destroy], Category, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Product, organization_id: admin_user.organization_id
         can [:read, :update, :create, :destroy], Subscription, organization_id: admin_user.organization_id
+        can [:read, :update, :create, :destroy], Order, organization_id: admin_user.organization_id
       end
     end
   end

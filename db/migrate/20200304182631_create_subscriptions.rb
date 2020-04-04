@@ -6,6 +6,7 @@ class CreateSubscriptions < ActiveRecord::Migration[6.0]
       t.references :category, null: false, foreign_key: true
       t.references :product, null: false, foreign_key: true
       t.references :user, null: true, foreign_key: true
+      t.references :order, null: true, foreign_key: true
       t.date :start_on
       t.date :end_on
 

@@ -213,6 +213,34 @@ en:
           suspended: "Suspended"
         created_at: "Created at"
         updated_at: "Updated at"
+      order:
+        organization: "Organization"
+        user: "Customer"
+        phone: "Telephone"
+        state: "State"
+        states:
+          just_made: "New"
+          processing: "In progress"
+          canceled: "Canceled"
+          completed: "Completed"
+        total_amount_cents: "Total amount"
+        discount_cents: "Amount to be discounted"
+        amount_to_pay_cents: "Amount to be paid"
+        amount_paid_cents: "Amount paid"
+        currency: "Currency"
+        paid_at: "Paid on"
+        approver_admin_user_id: "Approver"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      payment:
+        organization: "Organization"
+        user: "Customer"
+        order: "Order"
+        source: "Source"
+        state: "State"
+        amount_cents: "Amount"
+        created_at: "Created at"
+        updated_at: "Updated at"
   formtastic:
     titles:
     labels:
@@ -238,6 +266,7 @@ en:
     sidekiq: "Asynchronous queue management"
     users_management: "User Management"
     products_management: "Product Management"
+    payments_management: "Payment Management"
     courses_management: "Course Management"
     gym_management: "Gym Management"
     platform_management: "Administration"
