@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.14.0 05/04/2020 0,5h
+
+- Improved all money fields management
+  - The money management is now delegated to money gem that was already present but not used
+
 # v0.13.0 05/04/2020 2,5h
 
 - Improved orders and payments management

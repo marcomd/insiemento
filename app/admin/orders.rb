@@ -6,12 +6,12 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :organization_id, :user_id, :state, :amount_to_pay_cents, :amount_paid_cents, :currency, :paid_at, :approver_admin_user_id
+  # permit_params :organization_id, :user_id, :state, :amount_to_pay, :amount_paid, :currency, :paid_at, :approver_admin_user_id
   #
   # or
   #
   permit_params do
-    permitted = [:user_id, :state, :total_amount_cents, :amount_to_pay_cents, :amount_paid_cents, :discount_cents,
+    permitted = [:user_id, :state, :total_amount, :amount_to_pay, :amount_paid, :discount,
                  :currency, :paid_at, :start_on, :approver_admin_user_id]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
@@ -37,10 +37,10 @@ ActiveAdmin.register Order do
     end
     column(:user)
     column(:state)                {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
-    column(:total_amount_cents)   { |obj| Money.new(obj.total_amount_cents).to_s }
-    column(:amount_to_pay_cents)  { |obj| Money.new(obj.amount_to_pay_cents).to_s }
-    column(:amount_paid_cents)    { |obj| Money.new(obj.amount_paid_cents).to_s }
-    column(:discount_cents)       { |obj| Money.new(obj.discount_cents).to_s }
+    column(:total_amount)
+    column(:amount_to_pay)
+    column(:amount_paid)
+    column(:discount)
     column(:paid_at)
     column(:created_at)
     column(:updated_at)
@@ -50,11 +50,11 @@ ActiveAdmin.register Order do
   filter :organization, if: proc { current_admin_user.is_root? }
   filter :user        , collection: proc { current_admin_user.users }
   filter :state       , as: :select, collection: Order.localized_states
-  filter :currency
-  filter :total_amount_cents
-  filter :amount_to_pay_cents
-  filter :amount_paid_cents
-  filter :discount_cents
+  filter :currency    , as: :select, collection: Order.currencies
+  filter :total_amount  , as: :numeric
+  filter :amount_to_pay , as: :numeric
+  filter :amount_paid   , as: :numeric
+  filter :discount      , as: :numeric
   filter :start_on
   filter :paid_at
   filter :created_at
@@ -70,10 +70,10 @@ ActiveAdmin.register Order do
           row(:user)
           row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
           row(:currency)
-          row(:total_amount_cents)   { |obj| Money.new(obj.total_amount_cents).to_s }
-          row(:amount_to_pay_cents)  { |obj| Money.new(obj.amount_to_pay_cents).to_s }
-          row(:amount_paid_cents)    { |obj| Money.new(obj.amount_paid_cents).to_s }
-          row(:discount_cents)       { |obj| Money.new(obj.discount_cents).to_s }
+          row(:total_amount)
+          row(:amount_to_pay)
+          row(:amount_paid)
+          row(:discount)
           row(:paid_at)
           row(:start_on)
           row(:created_at)
@@ -86,7 +86,7 @@ ActiveAdmin.register Order do
             column(:id)           { |obj| link_to "#{obj.id}", [:admin, obj]}
             column(:category)
             column(:name)
-            column(:price_cents)  { |obj| Money.new(obj.price_cents).to_s }
+            column(:price)
             column(:days)
           end
         end
@@ -96,7 +96,7 @@ ActiveAdmin.register Order do
             column(:user)
             column(:source)
             column(:state)        { |obj| span obj.localized_state, class: "status_tag #{obj.state}" }
-            column(:amount_cents) { |obj| Money.new(obj.amount_cents).to_s }
+            column(:amount)
           end
         end
       end
@@ -137,10 +137,10 @@ ActiveAdmin.register Order do
       column do
         f.inputs do
           f.input :currency
-          f.input :total_amount_cents
-          f.input :amount_to_pay_cents
-          f.input :amount_paid_cents
-          f.input :discount_cents
+          f.input :total_amount
+          f.input :amount_to_pay
+          f.input :amount_paid
+          f.input :discount
           f.input :paid_at, as: :date_time_picker
         end
       end

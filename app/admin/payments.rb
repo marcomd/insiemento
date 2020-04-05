@@ -6,12 +6,12 @@ ActiveAdmin.register Payment do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :organization_id, :user_id, :order_id, :source, :state, :amount_cents
+  # permit_params :organization_id, :user_id, :order_id, :source, :state, :amount
   #
   # or
   #
   permit_params do
-    permitted = [:user_id, :order_id, :source, :state, :amount_cents]
+    permitted = [:user_id, :order_id, :source, :state, :amount]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -37,7 +37,7 @@ ActiveAdmin.register Payment do
     column(:user)
     column(:order)
     column(:state)          { |obj| span obj.localized_state, class: "status_tag #{obj.state}" }
-    column(:amount_cents)   { |obj| Money.new(obj.amount_cents).to_s }
+    column(:amount)
     column(:created_at)
     column(:updated_at)
     actions
@@ -47,7 +47,7 @@ ActiveAdmin.register Payment do
   filter :user        , collection: proc { current_admin_user.users }
   filter :order       , collection: proc { current_admin_user.orders }
   filter :state       , as: :select, collection: Order.localized_states
-  filter :amount_cents
+  filter :amount, as: :numeric
   filter :created_at
   filter :updated_at
 
@@ -59,7 +59,7 @@ ActiveAdmin.register Payment do
       row(:user)
       row(:order)
       row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
-      row(:amount_cents)   { |obj| Money.new(obj.amount_cents).to_s }
+      row(:amount)
       row(:created_at)
       row(:updated_at)
     end
@@ -124,7 +124,7 @@ ActiveAdmin.register Payment do
       column do
         f.inputs do
           f.input :state
-          f.input :amount_cents
+          f.input :amount
         end
       end
     end

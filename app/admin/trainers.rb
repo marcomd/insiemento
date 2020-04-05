@@ -11,7 +11,7 @@ ActiveAdmin.register Trainer do
 
   permit_params do
     permitted = [:firstname, :lastname, :nickname, :bio, :state]
-    permitted << :organization_id if current_admin_user.is_root?
+    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 

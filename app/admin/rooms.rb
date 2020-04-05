@@ -12,7 +12,7 @@ ActiveAdmin.register Room do
 
   permit_params do
     permitted = [:name, :max_attendees, :state]
-    permitted << :organization_id if current_admin_user.is_root?
+    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 

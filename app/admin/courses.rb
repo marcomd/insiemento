@@ -12,7 +12,7 @@ ActiveAdmin.register Course do
 
   permit_params do
     permitted = [:category_id, :name, :description, :start_booking_hours, :end_booking_minutes, :state]
-    permitted << :organization_id if current_admin_user.is_root?
+    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 

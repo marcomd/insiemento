@@ -6,13 +6,13 @@ ActiveAdmin.register Product do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :organization_id, :name, :description, :price_cents, :days, :category_id
+  # permit_params :organization_id, :name, :description, :price, :days, :category_id
   #
   # or
   #
   permit_params do
-    permitted = [:name, :description, :price_cents, :days, :category_id]
-    permitted << :organization_id if current_admin_user.is_root?
+    permitted = [:name, :description, :price, :days, :category_id]
+    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 
@@ -33,7 +33,7 @@ ActiveAdmin.register Product do
     column(:category)
     column(:name)
     column(:description)
-    column(:price_cents)
+    column(:price)
     column(:days)
     # column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
     column(:created_at)
@@ -45,7 +45,7 @@ ActiveAdmin.register Product do
   filter :category        , collection: proc { current_admin_user.categories }
   filter :name
   filter :description
-  filter :price_cents
+  filter :price, as: :numeric
   filter :days
   # filter :state       , as: :select, collection: Course.localized_states
   filter :created_at

@@ -9,7 +9,6 @@ class Order < ApplicationRecord
   has_many :subscriptions
 
   after_create :set_amounts!
-  #after_update :update_paid_amounts!
 
   STATES = { just_made: 10, processing: 20, canceled: 30, completed: 40}
   enum state: STATES
@@ -17,6 +16,20 @@ class Order < ApplicationRecord
   enum currency: { eur: 0, usd: 1 }
 
   monetize :total_amount_cents, :amount_to_pay_cents, :discount_cents, :amount_paid_cents
+
+  # It uses comma as thousand separator
+  ransacker :total_amount, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+    parent.table[:total_amount_cents]
+  end
+  ransacker :amount_to_pay, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+    parent.table[:amount_to_pay_cents]
+  end
+  ransacker :discount, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+    parent.table[:discount_cents]
+  end
+  ransacker :amount_paid, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+    parent.table[:amount_paid_cents]
+  end
 
   include AASM
   aasm :state, column: :state, enum: true do

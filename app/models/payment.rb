@@ -13,6 +13,13 @@ class Payment < ApplicationRecord
   STATES = { just_made: 10, canceled: 30, confirmed: 40}
   enum state: STATES
 
+  monetize :amount_cents
+
+  # It uses comma as thousand separator
+  ransacker :amount, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+    parent.table[:amount_cents]
+  end
+
   def confirm!
     update! state: :confirmed
   end
