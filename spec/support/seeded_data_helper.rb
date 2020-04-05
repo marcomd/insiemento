@@ -31,6 +31,14 @@ module SeededDataHelper
     Order.find(3)
   end
 
+  def payment_confirmed
+    Payment.confirmed.first
+  end
+
+  def payment_unconfirmed
+    Payment.just_made.first
+  end
+
   def authenticated_user(email)
     service = AuthenticateApiUser.call(email, Rails.application.credentials.seed.dig(:default_password))
 

@@ -250,27 +250,24 @@ else
 end
 
 if Order.count == 0
-  ord_stefy  = Order.create!(organization: o_dance, user: u_stefy, products: [p_fitness_year, p_spa_month]  )
-  ord_paolo  = Order.create!(organization: o_dance, user: u_paolo, products: [p_fitness_month]  )
-  ord_elena  = Order.create!(organization: o_dance, user: u_elena, products: [p_fitness_month]  )
+  ord_stefy  = Order.create!(organization: o_dance, user: u_stefy, start_on: Time.zone.today, products: [p_fitness_year, p_spa_month]  )
+  ord_paolo  = Order.create!(organization: o_dance, user: u_paolo, start_on: Time.zone.today, products: [p_fitness_month]  )
+  ord_elena  = Order.create!(organization: o_dance, user: u_elena, start_on: Time.zone.today, products: [p_fitness_month]  )
   puts "Orders: #{Order.count}"
 else
-  ord_stefy, ord_other = Order.all
+  ord_stefy, ord_paolo, ord_elena = Order.all
 end
 
 if Payment.count == 0
   pay_stefy  = Payment.create!(organization: o_dance, user: u_stefy, order: ord_stefy, source: :stripe, state: :confirmed, amount_cents: 34800  )
   pay_paolo  = Payment.create!(organization: o_dance, user: u_paolo, order: ord_paolo, source: :stripe, state: :just_made, amount_cents:  1900  )
   puts "Payments: #{Payment.count}"
-else
-  pay_stefy, pay_other = Payment.all
-end
 
-if Subscription.count == 0
+  # Subscriptions are created after the payment is created but these simulate an admin creation
   subscription_attributes = []
   # Redeemed active subscriptions...
-  subscription_attributes << { organization: o_dance, category: p_fitness_year.category , product: p_fitness_year , user: u_stefy, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_year.days, order: ord_stefy  }
-  subscription_attributes << { organization: o_dance, category: p_spa_month.category    , product: p_spa_month    , user: u_stefy, start_on: Time.zone.today, end_on: Time.zone.today + p_spa_month.days   , order: ord_stefy  }
+ #subscription_attributes << { organization: o_dance, category: p_fitness_year.category , product: p_fitness_year , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_fitness_year.days, order: ord_stefy  }
+ #subscription_attributes << { organization: o_dance, category: p_spa_month.category    , product: p_spa_month    , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_spa_month.days   , order: ord_stefy  }
   subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_month.days }
   subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_linda, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_month.days }
   subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, start_on: Time.zone.today, end_on: Time.zone.today + p_fitness_try.days   }
@@ -283,6 +280,8 @@ if Subscription.count == 0
   end
   Subscription.create!(subscription_attributes)
   puts "Subscriptions: #{Subscription.count}"
+else
+  pay_stefy, pay_paolo = Payment.all
 end
 
 if Attendee.count == 0

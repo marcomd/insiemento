@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 2020_03_29_133932) do
     t.integer "amount_paid_cents", default: 0
     t.integer "discount_cents", default: 0
     t.integer "currency", limit: 2, default: 0
+    t.date "start_on"
     t.datetime "paid_at"
     t.bigint "approver_admin_user_id"
     t.datetime "created_at", precision: 6, null: false

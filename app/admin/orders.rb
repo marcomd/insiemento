@@ -11,7 +11,8 @@ ActiveAdmin.register Order do
   # or
   #
   permit_params do
-    permitted = [:user_id, :state, :total_amount_cents, :amount_to_pay_cents, :amount_paid_cents, :discount_cents, :currency, :paid_at, :approver_admin_user_id]
+    permitted = [:user_id, :state, :total_amount_cents, :amount_to_pay_cents, :amount_paid_cents, :discount_cents,
+                 :currency, :paid_at, :start_on, :approver_admin_user_id]
     permitted << :organization_id if current_admin_user.is_root?
     permitted
   end
@@ -50,6 +51,7 @@ ActiveAdmin.register Order do
   filter :amount_to_pay_cents
   filter :amount_paid_cents
   filter :discount_cents
+  filter :start_on
   filter :paid_at
   filter :created_at
   filter :updated_at
@@ -69,6 +71,7 @@ ActiveAdmin.register Order do
           row(:amount_paid_cents)    { |obj| Money.new(obj.amount_paid_cents).to_s }
           row(:discount_cents)       { |obj| Money.new(obj.discount_cents).to_s }
           row(:paid_at)
+          row(:start_on)
           row(:created_at)
           row(:updated_at)
         end

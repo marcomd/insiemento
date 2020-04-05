@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.12.0 05/04/2020 1,5h
+
+- Completed orders and payments management
+  - Subscriptions are now created after the order is completed (which means paid)
+  - Added a date `start_on` on the order to specify when subscriptions have to start from
+  - Improved specs
+
 # v0.11.0 04/04/2020 11h
 
 - Added orders and payments

@@ -34,13 +34,13 @@ workflows:
           filters:
             branches:
               only: master
-      - heroku-db-migrate:
-          requires:
-            - build
-            - heroku/deploy-via-git
-          filters:
-            branches:
-              only: master
+#      - heroku-db-migrate:
+#          requires:
+#            - build
+#            - heroku/deploy-via-git
+#          filters:
+#            branches:
+#              only: master
 jobs:
   build:
     working_directory: ~/insiemento
@@ -103,13 +103,13 @@ jobs:
                              --out /tmp/test-results/rspec.xml \
                              --format progress \
                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-  heroku-db-migrate:
-    working_directory: ~/insiemento
-    executor: ruby
-    steps:
-      - run:
-          name: Run latest migrations
-          command: |
-            heroku run rake db:migrate
-            sleep 5 # sleep for 5 seconds to wait for dynos
-            heroku restart
+#  heroku-db-migrate:
+#    working_directory: ~/insiemento
+#    executor: ruby
+#    steps:
+#      - run:
+#          name: Run latest migrations
+#          command: |
+#            heroku run rake db:migrate
+#            sleep 5 # sleep for 5 seconds to wait for dynos
+#            heroku restart
