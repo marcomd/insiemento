@@ -149,6 +149,7 @@ if User.count == 0
                       password_confirmation: default_password)
   u_stefy.skip_confirmation!
   u_stefy.save!
+
   u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: "marco@#{o_dance.domain}",
                    organization: o_dance,
                    birthdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455555',
@@ -156,6 +157,7 @@ if User.count == 0
                    password_confirmation: default_password)
   u_marco.skip_confirmation!
   u_marco.save!
+
   u_linda=User.new(firstname: 'Linda', lastname: 'Sacco', email: "linda@#{o_dance.domain}",
                    organization: o_dance,
                    birthdate: '2000-01-12', gender: 'F', state: :active, phone: '3382244333',
@@ -163,6 +165,7 @@ if User.count == 0
                    password_confirmation: default_password)
   u_linda.skip_confirmation!
   u_linda.save!
+
   u_paolo=User.new(firstname: 'Paolo', lastname: 'Paolotto', email: "paolo@#{o_dance.domain}",
                    organization: o_dance,
                    birthdate: '1990-10-04', gender: 'M', state: :active, phone: '3382244444',
@@ -170,6 +173,7 @@ if User.count == 0
                    password_confirmation: default_password)
   u_paolo.skip_confirmation!
   u_paolo.save!
+
   u_elena=User.new(firstname: 'Elena', lastname: 'Elica', email: "elena@#{o_dance.domain}",
                    organization: o_dance,
                    birthdate: '2001-10-04', gender: 'F', state: :active, phone: '3301020300',
@@ -177,13 +181,15 @@ if User.count == 0
                    password_confirmation: default_password)
   u_elena.skip_confirmation!
   u_elena.save!
+
   u_pina=User.new(firstname: 'Pina', lastname: 'Pesce', email: "pina@#{o_swim.domain}",
                    organization: o_swim,
                    birthdate: '1985-05-10', gender: 'F', state: :active, phone: '3331122333',
                    password: default_password,
                    password_confirmation: default_password)
-  u_paolo.skip_confirmation!
-  u_paolo.save!
+  u_pina.skip_confirmation!
+  u_pina.save!
+
   generic_user_names.each do |name|
     user=User.new(firstname: name.capitalize, lastname: generic_lastname, email: "#{name}@#{o_dance.domain}",
                   organization: o_dance,

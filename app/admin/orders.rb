@@ -13,7 +13,7 @@ ActiveAdmin.register Order do
   permit_params do
     permitted = [:user_id, :state, :total_amount_cents, :amount_to_pay_cents, :amount_paid_cents, :discount_cents,
                  :currency, :paid_at, :start_on, :approver_admin_user_id]
-    permitted << :organization_id if current_admin_user.is_root?
+    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 
@@ -22,6 +22,10 @@ ActiveAdmin.register Order do
       myscope = super
       myscope = myscope.includes :organization, :user
       myscope
+    end
+    def create
+      params[:order][:organization_id] = current_admin_user.organization_id unless current_admin_user.is_root?
+      super
     end
   end
 
@@ -97,5 +101,51 @@ ActiveAdmin.register Order do
         end
       end
     end
+  end
+
+  form do |f|
+    columns do
+      column do
+        f.inputs do
+          if current_admin_user.is_root?
+            f.input :organization_id, as: :nested_select,
+                    minimum_input_length: 0,
+                    level_1: {
+                        attribute: :organization_id,
+                        fields: [:name],
+                        display_name: :name,
+                        minimum_input_length: 3,
+                        url: '\admin\organizations',
+                    },
+                    level_2: {
+                        attribute: :user_id,
+                        fields: [:email],
+                        display_name: :email,
+                        minimum_input_length: 3,
+                        url: '\admin\users',
+                    }
+          else
+            #tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+            f.input :user_id, as: :search_select, url: admin_users_path,
+                    fields: [:email], display_name: 'email', minimum_input_length: 3,
+                    order_by: 'email_asc', input_html: {class: 'after_user_selection'}
+          end
+          f.input :state
+          f.input :start_on
+        end
+      end
+      column do
+        f.inputs do
+          f.input :currency
+          f.input :total_amount_cents
+          f.input :amount_to_pay_cents
+          f.input :amount_paid_cents
+          f.input :discount_cents
+          f.input :paid_at, as: :date_time_picker
+        end
+      end
+    end
+
+    f.actions
   end
 end

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.13.0 05/04/2020 2,5h
+
+- Improved orders and payments management
+  - Improved admin UI with customized forms and with nested inputs to manage some resources
+  - Fixed a bug in the order class, now updated payment update the parent order
+  - Fixed the ability to manage create for all resources. Previously this operation was inhibited
+  - Improved and fixed payment specs
+  
 # v0.12.0 05/04/2020 1,5h
 
 - Completed orders and payments management

@@ -45,6 +45,10 @@ class Order < ApplicationRecord
     set_state!
   end
 
+  def name
+    "User #{user_id} #{start_on} #{Money.new(amount_to_pay_cents)}"
+  end
+
   private
 
   def set_amounts!
@@ -54,12 +58,13 @@ class Order < ApplicationRecord
   end
 
   def set_state!
-    if self.amount_paid_cents == self.amount_to_pay_cents
-      #TODO create subscriptions from purchaded products
-      self.complete! if may_complete?
-    else
-      self.start_process! if self.may_start_process?
-    end
+    bol_saved =
+      if self.amount_paid_cents == self.amount_to_pay_cents
+        self.complete! if may_complete?
+      else
+        self.start_process! if self.may_start_process?
+      end
+    bol_saved || save!
   end
 
   # Move it in a service if this method become more complex

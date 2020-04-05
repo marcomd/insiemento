@@ -29,13 +29,42 @@ RSpec.describe Payment, type: :model do
     it { expect { result }.to change(described_class, :count).by(1) }
 
     context 'when unconfirmed' do
-      it { expect { result }.to_not change { subject.order.amount_paid_cents } }
+      it do
+        expect do
+          result
+          subject.order.reload
+        end.to_not change { subject.order.amount_paid_cents }
+      end
     end
 
     context 'when confirmed' do
       subject { build(:payment, state: :confirmed) }
 
-      it { expect { result }.to change { subject.order.amount_paid_cents } }
+      it do
+        expect do
+          result
+          subject.order.reload
+        end.to change { subject.order.amount_paid_cents }
+      end
+    end
+  end
+
+  context 'update' do
+    subject { payment_confirmed }
+    let(:result) { subject.update amount_cents: amount_cents }
+    let(:amount_cents) { 5000 }
+
+    it 'calls update_order! method' do
+      allow(subject).to receive(:update_order!)
+      result
+      expect(subject).to have_received(:update_order!).once
+    end
+
+    it do
+      expect do
+        result
+        subject.order.reload
+      end.to change { subject.order.amount_paid_cents }.to(amount_cents)
     end
   end
 
@@ -51,6 +80,11 @@ RSpec.describe Payment, type: :model do
       expect(subject).to have_received(:update_order!).once
     end
 
-    it { expect { result }.to change { subject.order.amount_paid_cents } }
+    it do
+      expect do
+        result
+        subject.order.reload
+      end.to change { subject.order.amount_paid_cents }
+    end
   end
 end

@@ -93,8 +93,8 @@ Currently, only administrators can associate a subscription with a customer but 
 - [x] Milestone2: Organizations for multitenant management `v0.5.0`
 - [x] Products management
 - [x] Milestone3: Customers subscription management `v0.6.0`
-- [ ] Milestone5: Orders and payments management, in progress `v0.11.0`
-- [ ] Milestone6: Organizations fee management
+- [ ] Milestone4: Orders and payments management, in progress `v0.12.0`
+- [ ] Milestone5: Organizations fee management
 
 ## Cos'è?
 

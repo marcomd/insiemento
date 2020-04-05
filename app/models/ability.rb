@@ -33,26 +33,39 @@ class Ability
       can :read, ActiveAdmin::Page, name: "Dashboard"
       if admin_user.has_role? :manager
         can [:read, :update], Organization, id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], User, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Course, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], CourseEvent, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], CourseSchedule, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Room, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Trainer, organization_id: admin_user.organization_id
+        can [:read, :update, :destroy], User, organization_id: admin_user.organization_id
+        can [:create], User
+        can [:read, :update, :destroy], Course, organization_id: admin_user.organization_id
+        can [:create], Course
+        can [:read, :update, :destroy], CourseEvent, organization_id: admin_user.organization_id
+        can [:create], CourseEvent
+        can [:read, :update, :destroy], CourseSchedule, organization_id: admin_user.organization_id
+        can [:create], CourseSchedule
+        can [:read, :update, :destroy], Room, organization_id: admin_user.organization_id
+        can [:create], Room
+        can [:read, :update, :destroy], Trainer, organization_id: admin_user.organization_id
+        can [:create], Trainer
         can [:read], Category, organization_id: admin_user.organization_id
         can [:read], Product, organization_id: admin_user.organization_id
         can [:read], Subscription, organization_id: admin_user.organization_id
         can [:read], Order, organization_id: admin_user.organization_id
+        can [:read], Payment, organization_id: admin_user.organization_id
       end
       if admin_user.has_role? :accountant
         can [:read], Organization, id: admin_user.organization_id
         can [:read, :update], User, organization_id: admin_user.organization_id
         can [:read], Course, organization_id: admin_user.organization_id
         can [:read, :update], CourseEvent, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Category, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Product, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Subscription, organization_id: admin_user.organization_id
-        can [:read, :update, :create, :destroy], Order, organization_id: admin_user.organization_id
+        can [:read, :update, :destroy], Category, organization_id: admin_user.organization_id
+        can [:create], Category
+        can [:read, :update, :destroy], Product, organization_id: admin_user.organization_id
+        can [:create], Product
+        can [:read, :update, :destroy], Subscription, organization_id: admin_user.organization_id
+        can [:create], Subscription
+        can [:read, :update, :destroy], Order, organization_id: admin_user.organization_id
+        can [:create], Order
+        can [:read, :update, :destroy], Payment, organization_id: admin_user.organization_id
+        can [:create], Payment
       end
     end
   end
