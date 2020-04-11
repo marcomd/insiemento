@@ -4,15 +4,17 @@ RSpec.describe Order, type: :model do
   context 'ActiveRecord' do
     it { expect(subject).to belong_to(:organization)}
     it { expect(subject).to belong_to(:user)}
-    it { expect(subject).to have_and_belong_to_many(:products)}
+    it { expect(subject).to have_many(:order_products)}
+    it { expect(subject).to have_many(:products)}
     it { expect(subject).to have_many(:payments)}
   end
 
-  let(:product1) { build(:product) }
-  let(:product2) { build(:product) }
+  let(:organization) { build(:organization) }
+  let(:product1) { build(:product, organization: organization) }
+  let(:product2) { build(:product, organization: organization) }
 
   context '#create' do
-    subject { build(:order) }
+    subject { build(:order, organization: organization) }
     let(:result) do
       VCR.use_cassette "generic_sendgrid/create_user" do
         subject.save
@@ -33,22 +35,22 @@ RSpec.describe Order, type: :model do
   end
 
   describe '#set_amounts!' do
-    subject { build(:order) }
+    subject { build(:order, organization: organization) }
     let(:result) do
       VCR.use_cassette "generic_sendgrid/create_user" do
         subject.send :set_amounts!
       end
     end
 
+    it { expect(result).to be_truthy }
+
     before { ENV['ORGANIZATION']='1' }
 
     context 'when it have products' do
       let(:discount_cents) { 100 }
-      subject { build(:order, discount_cents: discount_cents, products: [product1, product2]) }
+        subject { build(:order, organization: organization, discount_cents: discount_cents, products: [product1, product2]) }
 
-      it do
-        expect(result).to be_truthy
-      end
+      it { expect(result).to be_truthy }
 
       it 'calculates total_amount_cents' do
         result
@@ -68,7 +70,7 @@ RSpec.describe Order, type: :model do
     before { ENV['ORGANIZATION']='1' }
 
     context 'when it have products' do
-      subject { build(:order, products: [product1, product2]) }
+      subject { build(:order, organization: organization, products: [product1, product2]) }
 
       before do
         VCR.use_cassette "generic_sendgrid/create_user" do

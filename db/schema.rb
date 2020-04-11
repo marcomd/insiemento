@@ -129,6 +129,15 @@ ActiveRecord::Schema.define(version: 2020_03_29_133932) do
     t.index ["organization_id"], name: "index_courses_on_organization_id"
   end
 
+  create_table "order_products", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["organization_id"], name: "index_order_products_on_organization_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
@@ -146,13 +155,6 @@ ActiveRecord::Schema.define(version: 2020_03_29_133932) do
     t.index ["approver_admin_user_id"], name: "index_orders_on_approver_admin_user_id"
     t.index ["organization_id"], name: "index_orders_on_organization_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
-  create_table "orders_products", id: false, force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
-    t.index ["order_id"], name: "index_orders_products_on_order_id"
-    t.index ["product_id"], name: "index_orders_products_on_product_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -294,11 +296,12 @@ ActiveRecord::Schema.define(version: 2020_03_29_133932) do
   add_foreign_key "course_schedules", "trainers"
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "organizations"
+  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "organizations"
+  add_foreign_key "order_products", "products"
   add_foreign_key "orders", "admin_users", column: "approver_admin_user_id"
   add_foreign_key "orders", "organizations"
   add_foreign_key "orders", "users"
-  add_foreign_key "orders_products", "orders"
-  add_foreign_key "orders_products", "products"
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "organizations"
   add_foreign_key "payments", "users"

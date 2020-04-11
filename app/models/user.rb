@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :course_events, through: :attendees
   # No, user can have multiple active subscriptions
   #has_one :last_subscription, -> { order id: :desc }, class_name: 'Subscription'
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :active_subscriptions, -> { active }, class_name: 'Subscription'
 
   validates_uniqueness_of :email, allow_blank: false, if: :email_changed?

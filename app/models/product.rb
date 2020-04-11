@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :organization
   belongs_to :category
+  has_many :order_products
+  has_many :order, through: :order_products
 
   monetize :price_cents
 

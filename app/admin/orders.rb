@@ -11,9 +11,11 @@ ActiveAdmin.register Order do
   # or
   #
   permit_params do
-    permitted = [:user_id, :state, :total_amount, :amount_to_pay, :amount_paid, :discount,
-                 :currency, :paid_at, :start_on, :approver_admin_user_id]
-    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
+    permitted = [:user_id, :state, :discount,
+                 :currency, :paid_at, :start_on, :approver_admin_user_id,
+                 order_products_attributes: [ :id, :_destroy, :order_id, :product_id ],
+    ]
+    permitted = permitted.concat([:organization_id, :total_amount, :amount_to_pay, :amount_paid]) if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 
@@ -71,9 +73,9 @@ ActiveAdmin.register Order do
           row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
           row(:currency)
           row(:total_amount)
+          row(:discount)
           row(:amount_to_pay)
           row(:amount_paid)
-          row(:discount)
           row(:paid_at)
           row(:start_on)
           row(:created_at)
@@ -103,48 +105,64 @@ ActiveAdmin.register Order do
     end
   end
 
+  # Inserire i prodotti nel form
   form do |f|
-    columns do
-      column do
-        f.inputs do
-          if current_admin_user.is_root?
-            f.input :organization_id, as: :nested_select,
-                    minimum_input_length: 0,
-                    level_1: {
-                        attribute: :organization_id,
-                        fields: [:name],
-                        display_name: :name,
-                        minimum_input_length: 3,
-                        url: '\admin\organizations',
-                    },
-                    level_2: {
-                        attribute: :user_id,
-                        fields: [:email],
-                        display_name: :email,
-                        minimum_input_length: 3,
-                        url: '\admin\users',
-                    }
-          else
-            #tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-            f.input :user_id, as: :search_select, url: admin_users_path,
-                    fields: [:email], display_name: 'email', minimum_input_length: 3,
-                    order_by: 'email_asc', input_html: {class: 'after_user_selection'}
+    tabs do
+      tab Order.model_name.human(count: 1) do
+        columns do
+          column do
+            f.inputs do
+              if current_admin_user.is_root?
+                f.input :organization_id, as: :nested_select,
+                        minimum_input_length: 0,
+                        level_1: {
+                            attribute: :organization_id,
+                            fields: [:name],
+                            display_name: :name,
+                            minimum_input_length: 3,
+                            url: '\admin\organizations',
+                        },
+                        level_2: {
+                            attribute: :user_id,
+                            fields: [:email],
+                            display_name: :email,
+                            minimum_input_length: 3,
+                            url: '\admin\users',
+                        }
+              else
+                #tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+                f.input :user_id, as: :search_select, url: admin_users_path,
+                        fields: [:email], display_name: 'email', minimum_input_length: 3,
+                        order_by: 'email_asc', input_html: {class: 'after_user_selection'}
+              end
+              f.input :state
+              f.input :start_on
+            end
           end
-          f.input :state
-          f.input :start_on
+          column do
+            f.inputs do
+              f.input :currency
+              f.input :total_amount, input_html: {disabled: true}
+              f.input :discount
+              # f.input :amount_to_pay
+              f.input :amount_paid, input_html: {disabled: true}
+              f.input :paid_at, as: :date_time_picker
+            end
+          end unless f.object.new_record?
         end
       end
-      column do
+      tab OrderProduct.model_name.human(count: 2) do
         f.inputs do
-          f.input :currency
-          f.input :total_amount
-          f.input :amount_to_pay
-          f.input :amount_paid
-          f.input :discount
-          f.input :paid_at, as: :date_time_picker
+          f.has_many :order_products, heading: nil, allow_destroy: can?(:destroy, f.object), new_record: can?(:create, f.object) do |ff|
+            tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+            ff.input :product_id, as: :search_select, url: admin_products_path(tmp_params),
+                     fields: [:name], display_name: 'name', minimum_input_length: 3,
+                     order_by: 'name_asc'
+          end
         end
-      end
+      end if can?(:create, f.object)
     end
+
 
     f.actions
   end

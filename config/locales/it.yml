@@ -248,6 +248,9 @@ it:
       order:
         one: "Ordine"
         other: "Ordini"
+      order_product:
+        one: "Articolo"
+        other: "Articoli"
       payment:
         one: "Pagamento"
         other: "Pagamenti"
@@ -415,6 +418,10 @@ it:
         approver_admin_user_id: "Approvatore"
         created_at: "Data creazione"
         updated_at: "Data modifica"
+      order_product:
+        organization: "Organizzazione"
+        order: "Ordine"
+        product: "Prodotto"
       payment:
         organization: "Organizzazione"
         user: "Cliente"

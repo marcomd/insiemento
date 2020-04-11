@@ -1,5 +1,16 @@
 # CHANGELOG
 
+# v0.15.0 11/04/2020 1,5h
+
+- Added new resource "OrderProduct"
+  - Added the new resource order product that replace habtm relation. Now an order has many products through many order
+    products
+- Improved admin UI
+  - Added tabs to order form. In one tab products management has been added. 
+- Updated the order.set_amounts! method and the way it is used
+- Improved dependent destroy to many models
+- Updated ability and specs
+
 # v0.14.0 05/04/2020 0,5h
 
 - Improved all money fields management

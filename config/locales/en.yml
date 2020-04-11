@@ -74,6 +74,15 @@ en:
       subscription:
         one: "Subscription"
         other: "Subscriptions"
+      order:
+        one: "Order"
+        other: "Orders"
+      order_product:
+        one: "Item"
+        other: "Items"
+      payment:
+        one: "Payment"
+        other: "Payments"
     attributes: &attributes
       id: "Id"
       created_at: "Created at"
@@ -232,6 +241,10 @@ en:
         approver_admin_user_id: "Approver"
         created_at: "Created at"
         updated_at: "Updated at"
+      order_product:
+        organization: "Organization"
+        order: "Order"
+        product: "Product"
       payment:
         organization: "Organization"
         user: "Customer"

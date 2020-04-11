@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :product do
     organization
-    category
+    category { build(:category, organization: organization) }
     sequence(:name) { |n| "Product#{n}" }
     description { 'Description' }
     sequence(:price_cents, 100) { |n| n * 100 }

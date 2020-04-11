@@ -4,11 +4,16 @@ class Order < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :approver_admin_user, class_name: 'AdminUser', optional: true
-  has_and_belongs_to_many :products
+  has_many :order_products, dependent: :destroy
+  has_many :products, through: :order_products
   has_many :payments
   has_many :subscriptions
 
-  after_create :set_amounts!
+  after_create :set_amounts!, if: :updatable?
+  after_update :set_amounts!, if: :updatable?
+  attr_accessor :disable_set_amounts
+
+  accepts_nested_attributes_for :order_products, reject_if: lambda { |obj| obj[:product_id].blank? }, allow_destroy: true
 
   STATES = { just_made: 10, processing: 20, canceled: 30, completed: 40}
   enum state: STATES
@@ -65,9 +70,12 @@ class Order < ApplicationRecord
   private
 
   def set_amounts!
-    self.total_amount_cents = products.pluck(:price_cents).sum
+    self.disable_set_amounts = true
+    self.total_amount_cents = products.map(&:price_cents).sum
     self.amount_to_pay_cents = self.total_amount_cents - self.discount_cents
-    save!
+    result = save!
+    self.disable_set_amounts = nil
+    result
   end
 
   def set_state!
@@ -86,5 +94,9 @@ class Order < ApplicationRecord
       subscriptions << Subscription.new(organization: organization, category_id: product.category_id, product: product,
                                         user: user, start_on: Time.zone.today, end_on: Time.zone.today + product.days)
     end
+  end
+
+  def updatable?
+    !disable_set_amounts && (just_made? || processing?)
   end
 end

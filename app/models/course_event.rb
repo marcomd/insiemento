@@ -7,7 +7,7 @@ class CourseEvent < ApplicationRecord
   belongs_to :room
   belongs_to :trainer
   belongs_to :course_schedule
-  has_many :attendees
+  has_many :attendees, dependent: :destroy
   has_many :users, through: :attendees
 
   validates :course_id, uniqueness: { scope: [:room_id, :trainer_id, :event_date],
