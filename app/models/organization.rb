@@ -12,6 +12,8 @@ class Organization < ApplicationRecord
   has_many :payments, dependent: :destroy
   has_many :system_logs, dependent: :destroy
 
+  has_one_attached :logo, dependent: :destroy
+
   STATES = { activating: 10, active: 20, suspended: 30}
   enum state: STATES
 
@@ -28,5 +30,13 @@ class Organization < ApplicationRecord
     success_color     String, default: '#4CAF50'
     error_color       String, default: '#FF5252'
     warning_color     String, default: '#FFC107'
+  end
+
+  def logo_thumbnail
+    logo.variant(resize_to_limit: [400, 100]) if logo.present?
+  end
+
+  def logo_medium
+    logo.variant(resize_to_limit: [800, 200]) if logo.present?
   end
 end

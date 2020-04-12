@@ -6,7 +6,7 @@ ActiveAdmin.register Organization do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :payoff, :domain, :email, :phone, :state,
+  permit_params :name, :payoff, :domain, :email, :phone, :state, :logo,
                 :dark_mode,
                 :header_dark,
                 :header_background_color,
@@ -60,35 +60,44 @@ ActiveAdmin.register Organization do
       end
       column do
         attributes_table do
+          as_image_row(:logo, style: 'height: 100px')
+          as_image_row(:logo_thumbnail, style: 'height: 50px')
           row :dark_mode
           row :header_dark
-          row :header_background_color
-          row :color
-          row :primary_color
-          row :secondary_color
-          row :accent_color
-          row :info_color
-          row :success_color
-          row :error_color
-          row :warning_color
+          color_row :header_background_color
+          color_row :color
+          color_row :primary_color
+          color_row :secondary_color
+          color_row :accent_color
+          color_row :info_color
+          color_row :success_color
+          color_row :error_color
+          color_row :warning_color
         end
       end
     end
   end
 
   form do |f|
-    f.inputs do
-      f.input :name
-      f.input :payoff
-      f.input :domain
-      f.input :email
-      f.input :phone
-      f.input :state #, collection: Organization::STATES
-      f.inputs name: 'Theme', for: :theme do
-        Organization.stored_attributes[:theme].each do |accessor|
-          f.input accessor,
-                  as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :string ),
-                  required: false
+    columns do
+      column do
+        f.inputs do
+          f.input :name
+          f.input :payoff
+          f.input :domain
+          f.input :email
+          f.input :phone
+          f.input :state #, collection: Organization::STATES
+        end
+      end
+      column do
+        f.inputs do
+          f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo, height: '50px') : ''
+          Organization.stored_attributes[:theme].each do |accessor|
+            f.input accessor,
+                    as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :minicolors_picker ),
+                    required: false
+          end
         end
       end
     end

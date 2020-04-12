@@ -10,15 +10,14 @@
             colored-border
             border='bottom'
             elevation='6'
+            dismissible
+            @input="removeAlert(groupedAlertType.alertIds)"
           >
             <ul class='alert-messages'>
               <li v-for="(message, mIndex) in alertText(groupedAlertType.type)" :key='mIndex'>
                 {{ message }}
               </li>
             </ul>
-            <v-icon class='close-icon' @click='removeAlert(groupedAlertType.alertIds)'>
-              mdi-close
-            </v-icon>
           </v-alert>
         </v-col>
       </v-row>

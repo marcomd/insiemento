@@ -92,6 +92,21 @@ gem 'activeadmin_addons', '~> 1.7.0'
 # Ruby state machines
 gem 'aasm', '~> 5.0.0'
 
+# This gem embeddes the jQuery colorpicker in the Rails asset pipeline.
+gem 'jquery-minicolors-rails', '~> 2.2.6'
+
+# Incorporate JQuery Minicolors into your ActiveAdmin apps.
+gem 'activeadmin-minicolors', github: 'kholdrex/activeadmin-minicolors'
+
+# CoffeeScript adapter for the Rails asset pipeline
+gem 'coffee-rails', '~> 5.0.0'
+
+# Provides higher-level image processing helpers that are commonly needed when handling image uploads
+# This gem can process images with either ImageMagick/GraphicsMagick or libvips libraries.
+# ImageMagick is a good default choice, especially if you are migrating from another gem or library that uses ImageMagick.
+# Libvips is a newer library that can process images very rapidly (often multiple times faster than ImageMagick).
+gem 'image_processing', '~> 1.10.3'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

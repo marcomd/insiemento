@@ -29,5 +29,47 @@ GOOGLEANALYTICS
         end
       end
     end
+
+    class AttributesTable < ActiveAdmin::Component
+      def as_image_row(*args)
+        title   = args[0]
+        options = args.extract_options!
+        classes = [:row]
+        if options[:class]
+          classes << options[:class]
+        elsif title.present?
+          classes << "row-#{title.to_s.parameterize(separator: "_")}"
+        end
+        options[:class] = classes.join(' ')
+
+        @table << tr do
+          th do
+            header_content_for(title)
+          end
+          @collection.each do |record|
+            td do
+              image_tag(record.send(title).present? ? record.send(title) : 'logo_placeholder.png', options)
+            end
+          end
+        end
+      end
+      def color_row(*args)
+        title   = args[0]
+
+        @table << tr do
+          th do
+            header_content_for(title)
+          end
+          @collection.each do |record|
+            td do
+              content_tag(:div, ''.html_safe <<
+                  content_tag(:span, ' ', style: "background-color: #{record.send(title)}; padding: 4px 10px; border: 1px solid #ddd; border-radius: 8px;") <<
+                  content_tag(:span, record.send(title), style: "font-family: Courier; margin-left: 10px;")
+              )
+            end
+          end
+        end
+      end
+    end
   end
 end

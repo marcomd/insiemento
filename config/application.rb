@@ -22,9 +22,11 @@ module Insiemento
     config.i18n.default_locale = :it
     config.i18n.available_locales = [:en, :it]
 
-    #config.assets.precompile += %w[active_admin.scss active_admin.js]
+    config.assets.precompile += %w[active_admin.scss active_admin.js]
 
     #config.active_job.queue_adapter = :sidekiq
     #config.action_mailer.deliver_later_queue_name = "default_mailer"
+
+    config.active_storage.variant_processor = :vips
   end
 end

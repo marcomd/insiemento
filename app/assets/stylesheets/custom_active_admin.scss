@@ -35,4 +35,19 @@ body.active_admin {
   //  padding-right: 27px;
   //  width: $date-range-filter-input-width;
   //}
+
+  // Custom color picker
+  .minicolors-theme-default .minicolors-input {
+    height: inherit;
+    width: auto;
+    display: inline-block;
+    padding-left: 34px;
+    font-family: Courier;
+  }
+  .minicolors-swatch-color {
+    border-radius: inherit;
+  }
+  .minicolors-theme-default .minicolors-swatch {
+    border-radius: 5px;
+  }
 }

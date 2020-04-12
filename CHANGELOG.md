@@ -1,5 +1,18 @@
 # CHANGELOG
 
+# v0.16.0 11/04/2020 1h
+
+- Admin UI
+  - Now is possible to load the organization logo
+  - Added image processing with vips
+  - In the organization form, color pickers have been added to allow you to choose the hue
+  - Added two new sections under diagnostic for root admins to manage attachments:
+    - Active storage attachments
+    - Active storage blobs
+- User UI
+  - Fixed icon on the alert message popup
+  - The logo shown is the one loaded from the admin interface
+  
 # v0.15.0 11/04/2020 1,5h
 
 - Added new resource "OrderProduct"

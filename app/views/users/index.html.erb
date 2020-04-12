@@ -1,7 +1,7 @@
 <%= vue component: 'users', props: {
       basePath: users_path,
       current_organization: {
-        logo: image_url('logo_50.png'),
+        logo: url_for(@current_organization.logo),
         name: @current_organization.name,
         payoff: @current_organization.payoff,
         theme: @current_organization.theme,
