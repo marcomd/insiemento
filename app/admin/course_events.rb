@@ -62,7 +62,7 @@ ActiveAdmin.register CourseEvent do
       column do
         attributes_table do
           if current_admin_user.is_root?
-            column(:organization)
+            row(:organization)
           end
           row(:category)
           row(:course)

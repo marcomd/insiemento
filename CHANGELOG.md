@@ -1,10 +1,14 @@
 # CHANGELOG
 
-# v0.16.1 11/04/2020 0h
+# v0.16.2 12/04/2020 0h
+
+- Several bugfixes
+
+# v0.16.1 12/04/2020 0h
 
 - Added S3 configuration 
 
-# v0.16.0 11/04/2020 1h
+# v0.16.0 12/04/2020 1h
 
 - Admin UI
   - Now is possible to load the organization logo
