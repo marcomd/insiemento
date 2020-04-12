@@ -107,6 +107,9 @@ gem 'coffee-rails', '~> 5.0.0'
 # Libvips is a newer library that can process images very rapidly (often multiple times faster than ImageMagick).
 gem 'image_processing', '~> 1.10.3'
 
+# This is version 3 of the aws-sdk gem
+gem "aws-sdk-s3", require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

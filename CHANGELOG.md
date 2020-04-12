@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.16.1 11/04/2020 0h
+
+- Added S3 configuration 
+
 # v0.16.0 11/04/2020 1h
 
 - Admin UI
