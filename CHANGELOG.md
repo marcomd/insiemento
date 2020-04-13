@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.16.3 13/04/2020 0h
+
+- Several little improvements
+  - Customized minicolors javascript and removed coffeescript gem
+
 # v0.16.2 12/04/2020 0h
 
 - Several bugfixes
