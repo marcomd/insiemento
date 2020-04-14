@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.16.4 13/04/2020 0h
+
+- Removed organization's logo thumbnail since vips image processing is not currently available on heroku
+
 # v0.16.3 13/04/2020 0h
 
 - Several little improvements

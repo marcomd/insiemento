@@ -61,7 +61,7 @@ ActiveAdmin.register Organization do
       column do
         attributes_table do
           as_image_row(:logo, style: 'height: 100px')
-          as_image_row(:logo_thumbnail, style: 'height: 50px')
+          # as_image_row(:logo_thumbnail, style: 'height: 50px') # Vips image processing required
           row :dark_mode
           row :header_dark
           color_row :header_background_color
