@@ -23,6 +23,7 @@ class Api::Ui::V1::PaymentsController < Api::Ui::BaseController
         end
         # This params is only used to filter above
         params.delete :state
+      end
     end
 
     render :index

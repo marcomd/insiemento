@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.17.1 28/04/2020 0h
+
+- Fix to payment controller
+
 # v0.17.0 27/04/2020 20h
 
 - Added orders management to users UI
