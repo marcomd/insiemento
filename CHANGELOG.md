@@ -1,5 +1,21 @@
 # CHANGELOG
 
+# v0.17.0 27/04/2020 20h
+
+- Added orders management to users UI
+  - Frontend
+    - Added the products management:
+      - The list view where you can select products
+      - The show view to get the product details and to add it to the cart. Multiple products can be added to cart.
+      - Added the vuex module product to interact with the api and added the mixin to share the code
+    - Added the orders management: 
+      - The show view that provides an order summary and allows you to set the "start on" date
+  - Backend
+    - Added the order controller with the json view   
+    - Added the product controller with the json view   
+    - Added the payment controller (to be completed...)
+    - Added the stripe gem and its configuration
+
 # v0.16.4 13/04/2020 0h
 
 - Removed organization's logo thumbnail since vips image processing is not currently available on heroku

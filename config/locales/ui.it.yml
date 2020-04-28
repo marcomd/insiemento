@@ -34,6 +34,7 @@ it:
         sign_up: Registrati
         profile: Profilo
         dashboard: Corsi
+        store: Acquista
         help: Contattaci
       session:
         login_action: Entra
@@ -111,6 +112,36 @@ it:
           state: Stato
           attendees_count: Partecipanti
           subscribed: Iscritto
+      product:
+        select_action: Seleziona
+        show_action: Mostra
+        add_action: Aggiungi
+        unselect_action: Rimuovi
+        selected: Selezionato
+        list:
+          select_category_label: Seleziona la categoria
+          none_selected: Non hai selezionato nessun articolo
+          selected_label: Questi sono gli articoli nel tuo carrello
+          checkout: Procedi
+        attributes:
+          name: "Nome"
+          category: "Categoria"
+          description: "Descrizione"
+          price: "Prezzo"
+          days: "Giorni"
+      order:
+        pay_action: Paga
+        show:
+          title: "Ordine #%{id}"
+        attributes:
+          user: Utente
+          state: Stato
+          start_on: Data inizio
+          total_amount: Importo totale
+          discount: Sconto
+          amount_to_pay: Importo da pagare
+          amount_paid: Importo pagato
+          paid_at: Pagato il
       errors:
         password_required: password richiesta
         email_required: email richiesta

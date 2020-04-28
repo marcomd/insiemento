@@ -1,6 +1,11 @@
 import moment from 'moment'
 
 export const utilityMixin = {
+  computed: {
+    tomorrowDate() {
+      return moment().add(1,'days')
+    },
+  },
   methods: {
     formattedDate(date) {
       return !!date ? moment(date, 'YYYY-MM-DD').format('L') : null

@@ -12,7 +12,10 @@ import EditProfile from './components/profile/edit'
 import NotFound from './pages/not_found'
 import Home from './pages/home'
 import Dashboard from './pages/dashboard'
-import courseEventShow from './pages/course_event_show'
+import CourseEventShow from './pages/course_event_show'
+import ProductsIndex from './pages/products_index'
+import ProductShow from './pages/product_show'
+import OrderShow from './pages/order_show'
 
 Vue.use(VueRouter)
 
@@ -103,7 +106,22 @@ const routes = [
   {
     path: '/course_event/:id',
     name: 'courseEventShow',
-    component: courseEventShow
+    component: CourseEventShow
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: ProductsIndex,
+  },
+  {
+    path: '/products/:id',
+    name: 'ProductShow',
+    component: ProductShow,
+  },
+  {
+    path: '/orders/:id',
+    name: 'OrderShow',
+    component: OrderShow,
   },
   {
     path: '*',

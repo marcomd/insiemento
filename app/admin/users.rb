@@ -91,6 +91,19 @@ ActiveAdmin.register User do
             column(:end_on)
           end
         end
+        panel link_to(Order.model_name.human(count: 2), admin_orders_path('q[user_id_eq]' => user.id)) do
+          table_for user.orders.order('id desc').limit(2) do |order|
+            column(:id) { |obj| link_to obj.id, [:admin, obj] }
+            column(:state)                {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+            column(:total_amount)
+            column(:amount_to_pay)
+            column(:amount_paid)
+            column(:discount)
+            column(:paid_at)
+            column(:created_at)
+            column(:updated_at)
+          end
+        end
       end
     end
   end

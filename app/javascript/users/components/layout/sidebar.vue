@@ -15,6 +15,7 @@
           <v-list-item-title>{{ $t('sidebar.home') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
       <v-list-item :to='{name: "login"}' v-if='!isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-account-arrow-right</v-icon>
@@ -23,6 +24,7 @@
           <v-list-item-title>{{ $t('sidebar.login') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
       <v-list-item :to='{name: "signUp"}' v-if='!isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-account-plus</v-icon>
@@ -31,6 +33,7 @@
           <v-list-item-title>{{ $t('sidebar.sign_up') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
       <v-list-item :to='{name: "showProfile"}' v-if='isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-account</v-icon>
@@ -39,6 +42,7 @@
           <v-list-item-title>{{ $t('sidebar.profile') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
       <v-list-item :to='{name: "dashboard"}' v-if='isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-view-dashboard</v-icon>
@@ -47,6 +51,16 @@
           <v-list-item-title>{{ $t('sidebar.dashboard') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
+      <v-list-item :to='{name: "Products"}' v-if='isLoggedIn'>
+        <v-list-item-action>
+          <v-icon>mdi-store</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('sidebar.store') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item @click='logout' v-if='isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-logout-variant</v-icon>
@@ -55,6 +69,7 @@
           <v-list-item-title>{{ $t('sidebar.logout') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
       <v-list-item @click='askForSupport' v-if="emailSupport">
         <v-list-item-action>
           <v-icon>mdi-help-circle-outline</v-icon>

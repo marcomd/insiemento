@@ -72,7 +72,7 @@ For example:
   - Product: 1 year price 300€
     - Subscription Code 7a588db36df631
     - ...
-- Swimming pool category
+- Aquagym category
   - Product: x days price x€
     - Subscription Code ...
 
@@ -158,7 +158,7 @@ Esempio:
   - Prodotto Annuale costo 300€
     - Codice 7a588db36df631
     - ...
-- Categoria Piscina
+- Categoria Aquagym
   - Prodotto Giorni x Costo x€
     - Codice ...
     

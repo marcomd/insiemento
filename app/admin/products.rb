@@ -11,7 +11,7 @@ ActiveAdmin.register Product do
   # or
   #
   permit_params do
-    permitted = [:name, :description, :price, :days, :category_id]
+    permitted = [:category_id, :name, :description, :price, :days]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end

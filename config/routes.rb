@@ -24,6 +24,14 @@ Rails.application.routes.draw do
             put 'subscribe'
           end
         end
+        resources :orders do
+          member do
+            put 'add_product/:product_id', to: 'orders#add_product', as: :add_product
+            put 'remove_product/:product_id', to: 'orders#remove_product', as: :remove_product
+          end
+        end
+        resources :payments
+        resources :products
       end
     end
   end

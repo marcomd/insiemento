@@ -7,13 +7,22 @@ class Api::Ui::BaseController < ApplicationController
       format.json { render json: { error: exception.message }, status: :not_found }
     end
   end
+
   rescue_from ActiveRecord::RecordInvalid do |exception|
     add_system_log exception.message, log_level: 'warning'
     respond_to do |format|
       format.json { render json: { error: exception.message }, status: :unprocessable_entity }
     end
   end
-  rescue_from ActionController::ParameterMissing do |exception|
+
+  rescue_from ActionController::ParameterMissing, Api::BadRequestError do |exception|
+    add_system_log exception.message, log_level: 'warning'
+    respond_to do |format|
+      format.json { render json: { error: exception.message }, status: :bad_request }
+    end
+  end
+
+  rescue_from Api::ConflictError do |exception|
     add_system_log exception.message, log_level: 'warning'
     respond_to do |format|
       format.json { render json: { error: exception.message }, status: 409 }

@@ -26,7 +26,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
       else
         raise API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!"
       end
-      # Questo parametro serve solo per filtrare le reservation
+      # This params is only used to filter above
       params.delete :state
     end
 

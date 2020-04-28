@@ -18,6 +18,9 @@ class Order < ApplicationRecord
   STATES = { just_made: 10, processing: 20, canceled: 30, completed: 40}
   enum state: STATES
 
+  ACTIVE_STATES = [:just_made, :processing]
+  UNACTIVE_STATES = [:canceled, :completed]
+
   enum currency: { eur: 0, usd: 1 }
 
   monetize :total_amount_cents, :amount_to_pay_cents, :discount_cents, :amount_paid_cents

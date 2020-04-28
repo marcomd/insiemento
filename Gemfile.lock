@@ -408,6 +408,7 @@ GEM
     storext (3.1.0)
       activerecord (>= 4.0, < 6.1)
       virtus
+    stripe (5.17.0)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -501,6 +502,7 @@ DEPENDENCIES
   spring (~> 2.1.0)
   spring-watcher-listen (~> 2.0.0)
   storext (~> 3.1.0)
+  stripe (~> 5)
   turbolinks (~> 5)
   tzinfo-data
   vcr (~> 5.1.0)

@@ -13,6 +13,9 @@ class Payment < ApplicationRecord
   STATES = { just_made: 10, canceled: 30, confirmed: 40}
   enum state: STATES
 
+  ACTIVE_STATES = [:just_made]
+  UNACTIVE_STATES = [:canceled, :confirmed]
+
   monetize :amount_cents
 
   # It uses comma as thousand separator

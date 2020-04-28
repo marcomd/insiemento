@@ -107,6 +107,9 @@ gem 'image_processing', '~> 1.10.3'
 # This is version 3 of the aws-sdk gem
 gem "aws-sdk-s3", require: false
 
+# The Stripe Ruby library provides convenient access to the Stripe API
+gem 'stripe', '~> 5'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

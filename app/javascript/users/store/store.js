@@ -5,6 +5,8 @@ import * as session from './modules/session'
 import * as layout from './modules/layout'
 import * as profile from './modules/profile'
 import * as course_event from './modules/course_event'
+import * as product from './modules/product'
+import * as order from './modules/order'
 
 Vue.use(Vuex)
 
@@ -17,6 +19,8 @@ export default new Vuex.Store({
     layout,
     profile,
     course_event,
+    product,
+    order,
   },
   state: {},
   strict: debug,

@@ -131,8 +131,6 @@
           // let redirectTo = this.$route.query.redirectTo
           if (responseBody.customer && !responseBody.customer.phone) {
             this.$router.push({name: 'editProfile'})
-          } else if (responseBody.customer && !!responseBody.customer.pending_order_uuid) {
-            this.$router.push({ name: 'orderShow', params: { id: responseBody.customer.pending_order_uuid } })
           } else if (this.redirectToParam !== undefined) {
             this.$router.push({path: this.redirectToParam})
           } else {

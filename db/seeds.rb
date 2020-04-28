@@ -70,9 +70,9 @@ if AdminUser.count == 0
 end
 
 if Category.count == 0
-  ca_fitness = Category.create!(organization: o_dance,  name: 'Palestra',)
+  ca_fitness = Category.create!(organization: o_dance,  name: 'Fitness',)
   ca_spa     = Category.create!(organization: o_dance,  name: 'Spa',)
-  ca_swim    = Category.create!(organization: o_swim,   name: 'Piscina',)
+  ca_swim    = Category.create!(organization: o_swim,   name: 'Aquagym',)
   puts "Categories: #{Category.count}"
 else
   ca_fitness, ca_spa, ca_swim = Category.all
@@ -248,8 +248,8 @@ if Product.count == 0
   p_fitness_year  = Product.create!(organization: o_dance, category: ca_fitness, price_cents: 19900, days: 365, name: 'Abbonamento annuale fitness',   )
   p_spa_day       = Product.create!(organization: o_dance, category: ca_spa    , price_cents: 2900,  days: 1  , name: 'Entrata singola spa'        ,   )
   p_spa_month     = Product.create!(organization: o_dance, category: ca_spa    , price_cents: 14900, days: 30 , name: 'Abbonamento mensile spa'    ,   )
-  p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , price_cents: 4900,  days: 30 , name: 'Abbonamento mensile piscina',   )
-  p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , price_cents: 53900, days: 365, name: 'Abbonamento annuale piscina',   )
+  p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , price_cents: 4900,  days: 30 , name: 'Abbonamento mensile aquagym',   )
+  p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , price_cents: 53900, days: 365, name: 'Abbonamento annuale aquagym',   )
   puts "Products: #{Product.count}"
 else
   p_fitness_try, p_fitness_month, p_fitness_year, p_spa_day, p_spa_month, p_swim_month, p_swim_year = Product.all

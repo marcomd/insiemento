@@ -1,3 +1,5 @@
+json.ignore_nil!
+
 json.extract! course_event, :id, :course, :room, :trainer, :course_schedule_id,
               :event_date, :state, :attendees_count
 

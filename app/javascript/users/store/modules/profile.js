@@ -17,10 +17,18 @@ export const actions = {
     Vue.http.get(rootState.application.urls.profile)
     .then(response => {
       commit('SET_USER', response.body)
+      const orderAttributes = response.body.pending_order
+      if (!!orderAttributes) {
+        dispatch('order/setOrder', orderAttributes, { root: true })
+      }
     })
   },
-  setUser({ commit }, attributes) {
+  setUser({ commit, dispatch }, attributes) {
     commit('SET_USER', attributes)
+    const orderAttributes = attributes.pending_order
+    if (!!orderAttributes) {
+      dispatch('order/setOrder', orderAttributes, { root: true })
+    }
   },
   update({ commit, dispatch, rootState }, payload) {
     return new Promise((resolve, reject) => {

@@ -112,6 +112,36 @@ en:
           state: State
           attendees_count: Participants
           subscribed: Membership
+      product:
+        select_action: Select
+        show_action: Show
+        add_action: Add
+        unselect_action: Remove
+        selected: Selected
+        list:
+          select_category_label: Select the category
+          none_selected: You have not selected any articles
+          selected_label: These are the items in your cart
+          checkout: Proceed
+        attributes:
+          name: "Name"
+          category: "Category"
+          description: "Description"
+          price: "Price"
+          days: "Days"
+      order:
+        pay_action: Pay
+        show:
+          title: "Order #% {id}"
+        attributes:
+          user: User
+          state: State
+          start_on: Start date
+          total_amount: Total amount
+          discount: Discount
+          amount_to_pay: Amount to be paid
+          amount_paid: Amount paid
+          paid_at: Paid on
       errors:
         password_required: password required
         email_required: request email

@@ -3,7 +3,7 @@
     <v-row align='center' justify='center'>
       <v-col cols='12' sm='8'>
 
-        <CourseEventCardFull v-if="course_event" :course_event="course_event"/>
+        <OrderCardFull v-if="order" :order="order"/>
         <div v-else-if="loading" class="text-center">
           <v-progress-circular
             size="50"
@@ -28,16 +28,15 @@
                color='primary'
                class='mr-2 mb-2'
                :loading="submitting"
-               @click="updateCourseEventSubscription"
-               :disabled="isCourseEventFull && !course_event.subscribed"
+               @click="payOrder"
         >
-          {{ course_event.subscribed ? $t('course_event.unsubscribe_action') : $t('course_event.subscribe_action') }}
+          {{ $t('order.pay_action') }}
         </v-btn>
       </v-col>
       <v-col class="text-center">
         <v-btn x-large
                class='mr-2 mb-2'
-               :to='{name: "dashboard"}'>
+               :to='{name: "Products"}'>
           {{ $t('commons.go_back') }}
         </v-btn>
       </v-col>
@@ -48,25 +47,25 @@
 <script>
   import { mapState } from 'vuex'
 
-  import CourseEventCardFull from '../components/course_events/course_event_card_full'
-  import { courseEventMixin } from '../mixins/course_event_mixin'
+  import OrderCardFull from '../components/orders/order_card_full'
+  import { orderMixin } from '../mixins/order_mixin'
 
   export default {
-    name: 'CourseEventShow',
+    name: 'OrderShow',
     components: {
-      CourseEventCardFull
+      OrderCardFull
     },
-    mixins: [courseEventMixin],
+    mixins: [orderMixin],
     created() {
-      this.$store.dispatch('course_event/fetchCourseEvent', {id: this.$route.params.id})
-        .then(course_event => {
-          console.log(`course_event show id ${this.$route.params.id} course_event ${course_event.id} `)
+      this.$store.dispatch('order/fetchOrder', {id: this.$route.params.id})
+        .then(order => {
+          console.log(`order show id ${this.$route.params.id} order ${order.id} `)
         }).catch( error => {
           this.$store.dispatch('layout/replaceAlert', {
             type: 'error',
-            key: 'course_event_not_found'
+            key: 'order_not_found'
           })
-        console.log(`Cannot fetch course_event id ${this.$route.params.id}: ${error}`)
+        console.log(`Cannot fetch order id ${this.$route.params.id}: ${error}`)
       })
     },
     data: () => {
@@ -74,31 +73,34 @@
       }
     },
     computed: {
-      ...mapState('course_event', ['course_event']),
+      ...mapState('order', ['order']),
       ...mapState('layout', ['loading', 'submitting']),
     },
     methods: {
-      updateCourseEventSubscription() {
-        console.log(`updateCourseEventSubscription ${this.course_event.id} to ${!this.course_event.subscribed}`)
+      payOrder() {
+        console.log(`payOrder ${this.order.id}`)
+      },
+      updateOrder() {
+        console.log(`updateOrder add product ${this.product.id}`)
         this.$store
-          .dispatch(`course_event/updateSubscription`, {
-                    course_event_id: this.course_event.id,
-                    params: {subscribe: !this.course_event.subscribed}
+          .dispatch(`order/update`, {
+                    product_id: this.product.id,
+                    params: {subscribe: !this.product.subscribed}
                   }
           )
           .then( _ => {
-            console.log(`updateCourseEventSubscription OK to ${this.course_event.subscribed}`)
+            console.log(`updateOrder OK to ${this.product.subscribed}`)
           })
           .catch(error => {
             // const myObject = error && error.body ? error.body : error
-            const message = error && error.body ? (error.body.course_event_id ? error.body.course_event_id.join(', ') : error.body.error || error.body) : error
+            const message = error && error.body ? (error.body.product_id ? error.body.product_id.join(', ') : error.body.error || error.body) : error
             // const message = Object.keys(myObject).map( (key, index) => myObject[key]).join(', ')
 
             this.$store.dispatch('layout/replaceAlert', {
               type: 'error',
               message: message
             })
-            console.log(`Cannot updateCourseEventSubscription`, error)
+            console.log(`Cannot updateOrder`, error)
           })
       },
     }
