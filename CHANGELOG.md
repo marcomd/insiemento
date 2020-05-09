@@ -1,6 +1,10 @@
 # CHANGELOG
 
-# v0.17.1 28/04/2020 0h
+# v0.17.2 09/05/2020
+
+- Added docker support
+
+# v0.17.1 28/04/2020
 
 - Fix to payment controller
 

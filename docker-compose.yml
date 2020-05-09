@@ -1,0 +1,69 @@
+version: '3'
+services:
+
+  database:
+    image: postgres:11-alpine
+    volumes:
+      - ./.data/db:/var/lib/postgresql/data
+    env_file: .env
+#    environment:
+#      POSTGRES_DB: insiemento_d
+#      POSTGRES_USER: insiemento
+#      POSTGRES_PASSWORD: insiemento01
+
+  redis:
+    image: redis
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+      - redis
+    ports:
+      - "3100:3100"
+    volumes:
+      - .:/insiemento
+      - gem_cache:/usr/local/bundle/gems
+      - node_modules:/insiemento/node_modules
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+      ORGANIZATION: 1
+    command: "bundle exec rails server -b 0.0.0.0 -p 3100"
+
+  rspec:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    volumes:
+      - .:/insiemento
+    env_file: .env
+    environment:
+      RAILS_ENV: test
+    command: "bundle exec rspec"
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+      - database
+      - redis
+    volumes:
+      - .:/insiemento
+      - gem_cache:/usr/local/bundle/gems
+      - node_modules:/insiemento/node_modules
+    env_file: .env
+    environment:
+      ORGANIZATION: 1
+      RAILS_ENV: development
+    command: "bundle exec sidekiq"
+
+volumes:
+  gem_cache:
+  node_modules:

@@ -120,6 +120,9 @@ group :development, :test do
   # fixtures replacement with a straightforward definition syntax
   gem 'factory_bot', '5.1.1'
   gem 'factory_bot_rails', '~> 5.1.0'
+
+  # Shim to load environment variables from .env into ENV in development
+  gem 'dotenv-rails'
 end
 
 group :development do

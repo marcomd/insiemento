@@ -96,76 +96,92 @@ Currently, only administrators can associate a subscription with a customer but 
 - [ ] Milestone4: Orders and payments management, in progress `v0.12.0`
 - [ ] Milestone5: Organizations fee management
 
-## Cos'è?
 
-Insiemento è un'applicazione gestionale per palestre e centri fitness.
-Fornisce un'interfaccia grafica desktop per gli amministratori, una moderna interfaccia grafica mobile responsive
-per gli utenti che utilizzano il servizio.
+## Docker
 
-La prima milestone è stata raggiunta: la gestione dei corsi fitness e la struttura base per consentire
-agli utenti di registrarsi e prenotarsi ai corsi.
+The application is ready to be run in a docker container.
 
-La seconda milestone è in corso: aggiungere la gestione multitenant per ospitare più organizzazioni sulla 
-stessa piattaforma.
-Ognuna potrà avere un'istanza dedicata la quale seleziona l'id tramite ENV.
-In alternativa potranno essere ospitate sulla stessa istanza, selezionate tramite sottodominio.
+We use environment variables as [good practice](https://12factor.net/config) says.
 
-La terza milestone prevista riguarda degli abbonamenti dei clienti e la gestione dei prodotti che ogni 
-organizzazione potrà configurare.
+In the database.yml file we have such references:
 
-## Come funziona
+```yaml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  port: <%= ENV['POSTGRES_PORT'] || '5432' %>
+  host: <%= ENV['DATABASE_HOST'] %>
 
-Consente agli amministratori root di gestire tramite UI:
+development:
+  <<: *default
 
-- Organizzazioni
-- Log di sistema
-- Diagnostica
+test:
+  <<: *default
 
-Consente agli amministratori root di configurare tramite UI:
+production:
+  <<: *default
+```
 
-- Corsi
-- Istruttori
-- Stanze dove si terranno i corsi fisicamente
-- Definire il programma della settimana: corso, istruttore, stanza, giorno e orario
-- Categorie, prodotti e abbonamenti
+The name of the `POSTGRES_XXX` variables is not random, they are also used by the postgres image to initialize the instance.
 
-Un automatismo:
+Now we create the `.env` file in the application root with the environment variables inside.
 
-- Ogni settimana crea gli eventi definiti nel programma
+The `database` and `redis` value are references to containers defined in the `docker-compose.yml` file.
+ 
 
-Gli utenti:
+```
+DATABASE_HOST=database
 
-- Si registrano con la web app
-- Scelgono i corsi a cui desiderano partecipare (se dispongono di un abbonamento valido)
-- Si recano in palestra
+POSTGRES_DB=insiemento_d
+POSTGRES_USER=my_db_user
+POSTGRES_PASSWORD=my_db_password
 
-Ogni corso ha i suoi parametri:
+REDIS_HOST=redis
+```
 
-- Da quando è possibile prenotarsi, da quando disdire ecc.
+We are ready to create containers:
 
-### Abbonamenti
+```
+$ docker-compose up -d
+``` 
 
-L'amministratore definisce la categoria, per ognuna crea uno o più prodotti. Per ogni prodotto vengono generati dei codici
-che il cliente acquista per estendere la validità del proprio abbonamento.
+You should see this output
 
-Esempio:
+```
+Creating otpservice_database_1 ... done
+Creating otpservice_redis_1    ... done
+Creating otpservice_app_1      ... done
+Creating otpservice_sidekiq_1  ... done
+Creating otpservice_rspec_1    ... done
+```
 
-- Categoria Fitness
-  - Prodotto Mensile costo 30€
-    - Codice 642b26d9fb1c00
-    - Codice 68b15041537759
-    - ...
-  - Prodotto Annuale costo 300€
-    - Codice 7a588db36df631
-    - ...
-- Categoria Aquagym
-  - Prodotto Giorni x Costo x€
-    - Codice ...
-    
-Quando un cliente riscatta un codice, di fatto estende la validità del suo account.
+the web app is listen on port 3100
 
-E' possibile avere più abbonamenti validi che coprono categorie diverse.
-Il cliente, per partecipare ad un corso, deve possedere un abbonamento attivo (non scaduto) e della stessa categoria 
-del corso. In questo modo, è possibile definire più tipologie di prodotti acquistabili separatamente.
+```
+$ docker-compose ps
 
-Attualmente, solo gli amministratori possono associare un abbonamento ad un cliente ma in futuro sarà automatizzato.
+        Name                       Command               State            Ports
+----------------------------------------------------------------------------------------
+otpservice_app_1        entrypoint.sh bundle exec  ...   Up       0.0.0.0:3100->3100/tcp
+otpservice_console_1    entrypoint.sh bundle exec  ...   Up
+otpservice_database_1   docker-entrypoint.sh postgres    Up       5432/tcp
+otpservice_redis_1      docker-entrypoint.sh redis ...   Up       6379/tcp
+otpservice_sidekiq_1    entrypoint.sh bundle exec  ...   Up
+otpservice_rspec_1      entrypoint.sh bundle exec  ...   Up
+```
+
+Remember to stop postgres and redis locally if present
+
+```
+# On mac
+brew services stop redis
+brew services stop postgres
+
+# On linux
+sudo systemctl stop redis
+sudo systemctl stop postgres
+```

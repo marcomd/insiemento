@@ -33,3 +33,5 @@ yarn-debug.log*
 .idea
 .DS_Store
 /remember.rb
+.env
+.data
