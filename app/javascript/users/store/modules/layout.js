@@ -8,6 +8,7 @@ export const state = {
   loading: false,
   sidebarOpened: false,
   alerts: [],
+  snackbar: {show: false, text: null, color: null, timeout: 3000, multi_line: true},
   search: null,
 }
 
@@ -34,6 +35,9 @@ export const mutations = {
   },
   SET_SEARCH(state, search) {
     state.search = search
+  },
+  SET_SNACKBAR(state, data) {
+    Object.assign(state.snackbar, data)
   },
 }
 
@@ -65,6 +69,9 @@ export const actions = {
   },
   removeAlert({ commit }, alertId) {
     commit('REMOVE_ALERT', alertId)
+  },
+  setSnackbar({ commit }, data) {
+    commit('SET_SNACKBAR', Object.assign(data, {show: true}))
   },
   setSearch({ commit }, search) {
     commit('SET_SEARCH', search)

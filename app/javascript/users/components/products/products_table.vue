@@ -47,7 +47,6 @@
     import { mapActions } from 'vuex'
 
     export default {
-    name: 'CourseEventsTable',
     props: {
       products: {
         type: Array,

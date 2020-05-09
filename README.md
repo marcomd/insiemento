@@ -5,24 +5,34 @@
 
 # Insiemento
 
-The name is a mix of italian words: Insieme (togheter) - Momento (moment)
+The name is a mix of italian words: Insieme (togheter) + Momento (moment) = Insiem+ento
 
 ## What is it?
 
-Insiemento is a management application for gyms and fitness centers.
-It provides a desktop graphical interface for administrators, a modern and responsive graphical interface
+Insiemento is a management application to manage training sessions of any type. 
+It is currently focused on occasional courses for which long-term planning is not required but only a reservation.
+For example for gyms or single trainers.
+
+It provides a UI optimized for large screens for administrators and a modern and responsive UI, optimized for mobile,
 for users.
 
-The first milestone has been reached: the management of fitness courses and the basic structure to allow
-users to register and book courses.
+The first milestone has been reached: the management of courses and the basic structure to allow
+users to register and book events.
 
-The second milestone is almost completed: add multitenant management to host multiple organizations on the
-same platform.
-Each can have a dedicated instance which selects the ID via ENV.
+The second milestone is also completed: multitenant management to host multiple organizations on the
+same platform. Each one can have a dedicated instance which selects the ID via ENV.
 Alternatively, they can be hosted on the same instance, selected via subdomain.
 
 The third milestone is in progress: it concerns customer subscriptions and the management of products that each
 organization will be able to configure. User must have a valid subscription in order to partecipate to courses.
+A simple ecommerce to buy subscriptions on their own is also under development.
+
+## Technology
+
+I chose the technology that allows you to maximize productivity:
+
+- backend: [Ruby on Rails](https://rubyonrails.org/) + [ActiveAdmin](https://activeadmin.info)
+- frontend: [VueJs](https://vuejs.org/) + [Vuetify](https://vuetifyjs.com)
 
 ## How does it work
 
@@ -96,6 +106,21 @@ Currently, only administrators can associate a subscription with a customer but 
 - [ ] Milestone4: Orders and payments management, in progress `v0.12.0`
 - [ ] Milestone5: Organizations fee management
 
+## Run locally
+
+Create `.env` file in the application root with the environment variables inside.
+
+```
+ORGANIZATION=1
+REDIS_HOST=localhost
+DATABASE_HOST=localhost
+
+POSTGRES_DB=insiemento_d
+POSTGRES_USER=my_db_user
+POSTGRES_PASSWORD=my_db_password
+```
+
+The environment variable `ORGANIZATION` is required for the user frontend, which must be instantiated for each organization.
 
 ## Docker
 
@@ -134,12 +159,9 @@ The `database` and `redis` value are references to containers defined in the `do
  
 
 ```
+# See above the rest of env variables
+# ...replace these two
 DATABASE_HOST=database
-
-POSTGRES_DB=insiemento_d
-POSTGRES_USER=my_db_user
-POSTGRES_PASSWORD=my_db_password
-
 REDIS_HOST=redis
 ```
 
@@ -185,3 +207,7 @@ brew services stop postgres
 sudo systemctl stop redis
 sudo systemctl stop postgres
 ```
+
+Want to contribute?
+
+If you want to contribute through code, UX or documentation, feel free to contact me.

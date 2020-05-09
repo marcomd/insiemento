@@ -70,6 +70,7 @@
     },
     data: () => {
       return {
+        fakePaying: false
       }
     },
     computed: {
@@ -79,6 +80,10 @@
     methods: {
       payOrder() {
         console.log(`payOrder ${this.order.id}`)
+        this.$store.dispatch('layout/setSnackbar', {
+          text: "Work in progress...",
+          color: null,
+        })
       },
       updateOrder() {
         console.log(`updateOrder add product ${this.product.id}`)

@@ -24,6 +24,7 @@ en:
         say_yes: "Yes"
         say_no: "No"
         search: "Search"
+        close: "Close"
       locales:
         it: Italiano
         en: English

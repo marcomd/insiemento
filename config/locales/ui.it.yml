@@ -24,6 +24,7 @@ it:
         say_yes: "Si"
         say_no: "No"
         search: "Cerca"
+        close: "Chiudi"
       locales:
         it: Italiano
         en: English

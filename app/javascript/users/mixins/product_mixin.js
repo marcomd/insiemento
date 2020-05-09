@@ -3,10 +3,10 @@ export const productMixin = {
   computed: {
     // The object this.user.pending_order is copied to this.user
     pending_order() {
-      return this.order
+      return !!this.order && this.order.id && this.order
     },
     selectedProducts() {
-      return this.pending_order && this.pending_order.products ? this.pending_order.products : []
+      return this.order && this.order.products ? this.order.products : []
     },
     isSelected() {
       return !!this.selectedProducts.find(product => product.id == this.product.id)

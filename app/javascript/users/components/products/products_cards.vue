@@ -25,7 +25,6 @@
   import { mapState } from 'vuex'
 
   export default {
-    name: 'ProductsListCards',
     components: {
       ProductCardLite
     },

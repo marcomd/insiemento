@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.18.0 09/05/2020 1h
+
+- Added snackbar component to show instant message
+- Fixed a bug in the order checkout
+- Updated vuetify from 2.2.18 to 2.2.27 and vuex from 3.1.3 to 3.3.0 
+
 # v0.17.2 09/05/2020
 
 - Added docker support

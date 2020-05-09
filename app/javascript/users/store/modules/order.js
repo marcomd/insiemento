@@ -4,7 +4,9 @@ export const namespaced = true
 
 export const state = {
   orders: [],
-  order: {},
+  order: {
+    products: []
+  },
 }
 
 export const mutations = {
@@ -15,9 +17,10 @@ export const mutations = {
     state.order = order
   },
   ADD_PRODUCT(state, product) {
-    if (!state.order.products) {
-      state.order.products = []
-    }
+    // I have to initialize the array into the object
+    // if (!state.order.products) {
+    //   state.order.products = []
+    // }
     state.order.products.push(product)
   },
   REMOVE_PRODUCT(state, id) {

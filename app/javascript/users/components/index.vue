@@ -4,6 +4,7 @@
     <Header/>
     <v-content>
       <Alerts/>
+      <Snackbar/>
       <router-view/>
     </v-content>
     <Footer/>
@@ -17,13 +18,15 @@
   import Sidebar from './layout/sidebar'
   import Footer from './layout/footer'
   import Alerts from './layout/alerts'
+  import Snackbar from './layout/snackbar'
 
   export default {
     components: {
       Header,
       Sidebar,
       Footer,
-      Alerts
+      Alerts,
+      Snackbar,
     },
     props: {
       urls: Object,
