@@ -36,6 +36,7 @@ en:
       max_attendees_reached: "Max attendees has been reached!"
       attending_not_found: "Sorry, attending was not found!"
       active_subscription_needed: "You can only proceed with a subscription, please contact us!"
+      invalid_json_format: "it is not a valid json format"
   activerecord: &activerecord
     models: &models
       system_log:
@@ -251,9 +252,20 @@ en:
         order: "Order"
         source: "Source"
         state: "State"
+        states:
+          just_made: "New"
+          canceled: "Canceled"
+          synched: "Synchronized"
+          confirmed: "Confirmed"
         amount: "Amount"
         created_at: "Created at"
         updated_at: "Updated at"
+        stripe_payment:
+          states:
+            just_made: "New"
+            canceled: "Canceled"
+            synched: "Synchronized"
+            confirmed: "Confirmed"
   formtastic:
     titles:
     labels:

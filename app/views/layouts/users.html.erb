@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Fitness</title>
+    <title><%= CONFIG[:application][:name] %></title>
     <%= stylesheet_pack_tag 'users' %>
     <%= javascript_pack_tag 'users' %>
     <%= csrf_meta_tags %>
     <meta name='viewport' content='width=device-width'>
     <%= favicon_link_tag "favicon_frontend#{'_dev' unless Rails.env.production?}_96.png", type: 'image/png' %>
     <%= favicon_link_tag "favicon_frontend#{'_dev' unless Rails.env.production?}.ico" %>
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
     <%= yield %>

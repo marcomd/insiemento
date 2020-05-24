@@ -260,6 +260,7 @@ it:
         restrict_dependent_destroy:
           has_one: Il record non può essere cancellato perchè esiste un %{record} dipendente
           has_many: Il record non può essere cancellato perchè esistono %{record} dipendenti
+        invalid_json_format: "non è un formato json valido"
     attributes: &attributes
       id: "Id"
       created_at: "Data creazione"
@@ -431,10 +432,17 @@ it:
         states:
           just_made: "Nuovo"
           canceled: "Cancellato"
+          synched: "Sincronizzato"
           confirmed: "Confermato"
         amount: "Importo"
         created_at: "Data creazione"
         updated_at: "Data modifica"
+      stripe_payment:
+        states:
+          just_made: "Nuovo"
+          canceled: "Cancellato"
+          synched: "Sincronizzato"
+          confirmed: "Confermato"
   formtastic:
     titles:
     labels:

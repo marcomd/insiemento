@@ -1,12 +1,13 @@
 <%= vue component: 'users', props: {
       basePath: users_path,
       current_organization: {
-        logo: url_for(@current_organization.logo),
+        logo: (url_for(@current_organization.logo) if @current_organization.logo.present?),
         name: @current_organization.name,
         payoff: @current_organization.payoff,
         theme: @current_organization.theme,
         email: @current_organization.email,
         phone: @current_organization.phone,
+        s_pk: ENV['STRIPE_PUBLIC_KEY']
       },
       urls: {
         login: api_ui_v1_authenticate_url,

@@ -6,6 +6,210 @@
 default_password = Rails.application.credentials.seed.dig(:default_password)
 default_root_admin_password = Rails.application.credentials.seed.dig(:default_root_admin_password)
 default_admin_password = Rails.application.credentials.seed.dig(:default_admin_password)
+stripe_new_payment_response = {
+    id: "pi_1GmIPWFBKMhSCxMuij0bwJMo",
+    object: "payment_intent",
+    last_payment_error: nil,
+    livemode: false,
+    next_action: nil,
+    status: "requires_payment_method",
+    amount: 34800,
+    amount_capturable: 0,
+    amount_received: 0,
+    application: nil,
+    application_fee_amount: nil,
+    canceled_at: nil,
+    cancellation_reason: nil,
+    capture_method: "automatic",
+    charges: {
+        object: "list",
+        data: [
+        ],
+        has_more: false,
+        total_count: 0,
+        url: "/v1/charges?payment_intent=pi_1GmIPWFBKMhSCxMuij0bwJMo"
+    },
+    client_secret: "pi_1GmIPWFBKMhSCxMuij0bwJMo_secret_WjkzuGJuFtmioE1hzl0UXbv3v",
+    confirmation_method: "automatic",
+    created: 1590321274,
+    currency: "eur",
+    customer: nil,
+    description: nil,
+    invoice: nil,
+    metadata: {
+        integration_check: "accept_a_payment"
+    },
+    on_behalf_of: nil,
+    payment_method: nil,
+    payment_method_options: {
+        card: {
+            installments: nil,
+            request_three_d_secure: "automatic"
+        }
+    },
+    payment_method_types: [
+        "card"
+    ],
+    receipt_email: nil,
+    review: nil,
+    setup_future_usage: nil,
+    shipping: nil,
+    source: nil,
+    statement_descriptor: nil,
+    statement_descriptor_suffix: nil,
+    transfer_data: nil,
+    transfer_group: nil
+}.to_json
+stripe_complete_payment_response = {
+    "id": "pi_1GhHl2FBKMhSCxMuyVwwkSam",
+    "object": "payment_intent",
+    "last_payment_error": nil,
+    "livemode": false,
+    "next_action": nil,
+    "status": "succeeded",
+    "amount": 1099,
+    "amount_capturable": 0,
+    "amount_received": 1099,
+    "application": nil,
+    "application_fee_amount": nil,
+    "canceled_at": nil,
+    "cancellation_reason": nil,
+    "capture_method": "automatic",
+    "charges": {
+        "object": "list",
+        "data": [
+            {
+                "id": "ch_1Gm4MwFBKMhSCxMu9Y5EiVMn",
+                "object": "charge",
+                "amount": 1099,
+                "amount_refunded": 0,
+                "application": nil,
+                "application_fee": nil,
+                "application_fee_amount": nil,
+                "balance_transaction": "txn_1Gm4MwFBKMhSCxMuJN7NTprq",
+                "billing_details": {
+                    "address": {
+                        "city": nil,
+                        "country": nil,
+                        "line1": nil,
+                        "line2": nil,
+                        "postal_code": "20000",
+                        "state": nil
+                    },
+                    "email": nil,
+                    "name": nil,
+                    "phone": nil
+                },
+                "calculated_statement_descriptor": "Stripe",
+                "captured": true,
+                "created": 1590267298,
+                "currency": "eur",
+                "customer": nil,
+                "description": nil,
+                "destination": nil,
+                "dispute": nil,
+                "disputed": false,
+                "failure_code": nil,
+                "failure_message": nil,
+                "fraud_details": {
+                },
+                "invoice": nil,
+                "livemode": false,
+                "metadata": {
+                    "integration_check": "accept_a_payment"
+                },
+                "on_behalf_of": nil,
+                "order": nil,
+                "outcome": {
+                    "network_status": "approved_by_network",
+                    "reason": nil,
+                    "risk_level": "normal",
+                    "risk_score": 10,
+                    "seller_message": "Payment complete.",
+                    "type": "authorized"
+                },
+                "paid": true,
+                "payment_intent": "pi_1GhHl2FBKMhSCxMuyVwwkSam",
+                "payment_method": "pm_1Gm4MvFBKMhSCxMuDgjTtu5r",
+                "payment_method_details": {
+                    "card": {
+                        "brand": "visa",
+                        "checks": {
+                            "address_line1_check": nil,
+                            "address_postal_code_check": "pass",
+                            "cvc_check": "pass"
+                        },
+                        "country": "US",
+                        "exp_month": 12,
+                        "exp_year": 2022,
+                        "fingerprint": "yFQ5vw8ZmbnfkVDr",
+                        "funding": "credit",
+                        "installments": nil,
+                        "last4": "4242",
+                        "network": "visa",
+                        "three_d_secure": nil,
+                        "wallet": nil
+                    },
+                    "type": "card"
+                },
+                "receipt_email": nil,
+                "receipt_number": nil,
+                "receipt_url": "https://pay.stripe.com/receipts/acct_1GUH4FFBKMhSCxMu/ch_1Gm4MwFBKMhSCxMu9Y5EiVMn/rcpt_HKjq5XrX7X3L9PfcwDuNtEFRqw1XdIM",
+                "refunded": false,
+                "refunds": {
+                    "object": "list",
+                    "data": [
+                    ],
+                    "has_more": false,
+                    "total_count": 0,
+                    "url": "/v1/charges/ch_1Gm4MwFBKMhSCxMu9Y5EiVMn/refunds"
+                },
+                "review": nil,
+                "shipping": nil,
+                "source": nil,
+                "source_transfer": nil,
+                "statement_descriptor": nil,
+                "statement_descriptor_suffix": nil,
+                "status": "succeeded",
+                "transfer_data": nil,
+                "transfer_group": nil
+            }
+        ],
+        "has_more": false,
+        "total_count": 1,
+        "url": "/v1/charges?payment_intent=pi_1GhHl2FBKMhSCxMuyVwwkSam"
+    },
+    "client_secret": "pi_1GhHl2FBKMhSCxMuyVwwkSam_secret_5RgBVLZL3CblZUEG4kbOjQavk",
+    "confirmation_method": "automatic",
+    "created": 1589127124,
+    "currency": "eur",
+    "customer": nil,
+    "description": nil,
+    "invoice": nil,
+    "metadata": {
+        "integration_check": "accept_a_payment"
+    },
+    "on_behalf_of": nil,
+    "payment_method": "pm_1Gm4MvFBKMhSCxMuDgjTtu5r",
+    "payment_method_options": {
+        "card": {
+            "installments": nil,
+            "request_three_d_secure": "automatic"
+        }
+    },
+    "payment_method_types": [
+        "card"
+    ],
+    "receipt_email": nil,
+    "review": nil,
+    "setup_future_usage": nil,
+    "shipping": nil,
+    "source": nil,
+    "statement_descriptor": nil,
+    "statement_descriptor_suffix": nil,
+    "transfer_data": nil,
+    "transfer_group": nil
+}.to_json
 
 if Organization.count == 0
   o_dance = Organization.create(name: 'Fitness center', payoff: 'Run, Jump, Burn!',
@@ -265,8 +469,8 @@ else
 end
 
 if Payment.count == 0
-  pay_stefy  = Payment.create!(organization: o_dance, user: u_stefy, order: ord_stefy, source: :stripe, state: :confirmed, amount_cents: 34800  )
-  pay_paolo  = Payment.create!(organization: o_dance, user: u_paolo, order: ord_paolo, source: :stripe, state: :just_made, amount_cents:  1900  )
+  pay_stefy  = StripePayment.create!(organization: o_dance, user: u_stefy, order: ord_stefy, source: :frontend, state: :confirmed, amount_cents: 34800, external_service_response: stripe_complete_payment_response  )
+  pay_paolo  = StripePayment.create!(organization: o_dance, user: u_paolo, order: ord_paolo, source: :frontend, state: :just_made, amount_cents:  1900, external_service_response: stripe_new_payment_response  )
   puts "Payments: #{Payment.count}"
 
   # Subscriptions are created after the payment is created but these simulate an admin creation

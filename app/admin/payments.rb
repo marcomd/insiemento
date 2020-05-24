@@ -11,7 +11,7 @@ ActiveAdmin.register Payment do
   # or
   #
   permit_params do
-    permitted = [:user_id, :order_id, :source, :state, :amount]
+    permitted = [:user_id, :order_id, :source, :state, :amount, :external_service_response]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -60,6 +60,7 @@ ActiveAdmin.register Payment do
       row(:order)
       row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
       row(:amount)
+      row(:external_service_response)
       row(:created_at)
       row(:updated_at)
     end
@@ -125,6 +126,7 @@ ActiveAdmin.register Payment do
         f.inputs do
           f.input :state
           f.input :amount
+          f.input :external_service_response, as: :text
         end
       end
     end

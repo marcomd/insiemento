@@ -11,3 +11,9 @@ json.set!('products') do
     json.partial! 'api/ui/v1/products/product', product: product
   end
 end
+
+json.set!('payments') do
+  json.array! order.payments do |payment|
+    json.partial! 'api/ui/v1/payments/payment', payment: payment
+  end
+end

@@ -31,12 +31,12 @@ module SeededDataHelper
     Order.find(3)
   end
 
-  def payment_confirmed
-    Payment.confirmed.first
+  def stripe_payment_confirmed
+    StripePayment.confirmed.first
   end
 
-  def payment_unconfirmed
-    Payment.just_made.first
+  def stripe_payment_unconfirmed
+    StripePayment.just_made.first
   end
 
   def authenticated_user(email)

@@ -7,6 +7,8 @@ class Order < ApplicationRecord
   has_many :order_products, dependent: :destroy
   has_many :products, through: :order_products
   has_many :payments
+  has_many :stripe_payments
+  has_many :paypal_payments
   has_many :subscriptions
 
   after_create :set_amounts!, if: :updatable?

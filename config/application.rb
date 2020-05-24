@@ -28,5 +28,7 @@ module Insiemento
     #config.action_mailer.deliver_later_queue_name = "default_mailer"
 
     config.active_storage.variant_processor = :vips
+
+    config.autoload_paths += %W(#{Rails.root}/app/models/payments)
   end
 end

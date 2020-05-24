@@ -1,5 +1,23 @@
 # CHANGELOG
 
+# v0.19.0 22/05/2020 12h
+
+- Backend
+  - Added STI subclasses to Payment, each one to manage their own type:
+    - StripePayment currently the focus is on this. After creation stripe service is called to create the payment intent
+     and to store the response in a new field. The most importand data is the client secret to confirm the payment.
+    - PaypalPayment coming soon
+    - BankTransferPayment coming soon
+  - Added two new fields to payment: type to manage sti and external_service_response to store the output json from the
+    called service.
+  - Added the payment to the order json
+  - Added the custom json validator
+  - Updated the seed to fill the payment with a fake stripe response
+- Frontend
+  - Added the payment section with multiple choice: Stripe, Paypal and bank transfer (but these last two are disabled atm)
+  - Added the plugin vue-stripe-elements-plus to pay order with stripe and accept credit card
+  - Updated vuetify to 2.2.29
+
 # v0.18.0 09/05/2020 1h
 
 - Added snackbar component to show instant message

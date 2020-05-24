@@ -94,7 +94,7 @@ ActiveAdmin.register Order do
         end
         panel Payment.model_name.human(count: 2) do
           table_for order.payments do
-            column(:id)           { |obj| link_to "#{obj.id}", [:admin, obj]}
+            column(:id)           { |obj| link_to "#{obj.id}", admin_payment_path(obj.id)}
             column(:user)
             column(:source)
             column(:state)        { |obj| span obj.localized_state, class: "status_tag #{obj.state}" }

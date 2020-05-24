@@ -1,0 +1,2 @@
+class PaypalPayment < Payment
+end

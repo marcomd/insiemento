@@ -114,6 +114,8 @@ it:
           attendees_count: Partecipanti
           subscribed: Iscritto
       product:
+        one: Prodotto
+        other: Prodotti
         select_action: Seleziona
         show_action: Mostra
         add_action: Aggiungi
@@ -131,6 +133,8 @@ it:
           price: "Prezzo"
           days: "Giorni"
       order:
+        one: Ordine
+        other: Ordini
         pay_action: Paga
         show:
           title: "Ordine #%{id}"

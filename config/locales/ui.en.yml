@@ -114,6 +114,8 @@ en:
           attendees_count: Participants
           subscribed: Membership
       product:
+        one: Product
+        other: Products
         select_action: Select
         show_action: Show
         add_action: Add
@@ -131,6 +133,8 @@ en:
           price: "Price"
           days: "Days"
       order:
+        one: Order
+        other: Orders
         pay_action: Pay
         show:
           title: "Order #% {id}"

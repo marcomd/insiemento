@@ -1,0 +1,2 @@
+class BankTransferPayment < Payment
+end

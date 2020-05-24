@@ -1,6 +1,4 @@
-<div style="text-align:center">
-<img src="/app/assets/images/logo_200.png" />
-</div>
+![](/app/assets/images/logo_200.png)
 
 [![CircleCI](https://circleci.com/gh/marcomd/insiemento.svg?style=shield)](https://circleci.com/gh/marcomd/insiemento)
 [![License](https://img.shields.io/github/license/RubyMoney/money.svg)](https://opensource.org/licenses/MIT)
