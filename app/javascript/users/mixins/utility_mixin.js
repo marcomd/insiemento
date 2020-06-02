@@ -5,8 +5,14 @@ export const utilityMixin = {
     tomorrowDate() {
       return moment().add(1,'days')
     },
+    todayTimestamp() {
+      return moment().unix()
+    },
   },
   methods: {
+    // formattedDateToISO(date, outFormat='YYYY-MM-DD') {
+    //   return !!date ? moment(date, outFormat) : null
+    // },
     formattedDate(date) {
       return !!date ? moment(date, 'YYYY-MM-DD').format('L') : null
     },

@@ -34,9 +34,16 @@ it:
         logout: Logout
         sign_up: Registrati
         profile: Profilo
-        dashboard: Corsi
+        dashboard: Riepilogo
+        course_events: Corsi
         store: Acquista
         help: Contattaci
+      calendar:
+        today: Oggi
+        day: Giorno
+        week: Settimana
+        month: Mese
+        four_days: Quattro giorni
       session:
         login_action: Entra
         login_title: Login

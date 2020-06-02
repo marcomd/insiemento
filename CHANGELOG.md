@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.20.0 02/06/2020 1,5h
+
+- Users UI improved with a calendar
+  - The list of course events has been moved to a dedicated "Courses" section, also available in the side menu.
+  - The dashboard now only shows a calendar with your appointments (to be completed with real data)
+  - Little improvements to several API output
+
 # v0.19.1 02/06/2020
 
 - Updated many gems

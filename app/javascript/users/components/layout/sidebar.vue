@@ -52,6 +52,15 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item :to='{name: "CourseEventIndex"}' v-if='isLoggedIn'>
+        <v-list-item-action>
+          <v-icon>mdi-clipboard-list-outline</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('sidebar.course_events') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item :to='{name: "Products"}' v-if='isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-store</v-icon>

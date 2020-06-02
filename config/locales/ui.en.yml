@@ -34,8 +34,16 @@ en:
         logout: Logout
         sign_up: Register
         profile: Profile
-        dashboard: Courses
+        dashboard: Dashboard
+        course_events: Courses
+        store: Store
         help: Contact us
+      calendar:
+        today: Today
+        day: Day
+        week: Week
+        month: Month
+        four_days: Four days
       session:
         login_action: Log in
         login_title: Login
