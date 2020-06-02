@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.19.1 02/06/2020
+
+- Updated many gems
+  - rails from 6.0.2.2 to 6.0.3.1
+  - activeadmin from 2.6 to 2.7
+  - kaminari and other
+
 # v0.19.0 22/05/2020 12h
 
 - Backend

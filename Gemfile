@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2.2'
+gem 'rails', '~> 6.0.3.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.2.3', '< 2.0'
@@ -37,7 +37,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Active Admin is a Ruby on Rails framework for creating elegant backends for website administration.
-gem 'activeadmin', '~> 2.6.0'
+gem 'activeadmin', '~> 2.7.0'
 
 #gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 
