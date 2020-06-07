@@ -125,8 +125,8 @@
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['primary', 'secondary', 'indigo', 'green', 'orange'],
-      names: ['Zumba', 'Pilates', 'Yoga', 'AquaGym', 'Spa'],
+      courses: [],
+      // names: ['Zumba', 'Pilates', 'Yoga', 'AquaGym', 'Spa'],
     }),
     computed: {
       title () {
@@ -173,6 +173,9 @@
           '4day': this.$t('calendar.four_days'),
         }
       },
+      colors() {
+        return ['primary', 'secondary', 'primary darken-2', 'secondary darken-2', 'indigo', 'gray']
+      }
     },
     mounted () {
       this.$refs.calendar.checkChange()
@@ -215,23 +218,41 @@
 
         const min = new Date(`${start.date}T00:00:00`)
         const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
 
-        for (let i = 0; i < eventCount; i++) {
-          const allDay = this.rnd(0, 3) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-          const second = new Date(first.getTime() + secondTimestamp)
+        // Random data
+        // const days = (max.getTime() - min.getTime()) / 86400000
+        // const eventCount = this.rnd(days, days + 20)
+        // for (let i = 0; i < eventCount; i++) {
+        //   const allDay = this.rnd(0, 3) === 0
+        //   const firstTimestamp = this.rnd(min.getTime(), max.getTime())
+        //   const first = new Date(firstTimestamp - (firstTimestamp % 900000))
+        //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
+        //   const second = new Date(first.getTime() + secondTimestamp)
+        //
+        //   events.push({
+        //     name: this.names[this.rnd(0, this.names.length - 1)],
+        //     start: this.formatDate(first, !allDay),
+        //     end: this.formatDate(second, !allDay),
+        //     color: this.colors[this.rnd(0, this.colors.length - 1)],
+        //   })
+        // }
 
+        this.course_events.filter(ce => {
+          const event_date = new Date(ce.event_date)
+          return ce.subscribed && event_date >= min && event_date <= max
+        }).forEach(ce => {
+          const name = ce.course.name
+          console.log(`updateRange Add event ${name} ${ce.event_date}`)
+          const eventDateStart = new Date(ce.event_date)
+          const durationTimestamp = this.rnd(2, 8) * 900000
+          const eventDateEnd = new Date(eventDateStart.getTime() + durationTimestamp)
           events.push({
-            name: this.names[this.rnd(0, this.names.length - 1)],
-            start: this.formatDate(first, !allDay),
-            end: this.formatDate(second, !allDay),
-            color: this.colors[this.rnd(0, this.colors.length - 1)],
+            name: name,
+            start: this.formatDate(eventDateStart, true),
+            end: this.formatDate(eventDateEnd, true),
+            color: this.getCourseColor(name),
           })
-        }
+        })
 
         this.start = start
         this.end = end
@@ -249,6 +270,14 @@
         return withTime
                 ? `${a.getFullYear()}-${a.getMonth() + 1}-${a.getDate()} ${a.getHours()}:${a.getMinutes()}`
                 : `${a.getFullYear()}-${a.getMonth() + 1}-${a.getDate()}`
+      },
+      getCourseColor(name) {
+        if (!this.courses.includes(name)) {
+          this.courses.push(name)
+        }
+        const indexCourse = this.courses.findIndex(course => course == name)
+        const indexColor = indexCourse > this.colors.length ? this.colors.length : indexCourse
+        return this.colors[indexColor]
       },
     },
   }

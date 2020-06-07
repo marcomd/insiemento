@@ -16,8 +16,8 @@
           <v-btn x-large
                  color='success'
                  class='mr-2 mb-2'
-                 :to='{name: "dashboard"}'>
-            {{ $t('sidebar.dashboard') }}
+                 :to='{name: "CourseEventIndex"}'>
+            {{ $t('sidebar.course_events') }}
           </v-btn>
         </div>
       </v-col>
@@ -37,7 +37,7 @@
       <v-col class="text-center">
         <v-btn x-large
                class='mr-2 mb-2'
-               :to='{name: "dashboard"}'>
+               :to='{name: "CourseEventIndex"}'>
           {{ $t('commons.go_back') }}
         </v-btn>
       </v-col>

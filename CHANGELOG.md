@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.21.0 07/06/2020 1h
+
+- Improved user calendar with real subscribed events
+
 # v0.20.0 02/06/2020 1,5h
 
 - Users UI improved with a calendar
