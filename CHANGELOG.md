@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.22.0 07/06/2020 0,5h
+
+- Improved seed which now creates events on the next week
+- Course events controller now also applies a filter on the event date
+
 # v0.21.0 07/06/2020 1h
 
 - Improved user calendar with real subscribed events

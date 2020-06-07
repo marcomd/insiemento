@@ -442,7 +442,7 @@ if CourseSchedule.count == 0
 end
 
 if CourseEvent.count == 0
-  ScheduleService.call(starting_date: Date.parse('2020-02-01'))
+  ScheduleService.call(starting_date: Date.today)
   puts "CourseEvents: #{CourseEvent.count}"
 end
 

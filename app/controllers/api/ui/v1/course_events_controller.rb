@@ -3,7 +3,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
 
   respond_to :json
 
-  EVENT_TIME_OFFSET = 3600
+  EVENT_TIME_OFFSET = 300
 
   def index
     # To simulate a network delay...
@@ -16,7 +16,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
       if params[:state].downcase == 'active'
         @course_events = @course_events
                     .where(state: :active)
-                    #.where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+                    .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
       elsif params[:state].downcase == 'closed'
         @course_events = @course_events
                              .where(state: :closed)

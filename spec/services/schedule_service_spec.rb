@@ -23,7 +23,7 @@ describe ScheduleService do
     end
 
     context 'when course events have been already created' do
-      let(:starting_date) { Date.parse('2020-02-01') } # The same date on the seed
+      let(:starting_date) { CourseEvent.first.created_at } # The same date on the seed
       it 'does NOT create anymore' do
         expect do
           expect(subject.result).to be_falsey
