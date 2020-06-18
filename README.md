@@ -27,6 +27,14 @@ The third milestone is in progress: it concerns customer subscriptions and the m
 organization will be able to configure. User must have a valid subscription in order to partecipate to courses.
 A simple ecommerce to buy subscriptions on their own is also under development.
 
+## Demo
+
+[Try](https://insiemento.herokuapp.com/users) the demo using these credentials
+
+email: `marco@fitness.io`
+pwd: `abcd1234!!`
+
+
 ## Technology
 
 I chose the technology that allows you to maximize productivity:
