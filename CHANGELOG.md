@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.23.0 19/07/2020 0,5h
+
+- Added medical certificate management
+  - Added medical certificate attachment to user
+  - Added medical certificate expire at to user
+  - Updated the admin UI
+
 # v0.22.0 07/06/2020 0,5h
 
 - Improved seed which now creates events on the next week

@@ -11,7 +11,8 @@ ActiveAdmin.register User do
   # or
 
   permit_params do
-    permitted = [:firstname, :lastname, :email, :birthdate, :password, :password_confirmation, :gender, :phone, :state]
+    permitted = [:firstname, :lastname, :email, :birthdate, :password, :password_confirmation, :gender, :phone, :state,
+                  :medical_certificate, :medical_certificate_expire_at]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -21,6 +22,14 @@ ActiveAdmin.register User do
       myscope = super
       myscope = myscope.includes :organization
       myscope
+    end
+
+    def update
+      unless params[:user][:password].present?
+        params[:user].delete 'password'
+        params[:user].delete 'password_confirmation'
+      end
+      super
     end
   end
 
@@ -50,6 +59,7 @@ ActiveAdmin.register User do
   filter :birthdate
   filter :gender
   filter :sign_in_count
+  filter :medical_certificate_expire_at
   filter :created_at
   filter :updated_at
 
@@ -65,6 +75,16 @@ ActiveAdmin.register User do
           row(:lastname)
           row(:phone)
           row(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          if user.medical_certificate.present?
+            if /^image/ === user.medical_certificate.content_type
+              as_image_row(:medical_certificate)
+            else
+              row(:medical_certificate) { |obj| link_to('Download', obj.medical_certificate) }
+            end
+          else
+            row(:medical_certificate) { |obj| image_tag('false.png') }
+          end
+          row(:medical_certificate_expire_at)
           row(:reset_password_token)
           row(:reset_password_sent_at)
           row(:remember_created_at)
@@ -117,6 +137,16 @@ ActiveAdmin.register User do
       f.input :lastname
       f.input :email
       f.input :phone
+      f.input :medical_certificate, as: :file, hint:  if f.object.medical_certificate.present?
+                                                        if /^image/ === f.object.medical_certificate.content_type
+                                                          image_tag(f.object.medical_certificate, height: '50px')
+                                                        else
+                                                          "#{f.object.medical_certificate.filename} #{number_to_human_size(f.object.medical_certificate.byte_size)}"
+                                                        end
+                                                      else
+                                                        ''
+                                                      end
+      f.input :medical_certificate_expire_at #, as: :date_picker
       f.input :password
       f.input :password_confirmation
       f.input :state

@@ -362,6 +362,8 @@ it:
           active: "Attivo"
           suspended: "Sospeso"
         confirmed_at: "Data attivazione"
+        medical_certificate: "Certificato medico"
+        medical_certificate_expire_at: "Scadenza certificato medico"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       category:
