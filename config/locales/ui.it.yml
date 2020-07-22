@@ -1,30 +1,30 @@
 it:
   ui:
     users:
-      header:
-        title: My Fitness
+      home:
+        title: "DEVI GESTIRE UNA PALESTRA? PASSA A INSIEMENTO"
+        description: "Offriamo un servizio semplice e moderno per gestire i corsi della tua palestra.<br>Ti registri, configuri la tua struttura, i corsi, fine.<br>I tuoi clienti riceveranno un invito per registrarsi nella tua palestra.<br>Semplice e veloce, adatto a chi non ama sprecare tempo!"
+        potential_signer: "Sei un cliente di una palestra?"
+        potential_signer_description: "Se sei un cliente, registrati per accedere ai servizi a te riservati"
       footer:
-        about: Chi siamo
+        about: "Chi siamo"
         support_email:
           subject: "Richiesta assistenza generica"
           subject_with_course: "Richiesta assistenza corso %{name} evento id %{code}"
-      home:
-        step1: Registrati
-        step2: Scegli il corso
-        step3: Goditi la lezione
       commons:
-        go_back: Torna indietro
-        cancel: Annulla
-        confirm: Conferma
-        next: Avanti
-        prev: Indietro
-        of: di
-        end: Fine
-        save: Salva
+        go_back: "Torna indietro"
+        cancel: "Annulla"
+        confirm: "Conferma"
+        next: "Avanti"
+        prev: "Indietro"
+        of: "di"
+        end: "Fine"
+        save: "Salva"
         say_yes: "Si"
         say_no: "No"
         search: "Cerca"
         close: "Chiudi"
+        or: "o"
       locales:
         it: Italiano
         en: English

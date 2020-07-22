@@ -1,4 +1,4 @@
-![](/app/assets/images/logo_200.png)
+![](/app/assets/images/logo_full_1000.png)
 
 [![CircleCI](https://circleci.com/gh/marcomd/insiemento.svg?style=shield)](https://circleci.com/gh/marcomd/insiemento)
 [![License](https://img.shields.io/github/license/RubyMoney/money.svg)](https://opensource.org/licenses/MIT)

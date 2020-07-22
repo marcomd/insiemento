@@ -20,11 +20,11 @@ module ActiveAdmin
           # end
           para ar_footer.join(', ').html_safe
           if Rails.env.production? || Rails.env.production_itw?
-            para image_tag 'logo_50.png'
+            para image_tag('logo_200.png', size: '50x50')
             para <<GOOGLEANALYTICS.gsub(/^              /, '').html_safe
 GOOGLEANALYTICS
           else
-            para image_tag 'logo_50.png'
+            para image_tag('logo_200.png', size: '50x50')
           end
         end
       end

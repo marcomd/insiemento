@@ -1,39 +1,23 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
-import VueI18n from 'vue-i18n'
-import Vuetify from 'vuetify'
-import Vuelidate from 'vuelidate'
+
 import App from './components/index'
 import store from './store/store'
 import router from './router'
+
 import moment from 'moment'
+
+import VueResource from 'vue-resource'
+import VueI18n from 'vue-i18n'
+import Vuelidate from 'vuelidate'
+
+import vuetify from './plugins/vuetify'
+import './plugins'
+
 // import * as VueGoogleMaps from 'vue2-google-maps'
-import 'vuetify/dist/vuetify.min.css'
-import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(VueResource)
 Vue.use(VueI18n)
 Vue.use(Vuelidate)
-Vue.use(Vuetify)
-
-// Alcuni colori sono parametri forniti dal backend, impostati nel primo componente index.vue
-let vuetify = new Vuetify({
-  icons: {
-    iconfont: 'mdi'
-  },
-  // theme: {
-  //   light: true,
-  //   themes: {
-  //     light: {
-  //       primary: '#e3696a',
-  //       secondary: '#b0bec5',
-  //       accent: '#e3696a',
-  //       error: '#b71c1c',
-  //       info: '#e3696a',
-  //     },
-  //   },
-  // }
-})
 
 const init = function() {
   let el = document.getElementById('users-vue-wrapper')

@@ -18,7 +18,7 @@
              class='mr-2 mb-2'
              :to='{name: "login"}'
       >
-        {{ $t('session.login_action') }}
+        {{ $t('sidebar.login') }}
       </v-btn>
     </v-col>
   </v-row>

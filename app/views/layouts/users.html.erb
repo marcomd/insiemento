@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= CONFIG[:application][:name] %></title>
+    <title><%= t('meta.title') %></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="description" content="<%= t('meta.description') %>">
+    <meta name="image" content='<%= image_url(CONFIG.dig(:application, :commercial, :image)) %>'>
+    <meta name="application-name" content="<%= CONFIG.dig(:application, :commercial, :brand) %>">
+    <meta content="<%= I18n.locale&.to_s %>" http-equiv='content-language'>
+    <meta name="language" content="<%= I18n.locale == :it ? 'Italian' : 'English' %>">
+    <meta property="og:title" content="<%= t('meta.title') %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= CONFIG.dig(:application, :commercial, :url) %>">
+    <meta property="og:image" content='<%= image_url(CONFIG.dig(:application, :commercial, :image)) %>'>
+    <meta property="og:description" content="<%= t('meta.title') %>">
+    <meta property="og:site_name" content="<%= t('meta.title') %>">
+    <% if !Rails.env.production? %>
+      <meta name="robots" content="noindex,nofollow,noarchive" />
+    <% end %>
     <%= stylesheet_pack_tag 'users' %>
     <%= javascript_pack_tag 'users' %>
     <%= csrf_meta_tags %>

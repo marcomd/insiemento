@@ -313,3 +313,6 @@ en:
       name: "Server"
       smtp_server: "Server sending email"
       db_server: "Database server"
+  meta:
+    title: "Insiemento - Manage your gym in a moment"
+    description: "Insiemento - The definitive software to manage your gym, from the structure to your course reservations"

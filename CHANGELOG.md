@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.24.0 22/07/2020 1,5h
+
+- Improved homepage
+  - Now the homepage is composed of various sections to better illustrate the characteristics of the project and offer better results for marketing
+  - New logo
+  - Other little improvements
+
 # v0.23.0 19/07/2020 0,5h
 
 - Added medical certificate management

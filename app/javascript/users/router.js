@@ -10,7 +10,7 @@ import ConfirmationEmail from './components/session/confirmation_email'
 import ShowProfile from './components/profile/show'
 import EditProfile from './components/profile/edit'
 import NotFound from './pages/not_found'
-import Home from './pages/home'
+import Homepage from './pages/homepage'
 import Dashboard from './pages/dashboard'
 import CourseEventIndex from './pages/course_events_index'
 import CourseEventShow from './pages/course_event_show'
@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: Homepage,
     meta: {
       public: true
     }
