@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.25.0 22/07/2020
+
+- Updated several gems and js package
+  - updated rails to 6.0.3.2
+  - updated rack to 2.2.3
+  - updated loadash to 4.17.19
+
 # v0.24.0 22/07/2020 1,5h
 
 - Improved homepage
