@@ -23,7 +23,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_organization ||= Organization.find(ENV['ORGANIZATION'])
+    @current_organization ||=
+      if ENV['ORGANIZATION'].present?
+        Organization.find(ENV['ORGANIZATION'])
+      else
+        subdomain = parsed_subdomain
+        if subdomain.present?
+          Organization.find_by_domain(subdomain)
+        end
+      end
   end
 
   # def current_organization
@@ -74,6 +82,13 @@ class ApplicationController < ActionController::Base
     return true if /\/admin\// === request.referrer
     @current_user = AuthorizeApiRequest.call(request.headers).result
     render json: { error: 'Not Authorized' }, status: 401 unless @current_user
+  end
+
+  def parsed_subdomain
+    parsed_subdomains = request.subdomains.reject do |subdomain|
+      %w[www api].include?(subdomain)
+    end
+    parsed_subdomains.join('.')
   end
 
   attr_reader :current_user

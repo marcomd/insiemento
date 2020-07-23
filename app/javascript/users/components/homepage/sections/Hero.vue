@@ -23,7 +23,7 @@
           >
             <base-btn
                 :block="$vuetify.breakpoint.smAndDown"
-                href="mailto:info@fractalgarden.com?subject=Richiesta%20trial%20OTP Service"
+                href="mailto:support@insiemento.com?subject=Informazioni%20servizio%20palestre"
                 large
                 target="_blank"
             >
@@ -36,9 +36,8 @@
           <base-body>{{ $t('home.potential_signer_description') }}</base-body>
           <base-btn
               :block="$vuetify.breakpoint.smAndDown"
-              href="mailto:support@insiemento.com?subject=Informazioni%20servizio%20palestre"
               large
-              target="_blank"
+              :to="{name: 'signUp'}"
           >
             {{ $t('sidebar.sign_up') }}
           </base-btn>

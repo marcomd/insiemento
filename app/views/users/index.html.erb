@@ -1,30 +1,36 @@
-<%= vue component: 'users', props: {
-      basePath: users_path,
-      current_organization: {
-        logo: (url_for(@current_organization.logo) if @current_organization.logo.present?),
-        name: @current_organization.name,
-        payoff: @current_organization.payoff,
-        theme: @current_organization.theme,
-        email: @current_organization.email,
-        phone: @current_organization.phone,
-        s_pk: ENV['STRIPE_PUBLIC_KEY']
-      },
-      urls: {
-        login: api_ui_v1_authenticate_url,
-        signUp: api_ui_v1_user_registration_url,
-        passwordReset: api_ui_v1_user_password_url,
-        confirmationEmail: api_ui_v1_user_confirmation_url,
-        profile: api_ui_v1_profile_url,
-        # Tha tag :id will be replaced by the front end
-        course_event_show: api_ui_v1_course_event_url(':id'),
-        course_event_subscribe: subscribe_api_ui_v1_course_event_url(':id'),
-        course_events_index: api_ui_v1_course_events_url,
-        products_index: api_ui_v1_products_url,
-        product_show: api_ui_v1_product_url(':id'),
-        orders: api_ui_v1_orders_url,
-        order: api_ui_v1_order_url(':id'),
-        order_add_product: add_product_api_ui_v1_order_url(':id', ':product_id'),
-        order_remove_product: remove_product_api_ui_v1_order_url(':id', ':product_id'),
-      }
+<%=
+  current_organization = if @current_organization
+                           {
+                               logo: (url_for(@current_organization.logo) if @current_organization.logo.present?),
+                               name: @current_organization.name,
+                               payoff: @current_organization.payoff,
+                               theme: @current_organization.theme,
+                               email: @current_organization.email,
+                               phone: @current_organization.phone,
+                               s_pk: ENV['STRIPE_PUBLIC_KEY']
+                           }
+                         else
+                           {}
+                         end
+  vue component: 'users', props: {
+    basePath: users_path,
+    current_organization: current_organization,
+    urls: {
+      login: api_ui_v1_authenticate_url,
+      signUp: api_ui_v1_user_registration_url,
+      passwordReset: api_ui_v1_user_password_url,
+      confirmationEmail: api_ui_v1_user_confirmation_url,
+      profile: api_ui_v1_profile_url,
+      # Tha tag :id will be replaced by the front end
+      course_event_show: api_ui_v1_course_event_url(':id'),
+      course_event_subscribe: subscribe_api_ui_v1_course_event_url(':id'),
+      course_events_index: api_ui_v1_course_events_url,
+      products_index: api_ui_v1_products_url,
+      product_show: api_ui_v1_product_url(':id'),
+      orders: api_ui_v1_orders_url,
+      order: api_ui_v1_order_url(':id'),
+      order_add_product: add_product_api_ui_v1_order_url(':id', ':product_id'),
+      order_remove_product: remove_product_api_ui_v1_order_url(':id', ':product_id'),
     }
+  }
 %>

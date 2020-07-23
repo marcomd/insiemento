@@ -27,7 +27,7 @@
               <tr>
                 <th />
                 <th class="body-1 font-weight-bold text-center">
-                  Base
+                  Basic
                 </th>
                 <th class="body-1 font-weight-bold text-center">
                   Premium

@@ -6,13 +6,11 @@
     <v-toolbar-title>
       <router-link :to='{name: "dashboard"}' tag='button'>
         <img
-          v-if="organizationLogo"
           :src='organizationLogo'
           height='45'
           class='logo'
         />
-        
-        <v-icon v-else large color="primary">mdi-domain</v-icon>
+        <span class="align-center" style="vertical-align: super;">{{ organizationName }}</span>
       </router-link>
     </v-toolbar-title>
     <v-spacer/>
@@ -27,7 +25,7 @@
       </v-btn>
       <v-btn
         :to='{name: "login"}'
-        v-if='!isLoggedIn'
+        v-if='!isLoggedIn && current_organization'
         text
       >
         {{ $t('sidebar.login') }}
@@ -57,15 +55,18 @@
       ...mapState('application', ['current_organization']),
       organizationLogo() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
-        return this.current_organization.logo || '../../../../../../app/assets/images/logo_200.png' //
+        return this.current_organization.logo || require('../../../../assets/images/logo_100.png') //
+      },
+      organizationName() {
+        return this.current_organization.name || 'INSIEMENTO'
       },
       organizationBackgroundColor() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
-        return this.current_organization.theme.header_background_color || 'white' //|| '../../../../../../app/assets/images/img-logo.svg'
+        return this.current_organization.theme && this.current_organization.theme.header_background_color || 'white' //|| '../../../../../../app/assets/images/img-logo.svg'
       },
       useDark() {
         // return ["white", "#fff", "#ffffff"].includes(this.current_organization.theme.color)
-        return this.current_organization.theme.header_dark
+        return this.current_organization.theme && this.current_organization.theme.header_dark
       },
     },
     methods: {

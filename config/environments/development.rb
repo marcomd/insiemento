@@ -71,4 +71,6 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { host: host, port: 1025 }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
+  config.hosts << "insiemento.local"
+  config.hosts << "dsm.insiemento.local"
 end

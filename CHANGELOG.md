@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.26.0 23/07/2020
+
+- Homepage changes dynamically according to the organization
+  - Homepage changes dynamically according to the current organization. This is set by env variable or bu subdomain.
+    If organization is not set, the insiemento homepage is shown.
+  - New insiemento logo with size 100 and default color shown in the homepage when no organization is set
+  - Application controller now set organization by the subdomain in the request
+
 # v0.25.0 22/07/2020
 
 - Updated several gems and js package

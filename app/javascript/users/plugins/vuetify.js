@@ -11,16 +11,13 @@ export default new Vuetify({
   icons: {
     iconfont: 'mdi'
   },
-  // theme: {
-  //   light: true,
-  //   themes: {
-  //     light: {
-  //       primary: '#e3696a',
-  //       secondary: '#b0bec5',
-  //       accent: '#e3696a',
-  //       error: '#b71c1c',
-  //       info: '#e3696a',
-  //     },
-  //   },
-  // }
+  theme: {
+    light: true,
+    themes: {
+      light: {
+        primary: '#e03f4b',
+        secondary: '#666666',
+      },
+    },
+  }
 })

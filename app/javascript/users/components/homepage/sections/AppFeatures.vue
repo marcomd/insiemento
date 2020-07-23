@@ -1,8 +1,8 @@
 <template>
   <base-section id="features">
     <base-section-heading title="Caratteristiche">
-      OTP Service è un servizio innovativo per tutte le imprese, adatto anche a quelle più tradizionali che desiderano
-      fornire ai loro clienti un servizio facile da usare ma anche attento ai dettagli.
+      Insiemento è un software open source sviluppato da Marco Mastrodonato per gestire prenotazioni di corsi.
+      E' un software giovane ma già ricco di funzioni.
     </base-section-heading>
 
     <v-container>
@@ -35,7 +35,7 @@
         {
           title: 'Contratto elettronico',
           icon: 'mdi-fountain-pen-tip',
-          text: "Vuoi evitare ai tuoi clienti di venire a firmare un noiso contratto cartaceo? Puoi usare il nostro servizio di firma elettronica.",
+          text: "Vuoi evitare ai tuoi clienti la scomodità di un contratto cartaceo? Puoi usare il nostro servizio di firma elettronica.",
         },
         {
           title: 'Adatto anche su dispositivi mobile',
@@ -52,17 +52,17 @@
         {
           title: 'Ricco di funzioni',
           icon: 'mdi-star-circle-outline',
-          text: "Grazie alla rubrica dei tuoi clienti, alla ricerca rapida e al nostro team di esperti che ha lavorato molto sui dettagli, il tuo lavoro sarà agevolato. Inoltre, il software è in continuo miglioramento e se vorrai potrai dare il tuo contributo per migliorarlo.",
+          text: "Rubrica  clienti, ricerca rapida ed altre caratteristiche esclusive come la homepage. Inoltre, il software è in continuo miglioramento e se vorrai potrai dare il tuo contributo per migliorarlo.",
         },
         {
-          title: 'Prezzi chiari e a consumo',
+          title: 'Prezzi chiari',
           icon: 'mdi-ice-pop',
-          text: "Carichi il tuo credito e paghi solo quando usi il servizio senza costi nascosti.",
+          text: "Paghi in base al numero di atleti, solo 50 centesimi al mese per ognuno.",
         },
         {
           title: 'Gestionale adatto a tutti',
           icon: 'mdi-account-supervisor-circle',
-          text: "Forniamo due interfacce: una UI per chi lo usa regolarmente, veloce e mobile ready, e una per gli amministratori, che privilegia il desktop e offre più controllo.",
+          text: "Forniamo due interfacce: una per chi utilizza il servizio, veloce e mobile ready, e una per gli amministratori del gestionale, ottimizzato per il desktop.",
         },
       ],
     }),
