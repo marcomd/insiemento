@@ -14,6 +14,8 @@
     extends: View,
 
     mixins: [
+      // All the sections expected in the home page
+			// Then the section could be reduced
       LoadSections([
         'hero',
         'app-features',

@@ -7,17 +7,15 @@ ActiveAdmin.register Organization do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name, :payoff, :domain, :email, :phone, :state, :logo,
-                :dark_mode,
-                :header_dark,
-                :header_background_color,
-                :color,
-                :primary_color,
-                :secondary_color,
-                :accent_color,
-                :info_color,
-                :success_color,
-                :error_color,
-                :warning_color
+                :dark_mode, :header_dark,
+                :header_background_color, :color, :primary_color, :secondary_color,
+                :accent_color, :info_color, :success_color, :error_color, :warning_color,
+                :homepage_title,
+                :homepage_description,
+                :homepage_customer_title,
+                :homepage_customer_description,
+                :homepage_primary_features_summary,
+                homepage_features_attributes: [:title, :icon, :text, :dark, :color, :_destroy]
   #
   # or
   #
@@ -48,6 +46,7 @@ ActiveAdmin.register Organization do
     columns do
       column do
         attributes_table do
+          row(:uuid)
           row(:name)
           row(:payoff)
           row(:domain)
@@ -58,6 +57,10 @@ ActiveAdmin.register Organization do
           row(:updated_at)
         end
       end
+      column do
+      end
+    end
+    columns do
       column do
         attributes_table do
           as_image_row(:logo, style: 'height: 100px')
@@ -75,13 +78,18 @@ ActiveAdmin.register Organization do
           color_row :warning_color
         end
       end
+      column do
+        content_tag(:iframe, src: "#{root_url}users?uuid=#{organization.uuid}", frameborder: '0', style: 'display:block; position: relative; height: 600px; width: 100%;' ) do
+          content_tag(:div, 'No iframe supported')
+        end
+      end
     end
   end
 
   form do |f|
     columns do
       column do
-        f.inputs do
+        f.inputs 'Dati principali' do
           f.input :name
           f.input :payoff
           f.input :domain
@@ -91,12 +99,34 @@ ActiveAdmin.register Organization do
         end
       end
       column do
-        f.inputs do
+      end
+    end
+    columns do
+      column do
+        f.inputs 'Aspetto estetico' do
           f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo, height: '50px') : ''
           Organization.stored_attributes[:theme].each do |accessor|
             f.input accessor,
                     as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :minicolors_picker ),
                     required: false
+          end
+        end
+      end
+      column do
+        f.inputs 'Homepage' do
+          f.semantic_errors *f.object.errors.keys
+          f.input :title
+          f.input :description, as: :text, as: :text, input_html: { class: 'autogrow', rows: 5 }
+          f.input :customer_title
+          f.input :customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
+          f.input :primary_features_summary
+          # f.input :homepage_primary_features
+          f.has_many :homepage_features, heading: 'Caratteristiche  ', allow_destroy: true, new_record: true do |ff|
+            ff.input :title, as: :string
+            ff.input :icon, as: :string
+            ff.input :dark, as: :boolean
+            ff.input :color, as: :string
+            ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
           end
         end
       end

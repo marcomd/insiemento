@@ -13,17 +13,18 @@
           max-width="800"
           width="100%"
         >
-          <base-heading :title="$t('home.title')" />
+          <base-heading :title="organizationTitle" />
 
-          <base-body :html="$t('home.description')" />
+          <base-body :html="organizationDescription" />
 
           <div
             :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
             class="d-flex flex-wrap"
+            v-if="organizationEmail"
           >
             <base-btn
                 :block="$vuetify.breakpoint.smAndDown"
-                href="mailto:support@insiemento.com?subject=Informazioni%20servizio%20palestre"
+                :href="`mailto:${organizationEmail}?subject=Informazioni%20servizio%20palestre`"
                 large
                 target="_blank"
             >
@@ -32,8 +33,8 @@
           </div>
 
           <br>
-          <base-heading :title="$t('home.potential_signer')" />
-          <base-body>{{ $t('home.potential_signer_description') }}</base-body>
+          <base-heading :title="organizationCustomerTitle" />
+          <base-body>{{ organizationCustomerDescription }}</base-body>
           <base-btn
               :block="$vuetify.breakpoint.smAndDown"
               large
@@ -45,7 +46,7 @@
           <span class="font-weight-bold mx-4 my-4">o</span>
 
           <base-btn
-              :ripple="false"
+              :block="$vuetify.breakpoint.smAndDown"
               class="pa-1"
               outlined
               :to="{name: 'login'}"
@@ -59,6 +60,8 @@
 </template>
 
 <script>
+  import { homepageContentMixin } from '../../../mixins/homepage_content_mixin'
+
   export default {
     name: 'SectionHero',
 
@@ -66,11 +69,27 @@
       theme: { isDark: true },
     },
 
+    mixins: [
+      homepageContentMixin,
+    ],
+
     computed: {
       minHeight () {
         const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
 
         return `calc(${height} - ${this.$vuetify.application.top}px)`
+      },
+      organizationTitle() {
+        return this.organizationHomepageData ? this.organizationHomepageData.title : this.$t('home.title')
+      },
+      organizationDescription() {
+        return this.organizationHomepageData ? this.organizationHomepageData.description : this.$t('home.description')
+      },
+      organizationCustomerTitle() {
+        return this.organizationHomepageData ? this.organizationHomepageData.customer_title : this.$t('home.potential_signer')
+      },
+      organizationCustomerDescription() {
+        return this.organizationHomepageData ? this.organizationHomepageData.customer_description : this.$t('home.potential_signer_description')
       },
     },
   }

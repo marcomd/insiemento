@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
 
-  root 'users#index'
-
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  get 'users', to: 'users#index'
-  get 'users/*path', to: 'users#index'
 
   # API guests frontend management
   namespace :api, defaults: { format: 'json' } do
@@ -35,6 +30,11 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root 'users#index'
+
+  get 'users', to: 'users#index'
+  get 'users/*path', to: 'users#index'
 
   require 'sidekiq/web'
   require 'sidekiq/cron/web'

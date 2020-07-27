@@ -1,10 +1,10 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.26.0"
-    updated_at: "23/07/2020"
+    version: "0.27.0"
+    updated_at: "27/07/2020"
     started_at: "13/01/2020"
-    host: "insiemento.com"
+    host: "insiemento.local"
     commercial:
       brand: "Insiemento"
       support_phone: "+39 02 12345678"
@@ -63,3 +63,4 @@ production:
     enable_starttls_auto: true
     user: <%= Rails.application.credentials.smtp.dig(:production, :user) %>
     password: <%= Rails.application.credentials.smtp.dig(:production, :password) %>
+  host: "insiemento.com"

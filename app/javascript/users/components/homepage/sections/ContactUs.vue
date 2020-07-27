@@ -27,7 +27,7 @@
             <base-btn
               :block="$vuetify.breakpoint.smAndDown"
               color="white"
-              href="mailto:info@fractalgarden.com?subject=Informazioni%20su%20OTP Service"
+              :href="`mailto:${organizationEmail}?subject=Informazioni%20servizio%20palestre`"
               large
               outlined
               target="_blank"
@@ -42,7 +42,18 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import { homepageContentMixin } from '../../../mixins/homepage_content_mixin'
+
   export default {
     name: 'SectionContactUs',
+
+    mixins: [
+      homepageContentMixin,
+    ],
+
+    computed: {
+      ...mapState('application', ['current_organization']),
+    },
   }
 </script>

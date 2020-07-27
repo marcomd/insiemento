@@ -13,8 +13,14 @@ class ApplicationController < ActionController::Base
 
   rescue_from ::CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.html { redirect_to root_url, :alert => exception.message }
+      format.html { redirect_to root_url, alert: exception.message }
       format.json { render json: { error: exception.message }, status: :forbidden }
+    end
+  end
+  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |exception|
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/public/404", layout: false, status: :not_found }
+      format.json { render json: { error: exception.message }, status: :not_found }
     end
   end
 
@@ -22,14 +28,24 @@ class ApplicationController < ActionController::Base
     @current_ability ||= ::Ability.new(current_admin_user)
   end
 
+  # Search organization by (in order of priority):
+  # 1. ID organization set in the ENV variable
+  # 2. Custom domain (for example www.dsm.fitness)
+  # 3. Subdomain (3th domain level) (only for standard domain) (for example dsm.insiemento.com)
+  # 4. Uuid param (only for standard domain without subdomain) (for example www.insiemento.com?uuid=...)
   def current_organization
     @current_organization ||=
       if ENV['ORGANIZATION'].present?
         Organization.find(ENV['ORGANIZATION'])
       else
-        subdomain = parsed_subdomain
-        if subdomain.present?
-          Organization.find_by_domain(subdomain)
+        domain = request.domain
+        if domain != CONFIG[:application][:host] && domain != 'localhost'
+          Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+        else
+          subdomain = parsed_subdomain
+          if subdomain.present?
+            Organization.find_by_domain(subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+          end
         end
       end
   end

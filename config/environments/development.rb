@@ -73,4 +73,7 @@ Rails.application.configure do
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
   config.hosts << "insiemento.local"
   config.hosts << "dsm.insiemento.local"
+  config.hosts << "rspec.insiemento.local"
+  config.hosts << "wrong.insiemento.local"
+  config.hosts << "rspec.local"
 end

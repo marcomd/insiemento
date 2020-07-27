@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_145101) do
+ActiveRecord::Schema.define(version: 2020_07_23_164143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,11 @@ ActiveRecord::Schema.define(version: 2020_07_19_145101) do
     t.boolean "use_subscription", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "homepage_data", default: {}, null: false
+    t.jsonb "homepage_features", default: [], null: false, array: true
+    t.string "uuid", limit: 36
+    t.index ["domain"], name: "index_organizations_on_domain"
+    t.index ["uuid"], name: "index_organizations_on_uuid"
   end
 
   create_table "payments", force: :cascade do |t|

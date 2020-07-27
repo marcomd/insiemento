@@ -261,6 +261,7 @@ it:
           has_one: Il record non può essere cancellato perchè esiste un %{record} dipendente
           has_many: Il record non può essere cancellato perchè esistono %{record} dipendenti
         invalid_json_format: "non è un formato json valido"
+        organization_not_found: "Siamo spiacenti, non possiamo eseguire la richiesta"
     attributes: &attributes
       id: "Id"
       created_at: "Data creazione"

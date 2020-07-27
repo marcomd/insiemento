@@ -37,6 +37,7 @@ en:
       attending_not_found: "Sorry, attending was not found!"
       active_subscription_needed: "You can only proceed with a subscription, please contact us!"
       invalid_json_format: "it is not a valid json format"
+      organization_not_found: "Sorry, we are unable to process your request"
   activerecord: &activerecord
     models: &models
       system_log:

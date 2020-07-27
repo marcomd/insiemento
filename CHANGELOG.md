@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v0.27.0 27/07/2020
+
+- Added homepage customization for each organizations
+  - Now each organization can customize its own homepage from the admin UI
+  - Added a new json field to organization with which customize the homepage
+  - Added a new array of json with which define features to show in the homepage
+  - Added uuid to organization
+  - Current organization is now set by domain as well
+
 # v0.26.0 23/07/2020
 
 - Homepage changes dynamically according to the organization
