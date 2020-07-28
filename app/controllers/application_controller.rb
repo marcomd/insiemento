@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
   rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |exception|
     respond_to do |format|
-      format.html { render file: "#{Rails.root}/public/404", layout: false, status: :not_found }
+      format.html { render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found }
       format.json { render json: { error: exception.message }, status: :not_found }
     end
   end

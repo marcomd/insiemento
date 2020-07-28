@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.27.1 28/07/2020
+
+- Minor fixes
+
 # v0.27.0 27/07/2020
 
 - Added homepage customization for each organizations
