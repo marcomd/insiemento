@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.28.0 30/07/2020
+
+- Fixed root path
+  - Removed index.html from public folder
+
 # v0.27.1 28/07/2020
 
 - Minor fixes

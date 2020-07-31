@@ -31,11 +31,11 @@ category organization:references name:string{60}
 # Products that gyms sell as subscriptions
 product organization:references name:string{60} description:string{255} price_cents:integer{4} days:integer{2} category:references premium:boolean
 
-# To manage users subscriptions: fitness, swimming pool, spa etc.
-subscription uuid:string{36} organization:references product:references user:references order:references start_on:date end_on:date
-
 # User can buy a subscription
 order organization:references user:references state:integer{1} total_amount_cents:integer{4} amount_to_pay_cents:integer{4} amount_paid_cents:integer{4} discount_cents:integer{4} currency:integer{1} paid_at:datetime approver_admin_user_id:references
+
+# To manage users subscriptions: fitness, swimming pool, spa etc.
+subscription uuid:string{36} organization:references product:references user:references order:references start_on:date end_on:date
 
 # Without primary key id
 #rails g migration CreateOrdersProducts order:references product:references
