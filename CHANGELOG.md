@@ -1,10 +1,16 @@
 # CHANGELOG
 
-# v0.29.0 31/07/2020
+# v0.27.4 31/07/2020
+
+- Replace the host param with domains in the config yaml
+  - In the config file the param host has been replaced with an array of domains. The current_organization in the
+    application controller now use this new param to retrieve the organization custom attributes. 
+
+# v0.27.3 31/07/2020
 
 - Fixed standard domains management
 
-# v0.28.0 30/07/2020
+# v0.27.2 30/07/2020
 
 - Fixed root path
   - Removed index.html from public folder

@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  STANDARD_DOMAINS = ['herokuapp.com', CONFIG[:application][:host]]
-
   rescue_from ::CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html { redirect_to root_url, alert: exception.message }
@@ -41,7 +39,7 @@ class ApplicationController < ActionController::Base
         Organization.find(ENV['ORGANIZATION'])
       else
         domain = request.domain
-        if !STANDARD_DOMAINS.include?(domain)
+        if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
           Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
         else
           subdomain = parsed_subdomain
