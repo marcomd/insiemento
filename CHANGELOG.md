@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.29.0 31/07/2020
+
+- Fixed standard domains management
+
 # v0.28.0 30/07/2020
 
 - Fixed root path
