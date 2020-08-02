@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.28.0 02/08/2020 4h
+
+- Standard hompage and registration
+  - The application controller now selects organization by uuid in the query string. 
+  - The application mailer, that previously retrieve the organization by the ENV, now retrieve it bye the user with the new rules.
+  - The registration controller now sign up users in the current organization
+  - Now the standard homepage (insiemento.com) does not show registration and login button. The login and the sidebar
+    in the header was removed as well. Other minor fixes.
+  - Cleaned session js which now simply return response, the vue component do the rest
+
 # v0.27.4 31/07/2020
 
 - Replace the host param with domains in the config yaml

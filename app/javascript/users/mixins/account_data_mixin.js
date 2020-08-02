@@ -64,5 +64,12 @@ export const accountDataMixin = {
       !this.$v.birthdate.required && errors.push(this.$t('errors.required'))
       return errors
     },
+    organizationErrors() {
+      const errors = []
+      if (!this.$v.organization || !this.$v.organization.$dirty) return errors
+      !!this.serverSideErrors.organization && errors.push(this.show_error_form_field(this.serverSideErrors.organization))
+      !this.$v.organization.required && errors.push(this.$t('errors.required'))
+      return errors
+    },
   },
 }

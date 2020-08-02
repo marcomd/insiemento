@@ -51,24 +51,13 @@ export const actions = {
     router.push({ name: 'login' })
     dispatch('layout/replaceAlert', alert, { root: true })
   },
-  signUp({ commit, dispatch, rootState }, userData) {
+  signUp({ commit, rootState }, userData) {
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.signUp, {
         user: userData
       }).then(response => {
-        router.push({ name: 'signedUp' })
-        dispatch('layout/addAlert', {
-          type: 'success',
-          key: 'signed_up'
-        }, { root: true })
         resolve(response)
       }, error => {
-        if (!!error && ![500, 401].includes(error.status)) {
-          dispatch('layout/replaceAlert', {
-            type: 'error',
-            key: 'sign_up_error'
-          }, { root: true })
-        }
         reject(error)
       })
     })

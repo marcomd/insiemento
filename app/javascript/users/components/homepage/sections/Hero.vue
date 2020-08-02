@@ -35,24 +35,26 @@
           <br>
           <base-heading :title="organizationCustomerTitle" />
           <base-body>{{ organizationCustomerDescription }}</base-body>
-          <base-btn
-              :block="$vuetify.breakpoint.smAndDown"
-              large
-              :to="{name: 'signUp'}"
-          >
-            {{ $t('sidebar.sign_up') }}
-          </base-btn>
+          <div v-if="isCurrentOrganizationPresent">
+            <base-btn
+                :block="$vuetify.breakpoint.smAndDown"
+                large
+                :to="{name: 'signUp'}"
+            >
+              {{ $t('sidebar.sign_up') }}
+            </base-btn>
 
-          <span class="font-weight-bold mx-4 my-4">o</span>
+            <span class="font-weight-bold mx-4 my-4">o</span>
 
-          <base-btn
-              :block="$vuetify.breakpoint.smAndDown"
-              class="pa-1"
-              outlined
-              :to="{name: 'login'}"
-          >
-            {{ $t('sidebar.login') }}
-          </base-btn>
+            <base-btn
+                :block="$vuetify.breakpoint.smAndDown"
+                class="pa-1"
+                outlined
+                :to="{name: 'login'}"
+            >
+              {{ $t('sidebar.login') }}
+            </base-btn>
+          </div>
         </v-responsive>
       </v-container>
     </v-img>

@@ -4,6 +4,7 @@
 class SendgridMailer < ApplicationMailer
 
   def account_confirmation(user, link_url:, debug: false)
+    current_organization = user.organization
     language = 'it'
     json_data = {
         firstname: user.firstname,
@@ -28,6 +29,7 @@ class SendgridMailer < ApplicationMailer
   end
 
   def reset_password(user, link_url:, debug: false)
+    current_organization = user.organization
     language = 'it'
     json_data = {
         firstname: user.firstname,

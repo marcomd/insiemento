@@ -11,6 +11,22 @@
           <v-card-text>
             <v-form id='sign-up-form' @submit.prevent='signUp'>
 
+              <!--v-row v-if="!current_organization.name">
+                <v-col cols="12">
+                  <v-text-field
+                      v-model='organization'
+                      prepend-icon='mdi-domain'
+                      :append-outer-icon='requiredIcon("organization")'
+                      :label='labelFor("organization_uuid")'
+                      :error-messages='organizationErrors'
+                      @input='$v.organization.$touch()'
+                      @blur='$v.organization.$touch()'
+                      persistent-hint
+                      hint="Inserisci il codice della tua palestra, se non lo conosci richiedilo alla tua palestra"
+                  />
+                </v-col>
+              </v-row-->
+
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field
@@ -196,6 +212,7 @@
     ],
     validations() {
       return {
+        // organization:  { required: requiredIf(_ => { return !this.current_organization }) },
         firstname:     { required },
         lastname:      { required },
         gender:        { required },
@@ -223,6 +240,7 @@
         email_confirmation: '',
         password: '',
         password_confirmation: '',
+        // organization: null,
         showPassword: false,
         showPasswordConfirmation: false,
         serverSideErrors: {}
@@ -233,9 +251,8 @@
         // return !this.checkingAvailability && !!this.serverSideErrors && !!this.serverSideErrors['email']
         return !this.checkingAvailability && this.resultAvailability == false && this.resultCustomerCreatedByWeb == false
       },
-      ...mapState('layout', {
-        submitting: 'submitting'
-      }),
+      ...mapState('layout', ['submitting']),
+      // ...mapState('application', ['current_organization']),
     },
     methods: {
       labelsPrefix() {
@@ -253,10 +270,22 @@
           email_confirmation: this.email_confirmation,
           password: this.password,
           password_confirmation: this.password_confirmation,
-        })
-        .catch(err => {
-          console.log('submit signUp', err)
-          this.serverSideErrors = err.body ? err.body.errors : err
+          // organization_uuid: this.organization,
+        }).then(_ => {
+          this.$router.push({ name: 'signedUp' })
+          this.$store.dispatch('layout/addAlert', {
+            type: 'success',
+            key: 'signed_up'
+          }, { root: true })
+        }).catch(error => {
+          console.log('submit signUp', error)
+          if (!!error && ![500, 401].includes(error.status)) {
+            this.$store.dispatch('layout/replaceAlert', {
+              type: 'error',
+              key: 'sign_up_error'
+            }, { root: true })
+            this.serverSideErrors = error.body ? error.body.errors : error
+          }
         })
       },
     }

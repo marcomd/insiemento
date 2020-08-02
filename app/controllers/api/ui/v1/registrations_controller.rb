@@ -9,7 +9,11 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   def create
     user_attributes = user_params.to_h
     user_attributes[:email] = user_attributes[:email].downcase
-    user_attributes[:organization_id] = ENV['ORGANIZATION']
+    user_attributes[:organization_id] = @current_organization&.id
+    # unless user_attributes[:organization_id]
+    #   @current_organization = Organization.find_by_uuid(user_attributes[:organization_uuid]) if user_attributes[:organization_uuid]
+    #   user_attributes[:organization_id] = @current_organization&.id
+    # end
     user = User.new(user_attributes.except(:email_confirmation))
     result = begin
       User.transaction do
@@ -42,7 +46,7 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
 
   def user_params
     params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
-                                 :firstname, :lastname, :phone, :birthdate, :gender, :format )
+                                 :firstname, :lastname, :phone, :birthdate, :gender, :organization_uuid, :format )
   end
 
   def check_and_sanitize_email_confirmation

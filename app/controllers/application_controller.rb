@@ -35,26 +35,23 @@ class ApplicationController < ActionController::Base
   # 4. Uuid param (only for standard domain without subdomain) (for example www.insiemento.com?uuid=...)
   def current_organization
     @current_organization ||=
-      if ENV['ORGANIZATION'].present?
-        Organization.find(ENV['ORGANIZATION'])
-      else
-        domain = request.domain
-        if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
-          Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+        if ENV['ORGANIZATION'].present?
+          Organization.find(ENV['ORGANIZATION'])
         else
-          subdomain = parsed_subdomain
-          if subdomain.present?
-            Organization.find_by_domain(subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+          domain = request.domain
+          if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
+            Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+          else
+            # Standard domain: insiemento.com ...
+            subdomain = parsed_subdomain
+            if subdomain.present?
+              Organization.find_by_domain(subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+            elsif params.permit(:organization)[:organization].present?
+              Organization.find_by_uuid(params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+            end
           end
         end
-      end
   end
-
-  # def current_organization
-  #   Organization.find(ENV['ORGANIZATION'])
-  # rescue ActiveRecord::NotFound
-  #   raise "Please set ORGANIZATION env with the id"
-  # end
 
   def json_request?
     request.format.json?

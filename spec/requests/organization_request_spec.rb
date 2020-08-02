@@ -72,4 +72,33 @@ describe 'OrganizationRequest', type: :request do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  context 'when domain is standard' do
+    let(:domain) { 'rspec.local' }
+
+    before(:all) do
+      ENV['ORGANIZATION']=nil
+      host! CONFIG[:domains].first
+    end
+
+    it 'must set no organization' do
+      get '/users'
+      expect(response.request.env['action_controller.instance'].send :current_organization).to eq nil
+      expect(response).to have_http_status(:ok)
+    end
+
+    context 'when organizazion param is present' do
+      it 'must set organization by url param' do
+        get "/users?organization=#{organization.uuid}"
+        expect(response.request.env['action_controller.instance'].send :current_organization).to eq organization
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'must show 404 page if no organization with same subdomain is found' do
+        # expect { get '/users' }.to raise_error(ActionController::RoutingError)
+        get '/users?organization=aaa'
+        expect(response.body).to include "The page you were looking for doesn't exist"
+      end
+    end
+  end
 end

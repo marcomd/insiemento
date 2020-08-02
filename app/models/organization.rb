@@ -92,7 +92,7 @@ class Organization < ApplicationRecord
          icon: 'mdi-tablet-cellphone',
          text: 'Puoi prenotare i tuoi corsi con la nostra interfaccia web moderna che si adatta in automatico a tutti i tipi di dispositivi, anche sullo smartphone.'},
         {title: 'Prezzi chiari',
-         icon: 'mdi-cash-check',
+         icon: 'mdi-cash',
          text: 'Una sola tariffa, ci piacciono le cose chiare e semplici.'},
     ] unless self.homepage_features.present?
   end

@@ -14,7 +14,7 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer/>
-    <v-toolbar-items class='mr-2 d-none d-md-flex'>
+    <v-toolbar-items class='mr-2 d-none d-md-flex' v-if="isCurrentOrganizationPresent">
       <v-btn
         :to='{name: "showProfile"}'
         v-if='isLoggedIn'
@@ -32,7 +32,7 @@
       </v-btn>
       <LocaleSelector/>
     </v-toolbar-items>
-    <v-app-bar-nav-icon @click.stop='toggleSidebar'/>
+    <v-app-bar-nav-icon v-if="isCurrentOrganizationPresent" @click.stop='toggleSidebar'/>
   </v-app-bar>
 </template>
 
@@ -53,6 +53,9 @@
         'fullName'
       ]),
       ...mapState('application', ['current_organization']),
+      isCurrentOrganizationPresent() {
+        return !!this.current_organization.name
+      },
       organizationLogo() {
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
         return this.current_organization.logo || require('../../../../assets/images/logo_100.png') //

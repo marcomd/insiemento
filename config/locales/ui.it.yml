@@ -5,7 +5,7 @@ it:
         title: "DEVI GESTIRE UNA PALESTRA? PASSA A INSIEMENTO"
         description: "Offriamo un servizio semplice e moderno per gestire i corsi della tua palestra.<br>Ti registri, configuri la tua struttura, i corsi, fine.<br>I tuoi clienti riceveranno un invito per registrarsi nella tua palestra.<br>Semplice e veloce, adatto a chi non ama sprecare tempo!"
         potential_signer: "Sei un cliente di una palestra?"
-        potential_signer_description: "Se sei un cliente, registrati per accedere ai servizi a te riservati"
+        potential_signer_description: "Chiedi alla tua palestra l'indirizzo per accedere ai servizi a te riservati"
       footer:
         about: "Chi siamo"
         support_email:
@@ -73,6 +73,7 @@ it:
           password_confirmation: Conferma password
           password: Password
           remember_me: Ricordami su questo dispositivo
+          organization_uuid: Identificativo unico palestra
       profile:
         edit_action: Modifica
         completing_action: Continua
