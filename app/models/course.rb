@@ -3,6 +3,7 @@ class Course < ApplicationRecord
 
   belongs_to :organization
   belongs_to :category
+  has_many :course_events, dependent: :destroy
   has_many :course_schedules, dependent: :destroy
   has_many :trainers, through: :course_schedules
   has_many :rooms, through: :course_schedules

@@ -14,7 +14,7 @@ class ScheduleService
   def call
     progressive_date = starting_date
     attribute_course_events = []
-    CourseSchedule.all.each do |cs|
+    CourseSchedule.active.each do |cs|
       ce = {  organization_id: cs.organization_id,
               category_id: cs.category_id,
               course_id: cs.course_id,

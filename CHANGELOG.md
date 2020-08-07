@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.28.4 08/08/2020
+
+- Fixed models relationships and fixed course scheduler job
+  - Now it is possible to delete an organization with all its stuff
+  - Now you can delete a course schedule but use it carefully, it will delete all course events related to it!
+  - Now only active course schedule will create a new course event
+
 # v0.28.3 07/08/2020
 
 - Added redis url to sidekiq config 

@@ -2,11 +2,12 @@ class Organization < ApplicationRecord
   include Stateable
 
   has_many :users, dependent: :destroy
+  has_many :admin_users, dependent: :destroy
   has_many :courses, dependent: :destroy
   has_many :trainers, dependent: :destroy
   has_many :rooms, dependent: :destroy
-  has_many :categories, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :categories, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :payments, dependent: :destroy

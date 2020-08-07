@@ -7,6 +7,8 @@ class CourseSchedule < ApplicationRecord
   belongs_to :room
   belongs_to :trainer
 
+  has_many :course_events, dependent: :destroy
+
   EVENT_DAYS = {
       sunday: 0,
       monday: 1,
