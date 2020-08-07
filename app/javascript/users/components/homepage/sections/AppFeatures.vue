@@ -40,7 +40,7 @@
 
     computed: {
       primaryFeaturesSummary() {
-        return this.organizationHomepageData ? this.organizationHomepageData.primary_features_summary : "Insiemento è un gestionale open source sviluppato da Marco Mastrodonato per gestire prenotazioni di corsi. E' un software giovane ma già ricco di funzioni. Potete scaricarlo ed utilizzarlo a piacimento. Acquistando questo servizio invece contribuirete allo sviluppo del software."
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_features_summary : "Insiemento è un gestionale open source sviluppato da Marco Mastrodonato per gestire prenotazioni di corsi. E' un software giovane ma già ricco di funzioni. Potete scaricarlo ed utilizzarlo a piacimento. Acquistando questo servizio invece contribuirete allo sviluppo del software."
       },
       features() {
         return this.organizationHomepageData ? this.organizationHomepageData.homepage_features : this.applicationFeatures

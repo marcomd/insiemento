@@ -82,16 +82,16 @@
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },
       organizationTitle() {
-        return this.organizationHomepageData ? this.organizationHomepageData.title : this.$t('home.title')
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_title : this.$t('home.title')
       },
       organizationDescription() {
-        return this.organizationHomepageData ? this.organizationHomepageData.description : this.$t('home.description')
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_description : this.$t('home.description')
       },
       organizationCustomerTitle() {
-        return this.organizationHomepageData ? this.organizationHomepageData.customer_title : this.$t('home.potential_signer')
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_customer_title : this.$t('home.potential_signer')
       },
       organizationCustomerDescription() {
-        return this.organizationHomepageData ? this.organizationHomepageData.customer_description : this.$t('home.potential_signer_description')
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_customer_description : this.$t('home.potential_signer_description')
       },
     },
   }

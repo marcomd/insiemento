@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.28.1 07/08/2020
+
+- Fixed organization homepage attributes name
+  - Fixed the storext attributes name in the organization model
+  - Fixed names used by the admin ui and by the frontend
+
 # v0.28.0 02/08/2020 4h
 
 - Standard hompage and registration

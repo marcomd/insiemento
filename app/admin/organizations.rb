@@ -14,7 +14,7 @@ ActiveAdmin.register Organization do
                 :homepage_description,
                 :homepage_customer_title,
                 :homepage_customer_description,
-                :homepage_primary_features_summary,
+                :homepage_features_summary,
                 homepage_features_attributes: [:title, :icon, :text, :dark, :color, :_destroy]
   #
   # or
@@ -79,7 +79,7 @@ ActiveAdmin.register Organization do
         end
       end
       column do
-        content_tag(:iframe, src: "#{root_url}users?uuid=#{organization.uuid}", frameborder: '0', style: 'display:block; position: relative; height: 600px; width: 100%;' ) do
+        content_tag(:iframe, src: "#{root_url}?uuid=#{organization.uuid}", frameborder: '0', style: 'display:block; position: relative; height: 600px; width: 100%;' ) do
           content_tag(:div, 'No iframe supported')
         end
       end
@@ -115,11 +115,11 @@ ActiveAdmin.register Organization do
       column do
         f.inputs 'Homepage' do
           f.semantic_errors *f.object.errors.keys
-          f.input :title
-          f.input :description, as: :text, as: :text, input_html: { class: 'autogrow', rows: 5 }
-          f.input :customer_title
-          f.input :customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
-          f.input :primary_features_summary
+          f.input :homepage_title
+          f.input :homepage_description, as: :text, as: :text, input_html: { class: 'autogrow', rows: 5 }
+          f.input :homepage_customer_title
+          f.input :homepage_customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
+          f.input :homepage_features_summary
           # f.input :homepage_primary_features
           f.has_many :homepage_features, heading: 'Caratteristiche  ', allow_destroy: true, new_record: true do |ff|
             ff.input :title, as: :string

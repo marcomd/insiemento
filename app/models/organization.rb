@@ -38,11 +38,11 @@ class Organization < ApplicationRecord
   end
 
   store_attributes :homepage_data do
-    title                    String, default: 'STAI CERCANDO UNA PALESTRA?'
-    description              String, default: 'Offriamo un servizio innovativo per prenotare i corsi della tua palestra.'
-    customer_title           String, default: 'Sei già nostro cliente?'
-    customer_description     String, default: 'Registrati per accedere ai servizi che abbiamo riservato a te'
-    primary_features_summary String, default: 'Offriamo un servizio completo con gli strumenti più moderni'
+    homepage_title                    String, default: 'STAI CERCANDO UNA PALESTRA?'
+    homepage_description              String, default: 'Offriamo un servizio innovativo per prenotare i corsi della tua palestra.'
+    homepage_customer_title           String, default: 'Sei già nostro cliente?'
+    homepage_customer_description     String, default: 'Registrati per accedere ai servizi che abbiamo riservato a te'
+    homepage_features_summary         String, default: 'Offriamo un servizio completo con gli strumenti più moderni'
     # primary_features         Array, default: []
   end
 
