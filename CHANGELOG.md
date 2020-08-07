@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.28.2 07/08/2020
+
+- Added sidekiq configuration
+
 # v0.28.1 07/08/2020
 
 - Fixed organization homepage attributes name
