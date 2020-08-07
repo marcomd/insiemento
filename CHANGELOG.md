@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.28.3 07/08/2020
+
+- Added redis url to sidekiq config 
+
 # v0.28.2 07/08/2020
 
 - Added sidekiq configuration
