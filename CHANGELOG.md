@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.30.1 08/08/2020
+
+- Updated node to 12.x
+
 # v0.30.0 08/08/2020
 
 - Updated ruby to 2.6.6 and other gems
