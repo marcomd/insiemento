@@ -45,6 +45,22 @@ class CourseSchedule < ApplicationRecord
     I18n.t('date.day_names')[read_attribute_before_type_cast(:event_day)]
   end
 
+  def may_activate?
+    suspended?
+  end
+
+  def activate!
+    self.update state: :active
+  end
+
+  def may_pause?
+    active?
+  end
+
+  def pause!
+    self.update state: :suspended
+  end
+
   class << self
     def localized_event_days
       EVENT_DAYS.values.map do |day_value|

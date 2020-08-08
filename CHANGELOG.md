@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.29.0 08/08/2020
+
+- Improved admin ui for scheduling management
+  - Now it is possible to suspend and reactivate individual course schedules, when they are in suspended state 
+    the event is not generated for the following week.
+  - Disabled the access to the store in the sidebar until it will fixed and more tested  
+
 # v0.28.4 08/08/2020
 
 - Fixed models relationships and fixed course scheduler job

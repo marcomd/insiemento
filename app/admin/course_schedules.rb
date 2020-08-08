@@ -18,12 +18,18 @@ ActiveAdmin.register CourseSchedule do
   end
 
   controller do
+    include AdminSharedBatchActions
+
     def scoped_collection
       myscope = super
       myscope = myscope.includes :organization, :category, :course, :room, :trainer
       myscope
     end
   end
+
+  scope :active, default: true
+  scope :suspended
+  scope :all
 
   index do
     selectable_column
@@ -41,6 +47,18 @@ ActiveAdmin.register CourseSchedule do
     column(:created_at)
     column(:updated_at)
     actions
+  end
+
+  batch_action :sospendi, :if => proc{ @current_scope && @current_scope.id == "active" },
+               confirm: "Confermi di voler sospendere le schedulazioni selezionate?" do |selection|
+
+    shared_batch_action class_object: CourseSchedule, selection: selection, transaction_name: 'pause', return_scope_if_ok:'suspended', return_scope_if_error:'active'
+  end
+
+  batch_action :attiva, :if => proc{ @current_scope && @current_scope.id == "suspended" },
+               confirm: "Confermi di voler riattivare le schedulazioni selezionate?" do |selection|
+
+    shared_batch_action class_object: CourseSchedule, selection: selection, transaction_name: 'activate', return_scope_if_ok:'active', return_scope_if_error:'suspended'
   end
 
   filter :organization    , if: proc { current_admin_user.is_root? }

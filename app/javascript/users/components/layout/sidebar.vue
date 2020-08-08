@@ -61,14 +61,14 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item :to='{name: "Products"}' v-if='isLoggedIn'>
+      <!--v-list-item :to='{name: "Products"}' v-if='isLoggedIn'>
         <v-list-item-action>
           <v-icon>mdi-store</v-icon>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>{{ $t('sidebar.store') }}</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item-->
 
       <v-list-item @click='logout' v-if='isLoggedIn'>
         <v-list-item-action>
