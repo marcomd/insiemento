@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.30.0 08/08/2020
+
+- Updated ruby to 2.6.6 and other gems
+
 # v0.29.0 08/08/2020
 
 - Improved admin ui for scheduling management

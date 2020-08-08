@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-buster
+FROM ruby:2.6.6-buster
 
 # Install nodejs and yarn
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
