@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.30.2 08/08/2020
+
+- Removed dependent nullify on relationships user -> orders, it was useless due to the foreign key. Atm orders must be
+  deleted manually before remove a user
+- Renamed host to insiemento.com
+
 # v0.30.1 08/08/2020
 
 - Updated node to 12.x

@@ -1,4 +1,4 @@
-host = 'insiemento.herokuapp.com'
+host = 'insiemento.com'
 Rails.application.default_url_options = { host: host }
 
 Rails.application.configure do
