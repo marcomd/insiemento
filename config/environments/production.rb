@@ -1,5 +1,5 @@
-host = 'insiemento.com'
-Rails.application.default_url_options = { host: host }
+host = 'www.insiemento.com'
+Rails.application.default_url_options = { host: host, protocol: 'https://' }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.

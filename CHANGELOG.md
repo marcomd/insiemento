@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.30.3 09/08/2020
+
+- Fixed the domain used in the url included in the email for the account confirmation and in the reset password
+  - Now the url use the domain or subdomain of the user's organization. Previously it was always the main domain.
+
 # v0.30.2 08/08/2020
 
 - Removed dependent nullify on relationships user -> orders, it was useless due to the foreign key. Atm orders must be

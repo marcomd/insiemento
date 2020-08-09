@@ -12,7 +12,7 @@ ActiveAdmin.register User do
 
   permit_params do
     permitted = [:firstname, :lastname, :email, :birthdate, :password, :password_confirmation, :gender, :phone, :state,
-                  :medical_certificate, :medical_certificate_expire_at]
+                  :medical_certificate, :medical_certificate_expire_at, :confirmed_at]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -150,6 +150,7 @@ ActiveAdmin.register User do
       f.input :password
       f.input :password_confirmation
       f.input :state
+      f.input :confirmed_at, as: :datetime_picker
     end
 
     f.actions
