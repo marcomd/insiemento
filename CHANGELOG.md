@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.31.0 13/08/2020
+
+- Fixed course events list
+  - Now only course events of the current organization are fetched
+
 # v0.30.3 09/08/2020
 
 - Fixed the domain used in the url included in the email for the account confirmation and in the reset password
