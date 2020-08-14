@@ -12,6 +12,7 @@ class Organization < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :payments, dependent: :destroy
   has_many :system_logs, dependent: :destroy
+  has_many :course_schedules
   has_many :course_events
 
   has_many :homepage_features, class_name: 'Homepage::Feature'

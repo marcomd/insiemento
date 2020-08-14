@@ -2,11 +2,12 @@ class Attendee < ApplicationRecord
   belongs_to :user
   belongs_to :course_event
   has_one :room, through: :course_event
+  has_one :course, through: :course_event
   has_many :attendees, through: :course_event
 
   validates :course_event_id, uniqueness: { scope: :user_id,
                                  message: I18n.t('errors.messages.already_subscribed') }
-  validate :check_max_attendees, :check_valid_subscriptions
+  validate :check_max_attendees, :check_valid_subscriptions, :check_course_event_bookability
 
   # TODO private
 
@@ -22,5 +23,14 @@ class Attendee < ApplicationRecord
     end
     errors.add(:course_event_id, I18n.t('errors.messages.active_subscription_needed'))
     false
+  end
+
+  def check_course_event_bookability(datetime=Time.zone.now)
+    if datetime < (course_event.event_date - course.start_booking_hours.hours)
+      errors.add(:course_event_id, I18n.t('errors.messages.course_event_not_bookable_yet'))
+    end
+    if datetime > (course_event.event_date - course.end_booking_minutes.minutes)
+      errors.add(:course_event_id, I18n.t('errors.messages.course_event_expired'))
+    end
   end
 end

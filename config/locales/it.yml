@@ -134,6 +134,8 @@ it:
       max_attendees_reached: "È stato raggiunto il numero massimo di partecipanti!"
       attending_not_found: "Siamo spiacenti, non è stata trovata l'iscrizione!"
       active_subscription_needed: "Puoi procedere solo disponendo di un abbonamento, contattaci!"
+      course_event_not_bookable_yet: "Non puoi ancora prenotarti per questa sessione, riprova più avanti."
+      course_event_expired: "Questa sessione non è più disponibile!"
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:

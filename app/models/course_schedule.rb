@@ -9,6 +9,8 @@ class CourseSchedule < ApplicationRecord
 
   has_many :course_events, dependent: :destroy
 
+  before_validation :set_default
+
   EVENT_DAYS = {
       sunday: 0,
       monday: 1,
@@ -67,5 +69,11 @@ class CourseSchedule < ApplicationRecord
         [ I18n.t('date.day_names')[day_value], day_value]
       end
     end
+  end
+
+  private
+
+  def set_default
+    self.state ||= :active
   end
 end

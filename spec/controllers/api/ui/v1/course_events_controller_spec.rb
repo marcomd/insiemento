@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe Api::Ui::V1::CourseEventsController, type: :api do
+  let(:organization_id) { 1 }
   before(:all) do
     ENV['ORGANIZATION']='1'
   end
@@ -17,7 +18,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
   let(:jwt_token) { authenticated_user(user.email) }
   let(:language) { 'it' }
 
-  describe 'index' do
+  describe 'GET index' do
     let(:url) { '/api/ui/v1/course_events' }
 
     it 'returns a list' do
@@ -36,7 +37,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     end
   end
 
-  describe 'show' do
+  describe 'GET show' do
     let(:url) { "/api/ui/v1/course_events/#{course_event_id}" }
 
     context 'without authentication' do
@@ -82,12 +83,52 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     end
   end
 
-  describe 'subscribe' do
+  describe 'PUT subscribe' do
     let(:url) { "/api/ui/v1/course_events/#{course_event_id}/subscribe" }
     let(:params) { {subscribe: subscribe} }
 
     context 'when user tries to subscribe' do
       let(:subscribe) { true }
+      let(:course_event) do
+        create(:course_event,
+               organization: organization,
+               course_schedule: course_schedule,
+               category: course_schedule.category,
+               course: course_schedule.course,
+               room: course_schedule.room,
+               trainer: course_schedule.trainer,
+               event_date: event_date)
+      end
+
+      context 'when events is expired' do
+        let(:organization) { Organization.find(organization_id) }
+        let(:course_schedule) { organization.course_schedules.first }
+        let(:event_date) { Time.zone.now }
+        let(:course_event_id) { course_event.id }
+
+        it do
+          put url, params.to_json
+
+          expect(json).to be_a(Hash)
+          expect(last_response.status).to eq 422
+          expect(json['course_event_id']).to include 'Questa sessione non è più disponibile!'
+        end
+      end
+
+      context 'when events is not ready yet' do
+        let(:organization) { Organization.find(organization_id) }
+        let(:course_schedule) { organization.course_schedules.first }
+        let(:event_date) { 3.days.from_now }
+        let(:course_event_id) { course_event.id }
+
+        it do
+          put url, params.to_json
+
+          expect(json).to be_a(Hash)
+          expect(last_response.status).to eq 422
+          expect(json['course_event_id']).to include 'Non puoi ancora prenotarti per questa sessione, riprova più avanti.'
+        end
+      end
 
       context 'when events is full' do
         before { stefania_unsubscribed_course_event.room.update max_attendees: 0 }

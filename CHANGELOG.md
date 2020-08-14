@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.32.0 14/08/2020
+
+- Improved user booking for course events
+  - It now uses the course booking parameters and it is possible inhibit users from booking before or after the 
+    time window
+  - TODO Inhibit the user cancelation from booking when it is too late to do that
+- Added a footer in the homepage with a summary and the privacy section
+
 # v0.31.0 13/08/2020
 
 - Fixed course events list

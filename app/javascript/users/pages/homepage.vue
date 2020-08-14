@@ -26,7 +26,7 @@
         // 'keep-in-touch',
         // 'newsletter',
         'pro-features',
-        // 'info',
+        'info',
       ]),
     ],
 

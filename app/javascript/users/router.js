@@ -17,6 +17,7 @@ import CourseEventShow from './pages/course_event_show'
 import ProductsIndex from './pages/products_index'
 import ProductShow from './pages/product_show'
 import OrderShow from './pages/order_show'
+import Privacy from './pages/privacy'
 
 Vue.use(VueRouter)
 
@@ -29,16 +30,6 @@ const routes = [
     meta: {
       public: true
     }
-  },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard,
-  },
-  {
-    path: '/courses',
-    name: 'dashboard',
-    component: Dashboard,
   },
   {
     path: '/login',
@@ -93,6 +84,25 @@ const routes = [
       public: true,
       onlyWhenLoggedOut: true
     }
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy',
+    component: Privacy,
+    meta: {
+      public: true,
+      onlyWhenLoggedOut: true
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard,
+  },
+  {
+    path: '/courses',
+    name: 'dashboard',
+    component: Dashboard,
   },
   {
     path: '/profile',
