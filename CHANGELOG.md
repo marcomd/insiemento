@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.33.1 17/08/2020
+
+- Fixed error message on the frontend due to recent updates on the backend 
+
 # v0.33.0 17/08/2020
 
 - Added custom images, contacts and social to homepage
