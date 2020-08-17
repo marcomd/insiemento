@@ -5,7 +5,11 @@
                                name: @current_organization.name,
                                payoff: @current_organization.payoff,
                                theme: @current_organization.theme,
-                               homepage: {homepage_features: @current_organization.homepage_features}.merge(@current_organization.homepage_data),
+                               image: (url_for(@current_organization.image) if @current_organization.image.present?),
+                               images: (@current_organization.images.map {|image| url_for(image)} if @current_organization.images.present?),
+                               homepage: {homepage_features: @current_organization.homepage_features,
+                                          homepage_contacts: @current_organization.homepage_contacts,
+                                          homepage_socials: @current_organization.homepage_socials}.merge(@current_organization.homepage_data),
                                email: @current_organization.email,
                                phone: @current_organization.phone,
                                s_pk: ENV['STRIPE_PUBLIC_KEY']

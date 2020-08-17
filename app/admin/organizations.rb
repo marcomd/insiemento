@@ -6,16 +6,18 @@ ActiveAdmin.register Organization do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :payoff, :domain, :email, :phone, :state, :logo,
+  permit_params :name, :payoff, :domain, :email, :phone, :state, :logo, :image,
                 :dark_mode, :header_dark,
                 :header_background_color, :color, :primary_color, :secondary_color,
                 :accent_color, :info_color, :success_color, :error_color, :warning_color,
-                :homepage_title,
-                :homepage_description,
-                :homepage_customer_title,
-                :homepage_customer_description,
-                :homepage_features_summary,
-                homepage_features_attributes: [:title, :icon, :text, :dark, :color, :_destroy]
+                :homepage_title, :homepage_description,
+                :homepage_customer_title, :homepage_customer_description,
+                :homepage_features_title, :homepage_features_summary,
+                :homepage_bio_title, :homepage_bio_description,
+                homepage_features_attributes: [:title, :icon, :text, :dark, :color, :_destroy],
+                homepage_contacts_attributes: [:title, :icon, :text, :dark, :color, :_destroy],
+                homepage_socials_attributes: [:title, :icon, :text, :dark, :color, :_destroy],
+                images: []
   #
   # or
   #
@@ -64,6 +66,15 @@ ActiveAdmin.register Organization do
       column do
         attributes_table do
           as_image_row(:logo, style: 'height: 100px')
+          as_image_row(:image, style: 'height: 100px')
+          row(:images) do
+            html = ''
+            organization.images.each do |image|
+              html << image_tag(image)
+            end
+            html.html_safe
+          end
+
           # as_image_row(:logo_thumbnail, style: 'height: 50px') # Vips image processing required
           row :dark_mode
           row :header_dark
@@ -86,7 +97,7 @@ ActiveAdmin.register Organization do
     end
   end
 
-  form do |f|
+  form html: {multipart: true } do |f|
     columns do
       column do
         f.inputs 'Dati principali' do
@@ -103,8 +114,10 @@ ActiveAdmin.register Organization do
     end
     columns do
       column do
-        f.inputs 'Aspetto estetico' do
+        f.inputs 'Aspetto estetico'do
           f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo, height: '50px') : ''
+          f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, height: '50px') : ''
+          f.input :images, as: :file, hint: f.object.images.present? ? f.object.images.map { |image| image_tag(image, height: '50px') }.join(' ').html_safe : '', input_html: { multiple: true }
           Organization.stored_attributes[:theme].each do |accessor|
             f.input accessor,
                     as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :minicolors_picker ),
@@ -119,14 +132,30 @@ ActiveAdmin.register Organization do
           f.input :homepage_description, as: :text, as: :text, input_html: { class: 'autogrow', rows: 5 }
           f.input :homepage_customer_title
           f.input :homepage_customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
+          f.input :homepage_features_title
           f.input :homepage_features_summary
-          # f.input :homepage_primary_features
           f.has_many :homepage_features, heading: 'Caratteristiche  ', allow_destroy: true, new_record: true do |ff|
             ff.input :title, as: :string
             ff.input :icon, as: :string
+            ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
             ff.input :dark, as: :boolean
             ff.input :color, as: :string
+          end
+          f.input :homepage_bio_title
+          f.input :homepage_bio_description
+          f.has_many :homepage_contacts, heading: 'Contatti  ', allow_destroy: true, new_record: true do |ff|
+            ff.input :title, as: :string
+            ff.input :icon, as: :string
             ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
+            ff.input :dark, as: :boolean
+            ff.input :color, as: :string
+          end
+          f.has_many :homepage_socials, heading: 'Social  ', allow_destroy: true, new_record: true do |ff|
+            ff.input :title, as: :string
+            ff.input :icon, as: :string
+            ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
+            ff.input :dark, as: :boolean
+            ff.input :color, as: :string
           end
         end
       end

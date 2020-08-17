@@ -6,6 +6,8 @@ it:
         description: "Offriamo un servizio semplice e moderno per gestire i corsi della tua palestra.<br>Ti registri, configuri la tua struttura, i corsi, fine.<br>I tuoi clienti riceveranno un invito per registrarsi nella tua palestra.<br>Semplice e veloce, adatto a chi non ama sprecare tempo!"
         potential_signer: "Sei un cliente di una palestra?"
         potential_signer_description: "Chiedi alla tua palestra l'indirizzo per accedere ai servizi a te riservati"
+        bio_title: "Progetto Open Source"
+        bio_description: "Insiemento è un <a href=\"https://github.com/marcomd/insiemento\">progetto open source</a> creato da <b>Marco Mastrodonato</b>, l'autore dell'iniziativa. Questo significa che chiunque può contribuire per migliorare la piattaforma e che è in continua evoluzione. E' sicuro sia per chi propone il servizio che per gli utilizzatori perchè l'accesso ai sorgenti garantisce futuro e trasparenza. Se desideri investire su di noi o fare una donazione, beh grazie, contattaci! ❤️"
       footer:
         about: "Chi siamo"
         support_email:

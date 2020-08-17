@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v0.33.0 17/08/2020
+
+- Added custom images, contacts and social to homepage
+  - Added the possibility to load the main image used by background in the hero section in the homepage
+  - Added the new section "Carousel" to the homepage which shows a variable number of images
+  - Added the new section "Business info" to the homepage to show a bio, contacts and urls to socials
+  - All the new informations has been added to the admin ui as well
+  - Added the possibility to disable the bookability's check
+
 # v0.32.0 14/08/2020
 
 - Improved user booking for course events

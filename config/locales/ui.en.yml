@@ -6,6 +6,8 @@ en:
         description: "We offer a simple and modern service to manage the courses of your gym. <br> You register, configure your structure, courses, end. <br> Your customers will receive an invitation to register in your gym. <br> Simple and fast, suitable for those who don't like wasting time!"
         potential_signer: "Are you a client of a gym?"
         potential_signer_description: "Ask your gym for the address to access the services reserved for you"
+        bio_title: "Open Source project"
+        bio_description: "Insiemento is an <a href=\"https://github.com/marcomd/insiemento\">open source project</a> created by <b>Marco Mastrodonato</b>, the author of the initiative. This means that anyone can contribute to improve the platform and that it is constantly evolving. It is safe both for those who offer the service and for users because access to the sources guarantees future and transparency. If you want to invest in us or make a donation, well thank you, contact us! ❤️"
       footer:
         about: "About us"
         support_email:

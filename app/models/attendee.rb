@@ -7,7 +7,9 @@ class Attendee < ApplicationRecord
 
   validates :course_event_id, uniqueness: { scope: :user_id,
                                  message: I18n.t('errors.messages.already_subscribed') }
-  validate :check_max_attendees, :check_valid_subscriptions, :check_course_event_bookability
+  validate :check_max_attendees, :check_valid_subscriptions
+  attr_accessor :disable_bookability
+  validate :check_course_event_bookability, unless: :disable_bookability
 
   # TODO private
 

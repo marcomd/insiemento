@@ -19,6 +19,7 @@
       LoadSections([
         'hero',
         'app-features',
+        'carousel',
         // 'features',
         'contact-us',
         'affiliates',

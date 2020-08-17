@@ -2,7 +2,7 @@
   <section id="hero">
     <v-img
       :min-height="minHeight"
-      :src="require('../../../assets/images/home-hero.jpg')"
+      :src="organizationBackgroundImage"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .8), rgba(5, 11, 31, .8)"
     >
@@ -92,6 +92,9 @@
       },
       organizationCustomerDescription() {
         return this.organizationHomepageData ? this.organizationHomepageData.homepage_customer_description : this.$t('home.potential_signer_description')
+      },
+      organizationBackgroundImage() {
+        return this.current_organization.image || require('../../../assets/images/home-hero.jpg')
       },
     },
   }

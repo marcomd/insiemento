@@ -14,17 +14,44 @@
               cols="12"
               md="3"
             >
-              <base-info />
+              <base-img
+                  :src="organizationLogo"
+                  contain
+                  max-width="128"
+                  min-height="78"
+                  width="100%"
+              />
+
+              <base-title
+                  size="body-1"
+                  space="4"
+                  :title="organizationBioTitle"
+                  weight="regular"
+              />
+
+              <base-body v-html="organizationBioDescription" />
             </v-col>
 
             <v-col
               cols="12"
               md="3"
               class="mt-12"
+              v-if="contacts"
             >
-              <base-info-card title="Contact" />
+              <base-info-card title="Contatti" />
 
-              <base-business-contact dense />
+              <base-business-contact :elements="contacts" dense />
+            </v-col>
+
+            <v-col
+                cols="12"
+                md="3"
+                class="mt-12"
+                v-if="socials"
+            >
+              <base-info-card title="Social" />
+
+              <base-social :elements="socials" dense />
             </v-col>
 
             <v-col
@@ -56,13 +83,53 @@
 </template>
 
 <script>
+  import { homepageContentMixin } from '../../../mixins/homepage_content_mixin'
+
   export default {
     name: 'SectionBusinessInfo',
+
+    mixins: [
+      homepageContentMixin,
+    ],
 
     components: {
       // InfoFeatures: () => import('@/components/InfoFeatures'),
       // Instagram: () => import('@/components/Instagram'),
     },
+
+    computed: {
+      organizationBioTitle() {
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_bio_title : this.$t('home.bio_title')
+      },
+      organizationBioDescription() {
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_bio_description : this.$t('home.bio_description')
+      },
+      contacts() {
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_contacts : this.applicationContacts
+      },
+      socials() {
+        return this.organizationHomepageData ? this.organizationHomepageData.homepage_socials : null
+      },
+      applicationContacts() {
+        return [
+          {
+            icon: 'mdi-map-marker-outline',
+            title: 'Indirizzo',
+            text: 'San Giuliano Milanese (MI)<br>Italy',
+          },
+          {
+            icon: 'mdi-cellphone',
+            title: 'Telefono',
+            text: '339 27**467<br>**=85',
+          },
+          {
+            icon: 'mdi-email',
+            title: 'Email',
+            text: 'info@insiemento.com',
+          },
+        ]
+      },
+    }
   }
 </script>
 

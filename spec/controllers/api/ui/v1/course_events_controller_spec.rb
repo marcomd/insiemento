@@ -111,7 +111,8 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
 
           expect(json).to be_a(Hash)
           expect(last_response.status).to eq 422
-          expect(json['course_event_id']).to include 'Questa sessione non è più disponibile!'
+          expect(json['errors']).to be_present
+          expect(json['errors']['course_event_id']).to include 'Questa sessione non è più disponibile!'
         end
       end
 
@@ -126,7 +127,8 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
 
           expect(json).to be_a(Hash)
           expect(last_response.status).to eq 422
-          expect(json['course_event_id']).to include 'Non puoi ancora prenotarti per questa sessione, riprova più avanti.'
+          expect(json['errors']).to be_present
+          expect(json['errors']['course_event_id']).to include 'Non puoi ancora prenotarti per questa sessione, riprova più avanti.'
         end
       end
 
@@ -139,13 +141,18 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
           put url, params.to_json
 
           expect(json).to be_a(Hash)
-          expect(json['course_event_id']).to include 'È stato raggiunto il numero massimo di partecipanti!'
+          expect(json['errors']).to be_present
+          expect(json['errors']['course_event_id']).to include 'È stato raggiunto il numero massimo di partecipanti!'
           expect(last_response.status).to eq 422
         end
       end
 
       context 'when user has not yet subscribed' do
-        let(:course_event_id) { stefania_unsubscribed_course_event_id }
+        let(:organization) { Organization.find(organization_id) }
+        let(:course_schedule) { organization.course_schedules.first }
+        let(:course_event_id) { course_event.id }
+        let(:event_date) { Time.zone.now + 2.hours }
+        let(:course_event_id) { course_event.id }
 
         # Subscription let user to subscribe a course event
         context 'when user has an active subscription' do
@@ -160,13 +167,15 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
 
         # Without active subscription user cannot partecipate to a course event
         context 'when user does NOT have an active subscription' do
+          # let(:course_event_id) { stefania_unsubscribed_course_event_id }
           let(:user) { user_elena }
 
           it 'cannot subscribes' do
             put url, params.to_json
 
             expect(json).to be_a(Hash)
-            expect(json['course_event_id']).to include 'Puoi procedere solo disponendo di un abbonamento, contattaci!'
+            expect(json['errors']).to be_present
+            expect(json['errors']['course_event_id']).to include 'Puoi procedere solo disponendo di un abbonamento, contattaci!'
             expect(last_response.status).to eq 422
           end
         end
@@ -181,7 +190,8 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
           expect(last_response.status).to eq 422
 
           expect(json).to be_a(Hash)
-          expect(json['course_event_id']).to include 'Iscrizione già presente per questo corso'
+          expect(json['errors']).to be_present
+          expect(json['errors']['course_event_id']).to include 'Iscrizione già presente per questo corso'
         end
       end
     end

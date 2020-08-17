@@ -495,20 +495,21 @@ else
 end
 
 if Attendee.count == 0
-  Attendee.create!(course_event_id:  1, user_id: u_stefy.id)
-  Attendee.create!(course_event_id:  1, user_id: u_marco.id)
-  Attendee.create!(course_event_id:  1, user_id: u_linda.id)
+  Attendee.new(course_event_id:  1, user_id: u_stefy.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  1, user_id: u_marco.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  1, user_id: u_linda.id, disable_bookability: true).save!
 
   generic_users.each do |user|
-    Attendee.create!(course_event_id:  1, user_id: user.id)
+    Attendee.new(course_event_id:  1, user_id: user.id, disable_bookability: true).save!
   end
 
-  Attendee.create!(course_event_id:  2, user_id: u_stefy.id)
-  Attendee.create!(course_event_id:  2, user_id: u_marco.id)
+  Attendee.new(course_event_id:  2, user_id: u_stefy.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  2, user_id: u_marco.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  3, user_id: u_stefy.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  4, user_id: u_stefy.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  5, user_id: u_stefy.id, disable_bookability: true).save!
+  
 
-  Attendee.create!(course_event_id:  3, user_id: u_stefy.id)
-  Attendee.create!(course_event_id:  4, user_id: u_stefy.id)
-  Attendee.create!(course_event_id:  5, user_id: u_stefy.id)
 
   puts "Attendees: #{Attendee.count}"
 end

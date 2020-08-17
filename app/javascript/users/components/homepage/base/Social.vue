@@ -9,19 +9,20 @@
       </base-info-card>
 
       <template v-for="({ icon, text, title: t }, i) in elements">
-        <base-avatar-card
-          :key="i"
-          :icon="icon"
-          :outlined="false"
-          :title="!dense ? t : undefined"
-          color="transparent"
-          horizontal
-          space="0"
-        >
-          <!-- Do not use v-html for user -->
-          <!-- provided values -->
-          <div v-html="text" />
-        </base-avatar-card>
+        <a :href="text">
+          <base-avatar-card
+              :key="i"
+              :icon="icon"
+              :outlined="false"
+              :title="!dense ? t : undefined"
+              color="transparent"
+              horizontal
+              space="0"
+          >
+            <!-- Do not use v-html for user -->
+            <!-- provided values -->
+          </base-avatar-card>
+        </a>
 
         <v-divider
           v-if="i + 1 !== elements.length"
