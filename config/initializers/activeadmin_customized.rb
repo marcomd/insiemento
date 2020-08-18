@@ -77,7 +77,7 @@ GOOGLEANALYTICS
   class BaseController
     private
 
-    def interpolation_options
+    def flash_interpolation_options
       options = {}
 
       options[:resource_errors] =

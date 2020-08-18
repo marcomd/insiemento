@@ -84,4 +84,23 @@ ActiveAdmin.register CourseEvent do
       end
     end
   end
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      f.input :category, collection: current_admin_user.categories
+      f.input :course, collection: current_admin_user.courses
+      f.input :room, collection: current_admin_user.rooms
+      f.input :trainer, collection: current_admin_user.trainers
+      f.input :course_schedule, collection: f.object.course_id ? current_admin_user.course_schedules.where(course_id: f.object.course_id) : current_admin_user.course_schedules
+      f.input :event_date, as: :date_time_picker
+      f.input :state
+    end
+    f.actions
+  end
 end

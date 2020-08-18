@@ -40,4 +40,17 @@ ActiveAdmin.register Category do
   filter :name
   filter :created_at
   filter :updated_at
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      f.input :name
+    end
+    f.actions
+  end
 end

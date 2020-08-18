@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.35.0 18/08/2020
+
+- Improved the gym management in the admin ui
+  - All forms now show only data of the admin user's organization
+
 # v0.34.0 18/08/2020
 
 - Fixed many relationships between models in the admin ui and other minor fixes

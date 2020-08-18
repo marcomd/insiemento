@@ -71,4 +71,23 @@ ActiveAdmin.register CourseSchedule do
   filter :state           , as: :select, collection: CourseSchedule.localized_states
   filter :created_at
   filter :updated_at
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      f.input :category, collection: current_admin_user.categories
+      f.input :course, collection: current_admin_user.courses
+      f.input :room, collection: current_admin_user.rooms
+      f.input :trainer, collection: current_admin_user.trainers
+      f.input :event_day
+      f.input :event_time, as: :time_picker
+      f.input :state
+    end
+    f.actions
+  end
 end

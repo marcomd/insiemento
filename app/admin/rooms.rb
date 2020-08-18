@@ -44,4 +44,19 @@ ActiveAdmin.register Room do
   filter :state       , as: :select, collection: Room.localized_states
   filter :created_at
   filter :updated_at
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      f.input :name
+      f.input :max_attendees
+      f.input :state
+    end
+    f.actions
+  end
 end

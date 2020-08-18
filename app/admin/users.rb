@@ -129,10 +129,12 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.inputs 'Admin' do
-      f.input :organization
-    end if current_admin_user.is_root?
     f.inputs do
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
       f.input :firstname
       f.input :lastname
       f.input :email

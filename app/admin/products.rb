@@ -50,4 +50,21 @@ ActiveAdmin.register Product do
   # filter :state       , as: :select, collection: Course.localized_states
   filter :created_at
   filter :updated_at
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      f.input :category, collection: current_admin_user.categories
+      f.input :name
+      f.input :description
+      f.input :price
+      f.input :days
+    end
+    f.actions
+  end
 end

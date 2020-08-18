@@ -47,4 +47,21 @@ ActiveAdmin.register Trainer do
   filter :state       , as: :select, collection: Trainer.localized_states
   filter :created_at
   filter :updated_at
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      f.input :firstname
+      f.input :lastname
+      f.input :nickname
+      f.input :bio
+      f.input :state
+    end
+    f.actions
+  end
 end

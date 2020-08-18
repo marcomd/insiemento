@@ -26,7 +26,7 @@ class CourseSchedule < ApplicationRecord
   enum state: STATES
 
   def name
-    "#{event_day} #{event_time.strftime('%H:%M')}"
+    "#{course.name} #{event_day} #{event_time.strftime('%H:%M')}"
   end
 
   def next_event_date(date)
