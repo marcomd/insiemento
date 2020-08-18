@@ -85,6 +85,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
 
   describe 'PUT subscribe' do
     let(:url) { "/api/ui/v1/course_events/#{course_event_id}/subscribe" }
+    let(:action) { put url, params.to_json }
     let(:params) { {subscribe: subscribe} }
 
     context 'when user tries to subscribe' do
@@ -107,12 +108,13 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         let(:course_event_id) { course_event.id }
 
         it do
-          put url, params.to_json
-
-          expect(json).to be_a(Hash)
-          expect(last_response.status).to eq 422
-          expect(json['errors']).to be_present
-          expect(json['errors']['course_event_id']).to include 'Questa sessione non è più disponibile!'
+          expect do
+            action
+            expect(json).to be_a(Hash)
+            expect(last_response.status).to eq 422
+            expect(json['errors']).to be_present
+            expect(json['errors']['course_event_id']).to include 'Questa sessione non è più disponibile!'
+          end.to_not change(Attendee, :count)
         end
       end
 
@@ -123,12 +125,13 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         let(:course_event_id) { course_event.id }
 
         it do
-          put url, params.to_json
-
-          expect(json).to be_a(Hash)
-          expect(last_response.status).to eq 422
-          expect(json['errors']).to be_present
-          expect(json['errors']['course_event_id']).to include 'Non puoi ancora prenotarti per questa sessione, riprova più avanti.'
+          expect do
+            action
+            expect(json).to be_a(Hash)
+            expect(last_response.status).to eq 422
+            expect(json['errors']).to be_present
+            expect(json['errors']['course_event_id']).to include 'Non puoi ancora prenotarti per questa sessione, riprova più avanti.'
+          end.to_not change(Attendee, :count)
         end
       end
 
@@ -138,12 +141,13 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         let(:course_event_id) { stefania_unsubscribed_course_event_id }
 
         it 'returns a max attendees reached' do
-          put url, params.to_json
-
-          expect(json).to be_a(Hash)
-          expect(json['errors']).to be_present
-          expect(json['errors']['course_event_id']).to include 'È stato raggiunto il numero massimo di partecipanti!'
-          expect(last_response.status).to eq 422
+          expect do
+            action
+            expect(json).to be_a(Hash)
+            expect(json['errors']).to be_present
+            expect(json['errors']['course_event_id']).to include 'È stato raggiunto il numero massimo di partecipanti!'
+            expect(last_response.status).to eq 422
+          end.to_not change(Attendee, :count)
         end
       end
 
@@ -157,11 +161,12 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         # Subscription let user to subscribe a course event
         context 'when user has an active subscription' do
           it 'can subscribes' do
-            put url, params.to_json
-
-            expect(json).to be_a(Hash)
-            expect(json['errors']).to be_nil
-            expect(last_response.status).to eq 200
+            expect do
+              action
+              expect(json).to be_a(Hash)
+              expect(json['errors']).to be_nil
+              expect(last_response.status).to eq 200
+            end.to change(Attendee, :count).by(1)
           end
         end
 
@@ -171,12 +176,13 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
           let(:user) { user_elena }
 
           it 'cannot subscribes' do
-            put url, params.to_json
-
-            expect(json).to be_a(Hash)
-            expect(json['errors']).to be_present
-            expect(json['errors']['course_event_id']).to include 'Puoi procedere solo disponendo di un abbonamento, contattaci!'
-            expect(last_response.status).to eq 422
+            expect do
+              action
+              expect(json).to be_a(Hash)
+              expect(json['errors']).to be_present
+              expect(json['errors']['course_event_id']).to include 'Puoi procedere solo disponendo di un abbonamento, contattaci!'
+              expect(last_response.status).to eq 422
+            end.to_not change(Attendee, :count)
           end
         end
       end
@@ -185,13 +191,13 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         let(:course_event_id) { stefania_subscribed_course_event_id }
 
         it 'returns a unprocessable entity status' do
-          put url, params.to_json
-
-          expect(last_response.status).to eq 422
-
-          expect(json).to be_a(Hash)
-          expect(json['errors']).to be_present
-          expect(json['errors']['course_event_id']).to include 'Iscrizione già presente per questo corso'
+          expect do
+            action
+            expect(last_response.status).to eq 422
+            expect(json).to be_a(Hash)
+            expect(json['errors']).to be_present
+            expect(json['errors']['course_event_id']).to include 'Iscrizione già presente per questo corso'
+          end.to_not change(Attendee, :count)
         end
       end
     end
@@ -203,8 +209,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         let(:course_event_id) { stefania_unsubscribed_course_event_id }
 
         it 'returns a status 404' do
-          put url, params.to_json
-
+          action
           expect(json).to be_a(Hash)
           expect(last_response.status).to eq 404
         end
@@ -214,11 +219,27 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         let(:course_event_id) { stefania_subscribed_course_event_id }
 
         it 'returns a status 200' do
-          put url, params.to_json
+          expect do
+            action
+            expect(json).to be_a(Hash)
+            expect(json['errors']).to be_nil
+            expect(last_response.status).to eq 200
+          end.to change(Attendee, :count).by(-1)
+        end
 
-          expect(json).to be_a(Hash)
-          expect(json['errors']).to be_nil
-          expect(last_response.status).to eq 200
+        context 'when it is too late to unsubscribe' do
+          let(:course_event) { CourseEvent.find(course_event_id) }
+          let(:event_date) { Time.zone.now - 1.minute }
+          before { course_event.update event_date: event_date }
+          it do
+            expect do
+              action
+              expect(json).to be_a(Hash)
+              expect(last_response.status).to eq 422
+              expect(json['errors']).to be_present
+              expect(json['errors']['course_event_id']).to include "Siamo spiacenti ma non è più possibile cancellarsi dalla lista."
+            end.to_not change(Attendee, :count)
+          end
         end
       end
     end

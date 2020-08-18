@@ -36,8 +36,10 @@ en:
       max_attendees_reached: "Max attendees has been reached!"
       attending_not_found: "Sorry, attending was not found!"
       active_subscription_needed: "You can only proceed with a subscription, please contact us!"
-      invalid_json_format: "it is not a valid json format"
       organization_not_found: "Sorry, we are unable to process your request"
+      course_event_not_bookable_yet: "You cannot book for this session yet, please try again later."
+      course_event_expired: "This session is no longer available!"
+      course_event_not_unsubscribable: "We are sorry but it is no longer possible to unsubscribe from the list."
   flash:
     actions:
       destroy:
@@ -271,6 +273,9 @@ en:
             canceled: "Canceled"
             synched: "Synchronized"
             confirmed: "Confirmed"
+    error:
+      messages:
+        invalid_json_format: "it is not a valid json format"
   formtastic:
     titles:
     labels:

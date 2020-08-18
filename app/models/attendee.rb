@@ -10,6 +10,7 @@ class Attendee < ApplicationRecord
   validate :check_max_attendees, :check_valid_subscriptions
   attr_accessor :disable_bookability
   validate :check_course_event_bookability, unless: :disable_bookability
+  before_destroy :check_course_event_unsubscribable, prepend: true
 
   # TODO private
 
@@ -33,6 +34,16 @@ class Attendee < ApplicationRecord
     end
     if datetime > (course_event.event_date - course.end_booking_minutes.minutes)
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_expired'))
+    end
+  end
+
+  private
+
+  def check_course_event_unsubscribable(datetime=Time.zone.now)
+    if datetime >= (course_event.event_date - course.end_booking_minutes.minutes)
+      errors.add(:course_event_id, I18n.t('errors.messages.course_event_not_unsubscribable'))
+      throw :abort
+      false
     end
   end
 end

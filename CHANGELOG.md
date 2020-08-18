@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.36.0 18/08/2020
+
+- Inhibited user cancellation of the reservation when too late
+  - Prevent the cancellation of the reservation close to the start time of the event
+
 # v0.35.0 18/08/2020
 
 - Improved the gym management in the admin ui
@@ -30,7 +35,6 @@
 - Improved user booking for course events
   - It now uses the course booking parameters and it is possible inhibit users from booking before or after the 
     time window
-  - TODO Inhibit the user cancelation from booking when it is too late to do that
 - Added a footer in the homepage with a summary and the privacy section
 
 # v0.31.0 13/08/2020

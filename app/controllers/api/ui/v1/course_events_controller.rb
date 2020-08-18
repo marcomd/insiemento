@@ -47,7 +47,6 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
         attendee = @course_event.attendees.find_by_user_id(current_user.id)
         attendee&.destroy
       end
-
     if status
       render :show
     elsif attendee

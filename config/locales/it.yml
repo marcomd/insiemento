@@ -134,8 +134,10 @@ it:
       max_attendees_reached: "È stato raggiunto il numero massimo di partecipanti!"
       attending_not_found: "Siamo spiacenti, non è stata trovata l'iscrizione!"
       active_subscription_needed: "Puoi procedere solo disponendo di un abbonamento, contattaci!"
+      organization_not_found: "Siamo spiacenti, non possiamo eseguire la richiesta"
       course_event_not_bookable_yet: "Non puoi ancora prenotarti per questa sessione, riprova più avanti."
       course_event_expired: "Questa sessione non è più disponibile!"
+      course_event_not_unsubscribable: "Siamo spiacenti ma non è più possibile cancellarsi dalla lista."
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:
@@ -260,14 +262,6 @@ it:
       payment:
         one: "Pagamento"
         other: "Pagamenti"
-    errors:
-      messages:
-        record_invalid: 'Validazione fallita: %{errors}'
-        restrict_dependent_destroy:
-          has_one: Il record non può essere cancellato perchè esiste un %{record} dipendente
-          has_many: Il record non può essere cancellato perchè esistono %{record} dipendenti
-        invalid_json_format: "non è un formato json valido"
-        organization_not_found: "Siamo spiacenti, non possiamo eseguire la richiesta"
     attributes: &attributes
       id: "Id"
       created_at: "Data creazione"
@@ -452,6 +446,13 @@ it:
           canceled: "Cancellato"
           synched: "Sincronizzato"
           confirmed: "Confermato"
+    errors:
+      messages:
+        record_invalid: 'Validazione fallita: %{errors}'
+        restrict_dependent_destroy:
+          has_one: Il record non può essere cancellato perchè esiste un %{record} dipendente
+          has_many: Il record non può essere cancellato perchè esistono %{record} dipendenti
+        invalid_json_format: "non è un formato json valido"
   formtastic:
     titles:
     labels:
