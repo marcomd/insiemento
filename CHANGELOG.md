@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.34.0 18/08/2020
+
+- Fixed many relationships between models in the admin ui and other minor fixes
+  - Admin users section can now update firstname and lastname
+  - Fixed organization's default value
+  - Destroying resources with a foreign key now generate errors shown in the admin ui
+
 # v0.33.1 17/08/2020
 
 - Fixed error message on the frontend due to recent updates on the backend 

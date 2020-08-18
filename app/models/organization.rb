@@ -171,12 +171,12 @@ class Organization < ApplicationRecord
          icon: 'mdi-cash',
          text: 'Una sola tariffa, ci piacciono le cose chiare e semplici.'},
     ] unless self.homepage_features.present?
-    self.homepage_contacts = [{icon:'mdi-map-marker-outline', title: 'Indirizzo', text: 'Via...'},
+    self.homepage_contacts ||= [{icon:'mdi-map-marker-outline', title: 'Indirizzo', text: 'Via...'},
                               {icon:'mdi-cellphone', title: 'Telefono', text: 'N. telefono'},
-                              {icon:'mdi-email', title: 'Email', text: 'Email contatto'}] unless self.homepage_contacts.present?
-    self.homepage_socials = [{icon:'mdi-facebook', title: 'Facebook', text: 'https://facebook.com'},
+                              {icon:'mdi-email', title: 'Email', text: 'Email contatto'}]
+    self.homepage_socials ||= [{icon:'mdi-facebook', title: 'Facebook', text: 'https://facebook.com'},
                              {icon:'mdi-twitter', title: 'Twitter', text: 'https://twitter.com'},
                              {icon:'mdi-instagram', title: 'Instagram', text: 'https://instagram.com'},
-                             {icon:'mdi-linkedin', title: 'Linkedin', text: 'https://linkedin.com'}] unless self.homepage_socials.present?
+                             {icon:'mdi-linkedin', title: 'Linkedin', text: 'https://linkedin.com'}]
   end
 end

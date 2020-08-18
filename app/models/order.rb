@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   belongs_to :approver_admin_user, class_name: 'AdminUser', optional: true
   has_many :order_products, dependent: :destroy
   has_many :products, through: :order_products
-  has_many :payments
+  has_many :payments, dependent: :restrict_with_error
   has_many :stripe_payments
   has_many :paypal_payments
   has_many :subscriptions

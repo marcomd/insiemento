@@ -141,6 +141,10 @@ it:
       header:
         one: 'Non posso salvare questo %{model}: 1 errore'
         other: 'Non posso salvare questo %{model}: %{count} errori.'
+  flash:
+    actions:
+      destroy:
+        alert: "Non puoi eliminare la risorsa %{resource_name}. %{resource_errors}"
   helpers:
     select:
       prompt: Seleziona...

@@ -3,7 +3,7 @@ ActiveAdmin.register AdminUser do
 
   # permit_params :email, :password, :password_confirmation
   permit_params do
-    permitted = [:email, :password, :password_confirmation]
+    permitted = [:email, :firstname, :lastname, :password, :password_confirmation]
     permitted.concat([:organization_id, :roles_mask, roles: []]) if current_admin_user.is_root?
     permitted
   end
