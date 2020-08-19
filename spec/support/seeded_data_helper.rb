@@ -12,7 +12,7 @@ module SeededDataHelper
   end
 
   def stefania_unsubscribed_course_event_id
-    6
+    7
   end
 
   def stefania_unsubscribed_course_event

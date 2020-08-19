@@ -507,7 +507,7 @@ if Attendee.count == 0
   Attendee.new(course_event_id:  2, user_id: u_marco.id, disable_bookability: true).save!
   Attendee.new(course_event_id:  3, user_id: u_stefy.id, disable_bookability: true).save!
   Attendee.new(course_event_id:  4, user_id: u_stefy.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  5, user_id: u_stefy.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  6, user_id: u_stefy.id, disable_bookability: true).save!
   
 
 

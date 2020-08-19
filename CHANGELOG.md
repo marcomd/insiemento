@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.36.3 20/08/2020
+
+- Fixed the seed and two specs due to the last update on CourseSchedule ordered selection
+
 # v0.36.2 20/08/2020
 
 - ScheduleService now selects CourseSchedule ordered by date and time
