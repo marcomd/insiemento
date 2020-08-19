@@ -5,7 +5,7 @@ module ApplicationHelper
     domain = organization.domain
     return hostname unless domain.present?
     if domain.include?('.')
-      domain
+      domain.include?('www.') ? domain : "www.#{domain}"
     else
       # Its a subdomain...
       [organization.domain, hostname.sub('www.', '')].join('.')

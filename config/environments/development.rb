@@ -76,4 +76,5 @@ Rails.application.configure do
   config.hosts << "rspec.insiemento.local"
   config.hosts << "wrong.insiemento.local"
   config.hosts << "rspec.local"
+  config.hosts << "www.dsmdanceschool.local"
 end

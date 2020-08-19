@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.36.4 20/08/2020
+
+- Now get_user_domain return www + domain
+  - The confirmation link on email sent by Sendgrid now has the correct url with www
+
 # v0.36.3 20/08/2020
 
 - Fixed the seed and two specs due to the last update on CourseSchedule ordered selection
