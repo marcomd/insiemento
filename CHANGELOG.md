@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.36.1 19/08/2020
+
+- Fixed CourseSchedule next_event_datetime that now considers time zone
+
 # v0.36.0 18/08/2020
 
 - Inhibited user cancellation of the reservation when too late

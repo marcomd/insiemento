@@ -36,7 +36,7 @@ class CourseSchedule < ApplicationRecord
   end
 
   def next_event_datetime(date=Time.zone.today)
-    Time.zone.parse("#{next_event_date(date).strftime('%Y-%m-%d')} #{event_time}")
+    Time.zone.parse("#{next_event_date(date).strftime('%Y-%m-%d')} #{event_time_short}")
   end
 
   def event_time_short
