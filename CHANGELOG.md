@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.36.2 20/08/2020
+
+- ScheduleService now selects CourseSchedule ordered by date and time
+  - The query that selects course schedule did not apply any sorting and if they were placed in random order, 
+    for example Monday, then Friday then again Monday, the week of creation of the events progressed and 
+    it was not what was expected.
+
 # v0.36.1 19/08/2020
 
 - Fixed CourseSchedule next_event_datetime that now considers time zone
