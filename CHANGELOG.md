@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.37.1 22/08/2020
+
+- Improved products definition on the seed
+
 # v0.37.0 22/08/2020
 
 - Added new product / subscription types to manage pay-as-you-go as well as fee mode

@@ -447,20 +447,24 @@ if CourseEvent.count == 0
 end
 
 if Product.count == 0
-  p_fitness_try   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :trial       , state: :active, price_cents: 0,     days: 15 , name: 'Periodo di prova'           ,   )
-  p_fitness_month = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 1900,  days: 30 , name: 'Abbonamento mensile fitness',   )
-  p_fitness_year  = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 19900, days: 365, name: 'Abbonamento annuale fitness',   )
-  p_spa_day       = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 2900,  days: 1  , name: 'Entrata singola spa'        ,   )
-  p_spa_month     = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 14900, days: 30 , name: 'Abbonamento mensile spa'    ,   )
-  p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 4900,  days: 30 , name: 'Abbonamento mensile aquagym',   )
-  p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 53900, days: 365, name: 'Abbonamento annuale aquagym',   )
+  p_fitness_try   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :trial       , state: :active, price_cents: 0     , days: 15 , max_accesses_number: 1   ,name: 'Periodo di prova'            ,   )
+  p_fitness_month = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 19_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile fitness',   )
+  p_fitness_year  = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 199_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale fitness',   )
+  p_spa_single    = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 29_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola spa'        ,   )
+  p_spa_month     = Product.create!(organization: o_dance, category: ca_spa    , product_type: :fee         , state: :active, price_cents: 149_00, days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile spa'    ,   )
+  p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 49_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile aquagym',   )
+  p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 539_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale aquagym',   )
+  p_swim_single   = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 11_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola aquagym'    ,   )
+  p_swim_ten      = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 100_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate aquagym',   )
+  p_fitness_ten   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :consumption , state: :active, price_cents: 24_00 , days: 60 , max_accesses_number: 10  ,name: 'Carnet dieci entrate fitness',   )
+  p_spa_ten       = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 149_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate spa'    ,   )
   puts "Products: #{Product.count}"
 else
-  p_fitness_try, p_fitness_month, p_fitness_year, p_spa_day, p_spa_month, p_swim_month, p_swim_year = Product.all
+  p_fitness_try, p_fitness_month, p_fitness_year, p_spa_single, p_spa_month, p_swim_month, p_swim_year = Product.all
 end
 
 if Order.count == 0
-  ord_stefy  = Order.create!(organization: o_dance, user: u_stefy, start_on: Time.zone.today, products: [p_fitness_year, p_spa_month]  )
+  ord_stefy  = Order.create!(organization: o_dance, user: u_stefy, start_on: Time.zone.today, products: [p_fitness_year, p_spa_ten]  )
   ord_paolo  = Order.create!(organization: o_dance, user: u_paolo, start_on: Time.zone.today, products: [p_fitness_month]  )
   ord_elena  = Order.create!(organization: o_dance, user: u_elena, start_on: Time.zone.today, products: [p_fitness_month]  )
   puts "Orders: #{Order.count}"
@@ -478,11 +482,11 @@ if Payment.count == 0
   # Redeemed active subscriptions...
  #subscription_attributes << { organization: o_dance, category: p_fitness_year.category , product: p_fitness_year , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_fitness_year.days, order: ord_stefy  }
  #subscription_attributes << { organization: o_dance, category: p_spa_month.category    , product: p_spa_month    , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_spa_month.days   , order: ord_stefy  }
-  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, subscription_type: :fee  , state: :active, start_on: Time.zone.today }
-  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_linda, subscription_type: :fee  , state: :active, start_on: Time.zone.today }
-  subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, subscription_type: :trial, state: :active, start_on: Time.zone.today }
+  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, state: :active, start_on: Time.zone.today }
+  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_ten  , user: u_linda, state: :active, start_on: Time.zone.today }
+  subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, state: :active, start_on: Time.zone.today }
   generic_users.each do |user|
-    subscription_attributes << { organization: o_dance, category: p_fitness_try.category, product: p_fitness_try  , user: user,    subscription_type: :fee  , state: :active, start_on: Time.zone.today }
+    subscription_attributes << { organization: o_dance, category: p_fitness_try.category, product: p_fitness_try  , user: user,    state: :active, start_on: Time.zone.today }
   end
   # Free subscription codes...
   5.times do

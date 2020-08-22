@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ConsumptionSubscription, type: :model do
 
-  subject { user_stefania.active_subscriptions.where(subscription_type: 'consumption').first }
+  subject { user_linda.active_subscriptions.where(subscription_type: 'consumption').first }
 
   describe '#set_current_state' do
     let(:result) { subject.send(:set_current_state, current_date) }
