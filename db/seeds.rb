@@ -447,17 +447,17 @@ if CourseEvent.count == 0
 end
 
 if Product.count == 0
-  p_fitness_try   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :trial       , state: :active, price_cents: 0     , days: 15 , max_accesses_number: 1   ,name: 'Periodo di prova'            ,   )
-  p_fitness_month = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 19_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile fitness',   )
-  p_fitness_year  = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 199_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale fitness',   )
-  p_spa_single    = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 29_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola spa'        ,   )
-  p_spa_month     = Product.create!(organization: o_dance, category: ca_spa    , product_type: :fee         , state: :active, price_cents: 149_00, days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile spa'    ,   )
-  p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 49_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile aquagym',   )
-  p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 539_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale aquagym',   )
-  p_swim_single   = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 11_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola aquagym'    ,   )
-  p_swim_ten      = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 100_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate aquagym',   )
-  p_fitness_ten   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :consumption , state: :active, price_cents: 24_00 , days: 60 , max_accesses_number: 10  ,name: 'Carnet dieci entrate fitness',   )
-  p_spa_ten       = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 149_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate spa'    ,   )
+  p_fitness_try   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :trial       , state: :active, price_cents: 0     , days: 15 , max_accesses_number: 1   ,name: 'Periodo di prova'            , description: 'A description...'  )
+  p_fitness_month = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 19_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile fitness' , description: 'A description...'  )
+  p_fitness_year  = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 199_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale fitness' , description: 'A description...'  )
+  p_spa_single    = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 29_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola spa'         , description: 'A description...'  )
+  p_spa_month     = Product.create!(organization: o_dance, category: ca_spa    , product_type: :fee         , state: :active, price_cents: 149_00, days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile spa'     , description: 'A description...'  )
+  p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 49_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile aquagym' , description: 'A description...'  )
+  p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 539_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale aquagym' , description: 'A description...'  )
+  p_swim_single   = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 11_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola aquagym'     , description: 'A description...'  )
+  p_swim_ten      = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 100_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate aquagym', description: 'A description...'  )
+  p_fitness_ten   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :consumption , state: :active, price_cents: 24_00 , days: 60 , max_accesses_number: 10  ,name: 'Carnet dieci entrate fitness', description: 'A description...'  )
+  p_spa_ten       = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 149_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate spa'    , description: 'A description...'  )
   puts "Products: #{Product.count}"
 else
   p_fitness_try, p_fitness_month, p_fitness_year, p_spa_single, p_spa_month, p_swim_month, p_swim_year = Product.all

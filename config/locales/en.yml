@@ -226,12 +226,12 @@ en:
         organization: "Organization"
         category: "Category"
         product: "Product"
+        user: "Customer"
         subscription_type: "Type"
         subscription_types:
           trial: "Trial"
           consumption: "Consumption"
           fee: "Fee"
-        user: "Customer"
         code: "Subscription code"
         active_code: "Active subscription code"
         start_on: "Start date"
@@ -314,6 +314,11 @@ en:
         dossier: "Choose the dossier"
         log_level: "Fill the log level with an integer number"
         message: "Choose a good message for this system_log"
+      subscription:
+        user: "Choose the customer to assign the subscription to or do it later"
+        start_on: "If the customer has been chosen, the validity start date will be set automatically with that of the day"
+        end_on: "If left blank it will be calculated automatically starting from the start date and based on the days defined in the product"
+        max_accesses_number: "If it is a pay-as-you-go product, choose the number of entries"
   activeadmin:
     panels:
       active_subscriptions: "Active subscriptions"

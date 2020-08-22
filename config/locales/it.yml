@@ -397,12 +397,12 @@ it:
         organization: "Organizzazione"
         category: "Categoria"
         product: "Prodotto"
+        user: "Cliente"
         subscription_type: "Tipo"
         subscription_types:
           trial: "Prova"
           consumption: "A consumo"
           fee: "Abbonamento"
-        user: "Cliente"
         code: "Codice abbonamento"
         active_code: "Codice abbonamento attivo"
         start_on: "Data inizio"
@@ -489,6 +489,11 @@ it:
         dossier: "Choose the dossier"
         log_level: "Fill the log level with an integer number"
         message: "Choose a good message for this system_log"
+      subscription:
+        user: "Scegli il cliente a cui assegnare l'abbonamento o fallo in seguito"
+        start_on: "Se è stato scelto il cliente, la data di inizio validità verrà impostata in automatico con quella del giorno"
+        end_on: "Se lasciata vuota verrà calcolata in automatico partendo dalla data inizio e in base ai giorni definiti nel prodotto"
+        max_accesses_number: "Se è un prodotto a consumo, scegli il numero di entrate"
 
   activeadmin:
     panels:

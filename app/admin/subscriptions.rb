@@ -49,6 +49,7 @@ ActiveAdmin.register Subscription do
           row(:product)
           row(:user)
           #row(:order)
+          row(:code)
           row(:subscription_type) { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
           row(:state)             {|obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
           row(:start_on)
@@ -87,8 +88,8 @@ ActiveAdmin.register Subscription do
               order_by: 'email_asc'
 
       f.input :start_on
-      if current_admin_user.is_root? && params[:action] != 'create'
-        f.input(:end_on)
+      f.input(:end_on)
+      if current_admin_user.is_root?
         f.input(:code)
         f.input(:state)
       end

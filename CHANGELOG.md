@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.37.2 22/08/2020
+
+- Added validations to product and subscription
+
 # v0.37.1 22/08/2020
 
 - Improved products definition on the seed
