@@ -29,6 +29,6 @@ module Insiemento
 
     config.active_storage.variant_processor = :vips
 
-    config.autoload_paths += %W(#{Rails.root}/app/models/payments)
+    config.autoload_paths += %W(#{Rails.root}/app/models/payments #{Rails.root}/app/models/subscriptions)
   end
 end

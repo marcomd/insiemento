@@ -167,6 +167,9 @@ group :test do
 
   # Library for stubbing and setting expectations on HTTP requests in Ruby.
   gem  'webmock', '~> 3.8.0'
+
+  #A gem providing 'time travel', 'time freezing', and 'time acceleration' capabilities, making it simple to test time-dependent code. It provides a unified method to mock Time.now, Date.today, and DateTime.now in a single call.
+  gem 'timecop', '~> 0.9.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

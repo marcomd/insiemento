@@ -96,8 +96,10 @@ class Order < ApplicationRecord
   # Move it in a service if this method become more complex
   def create_subscriptions
     products.each do |product|
-      subscriptions << Subscription.new(organization: organization, category_id: product.category_id, product: product,
-                                        user: user, start_on: Time.zone.today, end_on: Time.zone.today + product.days)
+      subscriptions << Subscription.new(organization: organization,
+                                        product: product,
+                                        user: user,
+                                        start_on: Time.zone.today)
     end
   end
 

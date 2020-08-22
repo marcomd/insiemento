@@ -10,7 +10,7 @@ class User < ApplicationRecord
   # No, user can have multiple active subscriptions
   #has_one :last_subscription, -> { order id: :desc }, class_name: 'Subscription'
   has_many :subscriptions, dependent: :destroy
-  has_many :active_subscriptions, -> { active }, class_name: 'Subscription'
+  has_many :active_subscriptions, -> { active_state }, class_name: 'Subscription'
   has_many :orders, dependent: :restrict_with_error
   has_one :pending_order, -> { where(state: :just_made) }, class_name: 'Order'
   has_many :payments, dependent: :nullify

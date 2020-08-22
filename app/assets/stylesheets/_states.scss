@@ -1,5 +1,6 @@
 $waiting_color: rgb(218,176,231);
 $yes_color: rgb(96, 144, 219);
+$working2_color: rgb(90, 140, 160);
 $complete_color: rgb(141, 170, 146);
 $warning_color: rgb(226, 155, 32);
 $error_color: rgb(212, 95, 83);
@@ -11,6 +12,12 @@ $critical_color: rgb(160,70,70);
   }
   &.active {
     background-color: $yes_color;
+  }
+  &.consumption, &.stripe {
+    background-color: $working2_color;
+  }
+  &.fee, &.paypal {
+    background-color: rgb(80, 110, 130);
   }
   &.completed, &.confirmed {
     background-color: $complete_color;

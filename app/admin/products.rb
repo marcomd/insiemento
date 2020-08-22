@@ -11,7 +11,7 @@ ActiveAdmin.register Product do
   # or
   #
   permit_params do
-    permitted = [:category_id, :name, :description, :price, :days]
+    permitted = [:category_id, :product_type, :name, :description, :price, :days, :max_accesses_number, :state]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -27,18 +27,48 @@ ActiveAdmin.register Product do
   index do
     selectable_column
     id_column
-    if current_admin_user.is_root?
-      column(:organization)
-    end
+    column(:organization) if current_admin_user.is_root?
     column(:category)
+    column(:product_type) { |obj| value = obj.product_type.downcase; span I18n.t("activerecord.attributes.product.product_types.#{value}"), class: "status_tag #{value}" }
     column(:name)
-    column(:description)
+    column(:state) { |obj| span I18n.t("activerecord.attributes.product.states.#{obj.state}"), class: "status_tag #{obj.state}"}
     column(:price)
     column(:days)
-    # column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:max_accesses_number)
     column(:created_at)
     column(:updated_at)
     actions
+  end
+
+  show do |product|
+    columns do
+      column do
+        attributes_table do
+          row(:product_type) { |obj| value = obj.product_type.downcase; span I18n.t("activerecord.attributes.product.product_types.#{value}"), class: "status_tag #{value}" }
+          row(:name)
+          row(:description)
+          row(:price)
+          row(:days)
+          row(:max_accesses_number)
+          row(:created_at)
+          row(:updated_at)
+        end
+      end
+      column do
+        panel link_to(Subscription.model_name.human(count: 2), admin_subscriptions_path('q[product_id_eq]' => product.id)) do
+          table_for product.active_subscriptions.last(10) do
+            column(:id)            {|obj| link_to(obj.id, admin_subscription_path(obj.id)) }
+            column(:user)
+            column(:subscription_type) { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
+            column(:state)         {|obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
+            column(:start_on)
+            column(:end_on)
+            column(:max_accesses_number)
+          end
+        end
+      end
+    end
+    active_admin_comments
   end
 
   filter :organization    , if: proc { current_admin_user.is_root? }
@@ -47,7 +77,8 @@ ActiveAdmin.register Product do
   filter :description
   filter :price, as: :numeric
   filter :days
-  # filter :state       , as: :select, collection: Course.localized_states
+  filter :state       , as: :select, collection: Product.localized_states
+  filter :max_accesses_number
   filter :created_at
   filter :updated_at
 
@@ -59,11 +90,13 @@ ActiveAdmin.register Product do
       else
         f.input :organization, collection: [current_admin_user.organization]
       end
+      f.input :product_type
       f.input :category, collection: current_admin_user.categories
       f.input :name
       f.input :description
       f.input :price
       f.input :days
+      f.input :max_accesses_number
     end
     f.actions
   end

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.37.0 22/08/2020
+
+- Added new product / subscription types to manage pay-as-you-go as well as fee mode
+  - Added type to products and subscriptions. It define types among the following: trial, consumption and fee.  
+    Defined a method type s well. It returns a class with which manage specific task.
+  - Added new relationship, one subscription to many attendees, used to count each attendee to course event
+  - Added the logic to manage consumption products: pre-purchased accesses scaled at each access
+
 # v0.36.4 20/08/2020
 
 - Now get_user_domain return www + domain

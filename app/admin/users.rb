@@ -36,9 +36,7 @@ ActiveAdmin.register User do
   index do
     selectable_column
     id_column
-    if current_admin_user.is_root?
-      column(:organization)
-    end
+    column(:organization) if current_admin_user.is_root?
     column(:firstname)
     column(:lastname)
     column(:email)
@@ -85,18 +83,22 @@ ActiveAdmin.register User do
             row(:medical_certificate) { |obj| image_tag('false.png') }
           end
           row(:medical_certificate_expire_at)
-          row(:reset_password_token)
-          row(:reset_password_sent_at)
-          row(:remember_created_at)
           row(:sign_in_count)
-          row(:current_sign_in_at)
-          row(:last_sign_in_at)
-          row(:current_sign_in_ip)
-          row(:last_sign_in_ip)
-          row(:confirmation_token)
-          row(:confirmed_at)
-          row(:confirmation_sent_at)
-          row(:unconfirmed_email)
+          if current_admin_user.is_root?
+            row(:reset_password_token)
+            row(:reset_password_sent_at)
+            row(:remember_created_at)
+            row(:current_sign_in_at)
+            row(:last_sign_in_at)
+            row(:current_sign_in_ip)
+            row(:last_sign_in_ip)
+            row(:confirmation_token)
+            row(:confirmed_at)
+            row(:confirmation_sent_at)
+            row(:unconfirmed_email)
+          else
+            row(:confirmed_at)
+          end
           row(:created_at)
           row(:updated_at)
         end

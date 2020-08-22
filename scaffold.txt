@@ -20,7 +20,7 @@ course_schedules organization:references course:references room:references train
 
 course_events organization:references course:references room:references trainer:references course_schedule:references event_date:datetime state:integer{1}
 
-attendees user:references course_event:references
+attendees user:references course_event:references subscription:references
 
 # Social
 # course_event_comments organization:references user:references course_event:references message:string{255}
@@ -29,13 +29,14 @@ attendees user:references course_event:references
 category organization:references name:string{60}
 
 # Products that gyms sell as subscriptions
-product organization:references name:string{60} description:string{255} price_cents:integer{4} days:integer{2} category:references premium:boolean
+product organization:references category:references name:string{60} description:string{255} price_cents:integer{4} days:integer{2} product_type:integer{1} state:integer{1} max_accesses_number:integer{2}
+# premium:boolean -> rimosso
 
 # User can buy a subscription
 order organization:references user:references state:integer{1} total_amount_cents:integer{4} amount_to_pay_cents:integer{4} amount_paid_cents:integer{4} discount_cents:integer{4} currency:integer{1} paid_at:datetime approver_admin_user_id:references
 
 # To manage users subscriptions: fitness, swimming pool, spa etc.
-subscription uuid:string{36} organization:references product:references user:references order:references start_on:date end_on:date
+subscription organization:references product:references user:references order:references code:string{14} subscription_type:integer{1} state:integer{1} start_on:date end_on:date max_accesses_number:integer{2}
 
 # Without primary key id
 #rails g migration CreateOrdersProducts order:references product:references

@@ -88,6 +88,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     let(:action) { put url, params.to_json }
     let(:params) { {subscribe: subscribe} }
 
+    # HERE !!! Verificare che lo user esaurisca l'abbonamento a consumo
     context 'when user tries to subscribe' do
       let(:subscribe) { true }
       let(:course_event) do
@@ -202,6 +203,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
       end
     end
 
+    # HERE !!! Verificare che lo user riattivi l'abbonamento a consumo
     context 'when user tries to UNsubscribe' do
       let(:subscribe) { false }
 

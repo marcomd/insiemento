@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Product#{n}" }
     description { 'Description' }
     sequence(:price_cents, 100) { |n| n * 100 }
-    days {30}
+    days { 30 }
+    product_type { :fee }
   end
 end
