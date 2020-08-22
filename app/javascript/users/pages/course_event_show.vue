@@ -3,7 +3,7 @@
     <v-row align='center' justify='center'>
       <v-col cols='12' sm='8'>
 
-        <CourseEventCardFull v-if="course_event" :course_event="course_event"/>
+        <CourseEventCardFull v-if="course_event && course" :course_event="course_event"/>
         <div v-else-if="loading" class="text-center">
           <v-progress-circular
             size="50"

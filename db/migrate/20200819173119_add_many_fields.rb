@@ -22,8 +22,8 @@ class AddManyFields < ActiveRecord::Migration[6.0]
             attendee.update_column(:subscription_id, subscription.id)
           end
         end
-        Product.update_all product_type: :fee
-        Subscription.update_all subscription_type: :fee
+        Product.update_all product_type: :fee, state: :active
+        Subscription.update_all subscription_type: :fee, state: :active
 
         change_column_null :attendees, :subscription_id, false
         change_column_null :products, :product_type, false

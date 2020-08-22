@@ -10,12 +10,21 @@ export const courseEventMixin = {
     trainer() {
       return this.course_event && this.course_event.trainer
     },
+    trainer_name() {
+      if (!this.trainer) return
+      if (this.trainer.nickname && this.trainer.nickname.length > 0) {
+        return this.trainer.nickname
+      } else {
+        return `${this.trainer.firstname} ${this.trainer.lastname}`
+      }
+    },
     courseImageName() {
       const planned_courses = ['zumba', 'yoga', 'pilates']
       const course_name_lowered = this.course.name.toLowerCase()
       return `course_${planned_courses.includes(course_name_lowered) ? course_name_lowered : planned_courses[0]}_600.jpg`
     },
     isCourseEventFull() {
+      if (!this.room) return
       return this.course_event && this.course_event.attendees_count >= this.room.max_attendees
     },
   },

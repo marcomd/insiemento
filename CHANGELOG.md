@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.38.0 22/08/2020
+
+- Fixes and improvements to the frontend
+  - Fixed reload bug in the course event list
+    - Fixed the bug removind the double row in the router. Now after reload in the course event list, the view is still the
+      same. Previously the view was switched with the dashboard.
+  - Fixed a little bug in the show course event that wrote a error log: the component was shown before the data were ready
+  - Added the course description in the course event show
+  - Improved the trainer name shown in the course events list and in the show
+
 # v0.37.2 22/08/2020
 
 - Added validations to product and subscription

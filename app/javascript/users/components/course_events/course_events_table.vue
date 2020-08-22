@@ -39,6 +39,9 @@
                 <template v-slot:item.full="{ item }">
                     <v-chip :color="isFullThis(item) ? 'orange' : '#cccccc'" v-if="isFullThis(item)" dark>{{ $t('course_event.list.full') }}</v-chip>
                 </template>
+                <template v-slot:item.trainer_name="{ item }">
+                    {{ item.trainer.nickname && item.trainer.nickname.length > 0 ? item.trainer.nickname : `${item.trainer.firstname && item.trainer.firstname[0] + '.'} ${item.trainer.lastname}` }}
+                </template>
             </v-data-table>
         </v-card>
     </v-container>
@@ -73,7 +76,7 @@
           { text: this.$t('course_event.attributes.course'), value: 'course.name' },
           { text: this.$t('course_event.attributes.event_date'), value: 'event_date' },
           { text: this.$t('course_event.attributes.subscribed'), value: 'subscribed' },
-          { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
+          { text: this.$t('course_event.attributes.trainer'), value: 'trainer_name' },
           { text: this.$t('course_event.attributes.room'), value: 'room.name' },
           { text: 'Info', value: 'full' },
         ]

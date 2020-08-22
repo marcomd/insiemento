@@ -100,11 +100,6 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: '/courses',
-    name: 'dashboard',
-    component: Dashboard,
-  },
-  {
     path: '/profile',
     name: 'showProfile',
     component: ShowProfile

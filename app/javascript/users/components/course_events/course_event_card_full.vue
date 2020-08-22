@@ -27,7 +27,7 @@
         <v-icon large>mdi-teach</v-icon>
         <v-col>
           {{ $t('course_event.attributes.trainer') }}<br>
-          <strong>{{ trainer.nickname }}</strong>
+          <strong>{{ trainer_name }}</strong>
         </v-col>
       </v-row>
 
@@ -46,7 +46,12 @@
 
         </v-col>
       </v-row>
+    </v-card-text>
 
+    <v-divider class="mx-4"></v-divider>
+
+    <v-card-text>
+      {{ course.description }}
     </v-card-text>
   </v-card>
 </template>
