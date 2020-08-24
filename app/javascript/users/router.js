@@ -1,14 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store/store'
-import Login from './components/session/login'
-import SignUp from './components/session/sign_up'
-import SignedUp from './components/session/signed_up'
-import PasswordReset from './components/session/password_reset'
-import NewPassword from './components/session/new_password'
-import ConfirmationEmail from './components/session/confirmation_email'
-import ShowProfile from './components/profile/show'
-import EditProfile from './components/profile/edit'
+
+//
+// --- Please define components used in the router into pages folder ---
+//
+
+import Login from './pages/session/login'
+import SignUp from './pages/session/sign_up'
+import SignedUp from './pages/session/signed_up'
+import PasswordReset from './pages/session/password_reset'
+import NewPassword from './pages/session/new_password'
+import ConfirmationEmail from './pages/session/confirmation_email'
+import ShowProfile from './pages/profile/show'
+import EditProfile from './pages/profile/edit'
 import NotFound from './pages/not_found'
 import Homepage from './pages/homepage'
 import Dashboard from './pages/dashboard'

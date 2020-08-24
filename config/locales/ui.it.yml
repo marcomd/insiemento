@@ -27,6 +27,7 @@ it:
         search: "Cerca"
         close: "Chiudi"
         or: "o"
+        all: "Tutti"
       locales:
         it: Italiano
         en: English

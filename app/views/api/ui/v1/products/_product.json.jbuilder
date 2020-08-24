@@ -1,6 +1,6 @@
 json.ignore_nil!
 
-json.extract! product, :id, :name, :description, :days
+json.extract! product, :id, :product_type, :name, :description, :days
 json.category_name product.category.name
 json.price product.price.to_f
 

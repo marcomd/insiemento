@@ -1,4 +1,5 @@
 class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
+  before_action :set_organization
   before_action :set_course_event, except: [:index]
 
   respond_to :json
@@ -8,8 +9,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   def index
     # To simulate a network delay...
     simulate_delay_for_development
-    organization = current_organization || current_user.organization
-    @course_events = organization.course_events.where(course_event_filter_params).includes(:course, :room, :trainer).order('course_events.id ASC')
+    @course_events = @organization.course_events.where(course_event_filter_params).includes(:course, :room, :trainer).order('course_events.id ASC')
     if params[:subscribed]
       @course_events = @course_events.where(user_id: current_user.id)
     end
@@ -59,7 +59,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   private
 
   def set_course_event
-    @course_event = CourseEvent.find(params[:id])
+    @course_event = @organization.course_events.find(params[:id])
   end
 
   def course_event_filter_params

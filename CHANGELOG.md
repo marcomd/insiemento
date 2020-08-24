@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# v0.39.0 25/08/2020
+
+- Added new subscription info section
+  - Backend
+    - New subscription's routes and new controller
+    - Little improvements to admin ui: added course events scopes
+    - New method set_organization in the base controller 
+  - Frontend  
+    - New components used in the user profile that show the list of subscriptions with the main information
+    - New subscription's module to use new api endpoint
+    - Moved into the "pages" folder all components used in the router
+
 # v0.38.0 22/08/2020
 
 - Fixes and improvements to the frontend

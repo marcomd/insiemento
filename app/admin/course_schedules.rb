@@ -27,9 +27,9 @@ ActiveAdmin.register CourseSchedule do
     end
   end
 
-  scope :active, default: true
-  scope :suspended
-  scope :all
+  scope I18n.t('activerecord.attributes.course_schedule.states.active')    , :active, default: true
+  scope I18n.t('activerecord.attributes.course_schedule.states.suspended') , :suspended
+  scope I18n.t('ui.users.commons.all')                        , :all
 
   index do
     selectable_column

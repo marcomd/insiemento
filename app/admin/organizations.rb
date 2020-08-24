@@ -129,7 +129,7 @@ ActiveAdmin.register Organization do
         f.inputs 'Homepage' do
           f.semantic_errors *f.object.errors.keys
           f.input :homepage_title
-          f.input :homepage_description, as: :text, as: :text, input_html: { class: 'autogrow', rows: 5 }
+          f.input :homepage_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
           f.input :homepage_customer_title
           f.input :homepage_customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
           f.input :homepage_features_title

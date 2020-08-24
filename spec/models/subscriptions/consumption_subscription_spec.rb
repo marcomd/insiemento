@@ -7,6 +7,7 @@ RSpec.describe ConsumptionSubscription, type: :model do
   describe '#set_current_state' do
     let(:result) { subject.send(:set_current_state, current_date) }
     let(:current_date) { Date.new(2020,8,2) }
+    let(:course_event) { CourseEvent.find course_event_id }
 
     before do
       subject.start_on = '2020-08-02'
@@ -25,8 +26,10 @@ RSpec.describe ConsumptionSubscription, type: :model do
       before { subject.max_accesses_number = 1 }
 
       it do
-        expect(subject.add_attendee(course_event_id).persisted?).to be_truthy
-        expect(result).to eq 'consumed'
+        Timecop.freeze(course_event.event_date - 12.hours) do
+          expect(subject.add_attendee(course_event_id).persisted?).to be_truthy
+          expect(result).to eq 'consumed'
+        end
       end
     end
   end

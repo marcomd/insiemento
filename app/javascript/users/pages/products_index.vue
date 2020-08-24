@@ -48,7 +48,7 @@
       ...mapState('layout', ['loading']),
     },
     methods: {
-     ...mapActions('product', ['fetchProducts']),
+      ...mapActions('product', ['fetchProducts']),
       setProduct({product}) {
         console.log(' dashboard setProduct', product.id)
         this.$router.push({ name: 'ProductShow', params: { id: product.id } })

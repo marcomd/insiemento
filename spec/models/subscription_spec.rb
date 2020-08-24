@@ -76,11 +76,20 @@ RSpec.describe Subscription, type: :model do
   describe '#add_attendee' do
     let(:result) { subject.add_attendee(course_event_id) }
     subject { user_stefania.active_subscriptions.where(subscription_type: 'fee').first }
+    let(:course_event) { CourseEvent.find course_event_id }
 
     context 'when course event is subscribable' do
       let(:course_event_id) { stefania_unsubscribed_course_event_id }
-      it { expect(result.errors).to_not be_present }
-      it { expect { result }.to change(Attendee, :count).by(1) }
+      it do
+        Timecop.freeze(course_event.event_date - 12.hours) do
+          expect(result.errors).to_not be_present
+        end
+      end
+      it do
+        Timecop.freeze(course_event.event_date - 12.hours) do
+          expect { result }.to change(Attendee, :count).by(1)
+        end
+      end
     end
 
     context 'when course event is NOT subscribable' do

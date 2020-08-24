@@ -30,8 +30,7 @@ Rails.application.routes.draw do
             put 'remove_product/:product_id', to: 'orders#remove_product', as: :remove_product
           end
         end
-        resources :payments
-        resources :products
+        resources :payments, :products, :subscriptions
       end
     end
   end

@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row align='center' justify='center'>
-      <v-col cols='12' sm='8' lg='4'>
-        <v-card class="card--profile" elevation='1'>
+      <v-col cols='12' sm='8' lg='6'>
+        <v-card elevation='1'>
           <v-toolbar flat>
             <v-toolbar-title>
               {{ $t('profile.title') }}
@@ -75,6 +75,17 @@
               {{ $t('profile.edit_action') }}
             </v-btn>
           </v-card-actions>
+          <h3>Abbonamenti</h3>
+          <SubscriptionList v-if="subscriptions"
+                            :subscriptions="subscriptions"></SubscriptionList>
+          <div v-else-if="loading" class="text-center">
+            <v-progress-circular
+                size="50"
+                color="primary"
+                indeterminate>
+            </v-progress-circular>
+          </div>
+          <div class="pb-5" />
         </v-card>
       </v-col>
     </v-row>
@@ -82,16 +93,28 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapState, mapActions } from 'vuex'
   import { utilityMixin } from '../../mixins/utility_mixin'
   import { currentUserMixin } from '../../mixins/current_user_mixin'
+  import SubscriptionList from '../../components/subscriptions/subscriptions_list'
 
   export default {
     mixins: [
       utilityMixin,
       currentUserMixin,
     ],
+
+    components: {
+      SubscriptionList,
+    },
+
+    created() {
+      this.fetchSubscriptions()
+    },
+
     computed: {
+      ...mapState('subscription', ['subscriptions']),
+      ...mapState('layout', ['loading']),
       ...mapGetters('profile', [
         'currentUser',
         'fullName',
@@ -108,6 +131,10 @@
       //   const birthdate = this.currentUser.birthdate
       //   return !!birthdate ? this.formattedDate(birthdate) : '--'
       // },
+    },
+
+    methods: {
+      ...mapActions('subscription', ['fetchSubscriptions']),
     }
   }
 </script>
@@ -180,9 +207,5 @@
 
   .info-entry .info-entry__value {
     font-size: $font-size;
-  }
-
-  .subtitle {
-    opacity: 0.8;
   }
 </style>

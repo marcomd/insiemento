@@ -3,6 +3,12 @@ json.extract! user, :id,
               :birthdate, :gender, :phone,
               :created_at, :updated_at
 
+# json.set!('last_subscriptions') do
+#   json.array!(user.subscriptions.last(5)) do |subscription|
+#     json.partial! 'api/ui/v1/subscriptions/subscription', subscription: subscription
+#   end
+# end
+
 # The frontend downloads all the courses and to avoid redundant data I preferred not to include the list of
 # subscribed courses also in the profile
 # json.set!('course_events') do

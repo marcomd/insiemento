@@ -27,6 +27,7 @@ en:
         search: "Search"
         close: "Close"
         or: "or"
+        all: "All"
       locales:
         it: Italiano
         en: English

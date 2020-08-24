@@ -2,18 +2,17 @@ require "spec_helper"
 
 describe Api::Ui::V1::CourseEventsController, type: :api do
   let(:organization_id) { 1 }
-  before(:all) do
+
+  before do
     ENV['ORGANIZATION']='1'
+    header 'Content-Type', 'application/json; charset=utf-8'
+    header 'X-Auth-Token', jwt_token
+    header 'Accept-Language', language
   end
   after(:all) do
     ENV.delete 'ORGANIZATION'
   end
 
-  before do
-    header 'Content-Type', 'application/json; charset=utf-8'
-    header 'X-Auth-Token', jwt_token
-    header 'Accept-Language', language
-  end
   let(:user) { user_stefania }
   let(:jwt_token) { authenticated_user(user.email) }
   let(:language) { 'it' }

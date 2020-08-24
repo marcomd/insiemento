@@ -31,6 +31,10 @@ class Api::Ui::BaseController < ApplicationController
 
   private
 
+  def set_organization
+    @organization = current_organization || current_user.organization || raise(ActionController::RoutingError, 'Organization must exist!')
+  end
+
   def add_system_log(message, log_level:)
     # TODO: complete with the project's system log
     puts "#{log_level}: #{message}" if Rails.env.development?

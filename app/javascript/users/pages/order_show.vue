@@ -92,11 +92,14 @@
 
   export default {
     name: 'OrderShow',
+
     components: {
       OrderCardFull,
       PaymentSelection,
     },
+
     mixins: [orderMixin],
+
     created() {
       this.$store.dispatch('order/fetchOrder', {id: this.$route.params.id})
         .then(order => {
@@ -109,10 +112,12 @@
         console.log(`Cannot fetch order id ${this.$route.params.id}: ${error}`)
       })
     },
+
     data: () => {
       return {
       }
     },
+
     computed: {
       ...mapState('order', ['order']),
       ...mapState('layout', ['loading', 'submitting']),
@@ -126,6 +131,7 @@
         return this.order.payments[0]
       },
     },
+
     methods: {
       // updateOrder() {
       //   console.log(`updateOrder add product ${this.product.id}`)

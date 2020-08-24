@@ -5,12 +5,22 @@ RSpec.describe Attendee, type: :model do
 
   describe '#create' do
     let(:result) { subject.save }
+    let(:course_event) { CourseEvent.find course_event_id }
+
     context 'when user can attendee' do
       let(:user) { user_stefania }
       let(:course_event_id) { stefania_unsubscribed_course_event_id }
 
-      it { expect(result).to be_truthy }
-      it { expect { result }.to change(Attendee, :count).by(1) }
+      it do
+        Timecop.freeze(course_event.event_date - 12.hours) do
+          expect(result).to be_truthy
+        end
+      end
+      it do
+        Timecop.freeze(course_event.event_date - 12.hours) do
+          expect { result }.to change(Attendee, :count).by(1)
+        end
+      end
     end
 
     context 'when user cannot attendee' do
