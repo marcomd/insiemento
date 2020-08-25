@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_130037) do
+ActiveRecord::Schema.define(version: 2020_08_25_211849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,8 +115,10 @@ ActiveRecord::Schema.define(version: 2020_08_25_130037) do
     t.index ["category_id"], name: "index_course_events_on_category_id"
     t.index ["course_id"], name: "index_course_events_on_course_id"
     t.index ["course_schedule_id"], name: "index_course_events_on_course_schedule_id"
+    t.index ["event_date"], name: "index_course_events_on_event_date"
     t.index ["organization_id"], name: "index_course_events_on_organization_id"
     t.index ["room_id"], name: "index_course_events_on_room_id"
+    t.index ["state"], name: "index_course_events_on_state"
     t.index ["trainer_id"], name: "index_course_events_on_trainer_id"
   end
 
@@ -270,7 +272,7 @@ ActiveRecord::Schema.define(version: 2020_08_25_130037) do
   end
 
   create_table "system_logs", force: :cascade do |t|
-    t.bigint "organization_id", null: false
+    t.bigint "organization_id"
     t.integer "log_level", limit: 2
     t.string "message"
     t.datetime "created_at", precision: 6, null: false

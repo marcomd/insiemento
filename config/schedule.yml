@@ -2,3 +2,7 @@ create_course_events:
   cron: "0 0 * * 7"
   class: ScheduleJob
   queue: course_events
+update_course_events:
+  cron: "1,31 * * * *"
+  class: UpdateCourseEventsJob
+  queue: course_events

@@ -5,6 +5,5 @@ FactoryBot.define do
     sequence(:lastname) { |n| "Last name #{n}" }
     sequence(:nickname) { |n| "Nickname #{n}" }
     sequence(:bio) { |n| "Bio #{n}" }
-    max_attendees { 24 }
   end
 end

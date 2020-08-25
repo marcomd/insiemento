@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ScheduleJob, type: :job do
+RSpec.describe UpdateCourseEventsJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }
@@ -17,24 +17,27 @@ RSpec.describe ScheduleJob, type: :job do
   end
 
   context 'when job is performed' do
-    before do
-      CourseSchedule.update_all state: :suspended
-      CourseSchedule.first.update state: :active
+    let!(:course_event) do
+      create(:course_event, event_date: event_date, state: :active, organization_id: 1, category_id: 1, course_id: 1, course_schedule_id: 1, room_id: 1, trainer_id: 1)
     end
 
-    it do
-      Timecop.freeze 1.week.from_now do
-        expect do
-          perform_enqueued_jobs{ subject }
-        end.to change(CourseEvent, :count).by(1)
-      end
-    end
-
-    context 'when course event already exists' do
+    context 'when event is expired' do
+      let(:event_date) { 2.hours.ago }
       it do
         expect do
           perform_enqueued_jobs{ subject }
-        end.to change(SystemLog, :count).by(1)
+          course_event.reload
+        end.to change(course_event, :state).from('active').to('closed')
+      end
+    end
+
+    context 'when event is NOT expired' do
+      let(:event_date) { 5.minutes.from_now }
+      it do
+        expect do
+          perform_enqueued_jobs{ subject }
+          course_event.reload
+        end.to_not change(course_event, :state)
       end
     end
   end

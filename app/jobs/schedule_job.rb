@@ -3,8 +3,8 @@ class ScheduleJob < ApplicationJob
 
   def perform
     service = ScheduleService.call
-    SystemLog.create!(message: "ScheduleJob success: #{service.success}")
+    SystemLog.create!(message: "ScheduleJob success: #{service.success} #{service.errors}") unless service.success
   rescue
-    SystemLog.create!(message: "ScheduleJob #{$!.message}")
+    SystemLog.create!(message: "ScheduleJob failed: #{$!.message}")
   end
 end

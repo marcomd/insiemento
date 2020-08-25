@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v0.41.0 26/08/2020
+
+- Added UpdateCourseEventJob and other improvements
+  - Added new job UpdateCourseEventJob to close expired course events, every half hour
+  - Added simplecov to check and monitor the coverage percentage
+  - Added index to two course event fields: state and event date 
+  - Relationship between SystemLog and Organization now is optional 
+
 # v0.40.0 25/08/2020
 
 - Added description to room, course event improvements on the frontend
