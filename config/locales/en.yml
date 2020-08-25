@@ -120,6 +120,7 @@ en:
         one: "Room"
         organization: "Organization"
         name: "Name"
+        description: "Description"
         max_attendees: "Capacity"
         state: "State"
         states:

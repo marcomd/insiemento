@@ -411,11 +411,11 @@ end
 generic_users = User.where(lastname: generic_lastname)
 
 if Room.count == 0
-  r_small =Room.create!(organization: o_dance, name: 'Piccola', max_attendees: 10, state: :active,)
-  r_middle=Room.create!(organization: o_dance, name: 'Media',   max_attendees: 20, state: :active,)
-  r_large =Room.create!(organization: o_dance, name: 'Grande',  max_attendees: 30, state: :active,)
-  r_swim_small =Room.create!(organization: o_swim, name: 'Piccola',  max_attendees: 25, state: :active,)
-  r_swim_large =Room.create!(organization: o_swim, name: 'Grande',  max_attendees: 50, state: :active,)
+  r_small      = Room.create!(organization: o_dance , name: 'Piccola', description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 10 persone', max_attendees: 10, state: :active,)
+  r_middle     = Room.create!(organization: o_dance , name: 'Media'  , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 20 persone', max_attendees: 20, state: :active,)
+  r_large      = Room.create!(organization: o_dance , name: 'Grande' , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 30 persone', max_attendees: 30, state: :active,)
+  r_swim_small = Room.create!(organization: o_swim  , name: 'Piccola', description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 25 persone', max_attendees: 25, state: :active,)
+  r_swim_large = Room.create!(organization: o_swim  , name: 'Grande' , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 50 persone', max_attendees: 50, state: :active,)
   puts "Rooms: #{Room.count}"
 else
   r_small, r_middle, r_large, r_swim_small, r_swim_large = Room.all

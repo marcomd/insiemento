@@ -13,7 +13,7 @@ export const courseEventMixin = {
     trainer_name() {
       if (!this.trainer) return
       if (this.trainer.nickname && this.trainer.nickname.length > 0) {
-        return this.trainer.nickname
+        return `${this.trainer.firstname} ${this.trainer.lastname} aka ${this.trainer.nickname}`
       } else {
         return `${this.trainer.firstname} ${this.trainer.lastname}`
       }

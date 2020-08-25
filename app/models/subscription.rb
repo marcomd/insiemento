@@ -75,7 +75,7 @@ class Subscription < ApplicationRecord
   end
 
   def set_default
-    self.code ||= ([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(14).join # Faster than SecureRandom.alphanumeric(14).upcase or SecureRandom.hex(7)
+    self.code = ([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(14).join unless code.present? # Faster than SecureRandom.alphanumeric(14).upcase or SecureRandom.hex(7)
 
     #raise 'Product must exist to create a subscription' unless product
     self.state                  ||= :new

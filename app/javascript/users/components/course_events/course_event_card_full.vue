@@ -22,12 +22,28 @@
         <v-icon large>mdi-google-classroom</v-icon>
         <v-col>
           {{ $t('course_event.attributes.room') }}<br>
-          <strong>{{ room.name }}</strong>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon small
+                      v-bind="attrs"
+                      v-on="on">mdi-information-outline</v-icon>
+              <strong>{{ room.name }}</strong>
+            </template>
+            {{ room.description || '🙂' }}
+          </v-tooltip>
         </v-col>
         <v-icon large>mdi-teach</v-icon>
         <v-col>
           {{ $t('course_event.attributes.trainer') }}<br>
-          <strong>{{ trainer_name }}</strong>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+               <v-icon small
+                       v-bind="attrs"
+                       v-on="on">mdi-information-outline</v-icon>
+              <strong>{{ trainer_name || '🙂' }}</strong>
+            </template>
+            {{ trainer.bio }}
+          </v-tooltip>
         </v-col>
       </v-row>
 
@@ -51,7 +67,7 @@
     <v-divider class="mx-4"></v-divider>
 
     <v-card-text>
-      {{ course.description }}
+      {{ course.description || '🙂' }}
     </v-card-text>
   </v-card>
 </template>

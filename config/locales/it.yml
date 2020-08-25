@@ -291,6 +291,7 @@ it:
         one: "Stanza"
         organization: "Organizzazione"
         name: "Nome"
+        description: "Descrizione"
         max_attendees: "Capienza"
         state: "Stato"
         states:

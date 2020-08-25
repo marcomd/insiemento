@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# v0.40.0 25/08/2020
+
+- Added description to room, course event improvements on the frontend
+  - Added new field description to room model, updated admin ui
+  - Improved the user's ui with two tooltip showing the room's description and the trainer's bio
+  - Fixed the search on the course event list, after the last update it does not found trainer anymore
+  - Fixed the layout of the course event list view, now it shows the search on small display as well. Furthermore,
+    the alignment was also fixed.
+  - Improved returned json data, now includes only needed fields. Many fields, like created_at, on related resources
+    like course, room etc, was removed to make json data lean. 
+  - Other little improvements
+
 # v0.39.0 25/08/2020
 
 - Added new subscription info section

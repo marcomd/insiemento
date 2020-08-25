@@ -2,24 +2,30 @@
     <v-container fluid>
         <v-card>
             <v-card-title>
-                <v-select
-                        v-model="search"
-                        :items="courses"
-                        :label="$t('course_event.list.select_label')"
-                        hide-details
-                        cache-items
-                        clearable
-                ></v-select>
-                <v-spacer></v-spacer>
-                <v-text-field
-                        v-model="search"
-                        append-icon="mdi-magnify"
-                        :label="$t('commons.search')"
-                        single-line
-                        hide-details
-                        clearable
-                        v-if="$vuetify.breakpoint.smAndUp"
-                ></v-text-field>
+                <v-row>
+                    <v-col cols="12" sm="12" md="4">
+                        <v-select
+                            v-model="search"
+                            :items="courses"
+                            :label="$t('course_event.list.select_label')"
+                            hide-details
+                            cache-items
+                            clearable
+                        ></v-select>
+                    </v-col>
+                    <v-col v-if="$vuetify.breakpoint.smAndUp">
+                        <v-spacer></v-spacer>
+                    </v-col>
+                    <v-col cols="12" sm="12" md="4">
+                        <v-text-field
+                            v-model="search"
+                            append-icon="mdi-magnify"
+                            :label="$t('commons.search')"
+                            hide-details
+                            clearable
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
             </v-card-title>
             <v-data-table
                     :headers="headers"
@@ -39,9 +45,9 @@
                 <template v-slot:item.full="{ item }">
                     <v-chip :color="isFullThis(item) ? 'orange' : '#cccccc'" v-if="isFullThis(item)" dark>{{ $t('course_event.list.full') }}</v-chip>
                 </template>
-                <template v-slot:item.trainer_name="{ item }">
+                <!--template v-slot:item.trainer_name="{ item }">
                     {{ item.trainer.nickname && item.trainer.nickname.length > 0 ? item.trainer.nickname : `${item.trainer.firstname && item.trainer.firstname[0] + '.'} ${item.trainer.lastname}` }}
-                </template>
+                </template-->
             </v-data-table>
         </v-card>
     </v-container>
@@ -76,7 +82,7 @@
           { text: this.$t('course_event.attributes.course'), value: 'course.name' },
           { text: this.$t('course_event.attributes.event_date'), value: 'event_date' },
           { text: this.$t('course_event.attributes.subscribed'), value: 'subscribed' },
-          { text: this.$t('course_event.attributes.trainer'), value: 'trainer_name' },
+          { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
           { text: this.$t('course_event.attributes.room'), value: 'room.name' },
           { text: 'Info', value: 'full' },
         ]

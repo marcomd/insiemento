@@ -11,7 +11,7 @@ ActiveAdmin.register Room do
   # or
 
   permit_params do
-    permitted = [:name, :max_attendees, :state]
+    permitted = [:name, :description, :max_attendees, :state]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -40,6 +40,7 @@ ActiveAdmin.register Room do
 
   filter :organization, if: proc { current_admin_user.is_root? }
   filter :name
+  filter :description
   filter :max_attendees
   filter :state       , as: :select, collection: Room.localized_states
   filter :created_at
@@ -54,6 +55,7 @@ ActiveAdmin.register Room do
         f.input :organization, collection: [current_admin_user.organization]
       end
       f.input :name
+      f.input :description, as: :text, input_html: { maxlength: 255 }
       f.input :max_attendees
       f.input :state
     end
