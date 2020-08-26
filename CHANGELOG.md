@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.43.0 27/08/2020
+
+- Added the footer in the homepage
+
 # v0.42.1 26/08/2020
 
 - Fixed the logo url in the meta tag
