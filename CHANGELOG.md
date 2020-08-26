@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.42.1 26/08/2020
+
+- Fixed the logo url in the meta tag
+
 # v0.42.0 26/08/2020
 
 - SEO attributes improved, analystics and other
