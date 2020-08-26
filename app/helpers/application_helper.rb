@@ -1,7 +1,6 @@
 module ApplicationHelper
-  def get_user_domain(user)
+  def get_organization_domain(organization)
     hostname = Rails.application.default_url_options[:host]
-    organization = user.organization
     domain = organization.domain
     return hostname unless domain.present?
     if domain.include?('.')

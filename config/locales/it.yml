@@ -533,5 +533,5 @@ it:
       smtp_server: "Server invio email"
       db_server: "Database server"
   meta:
-    title: "Insiemento - Gestisci la tua palestra in un momento"
-    description: "Insiemento - Il software definitivo per gestire la tua palestra, dalla struttura alle prenotazioni dei tuoi corsi"
+    payoff: "Gestisci la tua palestra in un momento"
+    description: "Il software definitivo per gestire la tua palestra, dalla struttura alle prenotazioni dei tuoi corsi"

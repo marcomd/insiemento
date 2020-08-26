@@ -1,17 +1,17 @@
 require "spec_helper"
 
 describe ApplicationHelper, type: :helper do
-  describe "#get_user_domain" do
-    let(:result) { helper.get_user_domain(user) }
+  describe "#get_organization_domain" do
+    let(:result) { helper.get_organization_domain(organization) }
 
-    let(:user) { user_stefania }
+    let(:organization) { user_stefania.organization }
 
-    context 'when the user organization has a domain' do
+    context 'when the organization has a domain' do
       it { expect(result).to eq 'www.fitness.io' }
     end
 
-    context 'when the user organization has a subdomain' do
-      before { user.organization.domain = 'fitness' }
+    context 'when the organization has a subdomain' do
+      before { organization.domain = 'fitness' }
       it { expect(result).to eq 'fitness.localhost' }
     end
   end

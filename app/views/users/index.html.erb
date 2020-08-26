@@ -1,7 +1,8 @@
 <%=
+  logo = @current_organization&.logo.present? ? url_for(@current_organization.logo) : nil
   current_organization = if @current_organization
                            {
-                               logo: (url_for(@current_organization.logo) if @current_organization.logo.present?),
+                               logo: logo,
                                name: @current_organization.name,
                                payoff: @current_organization.payoff,
                                theme: @current_organization.theme,
@@ -41,3 +42,23 @@
     }
   }
 %>
+<% if @current_organization %>
+  <% content_for :head do %>
+    <% title =  "#{@current_organization.name} - #{@current_organization.payoff}" %>
+    <% description = @current_organization.homepage_data['homepage_bio_description'] %>
+    <% home_url = "https://#{get_organization_domain(@current_organization)}" %>
+
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <meta name="image" content='<%= logo %>'>
+    <meta name="application-name" content="<%= title %>">
+    <meta content="<%= I18n.locale&.to_s %>" http-equiv='content-language'>
+    <meta name="language" content="<%= I18n.locale == :it ? 'Italian' : 'English' %>">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= home_url %>">
+    <meta property="og:image" content='<%= logo %>'>
+    <meta property="og:description" content="<%= description %>">
+    <meta property="og:site_name" content="<%= title %>">
+  <% end %>
+<% end %>

@@ -43,3 +43,6 @@ subscription organization:references product:references user:references order:re
 
 # To manage payments
 payment organization:references user:references order:references source:integer{1} state:integer{1} amount_cents:integer{4}
+
+## To notify messages to users
+#bullettins organization:references admin_user:references expiry_date:date title:string{127} text:string{255}

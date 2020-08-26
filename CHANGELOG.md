@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.42.0 26/08/2020
+
+- SEO attributes improved, analystics and other
+  - Now each organization has its own attributes in order to correctly index the home page
+  - Added google analytics
+  - Other little improvements 
+
 # v0.41.0 26/08/2020
 
 - Added UpdateCourseEventJob and other improvements
