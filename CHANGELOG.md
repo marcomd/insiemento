@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.44.2 27/08/2020
+
+- Fixed smtp authentication
+  - Added new smtp user and password inside credentials
+
 # v0.44.1 27/08/2020
 
 - Fixed a problem accessing the logo to attach to the email

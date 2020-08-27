@@ -76,8 +76,8 @@ Rails.application.configure do
 
   # SendGrid SMTP SERVER
   config.action_mailer.smtp_settings = {
-      :user_name => Rails.application.credentials.smtp_username,
-      :password => Rails.application.credentials.smtp_password,
+      :user_name => Rails.application.credentials.smtp[:production][:username],
+      :password => Rails.application.credentials.smtp[:production][:password],
       :domain => host,
       :address => 'smtp.sendgrid.net',
       :port => 587,
