@@ -10,7 +10,8 @@ module EmailHelper
     else
       binary ||=
           if image
-            open(url_for(image)) { |f| f.read }
+            # open(url_for(image)) { |f| f.read }
+            image.download
           else
             File.open(Rails.root.join(path, image_name), 'rb'){|f| f.read}
           end

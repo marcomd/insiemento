@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.44.1 27/08/2020
+
+- Fixed a problem accessing the logo to attach to the email
+
 # v0.44.0 27/08/2020
 
 - Added internal email generation and switch to this from sendgrid

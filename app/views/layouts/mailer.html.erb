@@ -54,7 +54,7 @@
           <td align="center" class="masthead">
             <%=
               if @organization.logo.present?
-                email_image_tag('logo.png' , image: @organization.logo_medium, size: 'x80', style: 'height: 80px;')
+                email_image_tag('logo.png' , image: @organization.logo, size: 'x80', style: 'height: 80px;')
               else
                 email_image_tag('logo_200.png', size: 'x80', style: 'height: 80px;')
               end
