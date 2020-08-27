@@ -184,7 +184,7 @@ it:
         new_password_saved: Password aggiornata con successo
         new_password_error: Errore, password non valida
         confirmation_email_sent: Controlla la tua casella email per confermare la tua registrazione
-        confirmation_email_error: Errore, indirizzo email già confermato
+        confirmation_email_error: Non è possibile confermare questo indirizzo email, probabilmente è stato già confermato
         profile_error: Errore, ricontrolla i dati inseriti
         profile_updated: Profilo aggiornato con successo!
         profile_completed: Profilo completato, ora sei pronto per iniziare!

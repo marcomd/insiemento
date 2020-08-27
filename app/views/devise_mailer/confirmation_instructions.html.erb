@@ -1,0 +1,5 @@
+<h3>Ciao <%= @resource.firstname %>!</h3>
+
+<p>Puoi confermare l'indirizzo email cliccando sul link sotto:</p>
+<p><%= link_to 'Conferma il mio account', api_ui_v1_user_confirmation_url(confirmation_token: @token, host: @hostname) %></p>
+

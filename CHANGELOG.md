@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.44.0 27/08/2020
+
+- Added internal email generation and switch to this from sendgrid
+  - Added a new customized layout for confirmation and reset password email, this email are now generated internally
+  - Emails have now organization's logo and colors
+
 # v0.43.0 27/08/2020
 
 - Added the footer in the homepage

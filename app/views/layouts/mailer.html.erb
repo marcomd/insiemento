@@ -1,13 +1,90 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width"/>
 
-  <body>
-    <%= yield %>
-  </body>
+  <style type="text/css">
+    * { margin: 0; padding: 0; font-size: 100%; font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; line-height: 1.65; }
+    img { max-width: 100%; margin: 0 auto; display: block; }
+    body, .body-wrap { width: 100% !important; height: 100%; background: #f8f8f8; }
+    a { color: <%= @organization.primary_color %>; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .text-left { text-align: left; }
+    .text-justify { text-align: justify; text-justify: inter-word; }
+    .button { display: inline-block; color: white; background: <%= @organization.primary_color %>; border: solid <%= @organization.primary_color %>; border-width: 10px 20px 8px; font-weight: bold; border-radius: 4px; }
+    .button:hover { text-decoration: none; }
+    h1, h2, h3, h4, h5, h6 { margin-bottom: 20px; line-height: 1.25; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 28px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 20px; }
+    h5 { font-size: 16px; }
+    p, ul, ol { font-size: 16px; font-weight: normal; margin-bottom: 20px; }
+    .container { display: block !important; clear: both !important; margin: 0 auto !important; max-width: 580px !important; }
+    .container table { width: 100% !important; border-collapse: collapse; }
+    .container .masthead { padding: 80px 0; background: white; color: white; }
+    .container .masthead h1 { margin: 0 auto !important; max-width: 90%; text-transform: uppercase; }
+    .container .content { background: white; padding: 10px 35px 30px 35px; }
+    .container .content .presentation { font-weight: normal; }
+    .container .content .technical-box { color: #888; font-size: 0.85em; }
+    .container .content .email-qrcode { padding: 10px; border: dashed #aaa 1px; }
+    .container .content .info { color: #aaa; font-style: italic; font-size: 0.9em; }
+    .container .content.footer { background: none; }
+    .container .content.footer p { margin-bottom: 0; color: #888; text-align: center; font-size: 14px; }
+    .container .content.footer a { color: #888; text-decoration: none; font-weight: bold; }
+    .container .content.footer a:hover { text-decoration: underline; }
+    .qrcode table { border-width: 0; border-style: none; border-color: #0000ff; border-collapse: collapse; }
+    .qrcode td { border-left: solid 10px #000; padding: 0; margin: 0; width: 0px; height: 10px; }
+    .qrcode td.black { border-color: #000; }
+    .qrcode td.white { border-color: #fff; }
+    .otp { font-size: 2.5em; letter-spacing: 9px; }
+
+  </style>
+</head>
+<body>
+<table class="body-wrap">
+  <tr>
+    <td class="container">
+      <!-- Message start -->
+      <table>
+        <tr>
+          <td align="center" class="masthead">
+            <%=
+              if @organization.logo.present?
+                email_image_tag('logo.png' , image: @organization.logo_medium, size: 'x80', style: 'height: 80px;')
+              else
+                email_image_tag('logo_200.png', size: 'x80', style: 'height: 80px;')
+              end
+            %>
+          </td>
+        </tr>
+        <tr>
+          <td class="content">
+            <%= yield %>
+            <br/>
+          </td>
+        </tr>
+        <tr><td style="background-color:<%= @organization.primary_color %>; padding:10px; line-height:16px; text-align:inherit;" height="100%" valign="top" bgcolor="<%= @organization.primary_color %>">
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="container">
+      <!-- Message start -->
+      <table>
+        <tr>
+          <td class="content footer" align="center">
+            <p><%= @organization ? "#{@organization.name} - " : nil %>Powered by <a href="<%= CONFIG[:application][:commercial][:url] %>"><%= CONFIG[:application][:commercial][:brand] %></a></p>
+            <p><a href="mailto:<%= @organization ? @organization.email : CONFIG[:application][:commercial][:support_email] %>"><%= @organization ? @organization.email : CONFIG[:application][:commercial][:support_email] %></a></p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
 </html>

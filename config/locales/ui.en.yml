@@ -184,7 +184,7 @@ en:
         new_password_saved: Password updated
         new_password_error: Error, invalid password
         confirmation_email_sent: Check your email to confirm your registration
-        confirmation_email_error: Error, email address already confirmed
+        confirmation_email_error: It is not possible to confirm this email address, it has probably already been confirmed
         profile_error: Error, double check the data entered
         profile_updated: Profile successfully updated!
         profile_completed: Profile completed, you are now ready to start!
