@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :restrict_with_error
   has_one :pending_order, -> { where(state: :just_made) }, class_name: 'Order'
   has_many :payments, dependent: :nullify
+  has_many :user_documents, dependent: :restrict_with_error
 
   has_one_attached :medical_certificate, dependent: :destroy
 

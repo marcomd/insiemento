@@ -74,20 +74,24 @@ GOOGLEANALYTICS
   end
 
   # Used to show error message of the destroy action
-  class BaseController
-    private
+  # It generates this deprecation warning:
+  # DEPRECATION WARNING: Initialization autoloaded the constants ApplicationHelper, EmailHelper, VueHelper, DeviseHelper, ApplicationController, InheritedResources::Base, ActionText::ContentHelper, and ActionText::TagHelper
+  unless Rails.env.test?
+    class BaseController
+      private
 
-    def flash_interpolation_options
-      options = {}
+      def flash_interpolation_options
+        options = {}
 
-      options[:resource_errors] =
-          if resource && resource.errors.any?
-            "#{resource.errors.full_messages.to_sentence}."
-          else
-            ""
-          end
+        options[:resource_errors] =
+            if resource && resource.errors.any?
+              "#{resource.errors.full_messages.to_sentence}."
+            else
+              ""
+            end
 
-      options
+        options
+      end
     end
   end
 end

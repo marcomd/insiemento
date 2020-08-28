@@ -45,6 +45,11 @@ class Ability
         can [:create], Room
         can [:read, :update, :destroy], Trainer, organization_id: admin_user.organization_id
         can [:create], Trainer
+        can [:read, :update, :destroy], UserDocumentModel, organization_id: admin_user.organization_id
+        can [:create], UserDocumentModel
+        can [:read, :update, :destroy], UserDocument, organization_id: admin_user.organization_id
+        can [:create], UserDocument
+        # Accountant resources
         can [:read], Category, organization_id: admin_user.organization_id
         can [:read], Product, organization_id: admin_user.organization_id
         can [:read], Subscription, organization_id: admin_user.organization_id

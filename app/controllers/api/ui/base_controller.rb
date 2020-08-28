@@ -15,7 +15,7 @@ class Api::Ui::BaseController < ApplicationController
     end
   end
 
-  rescue_from ActionController::ParameterMissing, Api::BadRequestError do |exception|
+  rescue_from ActionController::ParameterMissing, Api::BadRequestError, AASM::InvalidTransition do |exception|
     add_system_log exception.message, log_level: 'warning'
     respond_to do |format|
       format.json { render json: { error: exception.message }, status: :bad_request }

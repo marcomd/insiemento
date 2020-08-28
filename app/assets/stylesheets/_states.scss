@@ -7,22 +7,22 @@ $error_color: rgb(212, 95, 83);
 $critical_color: rgb(160,70,70);
 
 .status_tag {
-  &.notified, &.waiting {
+  &.notified, &.waiting, &.draft {
     background-color: $waiting_color;
   }
-  &.active {
+  &.active, &.sending, &.working {
     background-color: $yes_color;
   }
-  &.consumption, &.stripe {
+  &.consumption, &.stripe, &.created, &.notified {
     background-color: $working2_color;
   }
-  &.fee, &.paypal {
+  &.fee, &.paypal, &.signed {
     background-color: rgb(80, 110, 130);
   }
   &.completed, &.confirmed {
     background-color: $complete_color;
   }
-  &.warning {
+  &.warning, &.suspended {
     background-color: $warning_color;
   }
   &.failed, &.error {

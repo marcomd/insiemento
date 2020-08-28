@@ -1,0 +1,104 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3033/api/v1/authenticate
+    body:
+      encoding: UTF-8
+      string: '{"email":"info@insiemento.com","password":"****"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"de5c023e1f6a09d9612e553fbd003d85"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 5a307b56-2ad0-41a7-84a1-1ccd4d256cc4
+      X-Runtime:
+      - '0.209990'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"auth_token":"eyJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcl9pZCI6MTQsImV4cCI6MTU5ODY1MDUwN30.TnBzn9syGiGAZ7oQV55Ja7V10pmCXXvfHUg0m9rxg7Q"}'
+    http_version:
+  recorded_at: Thu, 27 Aug 2020 21:35:07 GMT
+- request:
+    method: post
+    uri: http://localhost:3033/api/v1/dossiers
+    body:
+      encoding: UTF-8
+      string: '{"customer_dossier_id":1234567,"unsigned_document":{"filename":"rspec.pdf","content":"JVBERi0xLjMKJf////8KMSAwIG9iago8PCAvQ3JlYXRvciA8ZmVmZjAwNTAwMDcyMDA2MTAwNzcwMDZlPgovUHJvZHVjZXIgPGZlZmYwMDUwMDA3MjAwNjEwMDc3MDA2ZT4KPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDMgMCBSCj4+CmVuZG9iagozIDAgb2JqCjw8IC9UeXBlIC9QYWdlcwovQ291bnQgMQovS2lkcyBbNSAwIFJdCj4+CmVuZG9iago0IDAgb2JqCjw8IC9MZW5ndGggNjgKPj4Kc3RyZWFtCnEKCkJUCjM2LjAgNzQ3LjM4NCBUZAovRjEuMCAxMiBUZgpbPDQ2PiAzMCA8NmY2ZjIwNDI2MTcyPl0gVEoKRVQKClEKCmVuZHN0cmVhbQplbmRvYmoKNSAwIG9iago8PCAvVHlwZSAvUGFnZQovUGFyZW50IDMgMCBSCi9NZWRpYUJveCBbMCAwIDYxMiA3OTJdCi9Dcm9wQm94IFswIDAgNjEyIDc5Ml0KL0JsZWVkQm94IFswIDAgNjEyIDc5Ml0KL1RyaW1Cb3ggWzAgMCA2MTIgNzkyXQovQXJ0Qm94IFswIDAgNjEyIDc5Ml0KL0NvbnRlbnRzIDQgMCBSCi9SZXNvdXJjZXMgPDwgL1Byb2NTZXQgWy9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldCi9Gb250IDw8IC9GMS4wIDYgMCBSCj4+Cj4+Cj4+CmVuZG9iago2IDAgb2JqCjw8IC9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwo+PgplbmRvYmoKeHJlZgowIDcKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAxMDkgMDAwMDAgbiAKMDAwMDAwMDE1OCAwMDAwMCBuIAowMDAwMDAwMjE1IDAwMDAwIG4gCjAwMDAwMDAzMzMgMDAwMDAgbiAKMDAwMDAwMDU5OSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDcKL1Jvb3QgMiAwIFIKL0luZm8gMSAwIFIKPj4Kc3RhcnR4cmVmCjY5NgolJUVPRgo=","sign_points":[{"key":"key_1","label":"Terms
+        and conditions","page":1,"top":60,"left":10,"required":true}]},"recipients":[{"first_name":"Plinio","last_name":"Il
+        Vecchio","email":"plinio@rspec.com","phone_number":"+393334567890","language":"it"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+      Authorization:
+      - eyJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcl9pZCI6MTQsImV4cCI6MTU5ODY1MDUwN30.TnBzn9syGiGAZ7oQV55Ja7V10pmCXXvfHUg0m9rxg7Q
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 6d3e1aaf-d9e8-4676-ba54-36b2fdbb2d67
+      X-Runtime:
+      - '0.175111'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"errors":{"documents.file_hash":["has already been taken"],"customer_dossier_id":["has
+        already been taken"]}}'
+    http_version:
+  recorded_at: Thu, 27 Aug 2020 21:35:07 GMT
+recorded_with: VCR 5.1.0

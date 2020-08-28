@@ -52,7 +52,7 @@ class VirtualTable
 
     def load_all
       all = []
-      Document.all.each do |document|
+      UserDocumentModel.all.each do |document|
         all.concat document.sign_points
         # all << new({ document_id: document.id }.merge data)
       end

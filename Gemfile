@@ -110,6 +110,9 @@ gem "aws-sdk-s3", require: false
 # The Stripe Ruby library provides convenient access to the Stripe API
 gem 'stripe', '~> 5'
 
+# Prawn is a pure Ruby PDF generation library that provides a lot of great functionality while trying to remain simple and reasonably performant
+gem 'prawn', '~> 2.3.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

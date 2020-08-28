@@ -29,7 +29,8 @@ A simple ecommerce to buy subscriptions on their own is also under development.
 
 ## Demo
 
-[Try](https://insiemento.herokuapp.com/users) the demo using these credentials
+**Sorry, demo is not available at the moment**
+[Try](https://insiemento-demo.herokuapp.com/users) the demo using these credentials
 
 email: `marco@fitness.io`
 pwd: `abcd1234!!`
@@ -52,14 +53,16 @@ Allows root administrators to manage via UI:
 
 Allows administrators of each organization to configure:
 
+- Customize own organization and the homepage
 - Courses
 - Trainers
 - Rooms where the courses will be phisically done
 - Define the program of the week: course, trainer, room, day and time
 - Categories and products (to manage subscriptions)
 
-_In progress_: users can buy products to extend their subscriptions. They create orders with choosen products, 
-then pay and gain access. The goal is to create a simple ecommerce to allow users to independently extend their subscription.
+Users can buy products to extend their subscriptions. They create orders with choosen products, 
+then pay and gain access. The goal is to create a simple ecommerce to allow users to independently extend their subscription. 
+Atm the ecommerce is only a draft, this feature can be used by admins. 
 
 An automatism:
 
@@ -75,7 +78,21 @@ Each course has its parameters:
 
 - From when it is possible to book, from when to cancel etc.
 
+### Homepage
+
+Insiemento has a homepage and offers another one to each organization.
+It can be defined by admin ui: text, colors, photos, contacts, social networks, SEO etc.
+It can use subdomains or domains so it is extremely customizable.
+
 ### Subscriptions
+
+Subscription allow users attendee to courses.
+
+Three types are available atm:
+ 
+- trial (limited presences and period)
+- consumption (they buy presences)
+- fee (they buy a period)
 
 The administrator defines the category, for each one creates one or more products. Codes are generated for each product
 that the customer buys to extend the validity of his subscription.
@@ -110,9 +127,12 @@ Currently, only administrators can associate a subscription with a customer but 
 - [x] Milestone1: Management of fitness training sessions (course events)
 - [x] Milestone2: Organizations for multitenant management `v0.5.0`
 - [x] Products management
-- [x] Milestone3: Customers subscription management `v0.6.0`
-- [ ] Milestone4: Orders and payments management, in progress `v0.12.0`
-- [ ] Milestone5: Organizations fee management
+- [x] Customers subscription management `v0.6.0`
+- [ ] Orders and payments management, in progress `v0.12.0`
+- [ ] Organizations fee management
+- [x] Homepage `v0.26.0`
+- [x] Complete emails management, internal + sendgrid `v0.44.0`
+- [x] Self Certification management (for covid) `v0.45.0`
 
 ## Run locally
 

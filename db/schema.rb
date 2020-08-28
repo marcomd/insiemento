@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_211849) do
+ActiveRecord::Schema.define(version: 2020_08_27_131911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,6 +292,31 @@ ActiveRecord::Schema.define(version: 2020_08_25_211849) do
     t.index ["organization_id"], name: "index_trainers_on_organization_id"
   end
 
+  create_table "user_document_models", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.integer "state", limit: 2
+    t.string "title", limit: 255
+    t.text "body"
+    t.integer "validity_days", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_user_document_models_on_organization_id"
+  end
+
+  create_table "user_documents", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_document_model_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "state", limit: 2
+    t.string "title", limit: 255
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_user_documents_on_organization_id"
+    t.index ["user_document_model_id"], name: "index_user_documents_on_user_document_model_id"
+    t.index ["user_id"], name: "index_user_documents_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "firstname", limit: 30
@@ -363,5 +388,9 @@ ActiveRecord::Schema.define(version: 2020_08_25_211849) do
   add_foreign_key "subscriptions", "users"
   add_foreign_key "system_logs", "organizations"
   add_foreign_key "trainers", "organizations"
+  add_foreign_key "user_document_models", "organizations"
+  add_foreign_key "user_documents", "organizations"
+  add_foreign_key "user_documents", "user_document_models"
+  add_foreign_key "user_documents", "users"
   add_foreign_key "users", "organizations"
 end

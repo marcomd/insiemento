@@ -515,3 +515,50 @@ if Attendee.count == 0
 
   puts "Attendees: #{Attendee.count}"
 end
+
+if UserDocumentModel.count == 0
+  body = <<'TEXT'
+DICHIARAZIONE SULLE CONDIZIONI DI SALUTE (AUTODICHIARAZIONE AI SENSI DELL’ART. 47 D.P.R. N. 445/2000)
+
+Il sottoscritto #{user.firstname} #{user.lastname} nato il #{user.birthdate}
+Tel #{user.phone} email #{user.email}
+
+
+DICHIARA SOTTO LA PROPRIA RESPONSABILITÀ
+
+a) di essere a conoscenza delle misure di contenimento del contagio vigenti;
+b) che il figlio o un convivente dello stesso all’interno del nucleo familiare non è o non è stato COVID-19
+positivo accertato ovvero è stato COVID 19 positivo accertato e dichiarato guarito a seguito di duplice
+tampone negativo;
+c) che il figlio o un convivente dello stesso all’interno del nucleo familiare non è stato sottoposto alla misura
+della quarantena o isolamento domiciliare negli ultimi 14 giorni;
+d) che il figlio o un convivente dello stesso all’interno del nucleo familiare non ha avuto negli ultimi 14 giorni
+contatti con soggetti risultati positivi al COVID-19 o con una persona con temperatura corporea superiore ai
+37,5°C o con sintomatologia respiratoria, per quanto di propria conoscenza;
+e) che il figlio o un convivente dello stesso all’interno del nucleo familiare non ha presentato negli ultimi 3
+giorni sintomi influenzali (tosse, febbre superiore a 37,5°) e che in caso di insorgere degli stessi nel minore
+durante l’allenamento sarà propria cura provvedere a riportarlo tempestivamente presso il proprio domicilio;
+f) di essere a conoscenza delle sanzioni previste dal combinato disposto dell’art. 2 del D.L. 33 del 16 maggio
+2020 e del DPCM 11 giugno 2020.
+
+San Giuliano Mil.se, #{today}      In fede _________________________
+
+Il presente modulo sarà conservato da #{organization.name} nel rispetto della normativa sulla
+tutela dei dati personali, fino al termine dello stato di emergenza sanitaria.
+TEXT
+
+  doc_covid=UserDocumentModel.create!(organization_id: o_dance.id, title: 'Autocertificazione Covid', body: body, validity_days: 14)
+  puts "UserDocumentModel: #{UserDocumentModel.count}"
+else
+  doc_covid, other = UserDocumentModel.all
+end
+
+if UserDocument.count == 0
+  user_document_attributes = []
+  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_stefy.id, state: :created , title: doc_covid.title, body: doc_covid.body}
+  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_marco.id, state: :sending , title: doc_covid.title, body: doc_covid.body}
+  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_linda.id, state: :draft   , title: doc_covid.title, body: doc_covid.body}
+
+  UserDocument.create!(user_document_attributes)
+  puts "UserDocument: #{UserDocument.count}"
+end

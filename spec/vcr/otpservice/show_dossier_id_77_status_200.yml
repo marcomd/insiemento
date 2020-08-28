@@ -1,0 +1,105 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3033/api/v1/authenticate
+    body:
+      encoding: UTF-8
+      string: '{"email":"info@insiemento.com","password":"****"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"72911d3bb8010bc076b4380437f9cbc7"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 268b8d36-13f5-4df1-a44f-d67e12e05403
+      X-Runtime:
+      - '0.112289'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"auth_token":"eyJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcl9pZCI6MTQsImV4cCI6MTU5ODY1MTQ2NH0.3VZMy1THA9cLbukWkDJ6zkOdCqeWiKj_x0YsdIlErB4"}'
+    http_version:
+  recorded_at: Thu, 27 Aug 2020 21:51:04 GMT
+- request:
+    method: get
+    uri: http://localhost:3033/api/v1/dossiers/77
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+      Authorization:
+      - eyJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcl9pZCI6MTQsImV4cCI6MTU5ODY1MTQ2NH0.3VZMy1THA9cLbukWkDJ6zkOdCqeWiKj_x0YsdIlErB4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"4a2f0488be5e52f18fd96733bfaf80c1"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - c43c9127-0f00-4b90-922e-4b69a1633692
+      X-Runtime:
+      - '0.033969'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"id":77,"uuid":"a77ca75b-f5a7-40f0-9432-23bd519624cb","customer_id":14,"state":"notified","customer_dossier_id":1234567,"send_unsigned_document":true,"send_signed_document":true,"generate_signed_document":false,"created_at":"2020-08-27T23:15:18.048+02:00","updated_at":"2020-08-27T23:15:18.080+02:00","recipients":[{"id":146,"uuid":"fa1938ad-c0da-4d59-9a26-401ec6848449","customer_id":14,"signer_id":115,"state":"notified","first_name":"Plinio","last_name":"Il
+        Vecchio","email":"plinio@rspec.com","phone_number":"+393334567890","language":"it","created_at":"2020-08-27T23:15:18.063+02:00","updated_at":"2020-08-27T23:15:18.085+02:00"}],"documents":[{"id":20,"dossier_id":77,"label":"unsigned_document","file_hash":"01635247513968597096ba4d157d057f","created_at":"2020-08-27T23:15:18.052+02:00","filename":"rspec.pdf","recipients_marked_signs":{"146":["key_1"]},"url":"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBHZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--d887ff506af1fdde9c6d10a2cb0a1d166c1fb008/rspec.pdf","sign_points":[{"key":"key_1","label":"Terms
+        and conditions","page":1,"top":60,"left":10,"required":true}]}],"email_communications":[{"id":35,"dossier_id":77,"document_id":20,"label":"unsigned_document","sent_at":"2020-08-27T23:15:18.127+02:00","created_at":"2020-08-27T23:15:18.102+02:00"}]}'
+    http_version:
+  recorded_at: Thu, 27 Aug 2020 21:51:04 GMT
+recorded_with: VCR 5.1.0

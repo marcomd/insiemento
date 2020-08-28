@@ -236,8 +236,8 @@ it:
         one: "Schedulazione"
         other: "Schedulazioni"
       user:
-        one: "Utente"
-        other: "Utenti"
+        one: "Cliente"
+        other: "Clienti"
       attendee:
         one: "Partecipante"
         other: "Partecipanti"
@@ -262,6 +262,12 @@ it:
       payment:
         one: "Pagamento"
         other: "Pagamenti"
+      user_document_model:
+        one: "Modello documento cliente"
+        other: "Modelli documenti cliente"
+      user_document:
+        one: "Documento cliente"
+        other: "Documenti cliente"
     attributes: &attributes
       id: "Id"
       created_at: "Data creazione"
@@ -339,7 +345,7 @@ it:
         course_schedule: "Schedulazione"
         category: "Categoria"
         event_date: "Data evento"
-        users: "Utenti"
+        users: "Clienti"
         attendees: "Partecipanti"
         attendees_count: "Numero partecipanti"
         state: "Stato"
@@ -472,6 +478,35 @@ it:
           canceled: "Cancellato"
           synched: "Sincronizzato"
           confirmed: "Confermato"
+      user_document_model:
+        organization: "Organizzazione"
+        title: "Titolo"
+        body: "Corpo"
+        state: "Stato"
+        states:
+          active: "Attivo"
+          suspended: "Sospeso"
+        validity_days: "Giorni validità"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      user_document:
+        organization: "Organizzazione"
+        user_document_model: "Modello"
+        user: "Cliente"
+        title: "Titolo"
+        body: "Corpo"
+        state: "Stato"
+        states:
+          draft: "Bozza"
+          sending: "Invio"
+          working: "Lavorazione"
+          created: "Creato"
+          notified: "Notificato"
+          signing: "In firma"
+          signed: "Firmato"
+          completed: "Completato"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
     errors:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'
@@ -508,7 +543,7 @@ it:
     diagnostics: "Diagnostica"
     project_diagnostic: "Diagnostica Progetto"
     sidekiq: "Gestione code asincrone"
-    users_management: "Gestione Utenti"
+    users_management: "Gestione Clienti"
     products_management: "Gestione Prodotti"
     payments_management: "Gestione Pagamenti"
     courses_management: "Gestione Corsi"

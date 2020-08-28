@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.44.2"
-    updated_at: "27/08/2020"
+    version: "0.45.0"
+    updated_at: "28/08/2020"
     started_at: "13/01/2020"
     commercial:
       brand: "Insiemento"
@@ -37,6 +37,8 @@ defaults: &defaults
   authentication:
     customer:
       jwt_expiration_hours: 24
+  otpservice:
+    host: "http://localhost:3033"
 
 development:
   <<: *defaults
@@ -65,3 +67,5 @@ production:
     user: <%= Rails.application.credentials.smtp.dig(:production, :user) %>
     password: <%= Rails.application.credentials.smtp.dig(:production, :password) %>
   domains: ["insiemento.com", "herokuapp.com"]
+  otpservice:
+    url: "http://pre.otpservice.io"

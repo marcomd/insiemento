@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v0.45.0 28/08/2020
+
+- Added self certification management
+  - Due to legal purpose, users must certificate they are covid free. Added two new resources:
+    - UserDocumentModel: it contains the text of the document
+    - UserDocument: it manages the document sendings to users through the external otp service
+  - New service OtpService to allow users to sign document remotely
+  - Several improvements to code, seeds and specs
+
 # v0.44.2 27/08/2020
 
 - Fixed smtp authentication
@@ -199,7 +208,7 @@
 
 # v0.28.0 02/08/2020 4h
 
-- Standard hompage and registration
+- Standard homepage and registration
   - The application controller now selects organization by uuid in the query string. 
   - The application mailer, that previously retrieve the organization by the ENV, now retrieve it bye the user with the new rules.
   - The registration controller now sign up users in the current organization

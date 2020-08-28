@@ -126,6 +126,14 @@ ActiveAdmin.register User do
             column(:updated_at)
           end
         end
+        panel link_to(UserDocument.model_name.human(count: 2), admin_user_documents_path('q[user_id_eq]' => user.id)) do
+          table_for user.user_documents.order('id desc').limit(2) do |user_document|
+            column(:id) { |obj| link_to obj.id, [:admin, obj] }
+            column(:user)
+            column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+            column(:created_at)
+          end
+        end
       end
     end
   end

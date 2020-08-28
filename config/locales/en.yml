@@ -91,6 +91,12 @@ en:
       payment:
         one: "Payment"
         other: "Payments"
+      user_document_model:
+        one: "User document model"
+        other: "User document models"
+      user_document:
+        one: "Sending document"
+        other: "Send documents"
     attributes: &attributes
       id: "Id"
       created_at: "Created at"
@@ -301,6 +307,35 @@ en:
             canceled: "Canceled"
             synched: "Synchronized"
             confirmed: "Confirmed"
+      user_document_model:
+        organization: "Organization"
+        title: "Title"
+        body: "Body"
+        state: "State"
+        states:
+          active: "Active"
+          suspended: "Suspended"
+        validity_days: "Validity days"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      user_document:
+        organization: "Organization"
+        user_document_model: "User document model"
+        user: "Customer"
+        title: "Title"
+        body: "Body"
+        state: "State"
+        states:
+          draft: "Draft"
+          sending: "Sending"
+          working: "Working"
+          created: "Created"
+          notified: "Notified"
+          signing: "Signing"
+          signed: "Signed"
+          completed: "Completed"
+        created_at: "Created at"
+        updated_at: "Updated at"
     error:
       messages:
         invalid_json_format: "it is not a valid json format"
