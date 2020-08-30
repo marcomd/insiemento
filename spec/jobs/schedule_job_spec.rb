@@ -23,7 +23,7 @@ RSpec.describe ScheduleJob, type: :job do
     end
 
     it do
-      Timecop.freeze 1.week.from_now do
+      Timecop.freeze 2.weeks.from_now do
         expect do
           perform_enqueued_jobs{ subject }
         end.to change(CourseEvent, :count).by(1)

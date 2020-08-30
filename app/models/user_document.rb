@@ -36,7 +36,7 @@ class UserDocument < ApplicationRecord
     end
 
     event :work do
-      transitions from: :sending, to: :working,
+      transitions from: [:working, :sending], to: :working,
                   if: [:body]
     end
 

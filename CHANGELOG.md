@@ -1,5 +1,10 @@
 # CHANGELOG
 
+- v0.45.1 30/08/2020
+  - Fixed a sidekiq issue
+    An error NoMethodError: undefined method `request_uri' for #<URI::Generic /api/v1/authenticate> was generated 
+    due to the wrong parameter name "otpservice.host"
+
 # v0.45.0 28/08/2020
 
 - Added self certification management

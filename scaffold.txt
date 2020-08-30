@@ -50,4 +50,4 @@ payment organization:references user:references order:references source:integer{
 user_document_model organization:references state:integer{1} title:string{255} body:text validity_days:integer{2}
 # validity_days: i giorni trascorsi i quali è necessario rinviare il documento all'utente
 
-user_document organization:references user_document_model:references user:references state:integer{1} title:string{255} body:text
+user_document organization:references user_document_model:references user:references state:integer{1} title:string{255} body:text expired_at:date
