@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_one :pending_order, -> { where(state: :just_made) }, class_name: 'Order'
   has_many :payments, dependent: :nullify
   has_many :user_documents, dependent: :restrict_with_error
+  has_many :active_user_documents, -> { active }, class_name: 'UserDocument'
 
   has_one_attached :medical_certificate, dependent: :destroy
 
@@ -28,8 +29,14 @@ class User < ApplicationRecord
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..64, allow_blank: true
 
-  STATES = { just_made: 10, active: 20, suspended: 30}
-  enum state: STATES
+  before_validation :set_default
+  # after_save :set_state!
+  before_save :set_state
+
+  STATES = { new: 10,
+             active: 20,
+             suspended: 30}
+  enum state: STATES, _suffix: true
 
   def full_name
     "#{firstname} #{lastname}"
@@ -40,5 +47,48 @@ class User < ApplicationRecord
   # or confirmation are being set somewhere.
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
+  end
+
+  def has_active_document?(user_document_model_id)
+    # active_user_documents.pluck(:user_document_model_id).include? user_document_model_id
+    active_user_documents.where(id: user_document_model_id).count > 0
+  end
+
+  # Use it whether user must accepts all document before booking, work in progress...
+  def any_pending_documents?
+    organization.user_document_models.active_state.order('id').each do |user_document_model|
+      return true unless has_active_document?(user_document_model.id)
+    end
+    false
+  end
+
+  # Not used
+  # def any_signed_documents?
+  #   organization.user_document_models.active_state.joins(:user_documents).where(user_documents: {user_id: id, state: [:signed, :completed]}).count
+  # end
+  #
+  # def set_state!
+  #   any_active_subscriptions = active_subscriptions.count > 0
+  #   if any_active_subscriptions
+  #     update(state: :active) if !active_state?
+  #   else
+  #     update(state: :suspended) if active_state?
+  #   end
+  # end
+
+
+  private
+
+  def set_state
+    any_active_subscriptions = active_subscriptions.count > 0
+    if any_active_subscriptions
+      self.state = :active if !active_state?
+    else
+      self.state = :suspended if active_state?
+    end
+  end
+
+  def set_default
+    self.state ||= :new
   end
 end

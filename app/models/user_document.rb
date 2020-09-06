@@ -11,43 +11,54 @@ class UserDocument < ApplicationRecord
 
   enum state: {
       draft:                  10, # Write the text...
-      sending:                20, # The text is ready, it will be sent to otp service
-      working:                30, # Sent to otp service
-      created:                40,
-      notified:               50,
-      signing:                60,
-      signed:                 70,
-      completed:             100,
+      ready:                  20, # The document is ready to sent to external service
+      exporting:              30, # Job is sending document to external service
+      exporting_error:        40, # An error was occured during exporting
+      exported:               50, # The document has been sent to external service
+      signed:                 70, # The document has been signed by signer
+      completed:              80, # The signed document has been sent to signer
+      expired:                100,# The document is no more valid
   }, _suffix: true
 
   include AASM
   aasm :state, column: :state, enum: true do
     state :draft, initial: true
-    state :sending, :working, :created, :notified, :signing, :signed, :completed
+    state :ready, :exporting, :exporting_error, :exported, :signed, :completed, :expired
 
     event :send_to_otpservice do
-      transitions from: :draft, to: :sending,
+      transitions from: :draft, to: :ready,
                   if: [:body],
                   success: :create_dossier_on_otpservice
     end
 
-    event :cancel_sending do
-      transitions from: :sending, to: :draft
+    event :not_ready_anymore do
+      transitions from: :ready, to: :draft
     end
 
-    event :work do
-      transitions from: [:working, :sending], to: :working,
+    event :start_export do
+      transitions from: [:ready, :exporting, :exporting_error], to: :exporting,
                   if: [:body]
     end
 
-    event :otpservice_created do
-      transitions from: [:sending, :working], to: :created
+    event :created_on_otpservice do
+      transitions from: [:exporting, :exporting_error], to: :exported
     end
 
-    event :complete do
-      transitions to: :completed
+    event :error_on_otpservice do
+      transitions from: [:exporting], to: :exporting_error
     end
+
+    # Other states are set by external callbacks
   end
+
+  # Used by User model to get active user document
+  scope :active, -> (date=Time.zone.today) { where.not(state: :expired).where('expire_on > ?', date) }
+  scope :to_expire, -> (date=Time.zone.today) { where.not(state: :expired).where('expire_on <= ?', date) }
+
+
+  # def active?(date=Time.zone.today)
+  #   expire_on > date
+  # end
 
   def parsed_body
     eval "\"#{body}\""
@@ -81,9 +92,11 @@ class UserDocument < ApplicationRecord
   # Imposta i valori di default dei campi del db prima della creazione
   # Vedi le sottoclassi sti per l'override dei valori
   def set_default
+    self.uuid ||= SecureRandom.uuid
     if user_document_model
       self.title = user_document_model.title unless title.present?
       self.body = user_document_model.body unless body.present?
+      self.expire_on = Time.zone.now + user_document_model.validity_days.days
     end
   end
 end

@@ -40,6 +40,19 @@ ActiveAdmin.register Product do
     actions
   end
 
+
+  filter :organization    , if: proc { current_admin_user.is_root? }
+  filter :category        , collection: proc { current_admin_user.categories }
+  #filter :product_type, as: :select, collection: proc { Product.localized_states }
+  filter :name
+  filter :description
+  filter :price, as: :numeric
+  filter :days
+  filter :state       , as: :select, collection: Product.localized_states
+  filter :max_accesses_number
+  filter :created_at
+  filter :updated_at
+
   show do |product|
     columns do
       column do
@@ -70,17 +83,6 @@ ActiveAdmin.register Product do
     end
     active_admin_comments
   end
-
-  filter :organization    , if: proc { current_admin_user.is_root? }
-  filter :category        , collection: proc { current_admin_user.categories }
-  filter :name
-  filter :description
-  filter :price, as: :numeric
-  filter :days
-  filter :state       , as: :select, collection: Product.localized_states
-  filter :max_accesses_number
-  filter :created_at
-  filter :updated_at
 
   form do |f|
     f.inputs do

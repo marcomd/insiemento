@@ -1,8 +1,20 @@
 # CHANGELOG
 
-- v0.45.1 30/08/2020
-  - Fixed a sidekiq issue
-    An error NoMethodError: undefined method `request_uri' for #<URI::Generic /api/v1/authenticate> was generated 
+# v0.46.0 06/09/2020
+
+- Improved self certification management, admin ui and other improvements
+  - Added expire date and uuid to user document. Uuid is necessary to receive a callback from external service, to
+    update the state
+  - Added UserDocumentsManagerService to create user documents from active document and to change state to expired documents 
+  - Added UserDocumentsManagerJob scheduled every morning
+  - Added UserDocumentsController to receive external callback
+  - The user's state now changes properly during saving, the state depends on active subscriptions
+  - Fixed a bug in the create course events job (ScheduleJob)
+
+# v0.45.1 30/08/2020
+
+- Fixed a sidekiq issue
+  - An error NoMethodError: undefined method `request_uri' for #<URI::Generic /api/v1/authenticate> was generated 
     due to the wrong parameter name "otpservice.host"
 
 # v0.45.0 28/08/2020

@@ -366,7 +366,7 @@ it:
         phone: "Telefono"
         state: "Stato"
         states:
-          just_made: "Nuovo"
+          new: "Nuovo"
           active: "Attivo"
           suspended: "Sospeso"
         confirmed_at: "Data attivazione"
@@ -487,6 +487,7 @@ it:
           active: "Attivo"
           suspended: "Sospeso"
         validity_days: "Giorni validità"
+        recurring: "Ricorrente"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       user_document:
@@ -498,13 +499,14 @@ it:
         state: "Stato"
         states:
           draft: "Bozza"
-          sending: "Invio"
-          working: "Lavorazione"
-          created: "Creato"
-          notified: "Notificato"
-          signing: "In firma"
+          ready: "Pronto"
+          exporting: "Invio"
+          exporting_error: "Errore"
+          exported: "Inviato"
           signed: "Firmato"
           completed: "Completato"
+          expired: "Scaduto"
+        expire_on: "Data scadenza"
         created_at: "Data creazione"
         updated_at: "Data modifica"
     errors:
@@ -529,7 +531,16 @@ it:
         user: "Scegli il cliente a cui assegnare l'abbonamento o fallo in seguito"
         start_on: "Se è stato scelto il cliente, la data di inizio validità verrà impostata in automatico con quella del giorno"
         end_on: "Se lasciata vuota verrà calcolata in automatico partendo dalla data inizio e in base ai giorni definiti nel prodotto"
-        max_accesses_number: "Se è un prodotto a consumo, scegli il numero di entrate"
+        max_accesses_number: "Se è un prodotto a consumo, scegli il numero di entrate. Lascia vuoto per usare il valore definito nel prodotto."
+        code: "Codice univoco dell'abbonamento. Lascia vuoto per calcolarlo in automatico."
+        state: "Lo stato è calcolato in automatico in base agli altri dati come la data scadenza o il numero di accessi eseguiti"
+      user_document_model:
+        body: "Usa le variabili nel seguente formato #{user.firstname}"
+        recurring: "Per creare in automatico un nuovo documento dopo la scadenza"
+      user_document:
+        uuid: "Codice univoco per il servizio di firma elettronica. Lascia vuoto per assegnarlo in automatico"
+        body: "Usa le variabili nel seguente formato #{user.firstname}"
+        expire_on: "Oltre questa data il documento scade. Lascia vuoto per calcolarla in automatico in base alla validità definita nel modello"
 
   activeadmin:
     panels:

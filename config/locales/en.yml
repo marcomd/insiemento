@@ -195,7 +195,7 @@ en:
         phone: "Telephone"
         state: "State"
         states:
-          just_made: "New"
+          new: "New"
           active: "Active"
           suspended: "Suspended"
         confirmed_at: "Activation date"
@@ -316,6 +316,7 @@ en:
           active: "Active"
           suspended: "Suspended"
         validity_days: "Validity days"
+        recurring: "Recurring"
         created_at: "Created at"
         updated_at: "Updated at"
       user_document:
@@ -327,13 +328,14 @@ en:
         state: "State"
         states:
           draft: "Draft"
-          sending: "Sending"
-          working: "Working"
-          created: "Created"
-          notified: "Notified"
-          signing: "Signing"
+          ready: "Ready"
+          exporting: "Sending"
+          exporting_error: "Error"
+          exported: "Sent"
           signed: "Signed"
           completed: "Completed"
+          expired: "Expired"
+        expire_on: "Expire on"
         created_at: "Created at"
         updated_at: "Updated at"
     error:
@@ -355,6 +357,13 @@ en:
         start_on: "If the customer has been chosen, the validity start date will be set automatically with that of the day"
         end_on: "If left blank it will be calculated automatically starting from the start date and based on the days defined in the product"
         max_accesses_number: "If it is a pay-as-you-go product, choose the number of entries"
+      user_document_model:
+        body: "Use variables in the following format # {user.firstname}"
+        recurring: "To automatically create a new document after expiration"
+      user_document:
+        uuid: "Unique code for the electronic signature service. Leave blank to assign it automatically"
+        body: "Use variables in the following format # {user.firstname}"
+        expire_on: "After this date the document expires. Leave blank to calculate it automatically based on the validity defined in the model"
   activeadmin:
     panels:
       active_subscriptions: "Active subscriptions"

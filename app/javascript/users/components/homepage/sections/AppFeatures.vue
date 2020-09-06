@@ -51,9 +51,9 @@
       applicationFeatures() {
         return [
           {
-            title: 'Contratto elettronico',
+            title: 'Firma elettronica',
             icon: 'mdi-fountain-pen-tip',
-            text: "Vuoi evitare ai tuoi clienti la scomodità di un contratto cartaceo? Puoi usare il nostro servizio di firma elettronica.",
+            text: "Dimentica la carta e usa il nostro servizio di firma elettronica! Contratto, autocertificazione covid-19 ogni 14 giorni, ecc. Configura il tuo documento e lo faremo firmare per te.",
           },
           {
             title: 'Adatto anche su dispositivi mobile',
@@ -75,7 +75,7 @@
           {
             title: 'Prezzi chiari',
             icon: 'mdi-ice-pop',
-            text: "Paghi in base al numero di atleti, solo 50 centesimi al mese per ognuno.",
+            text: "Paghi in base al numero di atleti, solo 50 centesimi al mese per ognuno. I servizi extra invece, come la firma elettronica, li paghi solo se li utilizzi.",
           },
           {
             title: 'Gestionale adatto a tutti',

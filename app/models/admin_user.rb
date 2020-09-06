@@ -69,5 +69,7 @@ class AdminUser < ApplicationRecord
     is_root? ? Payment.all : organization&.payments || []
   end
 
-
+  def user_document_models
+    is_root? ? UserDocumentModel.all : organization&.user_document_models || []
+  end
 end

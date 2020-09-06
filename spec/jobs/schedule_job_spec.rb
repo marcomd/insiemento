@@ -34,7 +34,7 @@ RSpec.describe ScheduleJob, type: :job do
       it do
         expect do
           perform_enqueued_jobs{ subject }
-        end.to change(SystemLog, :count).by(1)
+        end.to raise_exception(ActiveRecord::RecordInvalid, /Course already exists/)
       end
     end
   end

@@ -14,6 +14,7 @@ class Organization < ApplicationRecord
   has_many :system_logs, dependent: :destroy
   has_many :course_schedules
   has_many :course_events
+  has_many :user_document_models, dependent: :destroy
 
   has_many :homepage_features, class_name: 'Homepage::Feature'
   has_many :homepage_contacts, class_name: 'Homepage::Contact'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_131911) do
+ActiveRecord::Schema.define(version: 2020_08_30_214143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -300,7 +300,9 @@ ActiveRecord::Schema.define(version: 2020_08_27_131911) do
     t.integer "validity_days", limit: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "recurring"
     t.index ["organization_id"], name: "index_user_document_models_on_organization_id"
+    t.index ["state"], name: "index_user_document_models_on_state"
   end
 
   create_table "user_documents", force: :cascade do |t|
@@ -312,9 +314,14 @@ ActiveRecord::Schema.define(version: 2020_08_27_131911) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "expire_on"
+    t.string "uuid", limit: 36
+    t.index ["expire_on"], name: "index_user_documents_on_expire_on"
     t.index ["organization_id"], name: "index_user_documents_on_organization_id"
+    t.index ["state"], name: "index_user_documents_on_state"
     t.index ["user_document_model_id"], name: "index_user_documents_on_user_document_model_id"
     t.index ["user_id"], name: "index_user_documents_on_user_id"
+    t.index ["uuid"], name: "index_user_documents_on_uuid"
   end
 
   create_table "users", force: :cascade do |t|

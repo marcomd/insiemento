@@ -125,12 +125,16 @@
 
     data: () => ({
       features: [
-        ['Canone mensile', '25€', '50€', 'Contattaci'],
-        ['Atleti', 'fino 50', 'fino 100', 'Contattaci'],
-        ['N. utenze nel gestionale', 'Illimitate', 'Illimitate', 'Illimitate'],
-        ['Supporto morale', true, true, true],
-        ['Supporto tecnico', false, false, true],
-        ['API', false, false, true],
+        ['Canone mensile'           , 'Free'      , '0,5€ x atleta' , 'Contattaci'],
+        ['Atleti'                   , 10          , 'Illimitati'    , 'Illimitati'],
+        ['N. utenze nel gestionale' , 1           , 'Illimitate'    , 'Illimitate'],
+        ['Homepage'                 , false       , true            , true        ],
+        ['Dominio terzo livello '   , false       , true            , true        ],
+        ['Dominio personalizzato'   , false       , 'da 50€ annui'  , 'Contattaci'],
+        ['Firma elettronica'        , false       , '1 € cad'       , 'Contattaci'],
+        ['Supporto funzionale'      , false       , true            , true        ],
+        ['Supporto tecnico'         , false       , false           , true        ],
+        ['API'                      , false       , false           , true        ],
       ],
     }),
   }

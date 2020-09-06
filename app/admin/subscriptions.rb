@@ -24,6 +24,11 @@ ActiveAdmin.register Subscription do
     end
   end
 
+  scope I18n.t('activerecord.attributes.subscription.subscription_types.trial'), :trial
+  scope I18n.t('activerecord.attributes.subscription.subscription_types.consumption'), :consumption
+  scope I18n.t('activerecord.attributes.subscription.subscription_types.fee'), :fee
+  scope I18n.t('ui.users.commons.all'), :all, default: true
+
   index do
     selectable_column
     id_column
@@ -31,7 +36,7 @@ ActiveAdmin.register Subscription do
     column(:category)
     column(:product)
     column(:user)
-    #column(:order)
+   #column(:order)
     column(:subscription_type)  { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
     column(:state)              { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
     column(:start_on)
@@ -39,6 +44,20 @@ ActiveAdmin.register Subscription do
     column(:max_accesses_number)
     actions
   end
+
+  filter :organization, if: proc { current_admin_user.is_root? }
+  filter :category    , collection: proc { current_admin_user.categories }
+  # filter :subscription_type #, as: :select, collection: proc { Subscription.localized_states }
+  filter :product     , collection: proc { current_admin_user.products }
+  filter :user        , collection: proc { current_admin_user.users }
+  filter :order       , collection: proc { current_admin_user.orders }
+  filter :state       , as: :select, collection: Order.localized_states
+  filter :code
+  filter :start_on
+  filter :end_on
+  filter :max_accesses_number
+  filter :created_at
+  filter :updated_at
 
   show do |subscription|
     columns do
@@ -92,6 +111,8 @@ ActiveAdmin.register Subscription do
       if current_admin_user.is_root?
         f.input(:code)
         f.input(:state)
+      else
+        f.input(:state, input_html: { disabled: true })
       end
       f.input :max_accesses_number
     end

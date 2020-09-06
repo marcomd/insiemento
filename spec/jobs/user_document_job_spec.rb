@@ -4,7 +4,7 @@ RSpec.describe UserDocumentJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later(user_document) }
-  let(:user_document) { UserDocument.sending_state.first }
+  let(:user_document) { UserDocument.exporting_state.first }
 
   context 'when job is enqueued' do
     # We reset the queue manually so as not to affect next tests
@@ -26,7 +26,7 @@ RSpec.describe UserDocumentJob, type: :job do
             perform_enqueued_jobs{ subject }
           end
           user_document.reload
-        end.to change(user_document, :state).from('sending').to('created')
+        end.to change(user_document, :state).from('exporting').to('exported')
       end
     end
 

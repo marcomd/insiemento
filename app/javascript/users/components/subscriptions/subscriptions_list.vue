@@ -1,6 +1,6 @@
 <template>
 	<v-list three-line>
-		<SubscriptionCard v-for="subscription in subscriptions" :subscription="subscription"></SubscriptionCard>
+		<SubscriptionCard v-for="subscription in subscriptions" :key="subscription.id" :subscription="subscription"></SubscriptionCard>
 	</v-list>
 </template>
 

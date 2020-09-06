@@ -10,6 +10,7 @@ class Subscription < ApplicationRecord
 
   before_validation :set_default
   before_save :set_current_state
+  after_save :update_user_state
 
   validates_presence_of :subscription_type
   validates_presence_of :start_on, if: :user
@@ -72,6 +73,10 @@ class Subscription < ApplicationRecord
     _exceeded_caps << :start_on if !start_on || date < start_on
     _exceeded_caps << :end_on   if end_on && date > end_on
     _exceeded_caps
+  end
+
+  def update_user_state
+    user&.save
   end
 
   def set_default

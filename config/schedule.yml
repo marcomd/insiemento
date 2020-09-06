@@ -1,8 +1,19 @@
-create_course_events:
-  cron: "0 0 * * 7"
-  class: ScheduleJob
-  queue: course_events
+# .---------------- [m]inute: (0 - 59)
+# |  .------------- [h]our: (0 - 23)
+# |  |  .---------- [d]ay of month: (1 - 31)
+# |  |  |  .------- [mon]th: (1 - 12) OR jan,feb,mar,apr...
+# |  |  |  |  .---- [w]eek day: (0 - 6) (sunday=0 or 7)  OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  *
 update_course_events:
   cron: "1,31 * * * *"
   class: UpdateCourseEventsJob
+  queue: course_events
+user_documents_manager:
+  cron: "0 7 * * *"
+  class: UserDocumentsManagerJob
+  queue: user_documents
+create_course_events:
+  cron: "0 0 * * 7"
+  class: ScheduleJob
   queue: course_events

@@ -25,7 +25,7 @@ module Insiemento
     # config.assets.precompile += %w[active_admin.scss active_admin.js]
 
     config.active_job.queue_adapter = :sidekiq
-    config.action_mailer.deliver_later_queue_name = "default_mailer"
+    config.action_mailer.deliver_later_queue_name = "insiemento_mailer"
 
     config.active_storage.variant_processor = :vips
 

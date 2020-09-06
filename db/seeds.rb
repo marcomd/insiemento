@@ -348,7 +348,7 @@ generic_lastname = 'Generic'
 if User.count == 0
   u_stefy=User.new(firstname: 'Stefania', lastname: 'Rossini', email: "stefania@#{o_dance.domain}",
                       organization: o_dance,
-                      birthdate: '1990-05-25', gender: 'F', state: :active, phone: '3391122333',
+                      birthdate: '1990-05-25', gender: 'F', phone: '3391122333',
                       password: default_password,
                       password_confirmation: default_password)
   u_stefy.skip_confirmation!
@@ -356,7 +356,7 @@ if User.count == 0
 
   u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: "marco@#{o_dance.domain}",
                    organization: o_dance,
-                   birthdate: '1995-06-15', gender: 'M', state: :active, phone: '3354455555',
+                   birthdate: '1995-06-15', gender: 'M', phone: '3354455555',
                    password: default_password,
                    password_confirmation: default_password)
   u_marco.skip_confirmation!
@@ -364,7 +364,7 @@ if User.count == 0
 
   u_linda=User.new(firstname: 'Linda', lastname: 'Sacco', email: "linda@#{o_dance.domain}",
                    organization: o_dance,
-                   birthdate: '2000-01-12', gender: 'F', state: :active, phone: '3382244333',
+                   birthdate: '2000-01-12', gender: 'F', phone: '3382244333',
                    password: default_password,
                    password_confirmation: default_password)
   u_linda.skip_confirmation!
@@ -372,7 +372,7 @@ if User.count == 0
 
   u_paolo=User.new(firstname: 'Paolo', lastname: 'Paolotto', email: "paolo@#{o_dance.domain}",
                    organization: o_dance,
-                   birthdate: '1990-10-04', gender: 'M', state: :active, phone: '3382244444',
+                   birthdate: '1990-10-04', gender: 'M', phone: '3382244444',
                    password: default_password,
                    password_confirmation: default_password)
   u_paolo.skip_confirmation!
@@ -380,7 +380,7 @@ if User.count == 0
 
   u_elena=User.new(firstname: 'Elena', lastname: 'Elica', email: "elena@#{o_dance.domain}",
                    organization: o_dance,
-                   birthdate: '2001-10-04', gender: 'F', state: :active, phone: '3301020300',
+                   birthdate: '2001-10-04', gender: 'F', phone: '3301020300',
                    password: default_password,
                    password_confirmation: default_password)
   u_elena.skip_confirmation!
@@ -388,7 +388,7 @@ if User.count == 0
 
   u_pina=User.new(firstname: 'Pina', lastname: 'Pesce', email: "pina@#{o_swim.domain}",
                    organization: o_swim,
-                   birthdate: '1985-05-10', gender: 'F', state: :active, phone: '3331122333',
+                   birthdate: '1985-05-10', gender: 'F', phone: '3331122333',
                    password: default_password,
                    password_confirmation: default_password)
   u_pina.skip_confirmation!
@@ -397,7 +397,7 @@ if User.count == 0
   generic_user_names.each do |name|
     user=User.new(firstname: name.capitalize, lastname: generic_lastname, email: "#{name}@#{o_dance.domain}",
                   organization: o_dance,
-                  birthdate: '2000-01-12', gender: 'M', state: :active, phone: '3382244666',
+                  birthdate: '2000-01-12', gender: 'M', phone: '3382244666',
                   password: default_password,
                   password_confirmation: default_password)
     user.skip_confirmation!
@@ -485,6 +485,7 @@ if Payment.count == 0
   subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, state: :active, start_on: Time.zone.today }
   subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_ten  , user: u_linda, state: :active, start_on: Time.zone.today }
   subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, state: :active, start_on: Time.zone.today }
+  # Add subscription to generic users to allow them to attendee course event
   generic_users.each do |user|
     subscription_attributes << { organization: o_dance, category: p_fitness_try.category, product: p_fitness_try  , user: user,    state: :active, start_on: Time.zone.today }
   end
@@ -520,7 +521,7 @@ if UserDocumentModel.count == 0
   body = <<'TEXT'
 DICHIARAZIONE SULLE CONDIZIONI DI SALUTE (AUTODICHIARAZIONE AI SENSI DELL’ART. 47 D.P.R. N. 445/2000)
 
-Il sottoscritto #{user.firstname} #{user.lastname} nato il #{user.birthdate}
+Il sottoscritto #{user.firstname} #{user.lastname} nato il #{birthdate}
 Tel #{user.phone} email #{user.email}
 
 
@@ -547,7 +548,7 @@ Il presente modulo sarà conservato da #{organization.name} nel rispetto della n
 tutela dei dati personali, fino al termine dello stato di emergenza sanitaria.
 TEXT
 
-  doc_covid=UserDocumentModel.create!(organization_id: o_dance.id, title: 'Autocertificazione Covid', body: body, validity_days: 14)
+  doc_covid=UserDocumentModel.create!(organization_id: o_dance.id, title: 'Autocertificazione Covid', body: body, validity_days: 14, recurring: true)
   puts "UserDocumentModel: #{UserDocumentModel.count}"
 else
   doc_covid, other = UserDocumentModel.all
@@ -555,9 +556,9 @@ end
 
 if UserDocument.count == 0
   user_document_attributes = []
-  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_stefy.id, state: :created , title: doc_covid.title, body: doc_covid.body}
-  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_marco.id, state: :sending , title: doc_covid.title, body: doc_covid.body}
-  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_linda.id, state: :draft   , title: doc_covid.title, body: doc_covid.body}
+  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_stefy.id, state: :exported , title: doc_covid.title, body: doc_covid.body}
+  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_marco.id, state: :exporting, title: doc_covid.title, body: doc_covid.body}
+  user_document_attributes << {organization_id: doc_covid.organization_id, user_document_model_id: doc_covid.id, user_id: u_linda.id, state: :draft    , title: doc_covid.title, body: doc_covid.body, uuid: 'b085520f-abe1-48f3-9587-6568af775216'}
 
   UserDocument.create!(user_document_attributes)
   puts "UserDocument: #{UserDocument.count}"

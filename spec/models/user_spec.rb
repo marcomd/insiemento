@@ -1,5 +1,81 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe '#has_active_document?' do
+    let(:result) { subject.has_active_document?(user_document_model_id) }
+    let(:user_document_model_id) { 1 }
+
+    context 'when user has an active document' do
+      subject { user_stefania }
+      it { expect(result).to be_truthy }
+    end
+
+    context 'when user does NOT have an active document' do
+      subject { user_paolo }
+      it { expect(result).to be_falsey }
+    end
+  end
+
+  describe '#set_state' do
+    let(:result) { subject.send(:set_state) }
+
+    context 'when user has an active subscription' do
+      subject { user_stefania }
+
+      context 'when user is active' do
+        it do
+          expect do
+            expect(subject.active_state?).to be_truthy
+            result
+          end.to_not change(subject, :state)
+        end
+      end
+
+      context 'when user is NOT active' do
+
+        before { subject.state = :new }
+        it do
+          expect do
+            expect(subject.active_state?).to be_falsey
+            result
+          end.to change(subject, :state).to('active')
+        end
+      end
+    end
+
+    context 'when user does NOT have an active subscription' do
+      subject { user_elena }
+
+      context 'when user is active' do
+        before { subject.state = :active }
+        it do
+          expect do
+            expect(subject.active_state?).to be_truthy
+            result
+          end.to change(subject, :state).to('suspended')
+        end
+      end
+
+      context 'when user is new' do
+        before { subject.state = :new }
+        it do
+          expect do
+            expect(subject.active_state?).to be_falsey
+            result
+          end.to_not change(subject, :state)
+        end
+      end
+
+      context 'when user is suspended' do
+        before { subject.state = :suspended }
+        it do
+          expect do
+            expect(subject.active_state?).to be_falsey
+            result
+          end.to_not change(subject, :state)
+        end
+      end
+    end
+  end
 end

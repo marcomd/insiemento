@@ -34,6 +34,7 @@ ActiveAdmin.register UserDocumentModel do
     column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
     column(:title)
     column(:validity_days)
+    column(:recurring)
     column(:created_at)
     column(:updated_at)
     actions
@@ -46,6 +47,7 @@ ActiveAdmin.register UserDocumentModel do
           row(:organization) if current_admin_user.is_root?
           row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
           row(:validity_days)
+          row(:recurring)
           row(:created_at)
           row(:updated_at)
         end
