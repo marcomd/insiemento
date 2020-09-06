@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.46.1 06/09/2020
+
+- Fixed ScheduleJob spec
+
 # v0.46.0 06/09/2020
 
 - Improved self certification management, admin ui and other improvements

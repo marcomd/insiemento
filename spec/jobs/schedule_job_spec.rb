@@ -17,16 +17,18 @@ RSpec.describe ScheduleJob, type: :job do
   end
 
   context 'when job is performed' do
-    before do
-      CourseSchedule.update_all state: :suspended
-      CourseSchedule.first.update state: :active
-    end
+    context 'when course event does NOT exists' do
+      before do
+        CourseSchedule.update_all state: :suspended
+        CourseSchedule.first.update state: :active
+      end
 
-    it do
-      Timecop.freeze 2.weeks.from_now do
-        expect do
-          perform_enqueued_jobs{ subject }
-        end.to change(CourseEvent, :count).by(1)
+      it do
+        Timecop.freeze 2.weeks.from_now do
+          expect do
+            perform_enqueued_jobs{ subject }
+          end.to change(CourseEvent, :count).by(1)
+        end
       end
     end
 
