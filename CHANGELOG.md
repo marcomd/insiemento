@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.46.2 07/09/2020
+
+- Fixed otpservice configuration
+
 # v0.46.1 06/09/2020
 
 - Fixed ScheduleJob spec

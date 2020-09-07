@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.46.1"
-    updated_at: "06/09/2020"
+    version: "0.46.2"
+    updated_at: "07/09/2020"
     started_at: "13/01/2020"
     commercial:
       brand: "Insiemento"
@@ -68,4 +68,4 @@ production:
     password: <%= Rails.application.credentials.smtp.dig(:production, :password) %>
   domains: ["insiemento.com", "herokuapp.com"]
   otpservice:
-    host: "https://pre.otpservice.io"
+    host: "https://otpservice.io"
