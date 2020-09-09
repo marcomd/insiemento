@@ -38,6 +38,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     render :show
   end
 
+  # PUT /api/ui/v1/course_events/:id/subscribe
   def subscribe
     status =
       if course_event_filter_params[:subscribe] == true
@@ -56,6 +57,26 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     end
   end
 
+  # PUT /api/ui/v1/course_events/:id/audit
+  def audit
+    if current_user.trainer_id && current_user.trainer_id == @course_event.trainer_id
+      true_ids = course_event_filter_params[:presences].select { |k, v| v }.keys
+      @course_event.attendees.where(id: true_ids).update_all(presence: true, updated_at: Time.zone.now) if true_ids.present?
+      false_ids = course_event_filter_params[:presences].select { |k, v| !v }.keys
+      @course_event.attendees.where(id: false_ids).update_all(presence: false, updated_at: Time.zone.now) if false_ids.present?
+      render json: { presences: course_event_filter_params[:presences] }, status: :ok
+    else
+      render json: { errors: ['Operation not allowed'] }, status: 403
+    end
+  end
+
+  # GET /api/ui/v1/course_events/:id/attendees
+  def attendees
+    simulate_delay_for_development
+    @attendees = @course_event.attendees.includes(:user)
+    render 'api/ui/v1/attendees/index', status: :ok
+  end
+
   private
 
   def set_course_event
@@ -63,7 +84,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   end
 
   def course_event_filter_params
-    params.permit(:id, :course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state, :subscribe)
+    params.permit(:id, :course_id, :room_id, :trainer_id, :course_schedule_id, :event_date, :state, :subscribe, presences: {})
   end
 
   def course_event_params

@@ -356,6 +356,18 @@ it:
           closed: "Chiuso"
         created_at: "Data creazione"
         updated_at: "Data modifica"
+      attendee:
+        organization: "Organizzazione"
+        course_event: "Sessione"
+        course_event_id: "ID Sessione"
+        user: "Partecipante"
+        subscription: "Abbonamento"
+        subscription_id: "ID Abbonamento"
+        presence: "Presenza"
+        present_at_this_time: "Presenze in questo momento"
+        event_at: "Inizio sessione"
+        created_at: "Data prenotazione"
+        updated_at: "Data controllo presenza"
       user:
         organization: "Organizzazione"
         email: "eMail"

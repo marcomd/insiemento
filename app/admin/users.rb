@@ -12,7 +12,7 @@ ActiveAdmin.register User do
 
   permit_params do
     permitted = [:firstname, :lastname, :email, :birthdate, :password, :password_confirmation, :gender, :phone, :state,
-                  :medical_certificate, :medical_certificate_expire_at, :confirmed_at]
+                  :medical_certificate, :medical_certificate_expire_at, :confirmed_at, :trainer_id]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -65,9 +65,8 @@ ActiveAdmin.register User do
     columns do
       column do
         attributes_table do
-          if current_admin_user.is_root?
-            row(:organization)
-          end
+          row(:organization) if current_admin_user.is_root?
+          row(:trainer) if user.trainer_id
           row(:email)
           row(:firstname)
           row(:lastname)
@@ -163,6 +162,10 @@ ActiveAdmin.register User do
       f.input :password_confirmation
       f.input :state
       f.input :confirmed_at, as: :datetime_picker
+      tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+      f.input :trainer_id, as: :search_select, url: admin_trainers_path(tmp_params),
+              fields: [:nickname], display_name: 'nickname', minimum_input_length: 3,
+              order_by: 'nickname_asc'
     end
 
     f.actions

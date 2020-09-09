@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :registerable, :confirmable
 
   belongs_to :organization
+  belongs_to :trainer, optional: true
   has_many :attendees, dependent: :destroy
   has_many :course_events, through: :attendees
   # No, user can have multiple active subscriptions

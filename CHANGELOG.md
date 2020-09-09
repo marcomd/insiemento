@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# v0.47.0 09/09/2020
+
+- New relationships "trainer" to user, added presence to attendee and audit actions
+  - Backend
+    - Added trainer id to user which it is now linked to trainer. This could also be considered as new role 
+      act to audit course events. Using user resource allow us to reuse the login and the ui created for users.
+    - Added the new field "presence" to attendee model
+    - Added attendees list and audit action to course events controller
+    - Added a new attendees section to admin ui to provide a history of partecipations and also presence in real time
+  - Frontend
+    - A user with a trainer can now show the list of attendance and audit them with the presence  
+
 # v0.46.2 07/09/2020
 
 - Fixed otpservice configuration

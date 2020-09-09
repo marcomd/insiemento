@@ -61,6 +61,9 @@ export const getters = {
     //return _user.user_type == 'LEGAL_PERSON' ? _user.business_name : [_user.first_name, _user.last_name].join(' ')
     return [_user.firstname, _user.lastname].join(' ')
   },
+  isTrainer: (state, getters) => {
+    return !!getters.currentUser.trainer_id
+  },
   // fullAddress: (state, getters) => {
   //   if (!!getters.currentUser.address && !!getters.currentUser.cap) {
   //     return [getters.currentUser.address, getters.currentUser.cap].join(', ')

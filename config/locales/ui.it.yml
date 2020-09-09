@@ -116,6 +116,9 @@ it:
           full: Completo
         show:
           title: "Corso di <strong>%{name}</strong>"
+        attendees:
+          audit:
+            title: "Controlla le presenze effettive"
         attributes:
           course: Corso
           room: Sala

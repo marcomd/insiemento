@@ -27,9 +27,11 @@
       confirmationEmail: api_ui_v1_user_confirmation_url,
       profile: api_ui_v1_profile_url,
       # Tha tag :id will be replaced by the front end
+      course_events_index: api_ui_v1_course_events_url,
       course_event_show: api_ui_v1_course_event_url(':id'),
       course_event_subscribe: subscribe_api_ui_v1_course_event_url(':id'),
-      course_events_index: api_ui_v1_course_events_url,
+      course_event_audit: audit_api_ui_v1_course_event_url(':id'),
+      course_event_attendees: attendees_api_ui_v1_course_event_url(':id'),
       products_index: api_ui_v1_products_url,
       product_show: api_ui_v1_product_url(':id'),
       subscriptions_index: api_ui_v1_subscriptions_url,

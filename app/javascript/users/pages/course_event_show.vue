@@ -20,6 +20,15 @@
             {{ $t('sidebar.course_events') }}
           </v-btn>
         </div>
+
+        <CourseEventAttendeesAudit v-if="attendees.length > 0" :course_event_id="course_event.id" :attendees="attendees" />
+        <div v-else-if="loading" align="center" class="mt-3">
+          <v-progress-circular
+              size="30"
+              color="#aaaaaa"
+              indeterminate>
+          </v-progress-circular>
+        </div>
       </v-col>
     </v-row>
     <v-row>
@@ -46,21 +55,29 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   import CourseEventCardFull from '../components/course_events/course_event_card_full'
+  import CourseEventAttendeesAudit from '../components/course_events/course_events_attendees_audit'
   import { courseEventMixin } from '../mixins/course_event_mixin'
 
   export default {
     name: 'CourseEventShow',
     components: {
-      CourseEventCardFull
+      CourseEventCardFull,
+      CourseEventAttendeesAudit,
     },
     mixins: [courseEventMixin],
     created() {
       this.$store.dispatch('course_event/fetchCourseEvent', {id: this.$route.params.id})
         .then(course_event => {
           console.log(`course_event show id ${this.$route.params.id} course_event ${course_event.id} `)
+          if (this.isTrainer) {
+            console.log(`get attendees list`)
+            this.getAttendees({course_event_id: course_event.id}).then(attendees => {
+              this.attendees = attendees
+            })
+          }
         }).catch( error => {
           this.$store.dispatch('layout/replaceAlert', {
             type: 'error',
@@ -71,13 +88,16 @@
     },
     data: () => {
       return {
+        attendees: [],
       }
     },
     computed: {
       ...mapState('course_event', ['course_event']),
       ...mapState('layout', ['loading', 'submitting']),
+      ...mapGetters('profile', ['isTrainer']),
     },
     methods: {
+      ...mapActions('course_event', ['getAttendees']),
       updateCourseEventSubscription() {
         console.log(`updateCourseEventSubscription ${this.course_event.id} to ${!this.course_event.subscribed}`)
         this.$store

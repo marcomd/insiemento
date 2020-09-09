@@ -116,6 +116,9 @@ en:
           full: Full
         show:
           title: "<strong>% {name} </strong> course"
+        attendees:
+          audit:
+            title: "Please check the attendance"
         attributes:
           course: Course
           room: Room

@@ -49,6 +49,8 @@ class Ability
         can [:create], UserDocumentModel
         can [:read, :update, :destroy], UserDocument, organization_id: admin_user.organization_id
         can [:create], UserDocument
+        can [:read, :update, :destroy], Attendee, organization_id: admin_user.organization_id
+        can [:create], Attendee
         # Accountant resources
         can [:read], Category, organization_id: admin_user.organization_id
         can [:read], Product, organization_id: admin_user.organization_id
@@ -62,6 +64,10 @@ class Ability
         can [:read, :update], User, organization_id: admin_user.organization_id
         can [:read], Course, organization_id: admin_user.organization_id
         can [:read, :update], CourseEvent, organization_id: admin_user.organization_id
+        can [:read, :update], Attendee, organization_id: admin_user.organization_id
+        can [:read], CourseSchedule, organization_id: admin_user.organization_id
+        can [:read], Room, organization_id: admin_user.organization_id
+        can [:read], Trainer, organization_id: admin_user.organization_id
         can [:read, :update, :destroy], Category, organization_id: admin_user.organization_id
         can [:create], Category
         can [:read, :update, :destroy], Product, organization_id: admin_user.organization_id

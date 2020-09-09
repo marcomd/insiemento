@@ -22,6 +22,8 @@ Rails.application.routes.draw do
         resources :course_events do
           member do
             put 'subscribe'
+            put 'audit'
+            get 'attendees'
           end
         end
         resources :orders do

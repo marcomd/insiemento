@@ -97,6 +97,41 @@ export const actions = {
         .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
+  getAttendees({ commit, dispatch, rootState }, { course_event_id }) {
+    dispatch('layout/set_loading', true, { root: true })
+    return new Promise((resolve, reject) => {
+      const url = rootState.application.urls.course_event_attendees.replace(':id', course_event_id)
+      let course_event
+      Vue.http.get(url, null, {
+        responseType: 'json',
+      }).then(response => {
+        let attendees = response.data
+        // commit('SET_ATTENDEES', attendees)
+        dispatch('layout/set_loading', false, { root: true })
+        resolve(attendees)
+      }).catch(error => {
+        dispatch('layout/set_loading', false, { root: true })
+        console.log('getAttendees There was an error:', error.response ? error.response : error)
+        reject(error)
+      })
+    })
+  },
+  updatePresences({ commit, dispatch, rootState }, { course_event_id, params }) {
+    dispatch('layout/submitting_request', true, { root: true })
+    return new Promise((resolve, reject) => {
+      const url = rootState.application.urls.course_event_audit.replace(':id', course_event_id)
+      let course_event
+      Vue.http.put(url, params)
+        .then(response => {
+          course_event = response.body
+          console.log(`updateSubscription course_event`, course_event)
+          resolve(response)
+        }, error => {
+          reject(error)
+        })
+        .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
+    })
+  },
 }
 
 export const getters = {

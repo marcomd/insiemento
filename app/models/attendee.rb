@@ -1,4 +1,5 @@
 class Attendee < ApplicationRecord
+  belongs_to :organization
   belongs_to :user
   belongs_to :course_event
   belongs_to :subscription
@@ -17,6 +18,8 @@ class Attendee < ApplicationRecord
   after_create :update_subscription
   after_destroy :update_subscription
 
+  scope :present_at_this_time, -> (date=Time.zone.now) { where(presence: true).where('updated_at > ?', date - 70.minutes) }
+
   private
 
   def check_max_attendees
@@ -26,6 +29,7 @@ class Attendee < ApplicationRecord
   end
 
   def check_valid_subscriptions
+    self.organization_id ||= user.organization_id
     user.active_subscriptions.each do |subscription|
       if subscription.category_id == course_event.category_id
         self.subscription_id = subscription.id

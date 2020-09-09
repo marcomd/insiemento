@@ -67,10 +67,10 @@
 
         // Perchè un clear globale? Non consente di mostrare i messaggi impostati prima del routing
         // this.$store.dispatch('layout/clearAlerts')
-        this.$store.dispatch('layout/submitting_request', true)
+        // this.$store.dispatch('layout/submitting_request', true)
 
         return response => {
-          this.$store.dispatch('layout/submitting_request', false)
+          // this.$store.dispatch('layout/submitting_request', false)
 
           switch (response.status) {
             case 401:

@@ -87,7 +87,6 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     let(:action) { put url, params.to_json }
     let(:params) { {subscribe: subscribe} }
 
-    # HERE !!! Verificare che lo user esaurisca l'abbonamento a consumo
     context 'when user tries to subscribe' do
       let(:subscribe) { true }
       let(:course_event) do
@@ -104,7 +103,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
       context 'when events is expired' do
         let(:organization) { Organization.find(organization_id) }
         let(:course_schedule) { organization.course_schedules.first }
-        let(:event_date) { Time.zone.now }
+        let(:event_date) { Time.zone.now - 1 }
         let(:course_event_id) { course_event.id }
 
         it do
@@ -246,4 +245,66 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     end
   end
 
+  describe 'GET attendees' do
+    let(:url) { "/api/ui/v1/course_events/#{course_event_id}/attendees" }
+    let(:course_event_id) { stefania_subscribed_course_event_id }
+
+    it 'returns a list' do
+      get url
+      expect(last_response.status).to eq 200
+      expect(json).to be_a(Array)
+      expect(json.size).to eq 10
+    end
+
+    context 'without authentication' do
+      let(:jwt_token) { nil }
+
+      it 'has no authorization' do
+        get url
+        expect(last_response).to be_unauthorized
+      end
+    end
+  end
+
+  describe 'PUT audit' do
+    let(:url) { "/api/ui/v1/course_events/#{course_event_id}/audit" }
+    let(:action) { put url, params.to_json }
+    let(:params) { { presences: {'1': true, '2': false, '3': false, '7': false, '8': false, '9': false, '10': false, '11': false, '12': false, '13': false}} }
+
+    let(:course_event_id) { stefania_subscribed_course_event_id }
+
+    context 'when user does NOT have authorization' do
+      context 'when it does NOT have a trainer' do
+        before { user.update trainer_id: nil }
+        it do
+          action
+          expect(last_response.status).to eq 403
+          expect(json['errors']).to eq ['Operation not allowed']
+        end
+      end
+      context 'when it has a different trainer' do
+        let(:course_event) { stefania_unsubscribed_course_event }
+        before { user.update trainer_id: course_event.trainer_id }
+        it do
+          action
+          expect(last_response.status).to eq 403
+          expect(json['errors']).to eq ['Operation not allowed']
+        end
+      end
+    end
+
+    context 'when user have authorization' do
+      let(:course_event) { CourseEvent.find(course_event_id) }
+      before { user.update trainer_id: course_event.trainer_id }
+
+      it do
+        expect do
+          action
+          expect(json).to be_a(Hash)
+          expect(json['errors']).to be_nil
+          expect(last_response.status).to eq 200
+        end.to change { Attendee.where(presence: true).count }.by(1)
+      end
+    end
+  end
 end

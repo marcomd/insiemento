@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_30_214143) do
+ActiveRecord::Schema.define(version: 2020_09_06_155242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,7 +78,10 @@ ActiveRecord::Schema.define(version: 2020_08_30_214143) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "subscription_id", null: false
+    t.bigint "organization_id", null: false
+    t.boolean "presence"
     t.index ["course_event_id"], name: "index_attendees_on_course_event_id"
+    t.index ["organization_id"], name: "index_attendees_on_organization_id"
     t.index ["subscription_id"], name: "index_attendees_on_subscription_id"
     t.index ["user_id"], name: "index_attendees_on_user_id"
   end
@@ -112,6 +115,7 @@ ActiveRecord::Schema.define(version: 2020_08_30_214143) do
     t.integer "state", limit: 2, default: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "auditor_id"
     t.index ["category_id"], name: "index_course_events_on_category_id"
     t.index ["course_id"], name: "index_course_events_on_course_id"
     t.index ["course_schedule_id"], name: "index_course_events_on_course_schedule_id"
@@ -349,15 +353,18 @@ ActiveRecord::Schema.define(version: 2020_08_30_214143) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.date "medical_certificate_expire_at"
+    t.bigint "trainer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["trainer_id"], name: "index_users_on_trainer_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_users", "organizations"
   add_foreign_key "attendees", "course_events"
+  add_foreign_key "attendees", "organizations"
   add_foreign_key "attendees", "subscriptions"
   add_foreign_key "attendees", "users"
   add_foreign_key "categories", "organizations"
@@ -400,4 +407,5 @@ ActiveRecord::Schema.define(version: 2020_08_30_214143) do
   add_foreign_key "user_documents", "user_document_models"
   add_foreign_key "user_documents", "users"
   add_foreign_key "users", "organizations"
+  add_foreign_key "users", "trainers"
 end
