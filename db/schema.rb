@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_06_155242) do
+ActiveRecord::Schema.define(version: 2020_09_10_211720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -320,6 +320,7 @@ ActiveRecord::Schema.define(version: 2020_09_06_155242) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "expire_on"
     t.string "uuid", limit: 36
+    t.string "sign_checksum", limit: 32
     t.index ["expire_on"], name: "index_user_documents_on_expire_on"
     t.index ["organization_id"], name: "index_user_documents_on_organization_id"
     t.index ["state"], name: "index_user_documents_on_state"
@@ -356,6 +357,8 @@ ActiveRecord::Schema.define(version: 2020_09_06_155242) do
     t.bigint "trainer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["firstname"], name: "index_users_on_firstname"
+    t.index ["lastname"], name: "index_users_on_lastname"
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["trainer_id"], name: "index_users_on_trainer_id"

@@ -82,8 +82,8 @@ ActiveAdmin.register Payment do
                     },
                     level_2: {
                         attribute: :user_id,
-                        fields: [:email],
-                        display_name: :email,
+                        fields: [:firstname, :lastname],
+                        display_name: :full_name,
                         minimum_input_length: 3,
                         url: '\admin\users',
                     },
@@ -108,8 +108,8 @@ ActiveAdmin.register Payment do
                     minimum_input_length: 0,
                     level_1: {
                         attribute: :user_id,
-                        fields: [:email],
-                        display_name: :email,
+                        fields: [:firstname, :lastname],
+                        display_name: :full_name,
                         minimum_input_length: 3,
                         url: '\admin\users',
                     },

@@ -124,16 +124,16 @@ ActiveAdmin.register Order do
                         },
                         level_2: {
                             attribute: :user_id,
-                            fields: [:email],
-                            display_name: :email,
+                            fields: [:firstname, :lastname],
+                            display_name: :full_name,
                             minimum_input_length: 3,
                             url: '\admin\users',
                         }
               else
-                #tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-                f.input :user_id, as: :search_select, url: admin_users_path,
-                        fields: [:email], display_name: 'email', minimum_input_length: 3,
-                        order_by: 'email_asc', input_html: {class: 'after_user_selection'}
+                tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+                f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+                        fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
+                        order_by: 'lastname_asc', input_html: {class: 'after_user_selection'}
               end
               f.input :state
               f.input :start_on

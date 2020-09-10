@@ -6,7 +6,7 @@ ActiveAdmin.register UserDocument do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :organization_id, :user_document_model_id, :user_id, :state, :title, :body, :expire_on
+  permit_params :organization_id, :user_document_model_id, :user_id, :state, :title, :body, :expire_on, :sign_checksum
   #
   # or
   #
@@ -84,6 +84,7 @@ ActiveAdmin.register UserDocument do
   filter :title
   filter :body
   filter :expire_on
+  filter :sign_checksum
   filter :created_at
   filter :updated_at
 
@@ -96,6 +97,7 @@ ActiveAdmin.register UserDocument do
           row(:user_document_model)
           row(:user)
           row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          row(:sign_checksum) {|obj| link_to(obj.sign_checksum, "#{CONFIG.dig(:otpservice, :host)}/users/signature?checksum=#{obj.sign_checksum}", target: '_blank') if obj.sign_checksum }
           row(:expire_on)
           row(:created_at)
           row(:updated_at)
@@ -111,6 +113,27 @@ ActiveAdmin.register UserDocument do
       end
     end
     active_admin_comments
+  end
+
+  form do |f|
+    f.inputs do
+      f.semantic_errors *f.object.errors.keys
+      if current_admin_user.is_root?
+        f.input :organization
+        f.input :uuid
+        f.input :sign_checksum
+      else
+        f.input :organization, collection: [current_admin_user.organization]
+      end
+      tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+      f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+              fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
+              order_by: 'lastname_asc'
+      f.input :user_document_model
+      f.input :state
+      f.input :expire_on
+    end
+    f.actions
   end
 
   action_item :pdf, only: [:show, :edit] do

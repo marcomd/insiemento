@@ -87,7 +87,7 @@ gem 'money-rails', '~> 1.12'
 gem 'cancancan', '~> 3.1.0'
 
 # Extends ActiveAdmin to enable a set of great optional UX improving add-ons
-gem 'activeadmin_addons', '~> 1.7.0'
+gem 'activeadmin_addons' #, '~> 1.7.0'
 
 # Ruby state machines
 gem 'aasm', '~> 5.0.0'

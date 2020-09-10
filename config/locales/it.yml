@@ -519,6 +519,7 @@ it:
           completed: "Completato"
           expired: "Scaduto"
         expire_on: "Data scadenza"
+        sign_checksum: "Codice controllo firma"
         created_at: "Data creazione"
         updated_at: "Data modifica"
     errors:

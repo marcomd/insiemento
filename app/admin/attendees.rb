@@ -65,8 +65,8 @@ ActiveAdmin.register Attendee do
           end
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
           f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
-                   fields: [:email], display_name: 'email', minimum_input_length: 3,
-                   order_by: 'email_asc'
+                  fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
+                   order_by: 'lastname_asc'
           f.input :course_event_id
           f.input :subscription_id
           f.input :presence

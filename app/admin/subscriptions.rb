@@ -97,14 +97,23 @@ ActiveAdmin.register Subscription do
       else
         f.input :organization, collection: [current_admin_user.organization]
       end
-      f.input :category, collection: current_admin_user.categories
-      f.input :product, as: :select, collection: current_admin_user.products
+      # f.input :category, collection: current_admin_user.categories
+      # f.input :product, as: :select, collection: current_admin_user.products
+      f.input :product_id, as: :nested_select,
+              level_1: {
+                  attribute: :category_id,
+                  collection: current_admin_user.categories
+              },
+              level_2: {
+                  attribute: :product_id,
+                  collection: current_admin_user.products
+              }
       # f.input :subscription_type
       # Root admin could access all users so ability is not sufficient
       tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
       f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
-              fields: [:email], display_name: 'email', minimum_input_length: 3,
-              order_by: 'email_asc'
+              fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
+              order_by: 'lastname_asc'
 
       f.input :start_on
       f.input(:end_on)

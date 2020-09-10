@@ -336,6 +336,7 @@ en:
           completed: "Completed"
           expired: "Expired"
         expire_on: "Expire on"
+        sign_checksum: "Sign checksum"
         created_at: "Created at"
         updated_at: "Updated at"
     error:

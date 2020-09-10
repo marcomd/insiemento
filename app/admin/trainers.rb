@@ -32,7 +32,6 @@ ActiveAdmin.register Trainer do
     column(:firstname)
     column(:lastname)
     column(:nickname)
-    column(:bio)
     column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
     column(:created_at)
     column(:updated_at)

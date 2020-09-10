@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# v0.48.0 11/09/2020
+
+- Added sign checksum on user document and several fixes on admin ui
+  - Added new field "sign checksum" on user document model
+  - User document controller now update the new field. This is set by a callback from the external sign service and 
+    it is used to inquiry the sign and check details
+  - Added index on first and last name fields on the users table
+  - Several fixes on admin ui: 
+    - removed descriptions from list due to row too high
+    - users are now searched by first/last name (previously was by email) and their full name is displayed
+    - subscription form now filter products list by the selected category
+
 # v0.47.0 09/09/2020
 
 - New relationships "trainer" to user, added presence to attendee and audit actions

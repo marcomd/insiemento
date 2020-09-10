@@ -477,7 +477,7 @@ DEPENDENCIES
   aasm (~> 5.0.0)
   activeadmin (~> 2.7.0)
   activeadmin-minicolors!
-  activeadmin_addons (~> 1.7.0)
+  activeadmin_addons
   awesome_print (~> 1.8.0)
   aws-sdk-s3
   better_errors (~> 2.5.1)

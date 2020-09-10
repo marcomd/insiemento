@@ -32,7 +32,6 @@ ActiveAdmin.register Course do
     end
     column(:category)
     column(:name)
-    column(:description)
     column(:start_booking_hours)
     column(:end_booking_minutes)
     column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
