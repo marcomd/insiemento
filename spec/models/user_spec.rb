@@ -84,4 +84,10 @@ RSpec.describe User, type: :model do
 
     it { expect(result.size).to eq 4 }
   end
+
+  describe '.elegible_for_user_documents' do
+    let(:result) { described_class.elegible_for_user_documents }
+
+    it { expect(result.size).to eq 13 }
+  end
 end

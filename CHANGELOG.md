@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.54.0 12/09/2020
+
+- UserDocumentsManagerService selects user with completed profile
+  - It is mandatory user had phone number in order to send user document to otp service for remote signing
+
 # v0.53.0 12/09/2020
 
 - UserDocumentsManagerService selects no ended subscriptions
