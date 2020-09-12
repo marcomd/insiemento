@@ -78,4 +78,10 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '.with_not_ended_subscriptions' do
+    let(:result) { described_class.with_not_ended_subscriptions }
+
+    it { expect(result.size).to eq 4 }
+  end
 end

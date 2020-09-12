@@ -14,7 +14,7 @@ describe UserDocumentsManagerService do
     end
 
     context 'when user documents are expired' do
-      let(:future_date) { Time.zone.now + 1.month.from_now }
+      let(:future_date) { Time.zone.now + 2.weeks }
       it do
         Timecop.freeze future_date do
           expect do

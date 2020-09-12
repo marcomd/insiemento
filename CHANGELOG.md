@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.53.0 12/09/2020
+
+- UserDocumentsManagerService selects no ended subscriptions
+  - UserDocumentsManagerService now selects users with a subscription ending in the future in new or active state
+  - Added birthdate in the users section on the admin ui
+
 # v0.52.0 12/09/2020
 
 - Improved users section in the admin ui

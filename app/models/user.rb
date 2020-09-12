@@ -32,6 +32,10 @@ class User < ApplicationRecord
   validates_length_of       :password, within: 8..64, allow_blank: true
 
   #scope :active_subscriptions_at, -> (date=Time.zone.today) { where.not(state: :active).where('expire_on > ?', date) }
+  # HERE!!!
+  scope :with_not_ended_subscriptions, -> (date=Date.today) { where(subscriptions: { state: [:new, :active] })
+                                                                  .where('subscriptions.end_on >= ?', date)
+                                                                  .joins(:subscriptions).distinct }
   # scope :active_subscriptions_at, -> (date) { subscriptions.active_at(date) }
 
   before_validation :set_default

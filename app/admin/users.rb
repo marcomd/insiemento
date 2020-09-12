@@ -78,6 +78,7 @@ ActiveAdmin.register User do
           row(:firstname)
           row(:lastname)
           row(:phone)
+          row(:birthdate)
           row(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
           if user.medical_certificate.present?
             if /^image/ === user.medical_certificate.content_type
