@@ -15,8 +15,8 @@
 
 			<v-list-item-content>
 				<v-list-item-title>{{ subscription.product.name }}</v-list-item-title>
-				<v-list-item-subtitle>Valido dal {{ formattedDate(subscription.start_on) }} al {{ formattedDate(subscription.end_on) }}</v-list-item-subtitle>
-				<v-list-item-subtitle v-if="subscription.max_accesses_number">Utilizzo {{ subscription.attendees_count }} / {{ subscription.max_accesses_number }}</v-list-item-subtitle>
+				<v-list-item-subtitle>{{ $t('profile.validity_range', {from: formattedDate(subscription.start_on), to: formattedDate(subscription.end_on)}) }}</v-list-item-subtitle>
+				<v-list-item-subtitle v-if="subscription.max_accesses_number">{{ $t('commons.usage') }} {{ subscription.attendees_count }} / {{ subscription.max_accesses_number }}</v-list-item-subtitle>
 			</v-list-item-content>
 		</v-list-item>
 
@@ -36,14 +36,18 @@
 					</v-card-title>
 
 					<v-card-text>
-						<v-list>
-							<v-list-item v-for="attendee in subscription.attendees" :key="attendee.id">
+						<v-list v-if="subscription.attendees && subscription.attendees.length > 0">
+							<v-list-item v-for="attendee in subscription.attendees"
+													 :key="attendee.id">
 								<v-list-item-content>
 									<v-list-item-title>{{ formattedDateTime(attendee.course_event.event_date) }}</v-list-item-title>
 									<v-list-item-subtitle>{{ attendee.course_event.course }} con {{ attendee.course_event.trainer }}</v-list-item-subtitle>
 								</v-list-item-content>
 							</v-list-item>
 						</v-list>
+						<p class="text-center pt-9" v-else>
+							{{ $t('profile.no_attendees') }}
+						</p>
 					</v-card-text>
 
 					<v-divider></v-divider>
@@ -55,7 +59,7 @@
 								text
 								@click="dialog = false"
 						>
-							Chiudi
+							{{ $t('commons.close') }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>

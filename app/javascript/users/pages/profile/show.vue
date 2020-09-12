@@ -16,53 +16,19 @@
               </v-icon>
             </h3>
             <v-row class="info-entry mb-1" dense>
-              <v-col class="info-entry__value" cols='12'>
+              <v-col class="info-entry__value" cols='12' sm="6">
                 <v-icon>mdi-email</v-icon>
                 {{ currentUser.email }}
               </v-col>
-            </v-row>
-            <v-row class="info-entry"
-                   dense
-                   v-if="this.currentUser.phone"
-            >
-              <v-col class="info-entry__value" cols='12'>
+              <v-col class="info-entry__value" cols='12' sm="6" v-if="this.currentUser.phone">
                 <v-icon>mdi-phone</v-icon>
                 {{ phoneWithPrefix }}
               </v-col>
-            </v-row>
-
-            <!-- <v-row class="info-entry" dense>
-              <v-col class="info-entry__label" cols='12'>
-                {{ $t('profile.attributes.address') }}
-              </v-col>
-              <v-col class="info-entry__value" cols='12'>
-                {{ fullAddress }}
+              <v-col class="info-entry__value" cols='12' sm="6" v-if="this.currentUser.birthdate">
+                <v-icon>mdi-cake-variant</v-icon>
+                {{ formattedDate(currentUser.birthdate) }}
               </v-col>
             </v-row>
-            <v-row class="info-entry" dense>
-              <v-col class="info-entry__label" cols='12'>
-              {{ $t('profile.attributes.birthdate') }}
-              </v-col>
-              <v-col class="info-entry__value" cols='12'>
-                {{ birthdate }}
-              </v-col>
-            </v-row>
-            <v-row class="info-entry" dense>
-              <v-col class="info-entry__label" cols='12'>
-                {{ $t('profile.attributes.document_number') }}
-              </v-col>
-              <v-col class="info-entry__value" cols='12'>
-                {{ currentUser.document_number || '--' }}
-              </v-col>
-            </v-row>
-            <v-row class="info-entry" dense>
-              <v-col class="info-entry__label" cols='12'>
-                {{ $t('profile.attributes.fiscal_code') }}
-              </v-col>
-              <v-col class="info-entry__value" cols='12'>
-                {{ currentUser.fiscal_code || '--' }}
-              </v-col>
-            </v-row> -->
           </v-card-text>
           <v-card-actions>
             <div class='flex-grow-1'/>
@@ -75,8 +41,8 @@
               {{ $t('profile.edit_action') }}
             </v-btn>
           </v-card-actions>
-          <h3>Abbonamenti</h3>
-          <SubscriptionList v-if="subscriptions"
+          <h3>{{ $t('profile.subscriptions') }}</h3>
+          <SubscriptionList v-if="subscriptions && subscriptions.length > 0"
                             :subscriptions="subscriptions"></SubscriptionList>
           <div v-else-if="loading" class="text-center">
             <v-progress-circular
@@ -85,7 +51,8 @@
                 indeterminate>
             </v-progress-circular>
           </div>
-          <div class="pb-5" />
+          <p v-else class="text-center">{{ $t('profile.no_subscription') }}</p>
+          <div class="pb-10" />
         </v-card>
       </v-col>
     </v-row>

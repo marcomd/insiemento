@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.49.0 12/09/2020
+
+- Terms and conditions, many improvements to user UI
+  - Added new page Terms and conditions
+  - Added a new checkbox in signup form to accept terms and conditions
+  - Added profile completition alert shown if some data are missing
+  - Added age validation in the profile completition
+  - Improved english localization, some tags were missing
+  - Improved subscriptions and attendees list in the profile section
+
 # v0.48.0 11/09/2020
 
 - Added sign checksum on user document and several fixes on admin ui

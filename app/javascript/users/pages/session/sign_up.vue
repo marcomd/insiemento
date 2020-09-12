@@ -170,6 +170,29 @@
                 </v-col>
               </v-row>
 
+              <v-checkbox v-model="terms_and_conditions"
+                          @input='$v.terms_and_conditions.$touch()'
+                          @blur='$v.terms_and_conditions.$touch()'>
+                <template v-slot:label>
+                  <div>
+                    Accetto
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <a
+                            target="_blank"
+                            href="/users/terms_and_conditions"
+                            @click.stop
+                            v-on="on"
+                        >
+                          Termini e Condizioni
+                        </a>
+                      </template>
+                      Leggi con attenzione prima di accettare
+                    </v-tooltip>
+                  </div>
+                </template>
+              </v-checkbox>
+
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -178,7 +201,7 @@
               type='submit'
               form='sign-up-form'
               color='primary'
-              :disabled='$v.$invalid'
+              :disabled='$v.$invalid || !terms_and_conditions'
               :large='true'
               :loading='submitting'
               class='mr-2 mb-2'
@@ -229,6 +252,7 @@
         email_confirmation:     { required, email, sameAsEmail: sameAs('email') },
         password:               { required, minLength: minLength(8) },
         password_confirmation:  { required, sameAsPassword: sameAs('password') },
+        terms_and_conditions:   { required },
       }
     },
     data() {
@@ -240,6 +264,7 @@
         email_confirmation: '',
         password: '',
         password_confirmation: '',
+        terms_and_conditions: false,
         // organization: null,
         showPassword: false,
         showPasswordConfirmation: false,

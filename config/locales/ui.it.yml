@@ -28,6 +28,7 @@ it:
         close: "Chiudi"
         or: "o"
         all: "Tutti"
+        usage: "Utilizzo"
       locales:
         it: Italiano
         en: English
@@ -85,8 +86,10 @@ it:
         email: Indirizzo email
         title: Profilo
         update_action: Aggiorna
-        phone_prefix_hint: Ricerca prefisso o nome della nazione
-        phone_hint: Lo utilizzeremo per organizzare il tuo check-in in appartamento
+        subscriptions: Abbonamenti
+        no_subscription: Nessun abbonamento disponibile
+        validity_range: Valido dal %{from} al %{to}
+        no_attendees: Ancora nessun utilizzo
         attributes:
           email: Email
           firstname: Nome
@@ -100,8 +103,10 @@ it:
             robot: Androide
         hints:
           disabled_form: Il tuo account non consente la modifica di questi dati, nell'eventualità contattaci
-          fiscal_code: Inserisci il tuo codice fiscale
+          incomplete_profile: Il tuo profilo non è completo, inserisci i dati mancanti per continuare
           email: Ti verrà inviata un'email per confermare l'indirizzo
+          phone_prefix: Ricerca prefisso o nome della nazione
+          phone: Lo utilizzeremo solo per contattarti in caso di necessità
       course_event:
         edit_action: Modifica
         subscribe_action: Partecipa
@@ -165,6 +170,7 @@ it:
         password_required: password richiesta
         email_required: email richiesta
         email_invalid_format: formato email non corretto
+        email_invalid_format_spaces: formato email non corretto, elimina gli spazi
         email_confirmation_not_equal: è diversa dalla mail inserita
         required: obbligatorio
         field_required: Questo dato è necessario
@@ -174,6 +180,7 @@ it:
         inclusion: "%{value} non è incluso nella lista dei valori"
         invalid_value: valore non valido
         already_exists: "già presente"
+        age_not_valid: "la tua età non può essere accettata, leggi i termini e le condizioni del servizio"
       alerts:
         unauthorized: Autenticati per accedere alla pagina
         login_success: Accesso effettuato con successo

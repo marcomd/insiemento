@@ -117,7 +117,7 @@
                     :append-outer-icon='requiredIcon("phone")'
                     prepend-icon='mdi-phone'
                     persistent-hint
-                    :hint='$t("profile.phone_hint")'
+                    :hint='$t("profile.hints.phone")'
                     :error-messages='phoneErrors'
                     @input='$v.phone.$touch()'
                     @blur='$v.phone.$touch()'
@@ -184,14 +184,17 @@
       currentUserMixin,
     ],
     validations() {
-      const fiscalCodeRequired = false
       return {
         firstname:       { required },
         lastname:        { required },
         gender:          { required },
         email:           { required, email },
         phone:           { required },
-        birthdate:       { required: requiredIf(_ => { return false }) }
+        birthdate:       { required,
+          ageValidator(value) {
+            return this.calculateAge(value) >= 14
+          }
+        }
       }
     },
     data() {

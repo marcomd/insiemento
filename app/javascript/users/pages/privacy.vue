@@ -1,8 +1,8 @@
 <template>
   <v-container class="justify-center">
-    <h2 class="subtitle">Privacy Policy</h2>
-    <p class="text-center"><strong>Informativa ai sensi dell'art. 13 del Codice della Privacy</strong></p>
-    <p class="text-center"><b>Ai sensi dell'articolo 13 del codice della D.Lgs. 196/2003, vi rendiamo le seguenti informazioni.</b></p>
+    <h1 class="subtitle">Privacy Policy</h1>
+    <p class="subtitle"><strong>Informativa ai sensi dell'art. 13 del Codice della Privacy</strong></p>
+    <p class="subtitle"><b>Ai sensi dell'articolo 13 del codice della D.Lgs. 196/2003, vi rendiamo le seguenti informazioni.</b></p>
     <p>Noi di <strong><span id="sito">insiemento.com</span></strong> riteniamo che la privacy dei nostri visitatori sia estremamente importante. Questo documento descrive dettagliatamente i tipi di informazioni personali raccolti e registrati dal nostro sito e come essi vengano utilizzati.</p>
     <h3>File di Registrazione (Log Files)</h3>
     <p>Come molti altri siti web, il nostro utilizza file di log. Questi file registrano semplicemente i visitatori del sito - di solito una procedura standard delle aziende di hosting e dei servizi di analisi degli hosting.</p>
@@ -112,6 +112,9 @@
       <v-btn :to='{name: "home"}' color="primary">Si, accetto</v-btn>
       <v-btn href="https://www.google.it">Non accetto</v-btn>
     </div>
+    <div class="mt-10"></div>
+    <br>
+    <div class="mt-10"></div>
   </v-container>
 </template>
 
@@ -131,7 +134,16 @@
 </script>
 
 <style lang="scss">
-  h2, h3 {
+  h1, h2, h3 {
     text-align: center;
+    color: #666666;
+    margin-top: 2em;
+  }
+  p {
+    color: #444444;
+    &.subtitle {
+      text-align: center;
+      color: #888888;
+    }
   }
 </style>

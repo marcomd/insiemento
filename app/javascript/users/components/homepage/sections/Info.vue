@@ -59,12 +59,17 @@
               md="3"
               class="mt-12"
             >
-              <base-info-card title="Privacy">
+              <base-info-card title="Leggi attentamente">
+                <v-btn
+                    text
+                    class="mb-8"
+                    :to='{name: "TermsAndConditions"}'
+                >Termini e condizioni</v-btn>
                 <v-btn
                     text
                     class="mb-8"
                     :to='{name: "Privacy"}'
-                >Leggi la nostra Privacy Policy</v-btn>
+                >Privacy Policy</v-btn>
               </base-info-card>
             </v-col>
 
@@ -120,7 +125,7 @@
           {
             icon: 'mdi-cellphone',
             title: 'Telefono',
-            text: '339 27**467<br>**=85',
+            text: '339 278S467',
           },
           {
             icon: 'mdi-email',

@@ -22,6 +22,9 @@ export const utilityMixin = {
     formattedDateTime(datetime, outFormat='LLLL') {
       return !!datetime ? moment(datetime).format(outFormat) : null
     },
+    calculateAge(datetime) {
+      return moment().diff(datetime, 'years')
+    },
     // Used to show translated error below the form's field
     show_error_form_field(errors) {
       //return errors.map(error => this.isObject(error) ? this.$t(`errors.${error.error}`) : this.$t(`errors.${error}`) ).join(' - ')

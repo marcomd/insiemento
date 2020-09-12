@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.48.0"
-    updated_at: "11/09/2020"
+    version: "0.49.0"
+    updated_at: "12/09/2020"
     started_at: "13/01/2020"
     commercial:
       brand: "Insiemento"
@@ -45,7 +45,6 @@ development:
 
 test:
   <<: *defaults
-  customer_dossier_url: http://localhost/admin/reservations/#{customer_dossier_id}/checkin_contracts
 
 production:
   <<: *defaults

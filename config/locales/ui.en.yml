@@ -28,6 +28,7 @@ en:
         close: "Close"
         or: "or"
         all: "All"
+        usage: "Usage"
       locales:
         it: Italiano
         en: English
@@ -85,8 +86,10 @@ en:
         email: Email
         title: Profile
         update_action: Update
-        phone_prefix_hint: Search prefix or country name
-        phone_hint: We will use it to organize your check-in in the apartment
+        subscriptions: Subscriptions
+        no_subscription: No subscription available
+        validity_range: Valid from %{from} to %{to}
+        no_attendees: You haven't used it yet
         attributes:
           birthdate: Birthday
           email: Email
@@ -100,8 +103,10 @@ en:
             robot: Robot
         hints:
           disabled_form: Your account does not allow the update of these data. For this need please contact us
-          fiscal_code: Enter your Italian tax code if you have one
+          incomplete_profile: Your profile is not complete, enter the missing data to continue
           email: An email will be sent to confirm the address
+          phone_prefix: Search prefix or country name
+          phone: We will only use it to contact you in case of need
       course_event:
         edit_action: Change
         subscribe_action: Subscribe

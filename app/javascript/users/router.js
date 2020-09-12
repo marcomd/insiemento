@@ -23,6 +23,7 @@ import ProductsIndex from './pages/products_index'
 import ProductShow from './pages/product_show'
 import OrderShow from './pages/order_show'
 import Privacy from './pages/privacy'
+import TermsAndConditions from './pages/terms_and_conditions'
 
 Vue.use(VueRouter)
 
@@ -85,6 +86,15 @@ const routes = [
     path: '/confirmation-email',
     name: 'confirmationEmail',
     component: ConfirmationEmail,
+    meta: {
+      public: true,
+      onlyWhenLoggedOut: true
+    }
+  },
+  {
+    path: '/terms_and_conditions',
+    name: 'TermsAndConditions',
+    component: TermsAndConditions,
     meta: {
       public: true,
       onlyWhenLoggedOut: true

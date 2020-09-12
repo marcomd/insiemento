@@ -24,6 +24,7 @@ export const accountDataMixin = {
     emailErrors() {
       const errors = []
       if (!this.$v.email || !this.$v.email.$dirty) return errors
+      !this.$v.email.email && this.email.includes(' ') && errors.push(this.$t('errors.email_invalid_format_spaces'))
       !this.$v.email.email && errors.push(this.$t('errors.email_invalid_format'))
       !this.$v.email.required && errors.push(this.$t('errors.email_required'))
       !!this.serverSideErrors.email && errors.push(this.show_error_form_field(this.serverSideErrors.email))
@@ -53,6 +54,7 @@ export const accountDataMixin = {
     },
     phoneErrors() {
       const errors = []
+      if (!this.$v.phone || !this.$v.phone.$dirty) return errors
       !!this.serverSideErrors.phone && errors.push(this.show_error_form_field(this.serverSideErrors.phone))
       !this.$v.phone.required && errors.push(this.$t('errors.required'))
       return errors
@@ -62,6 +64,7 @@ export const accountDataMixin = {
       if (!this.$v.birthdate || !this.$v.birthdate.$dirty) return errors
       !!this.serverSideErrors.birthdate && errors.push(this.show_error_form_field(this.serverSideErrors.birthdate))
       !this.$v.birthdate.required && errors.push(this.$t('errors.required'))
+      !this.birthdate.ageValidator && errors.push(this.$t('errors.age_not_valid'))
       return errors
     },
     organizationErrors() {

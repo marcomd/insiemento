@@ -123,7 +123,7 @@
     &.subtitle {
       font-weight: 400;
       text-transform: uppercase;
-      color: #555;
+      color: #555555;
     }
   }
 
