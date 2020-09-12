@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.50.1 12/09/2020
+
+- Fixed birthdate validation on profile's edit
+
 # v0.50.0 12/09/2020
 
 - Now the check of the active subscription for the attendance to courses is performed on the date of the event.

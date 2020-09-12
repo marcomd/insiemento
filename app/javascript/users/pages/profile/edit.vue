@@ -192,6 +192,7 @@
         phone:           { required },
         birthdate:       { required,
           ageValidator(value) {
+            // console.log(`ageValidator value: ${value} age:${this.calculateAge(value)}`)
             return this.calculateAge(value) >= 14
           }
         }

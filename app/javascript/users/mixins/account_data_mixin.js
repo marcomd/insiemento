@@ -64,7 +64,7 @@ export const accountDataMixin = {
       if (!this.$v.birthdate || !this.$v.birthdate.$dirty) return errors
       !!this.serverSideErrors.birthdate && errors.push(this.show_error_form_field(this.serverSideErrors.birthdate))
       !this.$v.birthdate.required && errors.push(this.$t('errors.required'))
-      !this.birthdate.ageValidator && errors.push(this.$t('errors.age_not_valid'))
+      !this.$v.birthdate.ageValidator && errors.push(this.$t('errors.age_not_valid'))
       return errors
     },
     organizationErrors() {
