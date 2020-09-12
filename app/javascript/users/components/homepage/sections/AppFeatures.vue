@@ -70,7 +70,7 @@
           {
             title: 'Ricco di funzioni',
             icon: 'mdi-star-circle-outline',
-            text: "Rubrica  clienti, ricerca rapida ed altre caratteristiche esclusive come la homepage. Inoltre, il software è in continuo miglioramento e se vorrai potrai dare il tuo contributo per migliorarlo.",
+            text: "Rubrica  clienti, lista presenze ed altre caratteristiche esclusive come la homepage. Inoltre, il software è in continuo miglioramento e se vorrai potrai dare il tuo contributo per migliorarlo.",
           },
           {
             title: 'Prezzi chiari',

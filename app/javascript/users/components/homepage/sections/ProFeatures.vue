@@ -131,7 +131,7 @@
         ['Homepage'                 , false       , true            , true        ],
         ['Dominio terzo livello '   , false       , true            , true        ],
         ['Dominio personalizzato'   , false       , 'da 50€ annui'  , 'Contattaci'],
-        ['Firma elettronica'        , false       , '1 € cad'       , 'Contattaci'],
+        ['Firma elettronica'        , false       , 'da 1€ cad'     , 'Contattaci'],
         ['Supporto funzionale'      , false       , true            , true        ],
         ['Supporto tecnico'         , false       , false           , true        ],
         ['API'                      , false       , false           , true        ],

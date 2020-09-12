@@ -3,7 +3,7 @@ it:
     users:
       home:
         title: "DEVI GESTIRE UNA PALESTRA? PASSA A INSIEMENTO"
-        description: "Offriamo un servizio semplice e moderno per gestire i corsi della tua palestra.<br>Ti registri, configuri la tua struttura, i corsi, fine.<br>I tuoi clienti riceveranno un invito per registrarsi nella tua palestra.<br>Semplice e veloce, adatto a chi non ama sprecare tempo!"
+        description: "Offriamo un servizio semplice e moderno per gestire i corsi della tua palestra.<br>Configuri la tua struttura, i corsi, fine.<br>I tuoi clienti si registrano e tu li amministri col gestionale.<br>Semplice e veloce, adatto a chi non ama sprecare tempo!"
         potential_signer: "Sei un cliente di una palestra?"
         potential_signer_description: "Chiedi alla tua palestra l'indirizzo per accedere ai servizi a te riservati"
         bio_title: "Progetto Open Source"

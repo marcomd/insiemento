@@ -33,6 +33,11 @@ ActiveAdmin.register User do
     end
   end
 
+  scope I18n.t('activerecord.attributes.user.states.new'), :new_state
+  scope I18n.t('activerecord.attributes.user.states.active'), :active_state
+  scope I18n.t('activerecord.attributes.user.states.suspended'), :suspended_state
+  scope I18n.t('ui.users.commons.all'), :all, default: true
+
   index do
     selectable_column
     id_column
@@ -42,6 +47,7 @@ ActiveAdmin.register User do
     column(:email)
     column(:phone)
     column(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:confirmed_at)
     column(:current_sign_in_at)
     column(:sign_in_count)
     column(:created_at)
@@ -58,6 +64,7 @@ ActiveAdmin.register User do
   filter :gender
   filter :sign_in_count
   filter :medical_certificate_expire_at
+  filter :confirmed_at
   filter :created_at
   filter :updated_at
 
@@ -148,6 +155,7 @@ ActiveAdmin.register User do
       f.input :lastname
       f.input :email
       f.input :phone
+      f.input :birthdate
       f.input :medical_certificate, as: :file, hint:  if f.object.medical_certificate.present?
                                                         if /^image/ === f.object.medical_certificate.content_type
                                                           image_tag(f.object.medical_certificate, height: '50px')

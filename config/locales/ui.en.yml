@@ -3,7 +3,7 @@ en:
     users:
       home:
         title: "DO YOU HAVE TO MANAGE A GYM? GO TO SET"
-        description: "We offer a simple and modern service to manage the courses of your gym. <br> You register, configure your structure, courses, end. <br> Your customers will receive an invitation to register in your gym. <br> Simple and fast, suitable for those who don't like wasting time!"
+        description: "We offer a simple and modern service to manage the courses of your gym. <br> You configure your structure, courses, end. <br> Your customers register to your gym and you manage them from our backend. <br> Simple and fast, suitable for those who don't like wasting time!"
         potential_signer: "Are you a client of a gym?"
         potential_signer_description: "Ask your gym for the address to access the services reserved for you"
         bio_title: "Open Source project"

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.52.0 12/09/2020
+
+- Improved users section in the admin ui
+  - Added the three state scopes to filter immediately the users list
+  - Improved the insiemento homepage with the affiliate's url
+
 # v0.51.0 12/09/2020
 
 - Added analytics tag to each organization
