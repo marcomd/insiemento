@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.51.0 12/09/2020
+
+- Added analytics tag to each organization
+
 # v0.50.1 12/09/2020
 
 - Fixed birthdate validation on profile's edit

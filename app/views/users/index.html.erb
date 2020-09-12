@@ -44,6 +44,7 @@
   }
 %>
 <% if @current_organization %>
+  <% content_for(:analytics_tag) { @current_organization.analytics_tag } %>
   <% content_for :head do %>
     <%
       title =  "#{@current_organization.name} - #{@current_organization.payoff}"

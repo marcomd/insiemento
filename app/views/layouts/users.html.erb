@@ -9,7 +9,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-176422698-1');
+      gtag('config', '<%= content_for?(:analytics_tag) ? yield(:analytics_tag) : 'UA-176422698-2' %>');
     </script>
     <% end %>
 

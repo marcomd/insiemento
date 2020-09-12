@@ -6,7 +6,7 @@ ActiveAdmin.register Organization do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :payoff, :domain, :email, :phone, :state, :logo, :image,
+  permit_params :name, :payoff, :domain, :email, :phone, :state, :logo, :image, :analytics_tag,
                 :dark_mode, :header_dark,
                 :header_background_color, :color, :primary_color, :secondary_color,
                 :accent_color, :info_color, :success_color, :error_color, :warning_color,
@@ -41,6 +41,7 @@ ActiveAdmin.register Organization do
   filter :email
   filter :phone
   filter :state       , as: :select, collection: CourseEvent.localized_states
+  filter :analytics_tag
   filter :created_at
   filter :updated_at
 
@@ -55,6 +56,7 @@ ActiveAdmin.register Organization do
           row(:email)
           row(:phone)
           row(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+          row(:analytics_tag)
           row(:created_at)
           row(:updated_at)
         end
@@ -107,6 +109,7 @@ ActiveAdmin.register Organization do
           f.input :email
           f.input :phone
           f.input :state #, collection: Organization::STATES
+          f.input :analytics_tag
         end
       end
       column do

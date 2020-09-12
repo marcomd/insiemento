@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_093428) do
+ActiveRecord::Schema.define(version: 2020_09_12_134345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 2020_09_12_093428) do
     t.string "uuid", limit: 36
     t.jsonb "homepage_contacts", default: [], null: false, array: true
     t.jsonb "homepage_socials", default: [], null: false, array: true
+    t.string "analytics_tag", limit: 32
     t.index ["domain"], name: "index_organizations_on_domain"
     t.index ["uuid"], name: "index_organizations_on_uuid"
   end

@@ -1,7 +1,7 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.50.1"
+    version: "0.51.0"
     updated_at: "12/09/2020"
     started_at: "13/01/2020"
     commercial:
@@ -34,6 +34,8 @@ defaults: &defaults
     password: <%= Rails.application.credentials.smtp.dig(:test, :password) %>
   sendgrid:
     apipath: https://api.sendgrid.com/v3
+  analytics:
+    tag: UA-176422698-2
   authentication:
     customer:
       jwt_expiration_hours: 24
