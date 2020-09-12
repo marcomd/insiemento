@@ -98,4 +98,43 @@ RSpec.describe Subscription, type: :model do
       it { expect { result }.to_not change(Attendee, :count) }
     end
   end
+
+  describe '.active_at' do
+    subject { described_class }
+    let(:result) { subject.active_at(date).count }
+
+    context 'when scope is global' do
+      context 'when date is after the end' do
+        let(:date) { Date.today + 370.days }
+        it { expect(result).to eq 0 }
+      end
+    end
+
+    context 'when scope is a user' do
+      # this user has: 1. subscription annual 2. subscription monthly
+      subject { user_stefania }
+      let(:result) { subject.subscriptions.active_at(date).count }
+
+      context 'when date is before starting' do
+        let(:date) { subject.subscriptions.first.start_on - 1 }
+        it { expect(result).to eq 0 }
+      end
+
+      context 'when date is at the beginning of the active period' do
+        let(:date) { subject.subscriptions.first.start_on }
+        it { expect(result).to eq 2 }
+      end
+
+      context 'when date is at the end of the active period' do
+        let(:date) { subject.subscriptions.first.end_on }
+        it { expect(result).to eq 1 }
+      end
+
+      context 'when date is after the end' do
+        let(:date) { subject.subscriptions.first.end_on + 1 }
+        it { expect(result).to eq 0 }
+      end
+    end
+
+  end
 end

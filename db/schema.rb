@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_211720) do
+ActiveRecord::Schema.define(version: 2020_09_12_093428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_211720) do
     t.index ["order_id"], name: "index_subscriptions_on_order_id"
     t.index ["organization_id"], name: "index_subscriptions_on_organization_id"
     t.index ["product_id"], name: "index_subscriptions_on_product_id"
+    t.index ["start_on", "end_on"], name: "index_subscriptions_on_start_on_and_end_on"
     t.index ["state"], name: "index_subscriptions_on_state"
     t.index ["subscription_type"], name: "index_subscriptions_on_subscription_type"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
