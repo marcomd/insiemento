@@ -37,7 +37,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Active Admin is a Ruby on Rails framework for creating elegant backends for website administration.
-gem 'activeadmin', '~> 2.7.0'
+gem 'activeadmin', '~> 2.8.0'
 
 #gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 

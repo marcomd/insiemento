@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v0.50.0 12/09/2020
+
+- Now the check of the active subscription for the attendance to courses is performed on the date of the event.
+  Previously it was done on the booking date.
+- Updated active admin to 2.8.0
+
 # v0.49.0 12/09/2020
 
 - Terms and conditions, many improvements to user UI

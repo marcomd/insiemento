@@ -18,6 +18,8 @@ class Subscription < ApplicationRecord
   validates_presence_of :max_accesses_number, if: -> { ['trial', 'consumption'].include? subscription_type }
   # validates_absence_of :max_accesses_number, if: -> { ['fee'].include? subscription_type } # Removed validation to define a cap
 
+  scope :active_at, -> (date=Time.zone.today) { where('start_on <= :date AND end_on >= :date', date: date) }
+
   # enum type: { TrialSubscription: 10, ConsumptionSubscription: 20, FeeSubscription: 30 }
   enum subscription_type: { trial: 10, consumption: 20, fee: 30 }
 

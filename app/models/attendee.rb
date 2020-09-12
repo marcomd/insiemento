@@ -30,7 +30,8 @@ class Attendee < ApplicationRecord
 
   def check_valid_subscriptions
     self.organization_id ||= user.organization_id
-    user.active_subscriptions.each do |subscription|
+    # user.active_subscriptions.each do |subscription|
+    user.subscriptions.active_at(course_event.event_date).each do |subscription|
       if subscription.category_id == course_event.category_id
         self.subscription_id = subscription.id
         return true

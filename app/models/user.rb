@@ -12,6 +12,7 @@ class User < ApplicationRecord
   #has_one :last_subscription, -> { order id: :desc }, class_name: 'Subscription'
   has_many :subscriptions, dependent: :destroy
   has_many :active_subscriptions, -> { active_state }, class_name: 'Subscription'
+  # has_many :active_subscriptions_at, -> (date) { active_at(date) }, class_name: 'Subscription'
   has_many :orders, dependent: :restrict_with_error
   has_one :pending_order, -> { where(state: :just_made) }, class_name: 'Order'
   has_many :payments, dependent: :nullify
@@ -29,6 +30,9 @@ class User < ApplicationRecord
   validates_presence_of     :firstname, :lastname
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..64, allow_blank: true
+
+  #scope :active_subscriptions_at, -> (date=Time.zone.today) { where.not(state: :active).where('expire_on > ?', date) }
+  # scope :active_subscriptions_at, -> (date) { subscriptions.active_at(date) }
 
   before_validation :set_default
   # after_save :set_state!

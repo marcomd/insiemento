@@ -7,7 +7,7 @@ RSpec.describe Attendee, type: :model do
     let(:result) { subject.save }
     let(:course_event) { CourseEvent.find course_event_id }
 
-    context 'when user can attendee' do
+    context 'when user has a valid subscription' do
       let(:user) { user_stefania }
       let(:course_event_id) { stefania_unsubscribed_course_event_id }
 
@@ -23,16 +23,52 @@ RSpec.describe Attendee, type: :model do
       end
     end
 
-    context 'when user cannot attendee' do
+    context 'when subscription already exists' do
       let(:user) { user_stefania }
       let(:course_event_id) { stefania_subscribed_course_event_id }
-
       it { expect(result).to be_falsey }
       it do
         result
         expect(subject.errors).to be_present
       end
     end
+
+    context 'when user has active subscription at event date' do
+      let(:user) { user_paolo }
+      let(:course_event_id) { paolo_unsubscribed_course_event_id }
+      it { expect(result).to be_truthy }
+    end
+
+    context 'when user has NO active subscription at the event date' do
+      context 'when event date is before the start on' do
+        let(:user) { user_paolo }
+        let(:course_event_id) { paolo_unsubscribed_course_event_id }
+        before do
+          start_on = course_event.event_date + 1.day
+          end_on = start_on + 30
+          user_paolo.subscriptions.update_all(start_on: start_on, end_on: end_on)
+        end
+        it do
+          result
+          expect(subject.errors).to be_present
+        end
+      end
+
+      context 'when event date is after the end on' do
+        let(:user) { user_paolo }
+        let(:course_event_id) { paolo_unsubscribed_course_event_id }
+        before do
+          end_on = course_event.event_date - 1.day
+          start_on = end_on - 30
+          user_paolo.subscriptions.update_all(start_on: start_on, end_on: end_on)
+        end
+        it do
+          result
+          expect(subject.errors).to be_present
+        end
+      end
+    end
+
   end
 
   describe '#check_max_attendees' do
