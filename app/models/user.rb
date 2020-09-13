@@ -39,7 +39,7 @@ class User < ApplicationRecord
 
   before_validation :set_default
   # after_save :set_state!
-  before_save :set_state
+  before_save :set_state, :format_user_data
 
   STATES = { new: 10,
              active: 20,
@@ -98,5 +98,12 @@ class User < ApplicationRecord
 
   def set_default
     self.state ||= :new
+  end
+
+  def format_user_data
+    self.firstname = self.firstname&.titleize
+    self.lastname = self.lastname&.titleize
+    self.email = self.email.downcase.strip
+    self.phone = self.phone.gsub(' ', '') if self.phone.include?(' ')
   end
 end

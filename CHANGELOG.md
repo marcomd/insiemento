@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.55.0 13/09/2020
+
+- User data are now better formatted and cleaned
+  - email is now stripped, phone removed from blank spaces, first name and last name are now titleized
+
 # v0.54.2 13/09/2020
 
 - Fixed course event booking spec
