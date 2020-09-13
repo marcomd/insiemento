@@ -120,7 +120,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
       context 'when events is not ready yet' do
         let(:organization) { Organization.find(organization_id) }
         let(:course_schedule) { organization.course_schedules.first }
-        let(:event_date) { 3.days.from_now }
+        let(:event_date) { 8.days.from_now }
         let(:course_event_id) { course_event.id }
 
         it do

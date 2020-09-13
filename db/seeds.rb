@@ -285,7 +285,7 @@ end
 if Course.count == 0
   c_zumba=Course.create!(name: 'Zumba',
                          description: 'L''allenamento più divertente in assoluto. Balla al ritmo di musiche energetiche insieme a gente fantastica e brucia una tonnellata di calorie divertendoti.',
-                         start_booking_hours: 48,
+                         start_booking_hours: 168,
                          end_booking_minutes: 90,
                          state: :active,
                          organization: o_dance,

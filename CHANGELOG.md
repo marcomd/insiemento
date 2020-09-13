@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.54.2 13/09/2020
+
+- Fixed course event booking spec
+
 # v0.54.1 13/09/2020
 
 - Applied trim on email in the signup form and in the edit profile
