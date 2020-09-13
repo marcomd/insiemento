@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.56.0 13/09/2020
+
+- Added batch actions to resend user documents that have had an error
+
 # v0.55.2 13/09/2020
 
 - Changed active admin options

@@ -64,7 +64,8 @@ ActiveAdmin.register UserDocument do
     actions
   end
 
-  batch_action :invia, :if => proc{ @current_scope && @current_scope.id == I18n.t('activerecord.attributes.user_document.states.draft').downcase },
+  batch_action :invia, :if => proc{ @current_scope && [I18n.t('activerecord.attributes.user_document.states.draft').downcase,
+                                                       I18n.t('activerecord.attributes.user_document.states.exporting_error').downcase].include?(@current_scope.id) },
                confirm: 'Confermi di voler inviare a Otp Service le pratiche selezionate?' do |selection|
     shared_batch_action class_object: UserDocument, selection: selection, transaction_name: 'send_to_otpservice',
                         return_scope_if_ok: I18n.t('activerecord.attributes.user_document.states.ready').downcase,

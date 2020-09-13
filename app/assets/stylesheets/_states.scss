@@ -25,7 +25,7 @@ $critical_color: rgb(160,70,70);
   &.warning, &.suspended {
     background-color: $warning_color;
   }
-  &.failed, &.error {
+  &.failed, &.error, &.exporting_error {
     background-color: $error_color;
   }
   &.critical {

@@ -26,7 +26,7 @@ class UserDocument < ApplicationRecord
     state :ready, :exporting, :exporting_error, :exported, :signed, :completed, :expired
 
     event :send_to_otpservice do
-      transitions from: :draft, to: :ready,
+      transitions from: [:draft, :exporting_error], to: :ready,
                   if: [:body],
                   success: :create_dossier_on_otpservice
     end
