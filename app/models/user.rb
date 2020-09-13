@@ -104,6 +104,6 @@ class User < ApplicationRecord
     self.firstname = self.firstname&.titleize
     self.lastname = self.lastname&.titleize
     self.email = self.email.downcase.strip
-    self.phone = self.phone.gsub(' ', '') if self.phone.include?(' ')
+    self.phone = self.phone.gsub(' ', '') if self.phone&.include?(' ')
   end
 end

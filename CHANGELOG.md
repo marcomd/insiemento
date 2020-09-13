@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v0.55.2 13/09/2020
+
+- Changed active admin options
+  - csv use now semicolon separator
+- Updated several javascript plugins
+- Fixed a bug in the user callback on the phone field
+
 # v0.55.1 13/09/2020
 
 - Fixed yarn.lock and updated several javascript plugin
