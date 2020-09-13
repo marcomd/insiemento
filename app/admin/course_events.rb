@@ -110,6 +110,8 @@ ActiveAdmin.register CourseEvent do
       column do
         f.inputs do
           f.semantic_errors *f.object.errors.keys
+          # f.input :course_schedule, collection: f.object.course_id ? current_admin_user.course_schedules.where(course_id: f.object.course_id) : current_admin_user.course_schedules
+          f.input :course_schedule, collection: current_admin_user.course_schedules
           if current_admin_user.is_root?
             f.input :organization
           else
@@ -119,7 +121,6 @@ ActiveAdmin.register CourseEvent do
           f.input :course, collection: current_admin_user.courses
           f.input :room, collection: current_admin_user.rooms
           f.input :trainer, collection: current_admin_user.trainers
-          f.input :course_schedule, collection: f.object.course_id ? current_admin_user.course_schedules.where(course_id: f.object.course_id) : current_admin_user.course_schedules
           f.input :event_date, as: :date_time_picker
           f.input :state
         end

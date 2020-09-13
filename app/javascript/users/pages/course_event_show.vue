@@ -47,7 +47,7 @@
         <v-btn x-large
                class='mr-2 mb-2'
                :to='{name: "CourseEventIndex"}'>
-          {{ $t('commons.go_back') }}
+          {{ $t('commons.go_to_list') }}
         </v-btn>
       </v-col>
     </v-row>

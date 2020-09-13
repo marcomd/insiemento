@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v0.57.0 14/09/2020
+
+- Many improvements to user ui
+  - Clicking on events in the calendar the course event list card is now shown
+  - Added many new images for courses: gag, kangoo jumps, lab, street, total body etc.
+  - The course event full card now show you the course image in the background
+  - Removed nickname from trainer name, it now display only full name
+  - Updated vuetify from 2.2.32 to 2.3.10
+
 # v0.56.0 13/09/2020
 
 - Added batch actions to resend user documents that have had an error

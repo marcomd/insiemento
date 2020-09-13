@@ -29,5 +29,13 @@ class CourseEvent < ApplicationRecord
 
   def set_default
     self.state ||= :active
+
+    if course_schedule
+      self.organization ||= course_schedule.organization
+      self.category ||= course_schedule.category
+      self.course ||= course_schedule.course
+      self.trainer ||= course_schedule.trainer
+      self.room ||= course_schedule.room
+    end
   end
 end

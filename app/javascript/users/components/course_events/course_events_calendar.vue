@@ -73,22 +73,16 @@
                     :color="selectedEvent.color"
                     dark
             >
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
+              <v-btn icon @click="selectedOpen = false">
+                <v-icon>mdi-window-close</v-icon>
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <CourseEventCardLite :course_event="selectedEvent.object"></CourseEventCardLite>
             </v-card-text>
-            <v-card-actions>
+            <!--v-card-actions>
               <v-btn
                       text
                       color="secondary"
@@ -96,7 +90,7 @@
               >
                 {{ $t('commons.close') }}
               </v-btn>
-            </v-card-actions>
+            </v-card-actions-->
           </v-card>
         </v-menu>
       </v-sheet>
@@ -107,6 +101,7 @@
 <script>
   import moment from 'moment'
   // import { utilityMixin } from '../../mixins/utility_mixin'
+  import CourseEventCardLite from './course_event_card_lite'
 
   export default {
     props: {
@@ -115,7 +110,9 @@
         required: true
       }
     },
-    mixins: [],
+    components: {
+      CourseEventCardLite,
+    },
     data: () => ({
       focus: '',
       type: 'month',
@@ -244,13 +241,15 @@
           const name = ce.course.name
           console.log(`updateRange Add event ${name} ${ce.event_date}`)
           const eventDateStart = new Date(ce.event_date)
-          const durationTimestamp = this.rnd(2, 8) * 900000
+          // const durationTimestamp = this.rnd(2, 8) * 900000
+          const durationTimestamp =  3600000 // 4 * 900000 -> 1 = Quarter of hour * 4 * 900.000
           const eventDateEnd = new Date(eventDateStart.getTime() + durationTimestamp)
           events.push({
             name: name,
             start: this.formatDate(eventDateStart, true),
             end: this.formatDate(eventDateEnd, true),
             color: this.getCourseColor(name),
+            object: ce,
           })
         })
 
@@ -263,9 +262,9 @@
                 ? 'th'
                 : ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'][d % 10]
       },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
-      },
+      // rnd (a, b) {
+      //   return Math.floor((b - a + 1) * Math.random()) + a
+      // },
       formatDate (a, withTime) {
         return withTime
                 ? `${a.getFullYear()}-${a.getMonth() + 1}-${a.getDate()} ${a.getHours()}:${a.getMinutes()}`

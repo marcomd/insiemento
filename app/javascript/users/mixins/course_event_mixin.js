@@ -12,15 +12,17 @@ export const courseEventMixin = {
     },
     trainer_name() {
       if (!this.trainer) return
-      if (this.trainer.nickname && this.trainer.nickname.length > 0) {
-        return `${this.trainer.firstname} ${this.trainer.lastname} aka ${this.trainer.nickname}`
-      } else {
-        return `${this.trainer.firstname} ${this.trainer.lastname}`
-      }
+      return `${this.trainer.firstname} ${this.trainer.lastname}`
+      // if (this.trainer.nickname && this.trainer.nickname.length > 0) {
+      //   return `${this.trainer.firstname} ${this.trainer.lastname} aka ${this.trainer.nickname}`
+      // } else {
+      //   return `${this.trainer.firstname} ${this.trainer.lastname}`
+      // }
     },
     courseImageName() {
-      const planned_courses = ['zumba', 'yoga', 'pilates']
-      const course_name_lowered = this.course.name.toLowerCase()
+      const planned_courses = ['zumba', 'yoga', 'pilates', 'total_body', 'pole_dance', 'gag',
+        'kangoo_jumps', 'street', 'lab', 'brazilian_fitness', 'funzionale']
+      const course_name_lowered = this.course.name.toLowerCase().replace(/\./g, '').replace(/\s/g, '_')
       return `course_${planned_courses.includes(course_name_lowered) ? course_name_lowered : planned_courses[0]}_600.jpg`
     },
     isCourseEventFull() {

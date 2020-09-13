@@ -4,7 +4,7 @@
     <v-row>
       <v-col cols="12">
         <v-row align="center" justify="center">
-          <CourseEventCardLite v-for="course_event in course_events" :key="course_event.id" :course_event="course_event"/>
+          <CourseEventCardLite v-for="course_event in course_events" :key="course_event.id" :course_event="course_event" cssClassCard="mx-auto ma-6"/>
         </v-row>
       </v-col>
     </v-row>

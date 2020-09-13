@@ -15,6 +15,7 @@ it:
           subject_with_course: "Richiesta assistenza corso %{name} evento id %{code}"
       commons:
         go_back: "Torna indietro"
+        go_to_list: "Vai alla lista"
         cancel: "Annulla"
         confirm: "Conferma"
         next: "Avanti"
@@ -29,6 +30,7 @@ it:
         or: "o"
         all: "Tutti"
         usage: "Utilizzo"
+        with: "Con"
       locales:
         it: Italiano
         en: English
