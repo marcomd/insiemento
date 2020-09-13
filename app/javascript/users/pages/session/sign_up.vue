@@ -79,7 +79,7 @@
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field required
-                    v-model='email'
+                    v-model.trim='email'
                     prepend-icon='mdi-at'
                     :append-outer-icon='requiredIcon("email")'
                     :label='labelFor("email")'
@@ -124,7 +124,7 @@
                 </v-col>
                 <v-col>
                   <v-text-field required
-                    v-model='email_confirmation'
+                    v-model.trim='email_confirmation'
                     prepend-icon='mdi-at'
                     :append-outer-icon='requiredIcon("email_confirmation")'
                     :label='labelFor("email_confirmation")'

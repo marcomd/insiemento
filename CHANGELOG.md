@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.54.1 13/09/2020
+
+- Applied trim on email in the signup form and in the edit profile
+- Updated vue to 2.6.12 
+
 # v0.54.0 12/09/2020
 
 - UserDocumentsManagerService selects user with completed profile
