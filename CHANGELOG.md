@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.57.1 14/09/2020
+
+- Fixed yarn.lock
+
 # v0.57.0 14/09/2020
 
 - Many improvements to user ui
