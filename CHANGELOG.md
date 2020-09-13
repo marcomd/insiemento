@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.55.1 13/09/2020
+
+- Fixed yarn.lock and updated several javascript plugin
+
 # v0.55.0 13/09/2020
 
 - User data are now better formatted and cleaned
