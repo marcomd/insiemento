@@ -21,13 +21,33 @@ RSpec.describe UpdateCourseEventsJob, type: :job do
       create(:course_event, event_date: event_date, state: :active, organization_id: 1, category_id: 1, course_id: 1, course_schedule_id: 1, room_id: 1, trainer_id: 1)
     end
 
-    context 'when event is expired' do
+    context 'when event is expired many time ago' do
       let(:event_date) { 2.hours.ago }
       it do
         expect do
           perform_enqueued_jobs{ subject }
           course_event.reload
         end.to change(course_event, :state).from('active').to('closed')
+      end
+    end
+
+    context 'when event is expired little time ago' do
+      let(:event_date) { 16.minutes.ago }
+      it do
+        expect do
+          perform_enqueued_jobs{ subject }
+          course_event.reload
+        end.to change(course_event, :state).from('active').to('closed')
+      end
+    end
+
+    context 'when event is just expired' do
+      let(:event_date) { 14.minutes.ago }
+      it do
+        expect do
+          perform_enqueued_jobs{ subject }
+          course_event.reload
+        end.to_not change(course_event, :state)
       end
     end
 

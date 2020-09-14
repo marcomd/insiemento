@@ -6,14 +6,18 @@
 # |  |  |  |  |
 # *  *  *  *  *
 update_course_events:
-  cron: "1,31 * * * *"
+  cron: "1,16,31,46 12-22 * * *"
   class: UpdateCourseEventsJob
   queue: course_events
 user_documents_manager:
-  cron: "0 7 * * *"
+  cron: "0 9,11,13,14,15,18,19,20,21,22,23,24 * * *"
   class: UserDocumentsManagerJob
   queue: user_documents
 create_course_events:
-  cron: "0 0 * * 7"
+  cron: "30 12 * * 6"
   class: ScheduleJob
   queue: course_events
+update_users:
+  cron: "13 0 * * *"
+  class: UpdateUsersJob
+  queue: users

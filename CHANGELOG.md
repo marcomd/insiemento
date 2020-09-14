@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.58.0 14/09/2020
+
+- New UpdateUsersJob, course events closed 15 minutes later, updated schedulation times
+  - New job to update user every day, it fires a query for each user but only if it have to be updated. This because
+    the logic to update state is on the model. This may be changed in the future. 
+  - The job which update course events state now leave events active for 15 more minutes, this allows the auditor 
+    to update the attendance list from the user interface
+  - Course events are now created on saturday 12.30pm
+  - User documents are now created multiple times in the day hours
+
 # v0.57.1 14/09/2020
 
 - Fixed yarn.lock
