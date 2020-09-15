@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.59.2 16/09/2020
+
+- Smtp switched to smtp2go
+
 # v0.59.1 15/09/2020
 
 - Gmail raises some weird errors in production, go back to sendgrid

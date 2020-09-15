@@ -1,8 +1,8 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.59.1"
-    updated_at: "15/09/2020"
+    version: "0.59.2"
+    updated_at: "16/09/2020"
     started_at: "13/01/2020"
     commercial:
       brand: "Insiemento"
@@ -16,13 +16,6 @@ defaults: &defaults
       twitter_account: ""
       image: "logo_200.png"
   domains: ["insiemento.local", "localhost"]
-  smtp:
-    host: "smtp.mailtrap.io"
-    domain: "smtp.mailtrap.io"
-    port: "2525"
-    authentication: :cram_md5
-    user: <%= Rails.application.credentials.smtp.dig(:test, :user) %>
-    password: <%= Rails.application.credentials.smtp.dig(:test, :password) %>
   sendgrid:
     apipath: https://api.sendgrid.com/v3
   analytics:
@@ -41,22 +34,6 @@ test:
 
 production:
   <<: *defaults
-  sms:
-    provider: "twilio"
-    twilio:
-      username: <%= Rails.application.credentials.sms.dig(:production, :twilio, :username) %>
-      password: <%= Rails.application.credentials.sms.dig(:production, :twilio, :password) %>
-    skebby:
-      username: <%= Rails.application.credentials.sms.dig(:production, :skebby, :username) %>
-      password: <%= Rails.application.credentials.sms.dig(:production, :skebby, :password) %>
-    from: "Insiemento"
-  smtp:
-    host: "smtp.sendgrid.net"
-    port: "587"
-    user: <%= Rails.application.credentials.smtp.dig(:production, :user) %>
-    password: <%= Rails.application.credentials.smtp.dig(:production, :password) %>
-    authentication: :plain
-    enable_starttls_auto: true
   domains: ["insiemento.com", "herokuapp.com"]
   otpservice:
     host: "https://otpservice.io"

@@ -74,15 +74,14 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  # SendGrid SMTP SERVER
   config.action_mailer.smtp_settings = {
-      :user_name => Rails.application.credentials.smtp[:production][:username],
-      :password => Rails.application.credentials.smtp[:production][:password],
-      :domain => host,
-      :address => 'smtp.sendgrid.net',
-      :port => 587,
-      :authentication => :plain,
-      :enable_starttls_auto => true
+      user_name: Rails.application.credentials.smtp[:production][:username],
+      password: Rails.application.credentials.smtp[:production][:password],
+      domain: host,
+      address: 'mail.smtp2go.com',
+      port: '2525',
+      authentication: :plain,
+      enable_starttls_auto: true
   }
 
   # Uses sidekiq for the "mailers" and "default" queues
