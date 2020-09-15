@@ -1,8 +1,12 @@
 # CHANGELOG
 
+# v0.59.1 15/09/2020
+
+- Gmail raises some weird errors in production, go back to sendgrid
+
 # v0.59.0 15/09/2020
 
-- Changed smtp from sendgrid to gmail due to rejected email
+- Changed smtp from sendgrid to gmail due to rejected emails
   - Sendgrid is unreliable, icloud mail server rejected many emails due to listing in spamhaus SBL. 
     https://www.spamhaus.org/query/ip/50.31.49.42
     Some Sendgrid IP pools are blacklisted and when we send email from one of these it may be blocked, apple do it.

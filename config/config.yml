@@ -1,7 +1,7 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "0.59.0"
+    version: "0.59.1"
     updated_at: "15/09/2020"
     started_at: "13/01/2020"
     commercial:
@@ -51,7 +51,7 @@ production:
       password: <%= Rails.application.credentials.sms.dig(:production, :skebby, :password) %>
     from: "Insiemento"
   smtp:
-    host: "smtp.gmail.com"
+    host: "smtp.sendgrid.net"
     port: "587"
     user: <%= Rails.application.credentials.smtp.dig(:production, :user) %>
     password: <%= Rails.application.credentials.smtp.dig(:production, :password) %>
