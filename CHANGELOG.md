@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v0.59.0 15/09/2020
+
+- Changed smtp from sendgrid to gmail due to rejected email
+  - Sendgrid is unreliable, icloud mail server rejected many emails due to listing in spamhaus SBL. 
+    https://www.spamhaus.org/query/ip/50.31.49.42
+    Some Sendgrid IP pools are blacklisted and when we send email from one of these it may be blocked, apple do it.
+    SendGrid is unable to move account to a new IP pool. The way to do that is to get a dedicated IP on a Pro or higher plan. 
+    https://sendgrid.com/docs/glossary/deny-list/
+
 # v0.58.0 14/09/2020
 
 - New UpdateUsersJob, course events closed 15 minutes later, updated schedulation times

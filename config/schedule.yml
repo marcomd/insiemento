@@ -10,7 +10,7 @@ update_course_events:
   class: UpdateCourseEventsJob
   queue: course_events
 user_documents_manager:
-  cron: "0 9,11,13,14,15,18,19,20,21,22,23,24 * * *"
+  cron: "0 0,9,11,13,14,15,18,19,20,21,22,23 * * *"
   class: UserDocumentsManagerJob
   queue: user_documents
 create_course_events:
