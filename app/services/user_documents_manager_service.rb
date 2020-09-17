@@ -15,9 +15,7 @@ class UserDocumentsManagerService
     h_user_documents = []
     UserDocumentModel.active_state.order('id').each do |user_document_model|
       # user_document_model.organization.users.active_state.each do |user|
-      user_document_model.organization.users
-          .with_not_ended_subscriptions
-          .elegible_for_user_documents.each do |user|
+      user_document_model.organization.users.with_not_ended_subscriptions.elegible_for_user_documents.each do |user|
         last_user_document = user.user_documents.where(user_document_model_id: user_document_model.id).last
         bol_create_user_document =
           if last_user_document

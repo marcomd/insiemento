@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v1.00.0 17/09/2020
+
+- The software has been in use for two weeks in production and can be considered stable so the major version
+  increase to 1! Yeah (trumpet sounds)
+- Two improvements on the admin ui
+  - User details in the admin ui shows now not ended subscriptions as well
+  - Added recurring attribute to user document param
+
 # v0.59.2 16/09/2020
 
 - Smtp switched to smtp2go

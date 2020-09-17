@@ -112,7 +112,7 @@ ActiveAdmin.register User do
       end
       column do
         panel link_to(Subscription.model_name.human(count: 2), admin_subscriptions_path('q[user_id_eq]' => user.id)) do
-          table_for user.active_subscriptions do
+          table_for user.subscriptions.not_ended do
             column(:active_code) { |obj| link_to obj.code, [:admin, obj] }
             column(:category)
             column(:product)

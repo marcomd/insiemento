@@ -6,7 +6,7 @@ ActiveAdmin.register UserDocumentModel do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :organization_id, :state, :title, :body, :validity_days
+  permit_params :organization_id, :state, :title, :body, :validity_days, :recurring
   #
   # or
   #
