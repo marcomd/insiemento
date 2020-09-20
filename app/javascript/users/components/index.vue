@@ -2,11 +2,11 @@
   <v-app class='user-app'>
     <Sidebar/>
     <Header/>
-    <v-content>
+    <v-main>
       <Alerts/>
       <Snackbar/>
       <router-view/>
-    </v-content>
+    </v-main>
     <Footer/>
   </v-app>
 </template>

@@ -1,6 +1,6 @@
 class ScheduleJob < ApplicationJob
   queue_as :course_events
-  sidekiq_options retry: 1
+  #sidekiq_options retry: 1
 
   def perform
     service = ScheduleService.call

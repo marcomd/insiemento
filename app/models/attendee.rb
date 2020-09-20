@@ -1,7 +1,7 @@
 class Attendee < ApplicationRecord
   belongs_to :organization
   belongs_to :user
-  belongs_to :course_event
+  belongs_to :course_event, counter_cache: :attendees_count
   belongs_to :subscription
   has_one :room, through: :course_event
   has_one :course, through: :course_event

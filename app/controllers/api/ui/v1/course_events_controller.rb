@@ -9,14 +9,15 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   def index
     # To simulate a network delay...
     simulate_delay_for_development
-    @course_events = @organization.course_events.where(course_event_filter_params).includes(:course, :room, :trainer).order('course_events.id ASC')
+    @course_events = @organization.course_events.includes(:course, :room, :trainer).order('course_events.id ASC')
+    # .where(course_event_filter_params)
     if params[:subscribed]
       @course_events = @course_events.where(user_id: current_user.id)
     end
     if params[:state].present?
       if params[:state].downcase == 'active'
         @course_events = @course_events
-                    .where(state: :active)
+                    .where(state: [:active, :suspended])
                     # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
       elsif params[:state].downcase == 'closed'
         @course_events = @course_events

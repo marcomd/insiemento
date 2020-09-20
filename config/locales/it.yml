@@ -324,6 +324,7 @@ it:
         one: "Schedulazione"
         organization: "Organizzazione"
         course: "Corso"
+        course_events: "Sessioni"
         room: "Stanza"
         trainer: "Istruttore"
         category: "Categoria"

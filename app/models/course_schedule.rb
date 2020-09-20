@@ -7,7 +7,7 @@ class CourseSchedule < ApplicationRecord
   belongs_to :room
   belongs_to :trainer
 
-  has_many :course_events, dependent: :destroy
+  has_many :course_events, dependent: :restrict_with_error
 
   before_validation :set_default
 

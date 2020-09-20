@@ -8,7 +8,7 @@ class CourseEvent < ApplicationRecord
   belongs_to :trainer
   belongs_to :course_schedule
   belongs_to :auditor, class_name: 'User', optional: true
-  has_many :attendees, dependent: :destroy
+  has_many :attendees, dependent: :restrict_with_error
   has_many :users, through: :attendees
 
   accepts_nested_attributes_for :attendees, reject_if: lambda { |obj| obj[:user_id].blank? }, allow_destroy: true
@@ -21,9 +21,9 @@ class CourseEvent < ApplicationRecord
   STATES = { just_made: 10, active: 20, suspended: 30, closed: 40}
   enum state: STATES
 
-  def attendees_count
-    attendees.count
-  end
+  # def attendees_count
+  #   attendees.count
+  # end
 
   private
 

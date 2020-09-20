@@ -152,6 +152,7 @@ en:
       course_schedule:
         one: "Scheduling"
         organization: "Organization"
+        course_events: "Events"
         course: "Course"
         room: "Room"
         trainer: "Trainer"

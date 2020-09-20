@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.02.0 20/09/2020
+
+- Suspended course events now are shown in the booking list on the users ui
+  - When a course event is suspended (state to suspended) now a red chip in the course events list is shown
+- Improved performance on course events list by adding a counter cache for the attendees count
+- Removed sidekiq_options in ScheduleJob in order to find the cause for the NotImplementedError issue 
+
 # v1.01.0 20/09/2020
 
 - Updated terms and conditions, privacy and cookie policy

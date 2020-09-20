@@ -132,6 +132,8 @@ it:
           trainer: Istruttore
           event_date: Data e orario
           state: Stato
+          states:
+            suspended: Sospeso
           attendees_count: Partecipanti
           subscribed: Iscritto
       product:

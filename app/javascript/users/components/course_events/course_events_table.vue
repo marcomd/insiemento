@@ -43,11 +43,9 @@
                     <v-chip :color="item.subscribed ? 'green' : '#cccccc'" dark>{{ item.subscribed ? $t('commons.say_yes') : $t('commons.say_no') }}</v-chip>
                 </template>
                 <template v-slot:item.full="{ item }">
-                    <v-chip :color="isFullThis(item) ? 'orange' : '#cccccc'" v-if="isFullThis(item)" dark>{{ $t('course_event.list.full') }}</v-chip>
+                    <v-chip v-if="isFullThis(item)" color="orange" dark>{{ $t('course_event.list.full') }}</v-chip>
+                    <v-chip v-if="isSuspendedThis(item)" color="red" dark>{{ $t('course_event.attributes.states.suspended') }}</v-chip>
                 </template>
-                <!--template v-slot:item.trainer_name="{ item }">
-                    {{ item.trainer.nickname && item.trainer.nickname.length > 0 ? item.trainer.nickname : `${item.trainer.firstname && item.trainer.firstname[0] + '.'} ${item.trainer.lastname}` }}
-                </template-->
             </v-data-table>
         </v-card>
     </v-container>
@@ -106,6 +104,10 @@
       isFullThis(course_event) {
         if (!course_event || !course_event.room) return null
         return course_event.attendees_count >= course_event.room.max_attendees
+      },
+      isSuspendedThis(course_event) {
+          if (!course_event) return null
+          return course_event.state == 'suspended'
       },
     },
     watch: {

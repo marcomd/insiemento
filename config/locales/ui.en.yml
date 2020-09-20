@@ -132,6 +132,8 @@ en:
           trainer: Trainer
           event_date: Date and time
           state: State
+          states:
+            suspended: Suspended
           attendees_count: Participants
           subscribed: Membership
       product:
