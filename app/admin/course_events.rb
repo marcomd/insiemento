@@ -51,6 +51,7 @@ ActiveAdmin.register CourseEvent do
     column(:trainer)
     column(:course_schedule)
     column(:event_date)
+    column(:attendees_count)
     column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
     column(:created_at)
     column(:updated_at)
@@ -63,6 +64,7 @@ ActiveAdmin.register CourseEvent do
   filter :room        , collection: proc { current_admin_user.rooms }
   filter :trainer     , collection: proc { current_admin_user.trainers }
   filter :user        , collection: proc { current_admin_user.users }
+  filter :attendees_count
   filter :state       , as: :select, collection: CourseEvent.localized_states
   filter :event_date
   filter :created_at
@@ -82,6 +84,7 @@ ActiveAdmin.register CourseEvent do
           row(:auditor)
           row(:course_schedule)
           row(:event_date)
+          row(:attendees_count)
           row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
           row(:created_at)
           row(:updated_at)

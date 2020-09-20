@@ -97,10 +97,12 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
                course: course_schedule.course,
                room: course_schedule.room,
                trainer: course_schedule.trainer,
+               state: state,
                event_date: event_date)
       end
+      let(:state) { :active }
 
-      context 'when events is expired' do
+      context 'when event is expired' do
         let(:organization) { Organization.find(organization_id) }
         let(:course_schedule) { organization.course_schedules.first }
         let(:event_date) { Time.zone.now - 1 }
@@ -117,7 +119,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
       end
 
-      context 'when events is not ready yet' do
+      context 'when event is not ready yet' do
         let(:organization) { Organization.find(organization_id) }
         let(:course_schedule) { organization.course_schedules.first }
         let(:event_date) { 8.days.from_now }
@@ -134,7 +136,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
       end
 
-      context 'when events is full' do
+      context 'when event is full' do
         before { stefania_unsubscribed_course_event.room.update max_attendees: 0 }
 
         let(:course_event_id) { stefania_unsubscribed_course_event_id }
@@ -181,6 +183,19 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
               expect(json['errors']).to be_present
               expect(json['errors']['course_event_id']).to include 'Puoi procedere solo disponendo di un abbonamento, contattaci!'
               expect(last_response.status).to eq 422
+            end.to_not change(Attendee, :count)
+          end
+        end
+
+        context 'when event is suspended' do
+          let(:state) { :suspended }
+          it do
+            expect do
+              action
+              expect(json).to be_a(Hash)
+              expect(last_response.status).to eq 422
+              expect(json['errors']).to be_present
+              expect(json['errors']['course_event_id']).to include 'Questa sessione è stata sospesa pertanto non è possibile iscriversi'
             end.to_not change(Attendee, :count)
           end
         end

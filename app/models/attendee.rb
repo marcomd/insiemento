@@ -48,6 +48,11 @@ class Attendee < ApplicationRecord
     if datetime > (course_event.event_date - course.end_booking_minutes.minutes)
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_expired'))
     end
+    if course_event.suspended?
+      errors.add(:course_event_id, I18n.t('errors.messages.course_event_suspended'))
+    elsif course_event.closed?
+      errors.add(:course_event_id, I18n.t('errors.messages.course_event_closed'))
+    end
     !errors.present?
   end
 

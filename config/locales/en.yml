@@ -38,8 +38,10 @@ en:
       active_subscription_needed: "You can only proceed with a subscription, please contact us!"
       organization_not_found: "Sorry, we are unable to process your request"
       course_event_not_bookable_yet: "You cannot book for this session yet, please try again later."
-      course_event_expired: "This session is no longer available!"
+      course_event_expired: "This event is no longer available!"
       course_event_not_unsubscribable: "We are sorry but it is no longer possible to unsubscribe from the list."
+      course_event_suspended: "This event has been suspended so it is not possible to register"
+      course_event_closed: "This event has been closed so it is not possible to register"
   flash:
     actions:
       destroy:

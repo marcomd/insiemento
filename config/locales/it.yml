@@ -138,6 +138,8 @@ it:
       course_event_not_bookable_yet: "Non puoi ancora prenotarti per questa sessione, riprova più avanti."
       course_event_expired: "Questa sessione non è più disponibile!"
       course_event_not_unsubscribable: "Siamo spiacenti ma non è più possibile cancellarsi dalla lista."
+      course_event_suspended: "Questa sessione è stata sospesa pertanto non è possibile iscriversi"
+      course_event_closed: "Questa sessione è stata chiusa pertanto non è possibile iscriversi"
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:

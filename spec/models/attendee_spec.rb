@@ -123,6 +123,28 @@ RSpec.describe Attendee, type: :model do
         expect(subject.errors).to be_present
       end
     end
+
+    context 'when course event is suspended' do
+      let(:check_datetime) { course_event.event_date - 8.hours }
+
+      before { course_event.update state: :suspended }
+      it { expect(result).to be_falsey }
+      it do
+        result
+        expect(subject.errors).to be_present
+      end
+    end
+
+    context 'when course event is closed' do
+      let(:check_datetime) { course_event.event_date - 8.hours }
+
+      before { course_event.update state: :closed }
+      it { expect(result).to be_falsey }
+      it do
+        result
+        expect(subject.errors).to be_present
+      end
+    end
   end
 
   describe '#check_course_event_unsubscribable' do

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.03.0 20/09/2020
+
+- Added attendees count to course events index in the admin ui
+- It is no longer possible to booking on suspended courses (unsubscribing is still allowed) and closed as well
+
 # v1.02.0 20/09/2020
 
 - Suspended course events now are shown in the booking list on the users ui
