@@ -12,7 +12,8 @@
                                           homepage_socials: @current_organization.homepage_socials}.merge(@current_organization.homepage_data),
                                email: @current_organization.email,
                                phone: @current_organization.phone,
-                               s_pk: ENV['STRIPE_PUBLIC_KEY']
+                               site_url: "https://#{@current_organization.site_url}",
+                               s_pk: ENV['STRIPE_PUBLIC_KEY'],
                            }
                          else
                            {}

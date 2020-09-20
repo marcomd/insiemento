@@ -6,6 +6,9 @@ export const homepageContentMixin = {
     isCurrentOrganizationPresent() {
       return !!this.current_organization.name
     },
+    currentOrganizationName() {
+      return this.current_organization.name || 'insiemento.com'
+    },
     organizationHomepageData() {
       return this.current_organization.homepage
     },

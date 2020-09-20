@@ -1,8 +1,7 @@
 <template>
   <v-container class="justify-center">
 
-    <TermsAndConditionsContent :organization-name="currentOrganizationName"
-                               :organization-site-url="current_organization.site_url" :organization-email="current_organization.email || 'privacy@insiemento.com'" />
+    <CookiePolicyContent :organization-name="currentOrganizationName" />
 
     <AcceptOrAway />
 
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-  import TermsAndConditionsContent from '../components/homepage/terms_and_conditions_content'
+  import CookiePolicyContent from '../components/homepage/cookie_policy_content'
   import AcceptOrAway from '../components/homepage/accept_or_away'
 
   import { homepageContentMixin } from '../mixins/homepage_content_mixin'
@@ -21,7 +20,7 @@
     ],
 
     components: {
-      TermsAndConditionsContent,
+      CookiePolicyContent,
       AcceptOrAway,
     },
   }

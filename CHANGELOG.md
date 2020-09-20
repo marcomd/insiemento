@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.01.0 20/09/2020
+
+- Updated terms and conditions, privacy and cookie policy
+  - Added the cookie policy page
+  - Updated content and improved pages to show content that now use a layout component
+  - Each page show info of the related organization
+
 # v1.00.0 17/09/2020
 
 - The software has been in use for two weeks in production and can be considered stable so the major version

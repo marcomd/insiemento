@@ -69,7 +69,12 @@
                     text
                     class="mb-8"
                     :to='{name: "Privacy"}'
-                >Privacy Policy</v-btn>
+                >Informativa Privacy</v-btn>
+                <v-btn
+                    text
+                    class="mb-8"
+                    :to='{name: "Cookie"}'
+                >Cookie Policy</v-btn>
               </base-info-card>
             </v-col>
 

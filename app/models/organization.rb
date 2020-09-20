@@ -154,6 +154,11 @@ class Organization < ApplicationRecord
   #   self.images = homepage_images
   # end
 
+  def site_url
+    str_domain = domain.include?('.') ? domain : "#{domain}.#{CONFIG[:domains].first}"
+    str_domain.include?('www') ? str_domain : "www.#{str_domain}"
+  end
+
   private
 
   def set_default_value

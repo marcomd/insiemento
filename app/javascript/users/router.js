@@ -24,6 +24,7 @@ import ProductShow from './pages/product_show'
 import OrderShow from './pages/order_show'
 import Privacy from './pages/privacy'
 import TermsAndConditions from './pages/terms_and_conditions'
+import Cookie from './pages/cookie'
 
 Vue.use(VueRouter)
 
@@ -104,6 +105,15 @@ const routes = [
     path: '/privacy',
     name: 'Privacy',
     component: Privacy,
+    meta: {
+      public: true,
+      onlyWhenLoggedOut: true
+    }
+  },
+  {
+    path: '/cookie',
+    name: 'Cookie',
+    component: Cookie,
     meta: {
       public: true,
       onlyWhenLoggedOut: true
