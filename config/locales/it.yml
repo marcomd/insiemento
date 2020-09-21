@@ -389,6 +389,7 @@ it:
         medical_certificate_expire_at: "Scadenza certificato medico"
         sign_in_count: "Numero login"
         current_sign_in_at: "Ultimo login"
+        impersonate: "Impersona"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       category:

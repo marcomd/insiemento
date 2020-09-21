@@ -69,12 +69,34 @@ ActiveAdmin.register User do
   filter :updated_at
 
   show do |user|
+    script do
+      raw "
+      $(document).ready(function($) {
+        $('#impersonate-user').on('click', function(e) {
+          e.preventDefault()
+          localStorage.setItem('authToken', $(e.currentTarget).data('token'))
+          const win = window.open($(e.currentTarget).data('url'), '_blank')
+          win.focus()
+        });
+      })
+      "
+    end
     columns do
       column do
         attributes_table do
           row(:organization) if current_admin_user.is_root?
           row(:trainer) if user.trainer_id
           row(:email)
+          row(:impersonate) do |obj|
+            auth_token = JsonWebToken.encode({user_id: obj.id}, expiration_hours: 1)
+            link_to(obj.full_name, '#', target: "_blank",
+                    data: {
+                        token: auth_token,
+                        url: [users_path, 'profile'].join('/')
+                    },
+                    id: 'impersonate-user',
+                    title: "Impersona #{obj.firstname} #{obj.lastname}")
+          end
           row(:firstname)
           row(:lastname)
           row(:phone)

@@ -206,6 +206,7 @@ en:
         medical_certificate_expire_at: "Medical certificate expire at"
         sign_in_count: "Sign in count"
         current_sign_in_at: "Sign in at"
+        impersonate: "Impersonate"
         created_at: "Created at"
         updated_at: "Updated at"
       category:

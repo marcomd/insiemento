@@ -40,19 +40,22 @@
             >
               {{ $t('profile.edit_action') }}
             </v-btn>
+            <div class='flex-grow-1'/>
           </v-card-actions>
-          <h3>{{ $t('profile.subscriptions') }}</h3>
-          <SubscriptionList v-if="subscriptions && subscriptions.length > 0"
-                            :subscriptions="subscriptions"></SubscriptionList>
-          <div v-else-if="loading" class="text-center">
-            <v-progress-circular
-                size="50"
-                color="primary"
-                indeterminate>
-            </v-progress-circular>
-          </div>
-          <p v-else class="text-center">{{ $t('profile.no_subscription') }}</p>
-          <div class="pb-10" />
+          <v-card-text>
+            <h3 class="text-center pb-3">{{ $t('profile.subscriptions') }}</h3>
+            <SubscriptionList v-if="subscriptions && subscriptions.length > 0"
+                              :subscriptions="subscriptions"></SubscriptionList>
+            <div v-else-if="loading" class="text-center">
+              <v-progress-circular
+                  size="50"
+                  color="primary"
+                  indeterminate>
+              </v-progress-circular>
+            </div>
+            <p v-else class="text-center">{{ $t('profile.no_subscription') }}</p>
+            <div class="pb-10" />
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>

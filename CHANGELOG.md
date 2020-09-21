@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.04.0 21/09/2020
+
+- An admin can now impersonate a user on the frontend
+  - Added a new link in the admin ui. Clicking on it, a new window will be opened with that user logged in the user ui.
+    The token is valid for one hour. It is useful when an admin has to reply to a report of a user in need of failure.
+- Little improvements in the user profile
+
 # v1.03.0 20/09/2020
 
 - Added attendees count to course events index in the admin ui
