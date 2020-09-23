@@ -34,7 +34,7 @@
     <v-row>
       <v-col class="text-center">
         <v-btn x-large
-               color='primary'
+               :color="course_event.subscribed ? 'error' : 'success'"
                class='mr-2 mb-2'
                :loading="submitting"
                @click="updateCourseEventSubscription"

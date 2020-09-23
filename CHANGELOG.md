@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.05.0 23/09/2020
+
+- Improved booking button in the course event detail
+  - Now booking button is green to subscribe and red to unsubscribe
+
 # v1.04.0 21/09/2020
 
 - An admin can now impersonate a user on the frontend

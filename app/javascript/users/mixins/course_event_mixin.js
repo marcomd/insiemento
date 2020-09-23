@@ -21,7 +21,7 @@ export const courseEventMixin = {
     },
     courseImageName() {
       const planned_courses = ['zumba', 'yoga', 'pilates', 'total_body', 'pole_dance', 'gag',
-        'kangoo_jumps', 'street', 'lab', 'brazilian_fitness', 'funzionale']
+        'kangoo_jumps', 'street', 'lab_dancehall', 'brasilian_fitness', 'funzionale']
       const course_name_lowered = this.course.name.toLowerCase().replace(/\./g, '').replace(/\s/g, '_')
       return `course_${planned_courses.includes(course_name_lowered) ? course_name_lowered : planned_courses[0]}_600.jpg`
     },

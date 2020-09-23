@@ -41,6 +41,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
 
   # PUT /api/ui/v1/course_events/:id/subscribe
   def subscribe
+    simulate_delay_for_development
     status =
       if course_event_filter_params[:subscribe] == true
         attendee = Attendee.new(user_id: current_user.id)
