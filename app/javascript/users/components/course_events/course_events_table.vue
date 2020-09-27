@@ -31,16 +31,21 @@
                     :headers="headers"
                     :items="course_events"
                     :search="search"
-                    :items-per-page="itemsPerPage"
+                    :items-per-page="listOptions.perPage"
                     class="elevation-1"
                     @click:row="selectRow"
                     :multi-sort="true"
+                    :options.sync="datatableOptions"
+                    @update:options="saveOptions"
+                    :page="listOptions.page"
             >
                 <template v-slot:item.event_date="{ item }">
                     {{ formattedDateTime(item.event_date, 'dddd D MMMM H:mm') }}
                 </template>
                 <template v-slot:item.subscribed="{ item }">
-                    <v-chip :color="item.subscribed ? 'green' : '#cccccc'" dark>{{ item.subscribed ? $t('commons.say_yes') : $t('commons.say_no') }}</v-chip>
+                    <v-chip :color="item.subscribed ? 'green' : '#cccccc'" dark class="row-pointer">
+                        {{ item.subscribed ? $t('commons.say_yes') : $t('commons.say_no') }}
+                    </v-chip>
                 </template>
                 <template v-slot:item.full="{ item }">
                     <v-chip v-if="isFullThis(item)" color="orange" dark>{{ $t('course_event.list.full') }}</v-chip>
@@ -52,29 +57,40 @@
 </template>
 
 <script>
-    import { utilityMixin } from '../../mixins/utility_mixin'
-    import { courseEventMixin } from "../../mixins/course_event_mixin"
-    import { mapActions } from 'vuex'
-
-    export default {
+  import { utilityMixin } from '../../mixins/utility_mixin'
+  import { courseEventMixin } from "../../mixins/course_event_mixin"
+  import { mapActions } from 'vuex'
+  export default {
     name: 'CourseEventsTable',
+
     props: {
       course_events: {
         type: Array,
         required: true
       }
     },
+
     mixins: [
       utilityMixin,
       courseEventMixin,
     ],
+
     created() {
-      this.search = this.$store.state.layout.search
+      this.search = this.$store.state.course_event.search
+      this.listOptions = {
+          page: this.$store.state.course_event.listOptions.page || 1,
+          perPage: this.$store.state.course_event.listOptions.perPage || this.itemsPerPage,
+      }
     },
+
     data() {
       return {
         search: '',
-        selectedCourse: null,
+        listOptions: {
+            page: null,
+            perPage: null,
+        },
+        datatableOptions: {},
         headers: [
           // { text: 'ID', value: 'id' },
           { text: this.$t('course_event.attributes.course'), value: 'course.name' },
@@ -86,6 +102,7 @@
         ]
       }
     },
+
     computed: {
       courses() {
         return Array.from(new Set(this.course_events.map(course_event => course_event.course.name)))
@@ -94,8 +111,9 @@
         return this.$vuetify.breakpoint.xsOnly ? 1 : (this.$vuetify.breakpoint.mdAndUp ? 15 : 5)
       },
     },
+
     methods: {
-      ...mapActions('layout', ['setSearch']),
+      ...mapActions('course_event', ['setSearch', 'setListOptions']),
       selectRow(course_event) {
         this.$emit('select-course_event', {
           course_event: course_event
@@ -109,7 +127,14 @@
           if (!course_event) return null
           return course_event.state == 'suspended'
       },
+      saveOptions() {
+          // console.log('saveOptions', this.datatableOptions)
+          this.setListOptions({
+              page: this.datatableOptions.page,
+              perPage: this.datatableOptions.itemsPerPage})
+      },
     },
+
     watch: {
       search(value) {
         // console.log('watch search', value)
@@ -119,4 +144,8 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .row-pointer {
+        cursor: pointer;
+    }
+</style>

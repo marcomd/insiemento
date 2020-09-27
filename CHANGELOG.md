@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v1.06.0 27/09/2020
+
+- Pagination and other improvements
+  - Course events and products list now save list options (page and per page items) on vuex to set them when user returns
+  - Fixed two course images
+  - Dashboard now propone a button to go to course events list when no one was selected
+  - Search vuex params moved from layout module to course event and product (now both use a separate param)
+- Added spring-commands-rspec to boost rspec boot  
+
 # v1.05.0 23/09/2020
 
 - Improved booking button in the course event detail

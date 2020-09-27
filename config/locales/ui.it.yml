@@ -15,7 +15,7 @@ it:
           subject_with_course: "Richiesta assistenza corso %{name} evento id %{code}"
       commons:
         go_back: "Torna indietro"
-        go_to_list: "Vai alla lista"
+        go_to_list: "Lista %{name}"
         cancel: "Annulla"
         confirm: "Conferma"
         next: "Avanti"
@@ -114,6 +114,7 @@ it:
         subscribe_action: Partecipa
         unsubscribe_action: Disdici
         list:
+          name: Corsi
           select_label: Seleziona i corsi
           subscribed_label: Questi sono i corsi che hai selezionato
           select_action: Dettagli

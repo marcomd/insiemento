@@ -136,6 +136,9 @@ group :development do
   gem 'spring', '~> 2.1.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
+  # RSpec command for spring
+  gem 'spring-commands-rspec'
+
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
   gem 'rubocop', '~> 0.79.0'
 

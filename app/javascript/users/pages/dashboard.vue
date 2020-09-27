@@ -23,8 +23,16 @@
     </v-row>
 
     <CourseEventsCalendar v-if="subscribed_course_events.length > 0" :course_events="subscribed_course_events" />
-    <h3 v-else-if="subscribed_course_events.length == 0 && !loading"
-        class="d-flex justify-center subtitle">{{ $t('course_event.list.none_subscribed') }}</h3>
+    <div v-else-if="subscribed_course_events.length == 0 && !loading"
+         class="text-center">
+      <h3 class="subtitle">{{ $t('course_event.list.none_subscribed') }}</h3>
+      <v-btn x-large
+             class='text-center'
+             color="primary"
+             :to='{name: "CourseEventIndex"}'>
+        {{ $t('commons.go_to_list', {name: $t('course_event.list.name')}) }}
+      </v-btn>
+    </div>
     <v-card v-else
             elevation="0"
             class="mb-12">

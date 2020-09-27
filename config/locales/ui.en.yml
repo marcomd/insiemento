@@ -114,6 +114,7 @@ en:
         subscribe_action: Subscribe
         unsubscribe_action: Unsubscribe
         list:
+          name: Courses
           select_label: Select courses
           subscribed_label: These are the courses you will attend
           select_action: Details

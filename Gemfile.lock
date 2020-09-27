@@ -409,6 +409,8 @@ GEM
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
     spring (2.1.0)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
@@ -519,6 +521,7 @@ DEPENDENCIES
   simple_command (~> 0.0.9)
   simplecov (~> 0.18.0)
   spring (~> 2.1.0)
+  spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   storext (~> 3.1.0)
   stripe (~> 5)

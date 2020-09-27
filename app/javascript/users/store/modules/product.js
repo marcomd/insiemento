@@ -5,6 +5,11 @@ export const namespaced = true
 export const state = {
   products: [],
   product: {},
+  search: null,
+  listOptions: {
+    page: null,
+    perPage: null,
+  },
 }
 
 export const mutations = {
@@ -24,6 +29,12 @@ export const mutations = {
     }
     state.products.push(product)
     // console.log('  - replaced! New items:', state.products.length)
+  },
+  SET_SEARCH(state, search) {
+    state.search = search
+  },
+  SET_LIST_OPTIONS(state, options) {
+    state.listOptions = options
   },
 }
 
@@ -78,6 +89,12 @@ export const actions = {
           })
       }
     })
+  },
+  setSearch({ commit }, search) {
+    commit('SET_SEARCH', search)
+  },
+  setListOptions({ commit }, options) {
+    commit('SET_LIST_OPTIONS', options)
   },
 }
 

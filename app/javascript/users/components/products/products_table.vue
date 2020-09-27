@@ -25,16 +25,21 @@
                     :headers="headers"
                     :items="products"
                     :search="search"
-                    :items-per-page="itemsPerPage"
+                    :items-per-page="listOptions.perPage"
                     class="elevation-1"
                     @click:row="selectRow"
                     :multi-sort="true"
+                    :options.sync="datatableOptions"
+                    @update:options="saveOptions"
+                    :page="listOptions.page"
             >
                 <template v-slot:item.event_date="{ item }">
                     {{ formattedDateTime(item.event_date, 'dddd D MMMM H:mm') }}
                 </template>
                 <template v-slot:item.selected="{ item }">
-                    <v-chip :color="item.selected ? 'green' : '#cccccc'" dark>{{ item.selected ? $t('commons.say_yes') : $t('commons.say_no') }}</v-chip>
+                    <v-chip :color="item.selected ? 'green' : '#cccccc'" class="row-pointer" dark>
+                        {{ item.selected ? $t('commons.say_yes') : $t('commons.say_no') }}
+                    </v-chip>
                 </template>
             </v-data-table>
         </v-card>
@@ -42,28 +47,41 @@
 </template>
 
 <script>
-    import { utilityMixin } from '../../mixins/utility_mixin'
-    import { productMixin } from "../../mixins/product_mixin"
-    import { mapActions } from 'vuex'
+  import { utilityMixin } from '../../mixins/utility_mixin'
+  import { productMixin } from "../../mixins/product_mixin"
+  import { mapActions } from 'vuex'
 
-    export default {
+  export default {
+    name: 'ProductsTable',
+
     props: {
       products: {
         type: Array,
         required: true
       }
     },
+
     mixins: [
       utilityMixin,
       productMixin,
     ],
+
     created() {
-      this.search = this.$store.state.layout.search
+      this.search = this.$store.state.course_event.search
+      this.listOptions = {
+          page: this.$store.state.product.listOptions.page || 1,
+          perPage: this.$store.state.product.listOptions.perPage || this.itemsPerPage,
+      }
     },
+
     data() {
       return {
         search: '',
-        selectedCourse: null,
+        listOptions: {
+          page: null,
+          perPage: null,
+        },
+        datatableOptions: {},
         headers: [
           // { text: 'ID', value: 'id' },
           { text: this.$t('product.attributes.category'), value: 'category_name' },
@@ -73,6 +91,7 @@
         ]
       }
     },
+
     computed: {
       categories() {
         return Array.from(new Set(this.products.map(product => product.category_name)))
@@ -81,14 +100,22 @@
         return this.$vuetify.breakpoint.xsOnly ? 1 : (this.$vuetify.breakpoint.mdAndUp ? 15 : 5)
       },
     },
+
     methods: {
-      ...mapActions('layout', ['setSearch']),
+      ...mapActions('product', ['setSearch', 'setListOptions']),
       selectRow(product) {
         this.$emit('select-product', {
           product: product
         })
       },
+      saveOptions() {
+          // console.log('saveOptions', this.datatableOptions)
+          this.setListOptions({
+              page: this.datatableOptions.page,
+              perPage: this.datatableOptions.itemsPerPage})
+      },
     },
+
     watch: {
       search(value) {
         // console.log('watch search', value)
@@ -98,4 +125,8 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .row-pointer {
+        cursor: pointer;
+    }
+</style>

@@ -35,7 +35,7 @@
       <v-col class="text-center">
         <v-btn x-large
                :color="course_event.subscribed ? 'error' : 'success'"
-               class='mr-2 mb-2'
+               class=''
                :loading="submitting"
                @click="updateCourseEventSubscription"
                :disabled="isCourseEventFull && !course_event.subscribed"
@@ -45,9 +45,9 @@
       </v-col>
       <v-col class="text-center">
         <v-btn x-large
-               class='mr-2 mb-2'
+               class=''
                :to='{name: "CourseEventIndex"}'>
-          {{ $t('commons.go_to_list') }}
+          {{ $t('commons.go_to_list', {name: $t('course_event.list.name')}) }}
         </v-btn>
       </v-col>
     </v-row>

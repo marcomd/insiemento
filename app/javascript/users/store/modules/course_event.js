@@ -5,6 +5,11 @@ export const namespaced = true
 export const state = {
   course_events: [],
   course_event: {},
+  search: null,
+  listOptions: {
+    page: null,
+    perPage: null,
+  },
 }
 
 export const mutations = {
@@ -24,6 +29,12 @@ export const mutations = {
     }
     state.course_events.push(course_event)
     // console.log('  - replaced! New items:', state.course_events.length)
+  },
+  SET_SEARCH(state, search) {
+    state.search = search
+  },
+  SET_LIST_OPTIONS(state, options) {
+    state.listOptions = options
   },
 }
 
@@ -131,6 +142,12 @@ export const actions = {
         })
         .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
+  },
+  setSearch({ commit }, search) {
+    commit('SET_SEARCH', search)
+  },
+  setListOptions({ commit }, options) {
+    commit('SET_LIST_OPTIONS', options)
   },
 }
 
