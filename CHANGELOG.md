@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.07.0 27/09/2020
+
+- Updated several javascript plugin
+
 # v1.06.0 27/09/2020
 
 - Pagination and other improvements
