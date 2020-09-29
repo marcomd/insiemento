@@ -26,7 +26,6 @@
                   <v-text-field
                     v-model='firstname'
                     prepend-icon='mdi-account-outline'
-                    :append-outer-icon='requiredIcon("firstname")'
                     :label='labelFor("firstname")'
                     :error-messages='firstNameErrors'
                     @input='$v.firstname.$touch()'
@@ -38,7 +37,6 @@
                   <v-text-field
                     v-model='lastname'
                     prepend-icon='mdi-account'
-                    :append-outer-icon='requiredIcon("lastname")'
                     :label='labelFor("lastname")'
                     :error-messages='lastNameErrors'
                     @input='$v.lastname.$touch()'
@@ -68,6 +66,10 @@
                       :label='$t("profile.attributes.genders.female")'
                       value='F'
                     />
+                    <v-radio
+                        :label='$t("profile.attributes.genders.robot")'
+                        value='R'
+                    />
                   </v-radio-group>
                 </v-col>
                 <v-col cols='12' sm='6'>
@@ -85,7 +87,6 @@
                     <template v-slot:activator='{ on }'>
                       <v-text-field
                               :value='formattedDate(birthdate)'
-                              :append-outer-icon='requiredIcon("birthdate")'
                               :label='labelFor("birthdate")'
                               prepend-icon='mdi-calendar'
                               :error-messages="birthdateErrors"
@@ -114,7 +115,6 @@
                   <v-text-field
                     v-model='phone'
                     :label='labelFor("phone")'
-                    :append-outer-icon='requiredIcon("phone")'
                     prepend-icon='mdi-phone'
                     persistent-hint
                     :hint='$t("profile.hints.phone")'
@@ -128,7 +128,6 @@
                   <v-text-field
                           v-model.trim='email'
                           prepend-icon='mdi-at'
-                          :append-outer-icon='requiredIcon("email")'
                           :label='labelFor("email")'
                           :error-messages='emailErrors'
                           @input='$v.email.$touch()'
@@ -226,9 +225,9 @@
         'currentUser',
         'hasCurrentUser'
       ]),
-      ...mapState('mappings', [
-        'phonePrefixes'
-      ]),
+      // ...mapState('mappings', [
+      //   'phonePrefixes'
+      // ]),
       phoneErrors() {
         const errors = []
         !!this.serverSideErrors.phone && errors.push(this.show_error_form_field(this.serverSideErrors.phone))

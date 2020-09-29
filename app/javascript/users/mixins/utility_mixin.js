@@ -60,18 +60,29 @@ export const utilityMixin = {
     labelsPrefix() {
       return 'commons.labels' // override in component if needed
     },
-    labelFor(field) {
-      return this.$t(this.labelsPrefix() + '.' + field)
-    },
-    requiredIcon(field, forceRequired) {
-      if (forceRequired ||
-        // Se presente il campo in vuelidate, possono esistere diversi oggetti in percorsi diversi e la scelta di quello
-        // corretto purtroppo complica il codice che segue...
-        (!!this.$v && !!this.$v[field] && (!!this.$v[field].$params.required &&
-          (this.$v[field].$params.required.type == 'required' ||
-            (this.$v[field].$params.required.type == 'requiredIf' && this.$v[field].$params.required.prop() ))))) {
-        return 'mdi-asterisk'
+    // Params:
+    // validation_field: pass the key used in vuelidate if it does not match with the label (ex: user vs user_id)
+    // required: if true and the field is required, a * after the label is appended
+    // optional: if true and the field is not required, a [optional] after the label is appended (the tag is localized)
+    labelFor(field, {validation_field=field, required=false, optional=false} = {}) {
+      let label = this.$t(this.labelsPrefix() + '.' + field)
+      if (this.isRequired(validation_field)) {
+        if (required) label += ' *'
+      } else {
+        if (optional) label += ` [${this.$t('commons.optional')}]`
       }
-    }
+      return label
+    },
+    isRequired(field) {
+      // If the field in vuelidate is present, different objects may exist in different paths and
+      // the choice of the correct one unfortunately complicates the following code ...
+      if (!!this.$v && !!this.$v[field] && (!!this.$v[field].$params.required &&
+        (this.$v[field].$params.required.type == 'required' ||
+          (this.$v[field].$params.required.type == 'requiredIf' && this.$v[field].$params.required.prop() )))) {
+        return true
+      } else {
+        return false
+      }
+    },
   }
 }

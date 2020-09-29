@@ -1,6 +1,8 @@
 <template>
   <v-container fill-height class="d-flex justify-center">
 
+    <ProfileCompletionAlert :has-current-user="hasCurrentUser" :is-current-user-completed="isCurrentUserCompleted" />
+
     <CourseEventsTable :course_events="course_events" @select-course_event="setCourseEvent"/>
     <h3 v-if="course_events.length == 0 && !loading"
         class="d-flex justify-center subtitle">{{ $t('course_event.list.none') }}</h3>
@@ -24,28 +26,35 @@
   // Components
   import CourseEventsListCards from '../components/course_events/course_events_list_cards'
   import CourseEventsTable from '../components/course_events/course_events_table'
+  import ProfileCompletionAlert from '../components/session/profile_completion_alert'
+  import { currentUserMixin } from '../mixins/current_user_mixin'
 
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
 
   export default {
-    created() {
-      this.fetchCourseEvents()
-    },
     components: {
       CourseEventsListCards,
       CourseEventsTable,
+      ProfileCompletionAlert,
     },
-    data() {
-      return {
-      }
+
+    mixins: [
+      currentUserMixin,
+    ],
+
+    created() {
+      this.fetchCourseEvents()
     },
+
     computed: {
       ...mapState('course_event', ['course_events']),
       ...mapState('layout', ['loading']),
+      ...mapGetters('profile', ['currentUser', 'hasCurrentUser']),
       subscribed_course_events() {
         return this.course_events.filter(course_event => course_event.subscribed )
       }
     },
+
     methods: {
      ...mapActions('course_event', ['fetchCourseEvents']),
       setCourseEvent({course_event}) {

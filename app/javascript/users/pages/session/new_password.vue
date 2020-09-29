@@ -19,7 +19,7 @@
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :label='$t("session.password_label")'
                 :type="showPassword ? 'text' : 'password'"
-                :hint='$t("session.password_hint")'
+                :hint='$t("session.sign_up.password_hint")'
                 counter
                 minlength='8'
                 :error-messages='passwordErrors'

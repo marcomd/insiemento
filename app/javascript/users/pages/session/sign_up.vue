@@ -5,34 +5,17 @@
         <v-card elevation='1'>
           <v-toolbar flat>
             <v-toolbar-title>
-              {{ $t('session.sign_up_title') }}
+              {{ $t('session.sign_up.title') }}
             </v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form id='sign-up-form' @submit.prevent='signUp'>
-
-              <!--v-row v-if="!current_organization.name">
-                <v-col cols="12">
-                  <v-text-field
-                      v-model='organization'
-                      prepend-icon='mdi-domain'
-                      :append-outer-icon='requiredIcon("organization")'
-                      :label='labelFor("organization_uuid")'
-                      :error-messages='organizationErrors'
-                      @input='$v.organization.$touch()'
-                      @blur='$v.organization.$touch()'
-                      persistent-hint
-                      hint="Inserisci il codice della tua palestra, se non lo conosci richiedilo alla tua palestra"
-                  />
-                </v-col>
-              </v-row-->
 
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field
                     v-model='firstname'
                     prepend-icon='mdi-account'
-                    :append-outer-icon='requiredIcon("firstname")'
                     :label='labelFor("firstname")'
                     :error-messages='firstNameErrors'
                     @input='$v.firstname.$touch()'
@@ -43,7 +26,6 @@
                   <v-text-field
                     v-model='lastname'
                     prepend-icon='mdi-account'
-                    :append-outer-icon='requiredIcon("lastname")'
                     :label='labelFor("lastname")'
                     :error-messages='lastNameErrors'
                     @input='$v.lastname.$touch()'
@@ -81,7 +63,6 @@
                   <v-text-field required
                     v-model.trim='email'
                     prepend-icon='mdi-at'
-                    :append-outer-icon='requiredIcon("email")'
                     :label='labelFor("email")'
                     :error-messages='emailErrors'
                     @input='$v.email.$touch()'
@@ -126,7 +107,6 @@
                   <v-text-field required
                     v-model.trim='email_confirmation'
                     prepend-icon='mdi-at'
-                    :append-outer-icon='requiredIcon("email_confirmation")'
                     :label='labelFor("email_confirmation")'
                     :error-messages='emailConfirmationErrors'
                     @input='$v.email_confirmation.$touch()'
@@ -141,10 +121,9 @@
                     v-model='password'
                     prepend-icon='mdi-lock-question'
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    :append-outer-icon='requiredIcon("password")'
                     :label='labelFor("password")'
                     :type="showPassword ? 'text' : 'password'"
-                    :hint='$t("session.password_hint")'
+                    :hint='$t("session.sign_up.password_hint")'
                     counter
                     minlength='8'
                     :error-messages='passwordErrors'
@@ -158,7 +137,6 @@
                     v-model='password_confirmation'
                     prepend-icon='mdi-lock-question'
                     :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
-                    :append-outer-icon='requiredIcon("password_confirmation")'
                     :label='labelFor("password_confirmation")'
                     :type="showPasswordConfirmation ? 'text' : 'password'"
                     counter
@@ -175,7 +153,7 @@
                           @blur='$v.terms_and_conditions.$touch()'>
                 <template v-slot:label>
                   <div>
-                    Accetto
+                    {{ $t('commons.accept') }}
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
                         <a
@@ -184,10 +162,10 @@
                             @click.stop
                             v-on="on"
                         >
-                          Termini e Condizioni
+                          {{ $t('session.sign_up.terms') }}
                         </a>
                       </template>
-                      Leggi con attenzione prima di accettare
+                      {{ $t('session.sign_up.terms_hint') }}
                     </v-tooltip>
                   </div>
                 </template>
@@ -206,7 +184,7 @@
               :loading='submitting'
               class='mr-2 mb-2'
             >
-              {{ $t('session.sign_up_action') }}
+              {{ $t('session.sign_up.action') }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -241,13 +219,13 @@
         gender:        { required },
         email: {
           required,
-          email
-          // isAvailable(value) {
-          //   // no need to check availability via API if email is not present or invalid
-          //   this.resultAvailability = null
-          //   if (!required(value) || !email(value)) return true
-          //   return this.checkEmailAvailability(value)
-          // }
+          email,
+          isAvailable(value) {
+            // no need to check availability via API if email is not present or invalid
+            this.resultAvailability = null
+            if (!required(value) || !email(value)) return true
+            return this.checkEmailAvailability(value)
+          }
         },
         email_confirmation:     { required, email, sameAsEmail: sameAs('email') },
         password:               { required, minLength: minLength(8) },

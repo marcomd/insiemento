@@ -31,6 +31,7 @@ it:
         all: "Tutti"
         usage: "Utilizzo"
         with: "Con"
+        accept: "Accetta"
       locales:
         it: Italiano
         en: English
@@ -53,9 +54,12 @@ it:
       session:
         login_action: Entra
         login_title: Login
-        sign_up_action: Registrati
-        sign_up_title: Registrazione
-        password_hint: Inserisci una password sicura, mi raccomando!
+        sign_up:
+          action: Registrati
+          title: Registrazione
+          terms: Termini e condizioni
+          terms_hint: Leggi con attenzione prima di accettare
+          password_hint: Inserisci una password alfanumerica lunga almeno 8, con minuscole, maiuscole e caratteri speciali
         signed_up_body: Controlla la tua casella email per confermare la tua registrazione
         password_forgotten: Hai dimenticato la password?
         password_reset_title: Imposta una nuova password
@@ -188,7 +192,7 @@ it:
         age_not_valid: "la tua età non può essere accettata, leggi i termini e le condizioni del servizio"
       alerts:
         unauthorized: Autenticati per accedere alla pagina
-        login_success: Accesso effettuato con successo
+        login_success: Login effettuato con successo
         login_error: Email o password errate
         signed_up: Registrazione effettuata con successo
         sign_up_error: Errore, ricontrolla i dati inseriti

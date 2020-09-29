@@ -18,7 +18,7 @@ export const availabilityMixin = {
   methods: {
     checkEmailAvailability(email) {
       this.checkingAvailability = true
-      const url = `${this.$store.state.application.urls.available_customer}?email=${email}`
+      const url = `${this.$store.state.application.urls.available_user}?email=${email}`
       return Vue.http.get(url, { skipInterceptors: true })
         .then(response => {
           this.resultAvailability = response.body.available === true
@@ -31,24 +31,6 @@ export const availabilityMixin = {
           if (!!this.serverSideErrors) this.serverSideErrors = {}
           this.serverSideErrors['email'] = [err.body ? err.body.error : err]
           this.resultCustomerCreatedByWeb = null
-          this.resultAvailability = false
-          return false
-        }).finally(_ => this.checkingAvailability = false)
-    },
-    checkFiscalCodeAvailability(fiscal_code) {
-      // console.log(`checkFiscalCodeAvailability ${fiscal_code}`)
-      this.checkingAvailability = true
-      const url = `${this.$store.state.application.urls.available_invoice_account}?fiscal_code=${fiscal_code}`
-      return Vue.http.get(url, { skipInterceptors: true })
-        .then(response => {
-          this.resultAvailability = response.body.available === true
-          if (!!this.serverSideErrors) this.serverSideErrors = {}
-          this.serverSideErrors['fiscal_code'] = this.resultAvailability ? null : [this.$t('errors.fiscal_code_already_exists')]
-          return this.resultAvailability
-        }, err => {
-          console.log('checkFiscalCodeAvailability', err)
-          if (!!this.serverSideErrors) this.serverSideErrors = {}
-          this.serverSideErrors['fiscal_code'] = [err.body ? err.body.error : err]
           this.resultAvailability = false
           return false
         }).finally(_ => this.checkingAvailability = false)

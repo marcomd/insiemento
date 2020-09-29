@@ -31,6 +31,7 @@ en:
         all: "All"
         usage: "Usage"
         with: "With"
+        accept: "Accept"
       locales:
         it: Italiano
         en: English
@@ -53,9 +54,12 @@ en:
       session:
         login_action: Log in
         login_title: Login
-        sign_up_action: Register
-        sign_up_title: Registration
-        password_hint: Enter a secure password, please!
+        sign_up:
+          action: Register
+          title: Registration
+          terms: Terms and conditions
+          terms_hint: Read carefully before accepting
+          password_hint: Enter an alphanumeric password at least 8 long, with lowercase, uppercase and special characters
         signed_up_body: Description for post registration description for post registration description for post registration
         password_forgotten: Forgot your password?
         password_reset_title: Set a new password

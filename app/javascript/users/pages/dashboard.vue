@@ -1,26 +1,7 @@
 <template>
   <v-container fill-height class="d-flex justify-center">
 
-    <v-row v-if="hasCurrentUser && !isCurrentUserCompleted">
-      <v-col>
-        <v-alert
-            type="info"
-            colored-border
-            color="primary lighten-2"
-            elevation="2"
-            border="left"
-        >
-          {{ $t('profile.hints.incomplete_profile') }}
-          <v-btn
-              text
-              color="primary"
-              :to='{name: "editProfile"}'
-          >
-            {{ $t('commons.next') }}
-          </v-btn>
-        </v-alert>
-      </v-col>
-    </v-row>
+    <ProfileCompletionAlert :has-current-user="hasCurrentUser" :is-current-user-completed="isCurrentUserCompleted" />
 
     <CourseEventsCalendar v-if="subscribed_course_events.length > 0" :course_events="subscribed_course_events" />
     <div v-else-if="subscribed_course_events.length == 0 && !loading"
@@ -47,6 +28,7 @@
 
 <script>
   import CourseEventsCalendar from '../components/course_events/course_events_calendar'
+  import ProfileCompletionAlert from '../components/session/profile_completion_alert'
   import { currentUserMixin } from '../mixins/current_user_mixin'
 
   import { mapState, mapActions, mapGetters } from 'vuex'
@@ -54,6 +36,7 @@
   export default {
     components: {
       CourseEventsCalendar,
+      ProfileCompletionAlert,
     },
 
     mixins: [

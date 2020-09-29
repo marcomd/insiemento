@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v1.08.0 29/09/2020
+
+- Profile completion component, email availability and other improvements
+  - Removed red asterisks for required fields since material design does not expect to show them
+  - New component for profile completion alert which now is shown on course events list as well
+  - SignUp form now check email availability
+  - Other little improvements
+
 # v1.07.0 27/09/2020
 
 - Updated several javascript plugin
