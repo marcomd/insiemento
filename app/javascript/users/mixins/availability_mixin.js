@@ -18,7 +18,8 @@ export const availabilityMixin = {
   methods: {
     checkEmailAvailability(email) {
       this.checkingAvailability = true
-      const url = `${this.$store.state.application.urls.available_user}?email=${email}`
+      const escaped_email = escape(email.replace('+', '%2B'))
+      const url = `${this.$store.state.application.urls.available_user}?email=${escaped_email}`
       return Vue.http.get(url, { skipInterceptors: true })
         .then(response => {
           this.resultAvailability = response.body.available === true

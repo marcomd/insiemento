@@ -25,10 +25,13 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
     sleep(rand(0.0..0.8)) if Rails.env.development?
     permitted_params = [:email, :format]
     email = params.permit(*permitted_params)[:email]
-    raise API::Exceptions::BadRequest, I18n.t('ui.users.errors.email_required') unless email
-
+    if email
+      email = URI.decode(email)
+    else
+      raise(Api::BadRequestError, I18n.t('ui.users.errors.email_required'))
+    end
     regexp_email = /\A([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})\Z/
-    raise API::Exceptions::BadRequest, I18n.t('ui.users.errors.email_invalid_format') unless regexp_email === email
+    raise Api::BadRequestError, I18n.t('ui.users.errors.email_invalid_format') unless regexp_email === email
 
     user = User.find_by_email(email)
     json_attributes = { available: !user }

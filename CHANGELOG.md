@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.08.1 30/09/2020
+
+- Fixed email availability
+  - Fixed a bug on a wrong exception type raised
+  - Email availability now accepts address with a + like gmail aliases. To allow this email address is now escaped
+
 # v1.08.0 29/09/2020
 
 - Profile completion component, email availability and other improvements
