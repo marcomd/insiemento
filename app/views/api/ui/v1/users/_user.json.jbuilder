@@ -1,6 +1,7 @@
 json.extract! user, :id,
-              :email, :firstname, :lastname,
-              :birthdate, :gender, :phone, :trainer_id,
+              :email, :firstname, :lastname, :birthdate,
+              :child_firstname, :child_lastname, :child_birthdate,
+              :gender, :phone, :trainer_id,
               :created_at, :updated_at
 
 # json.set!('last_subscriptions') do

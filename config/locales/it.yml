@@ -390,6 +390,9 @@ it:
         sign_in_count: "Numero login"
         current_sign_in_at: "Ultimo login"
         impersonate: "Impersona"
+        child_firstname: "Nome bambino"
+        child_lastname: "Cognome bambino"
+        child_birthdate: "Data nascita bambino"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       category:
@@ -559,6 +562,10 @@ it:
         uuid: "Codice univoco per il servizio di firma elettronica. Lascia vuoto per assegnarlo in automatico"
         body: "Usa le variabili nel seguente formato #{user.firstname}"
         expire_on: "Oltre questa data il documento scade. Lascia vuoto per calcolarla in automatico in base alla validità definita nel modello"
+      user:
+        child_firstname: "Se genitore di un minore di 14 anni inserisci il nome del bambino"
+        child_lastname: "Cognome del bambino"
+        child_birthdate: "Data di nascita del bambino"
 
   activeadmin:
     panels:

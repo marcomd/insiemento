@@ -83,7 +83,11 @@ it:
           password_confirmation: Conferma password
           password: Password
           remember_me: Ricordami su questo dispositivo
-          organization_uuid: Identificativo unico palestra
+          child_account: Genitore o tutore
+          child_firstname: Nome del bambino
+          child_lastname: Cognome del bambino
+        hints:
+          child_account: Spunta se devi gestire l'account di un minore di 14 anni
       profile:
         edit_action: Modifica
         completing_action: Continua
@@ -107,12 +111,17 @@ it:
             male: Maschio
             female: Femmina
             robot: Androide
+          child_account: Genitore o tutore
+          child_firstname: Nome del bambino
+          child_lastname: Cognome del bambino
+          child_birthdate: Data nascita del bambino
         hints:
           disabled_form: Il tuo account non consente la modifica di questi dati, nell'eventualità contattaci
           incomplete_profile: Il tuo profilo non è completo, inserisci i dati mancanti per continuare
           email: Ti verrà inviata un'email per confermare l'indirizzo
           phone_prefix: Ricerca prefisso o nome della nazione
           phone: Lo utilizzeremo solo per contattarti in caso di necessità
+          child_account: Spunta se devi gestire l'account di un minore di 14 anni
       course_event:
         edit_action: Modifica
         subscribe_action: Partecipa
@@ -190,6 +199,7 @@ it:
         invalid_value: valore non valido
         already_exists: "già presente"
         age_not_valid: "la tua età non può essere accettata, leggi i termini e le condizioni del servizio"
+        child_age_not_valid: "non possiamo considerarlo un bambino, controlla la data"
       alerts:
         unauthorized: Autenticati per accedere alla pagina
         login_success: Login effettuato con successo

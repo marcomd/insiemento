@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_20_163954) do
+ActiveRecord::Schema.define(version: 2020_09_30_202632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -358,6 +358,9 @@ ActiveRecord::Schema.define(version: 2020_09_20_163954) do
     t.string "unconfirmed_email"
     t.date "medical_certificate_expire_at"
     t.bigint "trainer_id"
+    t.string "child_firstname", limit: 32
+    t.string "child_lastname", limit: 32
+    t.date "child_birthdate"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["firstname"], name: "index_users_on_firstname"

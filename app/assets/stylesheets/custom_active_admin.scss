@@ -50,4 +50,9 @@ body.active_admin {
   .minicolors-theme-default .minicolors-swatch {
     border-radius: 5px;
   }
+
+  // Formtastic type :date_picker
+  form input[type=date] {
+    width: 120px;
+  }
 }

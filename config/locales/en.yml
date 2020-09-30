@@ -207,6 +207,9 @@ en:
         sign_in_count: "Sign in count"
         current_sign_in_at: "Sign in at"
         impersonate: "Impersonate"
+        child_firstname: "Child's name"
+        child_lastname: "Child's surname"
+        child_birthdate: "Child birth date"
         created_at: "Created at"
         updated_at: "Updated at"
       category:
@@ -370,6 +373,10 @@ en:
         uuid: "Unique code for the electronic signature service. Leave blank to assign it automatically"
         body: "Use variables in the following format # {user.firstname}"
         expire_on: "After this date the document expires. Leave blank to calculate it automatically based on the validity defined in the model"
+      user:
+        child_firstname: "If parent of a child under 14 enter the child's name"
+        child_lastname: "Child's surname"
+        child_birthdate: "Date of birth of the child"
   activeadmin:
     panels:
       active_subscriptions: "Active subscriptions"

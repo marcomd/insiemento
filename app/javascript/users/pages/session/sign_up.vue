@@ -35,10 +35,11 @@
               </v-row>
 
               <v-row>
-                <v-col>
+                <v-col cols="12" sm="6">
                   <v-radio-group
                     v-model='gender'
                     :error-messages="genderErrors"
+                    :prepend-icon="!!gender ? (gender == 'M' ? 'mdi-gender-male' : (gender == 'F' ? 'mdi-gender-female' : 'mdi-android')) : 'mdi-gender-male-female'"
                     @change="$v.gender.$touch()"
                     @blur="$v.gender.$touch()"
                   >
@@ -56,7 +57,41 @@
                     />
                   </v-radio-group>
                 </v-col>
+                <v-col cols="12" sm="6">
+                  <v-checkbox v-model="child_account"
+                              :label='labelFor("child_account")'
+                              persistent-hint
+                              :hint='$t("session.hints.child_account")'
+                              @input='$v.child_account.$touch()'
+                              @blur='$v.child_account.$touch()'>
+                  </v-checkbox>
+                </v-col>
               </v-row>
+
+              <v-expand-transition>
+                <v-row v-if="child_account">
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                          v-model='child_firstname'
+                          prepend-icon='mdi-account-supervisor'
+                          :label='labelFor("child_firstname")'
+                          :error-messages='firstNameErrors'
+                          @input='$v.child_firstname.$touch()'
+                          @blur='$v.child_firstname.$touch()'
+                      />
+                    </v-col>
+                    <v-col cols='12' sm='6'>
+                      <v-text-field
+                          v-model='child_lastname'
+                          prepend-icon='mdi-account-supervisor'
+                          :label='labelFor("child_lastname")'
+                          :error-messages='lastNameErrors'
+                          @input='$v.child_lastname.$touch()'
+                          @blur='$v.child_lastname.$touch()'
+                      />
+                    </v-col>
+                </v-row>
+              </v-expand-transition>
 
               <v-row>
                 <v-col cols="12" sm="6">
@@ -211,6 +246,7 @@
       sessionMixin,
       availabilityMixin,
     ],
+
     validations() {
       return {
         // organization:  { required: requiredIf(_ => { return !this.current_organization }) },
@@ -231,8 +267,12 @@
         password:               { required, minLength: minLength(8) },
         password_confirmation:  { required, sameAsPassword: sameAs('password') },
         terms_and_conditions:   { required },
+        child_account:          { required: requiredIf(_ => { return false }) },
+        child_firstname:        { required: requiredIf(_ => { return this.child_account }) },
+        child_lastname:         { required: requiredIf(_ => { return this.child_account }) },
       }
     },
+
     data() {
       return {
         firstname: '',
@@ -243,12 +283,16 @@
         password: '',
         password_confirmation: '',
         terms_and_conditions: false,
+        child_account: false,
+        child_firstname: '',
+        child_lastname: '',
         // organization: null,
         showPassword: false,
         showPasswordConfirmation: false,
         serverSideErrors: {}
       }
     },
+
     computed: {
       showForgottenPasswordHint() {
         // return !this.checkingAvailability && !!this.serverSideErrors && !!this.serverSideErrors['email']
@@ -257,6 +301,7 @@
       ...mapState('layout', ['submitting']),
       // ...mapState('application', ['current_organization']),
     },
+
     methods: {
       labelsPrefix() {
         return 'session.attributes'
@@ -273,7 +318,8 @@
           email_confirmation: this.email_confirmation,
           password: this.password,
           password_confirmation: this.password_confirmation,
-          // organization_uuid: this.organization,
+          child_firstname: this.child_account ? this.child_firstname : null,
+          child_lastname: this.child_account ? this.child_lastname : null,
         }).then(_ => {
           this.$router.push({ name: 'signedUp' })
           this.$store.dispatch('layout/addAlert', {
@@ -296,24 +342,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-
-  .slide-fade-enter {
-    transform: scale(1.3);
-    opacity: 0;
-  }
-  .slide-fade-enter-active {
-    transition: all 0.3s ease-in;
-  }
-  .slide-fade-leave-active {
-    transition: all 0s ease-out;
-  }
-  .slide-fade-leave-to {
-    opacity: 0;
-  }
 </style>

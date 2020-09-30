@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.09.0 01/10/2020
+
+- Added child data to user
+  - Now a parent or a guardian can insert data of its child, only one child for each user is allowed. If a user has
+    more children he must create one account for each one. He can use email aliases to use the same email address.
+
 # v1.08.1 30/09/2020
 
 - Fixed email availability

@@ -84,6 +84,11 @@ en:
           password_confirmation: Confirm password
           password: Password
           remember_me: Remember me on this device
+          child_account: Parent or guardian
+          child_firstname: Child's name
+          child_lastname: Child's surname
+        hints:
+          child_account: Check if you need to manage the account of a child under 14
       profile:
         edit_action: Edit
         completing_action: Continue
@@ -107,12 +112,17 @@ en:
             male: Male
             female: Female
             robot: Robot
+          child_account: Parent or guardian
+          child_firstname: Child's name
+          child_lastname: Child's surname
+          child_birthdate: Date of birth of the child
         hints:
           disabled_form: Your account does not allow the update of these data. For this need please contact us
           incomplete_profile: Your profile is not complete, enter the missing data to continue
           email: An email will be sent to confirm the address
           phone_prefix: Search prefix or country name
           phone: We will only use it to contact you in case of need
+          child_account: Check if you need to manage the account of a child under 14
       course_event:
         edit_action: Change
         subscribe_action: Subscribe
@@ -188,6 +198,8 @@ en:
         inclusion: "%{value} is not included in the list of values"
         invalid_value: value not valid
         already_exists: "already exists"
+        age_not_valid: "your age cannot be accepted, please read the terms and conditions of the service"
+        child_age_not_valid: "we can't consider him a child, check the date"
       alerts:
         unauthorized: Sign in to access the page
         login_success: Successful login

@@ -2,16 +2,16 @@ export const accountDataMixin = {
   computed: {
     firstNameErrors() {
       const errors = []
-      if (!this.$v.first_name || !this.$v.first_name.$dirty) return errors
-      !!this.serverSideErrors.first_name && errors.push(this.show_error_form_field(this.serverSideErrors.first_name))
-      !this.$v.first_name.required && errors.push(this.$t('errors.required'))
+      if (!this.$v.firstname || !this.$v.firstname.$dirty) return errors
+      !!this.serverSideErrors.firstname && errors.push(this.show_error_form_field(this.serverSideErrors.firstname))
+      !this.$v.firstname.required && errors.push(this.$t('errors.required'))
       return errors
     },
     lastNameErrors() {
       const errors = []
-      if (!this.$v.last_name || !this.$v.last_name.$dirty) return errors
-      !!this.serverSideErrors.last_name && errors.push(this.show_error_form_field(this.serverSideErrors.last_name))
-      !this.$v.last_name.required && errors.push(this.$t('errors.required'))
+      if (!this.$v.lastname || !this.$v.lastname.$dirty) return errors
+      !!this.serverSideErrors.lastname && errors.push(this.show_error_form_field(this.serverSideErrors.lastname))
+      !this.$v.lastname.required && errors.push(this.$t('errors.required'))
       return errors
     },
     genderErrors() {
@@ -67,11 +67,26 @@ export const accountDataMixin = {
       !this.$v.birthdate.ageValidator && errors.push(this.$t('errors.age_not_valid'))
       return errors
     },
-    organizationErrors() {
+    childFirstNameErrors() {
       const errors = []
-      if (!this.$v.organization || !this.$v.organization.$dirty) return errors
-      !!this.serverSideErrors.organization && errors.push(this.show_error_form_field(this.serverSideErrors.organization))
-      !this.$v.organization.required && errors.push(this.$t('errors.required'))
+      if (!this.$v.child_firstname || !this.$v.child_firstname.$dirty) return errors
+      !!this.serverSideErrors.child_firstname && errors.push(this.show_error_form_field(this.serverSideErrors.child_firstname))
+      !this.$v.child_firstname.required && errors.push(this.$t('errors.required'))
+      return errors
+    },
+    childLastNameErrors() {
+      const errors = []
+      if (!this.$v.child_lastname || !this.$v.child_lastname.$dirty) return errors
+      !!this.serverSideErrors.child_lastname && errors.push(this.show_error_form_field(this.serverSideErrors.child_lastname))
+      !this.$v.child_lastname.required && errors.push(this.$t('errors.required'))
+      return errors
+    },
+    childBirthdateErrors() {
+      const errors = []
+      if (!this.$v.child_birthdate || !this.$v.child_birthdate.$dirty) return errors
+      !!this.serverSideErrors.child_birthdate && errors.push(this.show_error_form_field(this.serverSideErrors.child_birthdate))
+      !this.$v.child_birthdate.required && errors.push(this.$t('errors.required'))
+      !this.$v.child_birthdate.childAgeValidator && errors.push(this.$t('errors.child_age_not_valid'))
       return errors
     },
   },

@@ -57,9 +57,9 @@ export const getters = {
   //   return !!getters.currentUser.language
   // },
   fullName: (state, getters) => {
-    const _user = getters.currentUser
-    //return _user.user_type == 'LEGAL_PERSON' ? _user.business_name : [_user.first_name, _user.last_name].join(' ')
-    return [_user.firstname, _user.lastname].join(' ')
+    const user = getters.currentUser
+    const child_name = user.child_firstname && user.child_firstname.length > 0 ? ` (${user.child_firstname})` : ''
+    return `${user.firstname} ${user.lastname}${child_name}`
   },
   isTrainer: (state, getters) => {
     return !!getters.currentUser.trainer_id

@@ -46,7 +46,9 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
 
   def user_params
     params.require(:user).permit(:email, :email_confirmation,
-                                 :firstname, :lastname, :phone, :birthdate, :gender, :format)
+                                 :firstname, :lastname, :birthdate,
+                                 :child_firstname, :child_lastname, :child_birthdate,
+                                 :phone, :gender, :format)
   end
 
 end

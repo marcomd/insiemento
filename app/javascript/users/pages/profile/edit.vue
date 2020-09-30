@@ -50,9 +50,8 @@
                 <v-col cols='12' sm='6'>
                   <v-radio-group
                     v-model='gender'
-                    row
                     :error-messages="genderErrors"
-                    :prepend-icon="!!gender ? (gender == 'M' ? 'mdi-gender-male' : 'mdi-gender-female') : 'mdi-gender-male-female'"
+                    :prepend-icon="!!gender ? (gender == 'M' ? 'mdi-gender-male' : (gender == 'F' ? 'mdi-gender-female' : 'mdi-android')) : 'mdi-gender-male-female'"
                     @change="$v.gender.$touch()"
                     @blur="$v.gender.$touch()"
                     :disabled="disableForm"
@@ -109,6 +108,79 @@
                   </v-menu>
                 </v-col>
               </v-row>
+
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-checkbox v-model="child_account"
+                              :label='labelFor("child_account")'
+                              persistent-hint
+                              :hint='$t("session.hints.child_account")'
+                              @input='$v.child_account.$touch()'
+                              @blur='$v.child_account.$touch()'>
+                  </v-checkbox>
+                </v-col>
+              </v-row>
+
+              <v-expand-transition>
+                <v-row v-if="child_account">
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                        v-model='child_firstname'
+                        prepend-icon='mdi-account-supervisor'
+                        :label='labelFor("child_firstname")'
+                        :error-messages='childFirstNameErrors'
+                        @input='$v.child_firstname.$touch()'
+                        @blur='$v.child_firstname.$touch()'
+                    />
+                  </v-col>
+                  <v-col cols='12' sm='6'>
+                    <v-text-field
+                        v-model='child_lastname'
+                        prepend-icon='mdi-account-supervisor'
+                        :label='labelFor("child_lastname")'
+                        :error-messages='childLastNameErrors'
+                        @input='$v.child_lastname.$touch()'
+                        @blur='$v.child_lastname.$touch()'
+                    />
+                  </v-col>
+                  <v-col cols='12' sm='6' v-if="child_account">
+                    <v-menu
+                        ref="menu_child_birthdate"
+                        v-model="childBirthdatePickerOpened"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        :return-value.sync="child_birthdate"
+                        transition="scale-transition"
+                        offset-y
+                        max-width="290px"
+                        min-width="290px"
+                    >
+                      <template v-slot:activator='{ on }'>
+                        <v-text-field
+                            :value='formattedDate(child_birthdate)'
+                            :label='labelFor("child_birthdate")'
+                            prepend-icon='mdi-calendar'
+                            :error-messages="childBirthdateErrors"
+                            readonly
+                            v-on='on'
+                        />
+                      </template>
+                      <v-date-picker
+                          scrollable
+                          ref="child_birthday_picker"
+                          v-model='child_birthdate'
+                          first-day-of-week='1'
+                          :locale='$i18n.locale'
+                          :max="new Date().toISOString().substr(0, 10)"
+                          min="1900-01-01"
+                          @input="$v.child_birthdate.$touch()"
+                          @blur="$v.child_birthdate.$touch()"
+                          @click:date="$refs.menu_child_birthdate.save(child_birthdate)"
+                      />
+                    </v-menu>
+                  </v-col>
+                </v-row>
+              </v-expand-transition>
 
               <v-row>
                 <v-col cols="12" sm="6">
@@ -182,6 +254,7 @@
       utilityMixin,
       currentUserMixin,
     ],
+
     validations() {
       return {
         firstname:       { required },
@@ -194,9 +267,20 @@
             // console.log(`ageValidator value: ${value} age:${this.calculateAge(value)}`)
             return this.calculateAge(value) >= 14
           }
-        }
+        },
+        child_account:          { required: requiredIf(_ => { return false }) },
+        child_firstname:        { required: requiredIf(_ => { return this.child_account }) },
+        child_lastname:         { required: requiredIf(_ => { return this.child_account }) },
+        child_birthdate:        {
+          required: requiredIf(_ => { return this.child_account }) ,
+          childAgeValidator(value) {
+            // console.log(`ageValidator value: ${value} age:${this.calculateAge(value)}`)
+            return this.calculateAge(value) < 18
+          }
+        },
       }
     },
+
     data() {
       const currentUser = this.$store.getters['profile/currentUser']
 
@@ -210,13 +294,20 @@
         phone: currentUser.phone,
         birthdate: currentUser.birthdate,
         birthdatePickerOpened: false,
+        child_account: !!currentUser.child_lastname && currentUser.child_lastname.length > 0,
+        child_firstname: currentUser.child_firstname,
+        child_lastname: currentUser.child_lastname,
+        child_birthdate: currentUser.child_birthdate,
+        childBirthdatePickerOpened: false,
       }
     },
+
     created() {
       if (!this.hasCurrentUser) {
         this.$router.replace({ name: 'showProfile' })
       }
     },
+
     computed: {
       ...mapState('layout', [
         'submitting'
@@ -238,6 +329,7 @@
         return false
       },
     },
+
     methods: {
       labelsPrefix() {
         return 'profile.attributes'
@@ -253,6 +345,9 @@
           email: this.email,
           phone: this.phone,
           birthdate: this.birthdate,
+          child_firstname: this.child_account ? this.child_firstname : null,
+          child_lastname: this.child_account ? this.child_lastname : null,
+          child_birthdate: this.child_account ? this.child_birthdate : null,
         })
           .then(_ => {
             if (!this.initialCurrentUserCompleted) {

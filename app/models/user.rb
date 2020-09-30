@@ -47,7 +47,7 @@ class User < ApplicationRecord
   enum state: STATES, _suffix: true
 
   def full_name
-    "#{firstname} #{lastname}"
+    "#{firstname} #{lastname}#{" (#{child_firstname})" if child_firstname.present?}"
   end
 
   # Checks whether a password is needed or not. For validations only.

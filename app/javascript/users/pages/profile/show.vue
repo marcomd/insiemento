@@ -29,6 +29,18 @@
                 {{ formattedDate(currentUser.birthdate) }}
               </v-col>
             </v-row>
+
+            <h3 v-if="isChildAccount" class='mt-5 mb-2'>{{ $t("profile.attributes.child_account") }}</h3>
+            <v-row class="info-entry mb-1" dense v-if="isChildAccount">
+              <v-col class="info-entry__value" cols='12' sm="6">
+                <v-icon>mdi-account-supervisor</v-icon>
+                {{ `${currentUser.child_firstname} ${currentUser.child_lastname}` }}
+              </v-col>
+              <v-col class="info-entry__value" cols='12' sm="6" v-if="this.currentUser.child_birthdate">
+                <v-icon>mdi-cake</v-icon>
+                {{ formattedDate(currentUser.child_birthdate) }}
+              </v-col>
+            </v-row>
           </v-card-text>
           <v-card-actions>
             <div class='flex-grow-1'/>
