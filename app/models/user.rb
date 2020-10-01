@@ -84,6 +84,9 @@ class User < ApplicationRecord
   #   end
   # end
 
+  def has_minor_child?
+    self.child_firstname.present? && self.child_lastname.present?
+  end
 
   private
 

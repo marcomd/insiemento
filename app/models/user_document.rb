@@ -62,6 +62,8 @@ class UserDocument < ApplicationRecord
 
   def parsed_body
     eval "\"#{body}\""
+  rescue
+    "Error: #{$!.message}"
   end
 
   def pdf
@@ -82,6 +84,10 @@ class UserDocument < ApplicationRecord
 
   def birthdate
     user.birthdate&.strftime('%d/%m/%Y')
+  end
+
+  def child_birthdate
+    user.child_birthdate&.strftime('%d/%m/%Y')
   end
 
   def create_dossier_on_otpservice

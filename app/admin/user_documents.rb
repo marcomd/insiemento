@@ -117,22 +117,33 @@ ActiveAdmin.register UserDocument do
   end
 
   form do |f|
-    f.inputs 'Admin' do
-      f.input :organization
-      f.input :uuid
-      f.input :sign_checksum
-    end if current_admin_user.is_root?
-    f.inputs do
-      f.semantic_errors *f.object.errors.keys
-      f.input(:organization, collection: [current_admin_user.organization]) unless current_admin_user.is_root?
-      tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-      f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
-              fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
-              order_by: 'lastname_asc'
-      f.input :user_document_model
-      f.input :state
-      f.input :expire_on
+    columns do
+      column do
+        f.inputs 'Admin' do
+          f.input :organization
+          f.input :uuid
+          f.input :sign_checksum
+        end if current_admin_user.is_root?
+        f.inputs do
+          f.semantic_errors *f.object.errors.keys
+          f.input(:organization, collection: [current_admin_user.organization]) unless current_admin_user.is_root?
+          tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
+          f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+                  fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
+                  order_by: 'lastname_asc'
+          f.input :user_document_model
+          f.input :state
+          f.input :expire_on
+        end
+      end
+      column do
+        f.inputs do
+          f.input :title
+          f.input :body, input_html: {rows: 30, class: 'autogrow'}
+        end
+      end
     end
+
     f.actions
   end
 

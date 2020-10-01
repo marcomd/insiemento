@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.09.1 01/10/2020
+
+- Improved user document section in the admin ui
+  - Added title and body to edit form
+  - Added a new method to user document model to format child birthdate
+  - Added the new method has_minor_child? to user model
+
 # v1.09.0 01/10/2020
 
 - Added child data to user
