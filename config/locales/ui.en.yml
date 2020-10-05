@@ -199,7 +199,7 @@ en:
         invalid_value: value not valid
         already_exists: "already exists"
         age_not_valid: "your age cannot be accepted, please read the terms and conditions of the service"
-        child_age_not_valid: "we can't consider him a child, check the date"
+        child_age_not_valid: "enter the date of birth of the child"
       alerts:
         unauthorized: Sign in to access the page
         login_success: Successful login

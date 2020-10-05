@@ -185,7 +185,7 @@
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field
-                    v-model='phone'
+                    v-model.trim='phone'
                     :label='labelFor("phone")'
                     prepend-icon='mdi-phone'
                     persistent-hint
@@ -241,7 +241,7 @@
 
 <script>
   import { validationMixin } from 'vuelidate'
-  import { required, requiredIf, email } from 'vuelidate/lib/validators'
+  import { required, requiredIf, email, numeric } from 'vuelidate/lib/validators'
   import { mapState, mapGetters } from 'vuex'
   import { accountDataMixin } from '../../mixins/account_data_mixin'
   import { currentUserMixin } from '../../mixins/current_user_mixin'
@@ -261,7 +261,7 @@
         lastname:        { required },
         gender:          { required },
         email:           { required, email },
-        phone:           { required },
+        phone:           { required, numeric },
         birthdate:       { required,
           ageValidator(value) {
             // console.log(`ageValidator value: ${value} age:${this.calculateAge(value)}`)
@@ -275,6 +275,7 @@
           required: requiredIf(_ => { return this.child_account }) ,
           childAgeValidator(value) {
             // console.log(`ageValidator value: ${value} age:${this.calculateAge(value)}`)
+            if (!this.child_account) return true
             return this.calculateAge(value) < 18
           }
         },

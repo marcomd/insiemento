@@ -199,7 +199,7 @@ it:
         invalid_value: valore non valido
         already_exists: "già presente"
         age_not_valid: "la tua età non può essere accettata, leggi i termini e le condizioni del servizio"
-        child_age_not_valid: "non possiamo considerarlo un bambino, controlla la data"
+        child_age_not_valid: "inserisci la data di nascita del minore"
       alerts:
         unauthorized: Autenticati per accedere alla pagina
         login_success: Login effettuato con successo

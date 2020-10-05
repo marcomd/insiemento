@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.09.2 05/10/2020
+
+- Fixed some validations on edit profile
+  - Fixed a bug on edit profile which didn't allow to continue without child data. Furthermore, numeric validation
+    on phone number was added. Added numeric and length validations on phone number on user model on the backend as well 
+
 # v1.09.1 01/10/2020
 
 - Improved user document section in the admin ui

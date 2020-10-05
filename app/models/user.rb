@@ -30,6 +30,8 @@ class User < ApplicationRecord
   validates_presence_of     :firstname, :lastname
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..64, allow_blank: true
+  validates_numericality_of :phone, allow_blank: true
+  validates_length_of :phone, is: 10, allow_blank: true
 
   # scope :with_not_ended_subscriptions, -> (date=Time.zone.today) { where(subscriptions: { state: [:new, :active] })
   #                                                                 .where('subscriptions.end_on >= ?', date)
