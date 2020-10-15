@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         end
         resources :payments, :products, :subscriptions
         put 'user_documents/callback/:uuid/:state',        to: 'user_documents#callback'
+        resources :news, only: :index
       end
     end
   end

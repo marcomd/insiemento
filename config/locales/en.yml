@@ -347,6 +347,22 @@ en:
         sign_checksum: "Sign checksum"
         created_at: "Created at"
         updated_at: "Updated at"
+      news:
+        organization: "Organization"
+        title: "Title"
+        body: "Body"
+        state: "State"
+        states:
+          draft: "Draft"
+          active: "Active"
+          expired: "Expired"
+        expire_on: "Expiry date"
+        news_type: "Type"
+        dark_style: "Dark Style"
+        public: "Public"
+        private: "Private"
+        created_at: "Created at"
+        updated_at: "Updated at"
     error:
       messages:
         invalid_json_format: "it is not a valid json format"
@@ -377,6 +393,15 @@ en:
         child_firstname: "If parent of a child under 14 enter the child's name"
         child_lastname: "Child's surname"
         child_birthdate: "Date of birth of the child"
+      news:
+        news_type: "The type determines the color and icon"
+        title: "The title must summarize the news in a few words"
+        body: "Describe briefly in maximum 255 characters, consider that on a smartphone in vertical you can read a maximum of 125, do a display test"
+        expire_on: "The news will be visible until this date"
+        dark_style: "Check to set the dark style, in which case the text will be white on a colored background"
+        public: "Check whether to show on the homepage"
+        private: "Check whether to show in private area"
+
   activeadmin:
     panels:
       active_subscriptions: "Active subscriptions"

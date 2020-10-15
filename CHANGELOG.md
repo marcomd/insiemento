@@ -1,5 +1,19 @@
 # CHANGELOG
 
+# v1.10.0 15/10/2020
+
+- Added news management on backend and frontend
+  - Added new resources "News" to show users any kind of information.
+    - expire_on to set an expiration date after that state pass to expired
+    - state: to manage news to show, only active state are shown
+    - type: determine icon and color
+    - dark style: set to true to use the color as background with white text
+    - public: set to true to show on the homepage
+    - private: set to true to show on the private user ui, after login
+  - New section news on the homepage
+  - The user ui show news on dashboard
+  - New job to change news state to expired
+
 # v1.09.2 05/10/2020
 
 - Fixed some validations on edit profile

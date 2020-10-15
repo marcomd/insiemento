@@ -1,4 +1,3 @@
-# HERE !!! Testare
 class Api::Ui::V1::SubscriptionsController < Api::Ui::BaseController
   before_action :set_subscription, except: [:index]
 

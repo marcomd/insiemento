@@ -21,3 +21,7 @@ update_users:
   cron: "13 0 * * *"
   class: UpdateUsersJob
   queue: users
+news:
+  cron: "18 0 * * *"
+  class: UpdateNewsJob
+  queue: news

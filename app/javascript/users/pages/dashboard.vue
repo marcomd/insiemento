@@ -3,6 +3,8 @@
 
     <ProfileCompletionAlert :has-current-user="hasCurrentUser" :is-current-user-completed="isCurrentUserCompleted" />
 
+    <NewsAlert></NewsAlert>
+
     <CourseEventsCalendar v-if="subscribed_course_events.length > 0" :course_events="subscribed_course_events" />
     <div v-else-if="subscribed_course_events.length == 0 && !loading"
          class="text-center">
@@ -29,6 +31,7 @@
 <script>
   import CourseEventsCalendar from '../components/course_events/course_events_calendar'
   import ProfileCompletionAlert from '../components/session/profile_completion_alert'
+  import NewsAlert from '../components/session/news_alert'
   import { currentUserMixin } from '../mixins/current_user_mixin'
 
   import { mapState, mapActions, mapGetters } from 'vuex'
@@ -37,6 +40,7 @@
     components: {
       CourseEventsCalendar,
       ProfileCompletionAlert,
+      NewsAlert,
     },
 
     mixins: [

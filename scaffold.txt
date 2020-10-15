@@ -47,7 +47,12 @@ payment organization:references user:references order:references source:integer{
 ## To notify messages to users
 #bullettins organization:references admin_user:references expiry_date:date title:string{127} text:string{255}
 
+# Documents model with text and variables
 user_document_model organization:references state:integer{1} title:string{255} body:text validity_days:integer{2}
 # validity_days: i giorni trascorsi i quali è necessario rinviare il documento all'utente
 
+# Documents model applied to each user
 user_document organization:references user_document_model:references user:references state:integer{1} title:string{255} body:text expire_on:date
+
+# News for users
+news organization:references state:integer{1}:index title:string{255} body:text expire_on:date news_type:integer

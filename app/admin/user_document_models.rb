@@ -6,15 +6,17 @@ ActiveAdmin.register UserDocumentModel do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :organization_id, :state, :title, :body, :validity_days, :recurring
+  # permit_params :organization_id, :state, :title, :body, :validity_days, :recurring
   #
   # or
   #
-  # permit_params do
-  #   permitted = [:organization_id, :state, :title, :body, :validity_days]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params do
+    permitted = [:state, :title, :body, :validity_days, :recurring]
+    # permitted << :other if params[:action] == 'create' && current_user.admin?
+    permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
+    permitted
+  end
+
   controller do
     def scoped_collection
       myscope = super

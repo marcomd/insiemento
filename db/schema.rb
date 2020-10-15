@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_202632) do
+ActiveRecord::Schema.define(version: 2020_10_04_131240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,25 @@ ActiveRecord::Schema.define(version: 2020_09_30_202632) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["organization_id"], name: "index_courses_on_organization_id"
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.integer "state", limit: 2
+    t.string "title", limit: 127
+    t.string "body", limit: 255
+    t.date "expire_on"
+    t.integer "news_type", limit: 2
+    t.boolean "dark_style", default: false
+    t.boolean "public", default: false
+    t.boolean "private", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["expire_on"], name: "index_news_on_expire_on"
+    t.index ["organization_id"], name: "index_news_on_organization_id"
+    t.index ["private"], name: "index_news_on_private"
+    t.index ["public"], name: "index_news_on_public"
+    t.index ["state"], name: "index_news_on_state"
   end
 
   create_table "order_products", force: :cascade do |t|
@@ -392,6 +411,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_202632) do
   add_foreign_key "course_schedules", "trainers"
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "organizations"
+  add_foreign_key "news", "organizations"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "organizations"
   add_foreign_key "order_products", "products"

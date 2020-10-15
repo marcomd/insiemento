@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row align='center' justify='center'>
-      <v-col cols='12' sm='8' lg='6'>
+      <v-col cols='12' sm='10' lg='8'>
         <v-card elevation='1'>
           <v-toolbar flat>
             <v-toolbar-title>

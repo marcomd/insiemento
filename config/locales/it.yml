@@ -270,6 +270,9 @@ it:
       user_document:
         one: "Documento cliente"
         other: "Documenti cliente"
+      news:
+        one: "Notizia"
+        other: "Notizie"
     attributes: &attributes
       id: "Id"
       created_at: "Data creazione"
@@ -530,6 +533,22 @@ it:
         sign_checksum: "Codice controllo firma"
         created_at: "Data creazione"
         updated_at: "Data modifica"
+      news:
+        organization: "Organizzazione"
+        title: "Titolo"
+        body: "Testo"
+        state: "Stato"
+        states:
+          draft: "Bozza"
+          active: "Attiva"
+          expired: "Scaduta"
+        expire_on: "Data scadenza"
+        news_type: "Tipo"
+        dark_style: "Stile scuro"
+        public: "Pubblico"
+        private: "Private"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
     errors:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'
@@ -566,6 +585,14 @@ it:
         child_firstname: "Se genitore di un minore di 14 anni inserisci il nome del bambino"
         child_lastname: "Cognome del bambino"
         child_birthdate: "Data di nascita del bambino"
+      news:
+        news_type: "Il tipo determina il colore e l'icona"
+        title: "Il titolo deve riassumere la notizia in poche parole"
+        body: "Descrivi sinteticamente in massimo 255 caratteri, considera che su uno smartphone in verticale se ne leggono al massimo 125, fai una prova di visualizzazione"
+        expire_on: "La notizia sarà visibile fino a questa data"
+        dark_style: "Spunta per impostare lo stile scuro, in tal caso il testo sarà bianco su un background colorato"
+        public: "Spunta se mostrare nella homepage"
+        private: "Spunta se mostrare nell'area privata"
 
   activeadmin:
     panels:

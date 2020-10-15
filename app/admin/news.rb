@@ -1,17 +1,18 @@
-ActiveAdmin.register Room do
-  menu parent: 'gym_management', if: proc{ can?(:read, Room) }
+ActiveAdmin.register News do
+  menu parent: 'platform_management', if: proc{ can?(:read, UserDocumentModel) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :course_id, :name, :max_attendees
+  # permit_params :organization_id, :state, :title, :body, :expire_on
   #
   # or
-
+  #
   permit_params do
-    permitted = [:name, :description, :max_attendees, :state]
+    permitted = [:title, :body, :state, :expire_on, :news_type, :dark_style, :public, :private]
+    # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -28,19 +29,28 @@ ActiveAdmin.register Room do
     selectable_column
     id_column
     column(:organization) if current_admin_user.is_root?
-    column(:name)
-    column(:max_attendees)
+    column(:title)
+    column(:body)
     column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:expire_on)
+    column(:news_type) {|obj| span obj.news_type, class: "status_tag #{obj.news_type}" }
+    column(:dark_style)
+    column(:public)
+    column(:private)
     column(:created_at)
     column(:updated_at)
     actions
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
-  filter :name
-  filter :description
-  filter :max_attendees
-  filter :state       , as: :select, collection: Room.localized_states
+  filter :title
+  filter :body
+  filter :state, as: :select, collection: News.localized_states
+  filter :expire_on
+  filter :news_type, as: :select, collection: News.news_types
+  filter :dark_style
+  filter :public
+  filter :private
   filter :created_at
   filter :updated_at
 
@@ -52,10 +62,14 @@ ActiveAdmin.register Room do
       else
         f.input :organization, collection: [current_admin_user.organization]
       end
-      f.input :name
-      f.input :description, as: :text, input_html: { maxlength: 255 }
-      f.input :max_attendees
       f.input :state
+      f.input :news_type #, as: :select, collection: News.news_types
+      f.input :title, input_html: { maxlength: 100 }
+      f.input :body, as: :text, input_html: { maxlength: 255, rows: 3 }
+      f.input :expire_on
+      f.input :dark_style
+      f.input :public
+      f.input :private
     end
     f.actions
   end

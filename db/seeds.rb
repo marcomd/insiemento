@@ -563,3 +563,13 @@ if UserDocument.count == 0
   UserDocument.create!(user_document_attributes)
   puts "UserDocument: #{UserDocument.count}"
 end
+
+if News.count == 0
+  news_attributes = []
+  news_attributes << {organization_id: o_dance.id, news_type: :info   , title: 'Nuovo corso Brasilian Fitness!', body: 'Siamo lieti di annunciare che abbiamo aggiunto al palinsesto il nuovo corso, divertente e adatto a tutti, provalo!', expire_on: 1.month.ago, state: :expired}
+  news_attributes << {organization_id: o_dance.id, news_type: :warning, title: 'Smarrito mazzo di chiavi', body: 'Chiunque lo avesse trovato è pregato di consegnarlo in segreteria, grazie!', expire_on: 2.weeks.from_now}
+  news_attributes << {organization_id: o_dance.id, news_type: :success, title: 'Obiettivo raggiunto!', body: 'Grazie a tutti per aver consentito il raggiungimento di questo straordinario risultato!', expire_on: 2.weeks.from_now, state: :active}
+
+  News.create!(news_attributes)
+  puts "News: #{News.count}"
+end
