@@ -18,8 +18,13 @@ class AuthenticateApiUser
     @user ||= begin
       user = User.find_by(email: email)
       if user && user.valid_password?(password)
-        user.update_tracked_fields! request if request
-        @user = user
+        if user.confirmed_at.nil?
+          errors.add :user_authentication, I18n.t('ui.users.alerts.unconfirmed')
+          nil
+        else
+          user.update_tracked_fields! request if request
+          user
+        end
       else
         errors.add :user_authentication, I18n.t('ui.users.alerts.sign_up_error')
         nil

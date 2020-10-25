@@ -9,13 +9,9 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
     if service.success?
       @auth_token = service.result
       @user = service.user
-      if @user.confirmed_at.nil?
-        render json: { error: t('ui.users.alerts.unconfirmed') }, status: :unauthorized
-      else
-        render :authenticate
-      end
+      render :authenticate
     else
-      render json: { error: t('ui.users.alerts.login_error') }, status: :unauthorized
+      render json: { errors: service.errors }, status: :unauthorized
     end
   end
 

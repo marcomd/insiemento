@@ -142,10 +142,23 @@
           })
         })
         .catch(error => {
+          console.log('login error', error)
+          let message = error
+          if (error && error.body) {
+            if (error.body.errors) {
+              if (error.body.errors.user_authentication) {
+                message = error.body.errors.user_authentication
+              } else {
+                message = error.body.errors
+              }
+            } else {
+              message = error.body
+            }
+          }
           if (!!error && ![500].includes(error.status)) {
             this.$store.dispatch('layout/replaceAlert', {
               type: 'error',
-              message: error && error.body ? error.body.error : error
+              message: message
             })
           }
         })

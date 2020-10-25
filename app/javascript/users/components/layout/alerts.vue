@@ -96,7 +96,11 @@
             // "create": [ "invoice_account_already_exists" ]
             alert.keys.forEach(label => messages.push(this.$t(`${resource}.${label}`)))
           } else {
-            messages.push(alert.message)
+            if (this.isArray(alert.message)) {
+              messages.push(alert.message.join(', '))
+            } else {
+              messages.push(alert.message)
+            }
           }
         })
 

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.10.1 25/10/2020
+
+- Improved authentication which now returns server errors
+  - On the backend was improved authentication controller to show error messages from server
+  - On the frontend was improved alert component to properly show array of messages
+
 # v1.10.0 15/10/2020
 
 - Added news management on backend and frontend
