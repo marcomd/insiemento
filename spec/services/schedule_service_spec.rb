@@ -26,8 +26,8 @@ describe ScheduleService do
       let(:starting_date) { CourseEvent.first.event_date } # The same date on the seed
       it 'does NOT create anymore' do
         expect do
-          expect(subject.result).to be_falsey
-        end.to raise_exception ActiveRecord::RecordInvalid
+          expect(subject.result).to be_truthy
+        end.to change(SystemLog, :count).by(2) # One for each organization
       end
     end
   end

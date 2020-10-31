@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v1.11.0 31/10/2020
+
+- Improved the events generation
+  - Added uniqueness validation on event time on CourseSchedule module. This avoid duplicated schedulations on the same
+    event that will broke the event generation.
+  - Organization separation on the schedule service. It now creates events for each organization and if something goes
+    wrong only the current organization is affected.
+  - Other little improvements
+
 # v1.10.1 25/10/2020
 
 - Improved authentication which now returns server errors

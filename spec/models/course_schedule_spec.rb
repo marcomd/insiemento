@@ -2,6 +2,30 @@ require 'rails_helper'
 
 RSpec.describe CourseSchedule, type: :model do
 
+  context 'ActiveRecord' do
+    it { expect(subject).to belong_to(:organization)}
+    it { expect(subject).to belong_to(:category)}
+    it { expect(subject).to belong_to(:course)}
+    it { expect(subject).to belong_to(:room)}
+    it { expect(subject).to belong_to(:trainer)}
+
+    context 'when schedule already exists' do
+      subject { CourseSchedule.first }
+      let(:new_record) do
+        CourseSchedule.new(organization_id: subject.organization_id,
+                           category_id: subject.category_id,
+                           course_id: subject.course_id,
+                           room_id: subject.room_id,
+                           trainer_id: subject.trainer_id,
+                           event_day: subject.event_day,
+                           event_time: subject.event_time)
+      end
+      it do
+        expect(new_record.save).to eq false
+      end
+    end
+  end
+
   describe '#next_event_date' do
     let(:result) { subject.next_event_date starting_date }
 

@@ -36,7 +36,8 @@ RSpec.describe ScheduleJob, type: :job do
       it do
         expect do
           perform_enqueued_jobs{ subject }
-        end.to raise_exception(ActiveRecord::RecordInvalid, /Course already exists/)
+        end.to change(SystemLog, :count).by(2) # One for each organization in the ScheduleService + the global one wrote at the end of the job
+        # raise_exception(ActiveRecord::RecordInvalid, /Course è già presente/)
       end
     end
   end

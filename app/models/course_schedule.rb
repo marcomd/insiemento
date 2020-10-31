@@ -25,6 +25,8 @@ class CourseSchedule < ApplicationRecord
   STATES = { just_made: 10, active: 20, suspended: 30}
   enum state: STATES
 
+  validates :event_time, uniqueness: { scope: [:organization_id, :category_id, :course_id, :room_id, :trainer_id, :event_day, :event_time] }
+
   def name
     "#{course.name} #{event_day} #{event_time.strftime('%H:%M')}"
   end

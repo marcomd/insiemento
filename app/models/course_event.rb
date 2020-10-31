@@ -13,8 +13,7 @@ class CourseEvent < ApplicationRecord
 
   accepts_nested_attributes_for :attendees, reject_if: lambda { |obj| obj[:user_id].blank? }, allow_destroy: true
 
-  validates :course_id, uniqueness: { scope: [:room_id, :trainer_id, :event_date],
-                                 message: 'already exists' }
+  validates :course_id, uniqueness: { scope: [:room_id, :trainer_id, :event_date] }
 
   before_validation :set_default
 
