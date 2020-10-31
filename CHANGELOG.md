@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v1.12.0 31/10/2020
+
+- Updated node, rails and many other gems
+  - Updated node version from 12.18 to 14.15
+  - Updated rails from 6.0.3.3 to 6.0.3.4
+  - Updated puma from 4.3.5 to 5.0.4
+  - Updated redis from 4.2.1 to 4.2.2
+  - Updated activeadmin from 2.8.0 to 2.8.1
+  - Updated warden from 1.2.8 to 1.2.9 and devise from 4.7.2 to 4.7.3
+
 # v1.11.0 31/10/2020
 
 - Improved the events generation
