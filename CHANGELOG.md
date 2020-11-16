@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.12.1 09/11/2020
+
+- List items now are correctly updated without move their position in the list
+
 # v1.12.0 31/10/2020
 
 - Updated node, rails and many other gems

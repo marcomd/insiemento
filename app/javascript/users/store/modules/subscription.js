@@ -20,9 +20,13 @@ export const mutations = {
     let indexToReplace = state.subscriptions.findIndex(obj => obj.id == subscription.id)
     if (indexToReplace != -1) {
       console.log(' - replace old with newest, id', subscription.id)
-      state.subscriptions.splice(indexToReplace, 1)
+      state.subscriptions[indexToReplace] = subscription
+      //this is for vue reaction
+      state.subscriptions.push({})
+      state.subscriptions.splice(-1, 1)
+    } else {
+      state.subscriptions.push(subscription)
     }
-    state.subscriptions.push(subscription)
     // console.log('  - replaced! New items:', state.subscriptions.length)
   },
 }

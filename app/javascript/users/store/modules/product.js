@@ -25,9 +25,13 @@ export const mutations = {
     let indexToReplace = state.products.findIndex(obj => obj.id == product.id)
     if (indexToReplace != -1) {
       console.log(' - replace old with newest, id', product.id)
-      state.products.splice(indexToReplace, 1)
+      state.products[indexToReplace] = product
+      //this is for vue reaction
+      state.products.push({})
+      state.products.splice(-1, 1)
+    } else {
+      state.products.push(product)
     }
-    state.products.push(product)
     // console.log('  - replaced! New items:', state.products.length)
   },
   SET_SEARCH(state, search) {

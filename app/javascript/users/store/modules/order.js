@@ -35,9 +35,13 @@ export const mutations = {
     let indexToReplace = state.orders.findIndex(obj => obj.id == order.id)
     if (indexToReplace != -1) {
       console.log(' - replace old with newest, id', order.id)
-      state.orders.splice(indexToReplace, 1)
+      state.orders[indexToReplace] = order
+      //this is for vue reaction
+      state.orders.push({})
+      state.orders.splice(-1, 1)
+    } else {
+      state.orders.push(order)
     }
-    state.orders.push(order)
     // console.log('  - replaced! New items:', state.orders.length)
   },
 }
