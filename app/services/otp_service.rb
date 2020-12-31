@@ -64,11 +64,9 @@ class OtpService
       errors.add(:attributes, 'Invalid or missing params! Set recipient firstname param') unless recipient[:first_name].present?
       errors.add(:attributes, 'Invalid or missing params! Set recipient lastname param') unless recipient[:last_name].present?
       errors.add(:attributes, 'Invalid or missing params! Set recipient email param') unless recipient[:email].present?
+      errors.add(:attributes, 'Invalid or missing params! Set recipient phone_prefix param') unless recipient[:phone_prefix].present?
       errors.add(:attributes, 'Invalid or missing params! Set recipient phone_number param') unless recipient[:phone_number].present?
-      if !(/\A(\+|00).+\Z/ === recipient[:phone_number])
-        # errors.add(:attributes, 'Please specify the international prefix to the phone number!')
-        recipient[:phone_number] = "+39#{recipient[:phone_number]}"
-      end
+      errors.add(:attributes, 'Invalid phone_number param! It must not contain phone_prefix') if (/\A(\+|00).+\Z/ === recipient[:phone_number])
       errors.add(:attributes, 'Invalid or missing params! Set recipient language param') unless recipient[:language].present?
     end if attributes[:recipients].present?
 

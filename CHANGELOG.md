@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.12.2 31/12/2020
+
+- Several minor fixes on otp service api call
+
 # v1.12.1 09/11/2020
 
 - List items now are correctly updated without move their position in the list

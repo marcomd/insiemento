@@ -61,7 +61,7 @@ describe OtpService do
         { customer_dossier_id: user_document_id,
           unsigned_document: unsigned_document,
           recipients: [
-              {first_name: 'Plinio', last_name: 'Il Vecchio', email: 'plinio@rspec.com', phone_number: '+393334567890', language: 'it' }
+              {first_name: 'Plinio', last_name: 'Il Vecchio', email: 'plinio@rspec.com', phone_prefix: '39', phone_number: '3334567890', language: 'it' }
           ]
         }
       end
@@ -101,7 +101,7 @@ describe OtpService do
           dossier_id: dossier_id,
           unsigned_document: unsigned_document,
           recipients: [
-              {first_name: 'Alaercio', last_name: 'Blasi', email: 'alaercio@rspec.com', phone_number: '+393334455666', language: 'it' }
+              {first_name: 'Alaercio', last_name: 'Blasi', email: 'alaercio@rspec.com', phone_prefix: '39', phone_number: '3334455666', language: 'it' }
           ]
         }
       end
