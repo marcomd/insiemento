@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.13.0 03/01/2021
+
+- Updates ruby to 2.7 and several gems
+  - Updated ruby from 2.6.6 to 2.7.2
+  - Updated puma from 5.0.4 to 5.1.1
+  - Other minor updates
+
 # v1.12.2 31/12/2020
 
 - Several minor fixes on otp service api call

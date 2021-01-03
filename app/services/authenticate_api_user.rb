@@ -11,7 +11,7 @@ class AuthenticateApiUser
 
   def call
     return if user.nil?
-    JsonWebToken.encode(user_id: user.id)
+    JsonWebToken.encode({user_id: user.id})
   end
 
   def user

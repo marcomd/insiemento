@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3.4'
@@ -10,7 +10,7 @@ gem 'rails', '~> 6.0.3.4'
 gem 'pg', '~> 1.2.3', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0.0'
@@ -54,7 +54,7 @@ gem 'sidekiq-cron', '~> 1.1.0'
 gem 'sidekiq-status', '~> 1.1.4'
 
 # A simple, standardized way to build and use Service Objects (aka Commands) in Ruby
-gem 'simple_command', '~> 0.0.9'
+gem 'simple_command', github: 'nebulab/simple_command'
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt', '~> 2.2.1'
