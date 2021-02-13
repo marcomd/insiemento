@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.17.0 13/02/2021
+
+- Updated rails to 6.1
+
 # v1.16.0 13/02/2021
 
 - Updated many gems:

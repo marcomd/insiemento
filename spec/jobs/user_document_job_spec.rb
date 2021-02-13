@@ -34,7 +34,7 @@ RSpec.describe UserDocumentJob, type: :job do
       let(:user_document) { UserDocument.draft_state.first }
 
       it do
-        expect { perform_enqueued_jobs{ subject } }.to raise_exception AASM::InvalidTransition
+        expect { perform_enqueued_jobs{ subject } }.to raise_exception /Event 'start_export' cannot transition from 'draft'/
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe UserDocumentJob, type: :job do
             perform_enqueued_jobs{ subject }
           end
           user_document.reload
-        end.to raise_exception(RuntimeError).and change(SystemLog, :count).by(1)
+        end.to raise_exception(/UserDocumentJob failed/).and change(SystemLog, :count).by(1)
       end
     end
   end

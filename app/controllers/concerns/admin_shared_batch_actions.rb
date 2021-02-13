@@ -15,7 +15,7 @@ module AdminSharedBatchActions
         if record.send("#{transaction_name}!")
           ok << record.id
         else
-          raise record.errors.map{|k, v| v}.join(', ')
+          raise record.errors.map {|e| e.message}.join(', ')
         end
       rescue
         err << "#{record.id}: #{$!.message}"

@@ -80,7 +80,9 @@ RSpec.describe Attendee, type: :model do
 
     context 'when course events is full' do
       let(:course_event_id) { stefania_subscribed_course_event_id }
-      it { expect(result).to include 'È stato raggiunto il numero massimo di partecipanti!' }
+      it do
+        expect(result.type).to include 'È stato raggiunto il numero massimo di partecipanti!'
+      end
     end
   end
 

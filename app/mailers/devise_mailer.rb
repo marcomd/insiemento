@@ -1,7 +1,7 @@
 class DeviseMailer < Devise::Mailer
   #helper :application # gives access to all helpers defined within `application_helper`.
   include ApplicationHelper
-  add_template_helper(EmailHelper)
+  helper EmailHelper
 
   include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
   layout 'mailer'

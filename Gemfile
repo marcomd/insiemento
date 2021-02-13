@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3.4'
+gem 'rails', '~> 6.1.2.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.2.3', '< 2.0'
@@ -118,7 +118,7 @@ group :development, :test do
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 
   # RSpec for Rails - Need to be in development for mail preview
-  gem 'rspec-rails', '~> 3.9.0'
+  gem 'rspec-rails', '~> 4.0.0'
 
   # fixtures replacement with a straightforward definition syntax
   gem 'factory_bot', '5.1.1'
