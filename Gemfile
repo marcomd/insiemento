@@ -10,7 +10,7 @@ gem 'rails', '~> 6.0.3.4'
 gem 'pg', '~> 1.2.3', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.1'
+gem 'puma', '~> 5.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0.0'
@@ -25,7 +25,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.2.2'
+gem 'redis', '~> 4.2.5'
 
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -37,7 +37,7 @@ gem 'redis', '~> 4.2.2'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Active Admin is a Ruby on Rails framework for creating elegant backends for website administration.
-gem 'activeadmin', '~> 2.8.0'
+gem 'activeadmin', '~> 2.9.0'
 
 #gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 
@@ -45,10 +45,10 @@ gem 'activeadmin', '~> 2.8.0'
 gem 'devise', '~> 4.7.0'
 
 # Simple, efficient background processing for Ruby
-gem 'sidekiq', '~> 6.0.4'
+gem 'sidekiq', '~> 6.1.3'
 
 # A scheduling add-on for Sidekiq.
-gem 'sidekiq-cron', '~> 1.1.0'
+gem 'sidekiq-cron', '~> 1.2.0'
 
 # An extension to the sidekiq message processing to track your jobs
 gem 'sidekiq-status', '~> 1.1.4'
@@ -57,13 +57,13 @@ gem 'sidekiq-status', '~> 1.1.4'
 gem 'simple_command', github: 'nebulab/simple_command'
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
-gem 'jwt', '~> 2.2.1'
+gem 'jwt', '~> 2.2.2'
 
 # Consuming restful web services
 gem 'http', '~> 4.3.0'
 
 # Parse Accept and Accept-Language HTTP headers in Ruby.
-gem 'http-accept', '~> 2.1.0'
+gem 'http-accept', '~> 2.1.1'
 
 # Find out which locale the user preferes by reading the languages they specified in their browser or in the header
 #gem 'http_accept_language' #, '~> 2.1.1'
@@ -77,20 +77,20 @@ gem 'ruby-handlebars', '~> 0.4.0'
 # ActiveRecord::Store allows you to put data, like a hash, in a single column.
 # The problem is that when you retrieve these values, they are strings. Storext aims to solve that.
 # This is a layer on top of ActiveRecord::Store that uses Virtus to typecast the values
-gem 'storext', '~> 3.1.0'
+gem 'storext', '~> 3.3.0'
 
 # This library provides integration of the money gem with Rails.
 # A Ruby Library for dealing with money and currency conversion.
-gem 'money-rails', '~> 1.12'
+gem 'money-rails', '~> 1.13.4'
 
 # Simple authorization solution for Rails. All permissions are stored in a single location.
-gem 'cancancan', '~> 3.1.0'
+gem 'cancancan', '~> 3.2.1'
 
 # Extends ActiveAdmin to enable a set of great optional UX improving add-ons
 gem 'activeadmin_addons' #, '~> 1.7.0'
 
 # Ruby state machines
-gem 'aasm', '~> 5.0.0'
+gem 'aasm', '~> 5.1.1'
 
 # This gem embeddes the jQuery colorpicker in the Rails asset pipeline.
 gem 'jquery-minicolors-rails', '~> 2.2.6'
@@ -102,16 +102,16 @@ gem 'activeadmin-minicolors', github: 'kholdrex/activeadmin-minicolors'
 # This gem can process images with either ImageMagick/GraphicsMagick or libvips libraries.
 # ImageMagick is a good default choice, especially if you are migrating from another gem or library that uses ImageMagick.
 # Libvips is a newer library that can process images very rapidly (often multiple times faster than ImageMagick).
-gem 'image_processing', '~> 1.10.3'
+gem 'image_processing', '~> 1.12.1'
 
 # This is version 3 of the aws-sdk gem
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 
 # The Stripe Ruby library provides convenient access to the Stripe API
-gem 'stripe', '~> 5'
+gem 'stripe', '~> 5.29.1'
 
 # Prawn is a pure Ruby PDF generation library that provides a lot of great functionality while trying to remain simple and reasonably performant
-gem 'prawn', '~> 2.3.0'
+gem 'prawn', '~> 2.4.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

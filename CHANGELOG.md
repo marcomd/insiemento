@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v1.16.0 13/02/2021
+
+- Updated many gems:
+  - activeadmin from 2.8 to 2.9
+  - puma from 5.1 to 5.2
+  - nokogiri from 1.10 to 1.11
+  - prawn from 2.3 to 2.4
+  - sidekiq from 6.0 to 6.1
+  - ... and many others
+
 # v1.15.0 13/02/2021
 
 - Replaced moment.js with dayjs
