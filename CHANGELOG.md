@@ -1,8 +1,12 @@
 # CHANGELOG
 
+# v1.14.0 13/02/2021
+
+- Updated many javascript plugins
+
 # v1.13.0 03/01/2021
 
-- Updates ruby to 2.7 and several gems
+- Updated ruby to 2.7 and several gems
   - Updated ruby from 2.6.6 to 2.7.2
   - Updated puma from 5.0.4 to 5.1.1
   - Other minor updates
