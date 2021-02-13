@@ -1,29 +1,29 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export const utilityMixin = {
   computed: {
     tomorrowDate() {
-      return moment().add(1,'days')
+      return dayjs().add(1,'days')
     },
     todayTimestamp() {
-      return moment().unix()
+      return dayjs().unix()
     },
   },
   methods: {
     // formattedDateToISO(date, outFormat='YYYY-MM-DD') {
-    //   return !!date ? moment(date, outFormat) : null
+    //   return !!date ? dayjs(date, outFormat) : null
     // },
     formattedDate(date) {
-      return !!date ? moment(date, 'YYYY-MM-DD').format('L') : null
+      return !!date ? dayjs(date, 'YYYY-MM-DD').format('L') : null
     },
     formattedTime(time, outFormat='HH:mm') {
-      return !!time ? moment(time).format(outFormat) : ''
+      return !!time ? dayjs(time).format(outFormat) : ''
     },
     formattedDateTime(datetime, outFormat='LLLL') {
-      return !!datetime ? moment(datetime).format(outFormat) : null
+      return !!datetime ? dayjs(datetime).format(outFormat) : null
     },
     calculateAge(datetime) {
-      return moment().diff(datetime, 'years')
+      return dayjs().diff(datetime, 'years')
     },
     // Used to show translated error below the form's field
     show_error_form_field(errors) {

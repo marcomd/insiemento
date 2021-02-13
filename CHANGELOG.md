@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.15.0 13/02/2021
+
+- Replaced moment.js with dayjs
+
 # v1.14.0 13/02/2021
 
 - Updated many javascript plugins

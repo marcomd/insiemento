@@ -99,7 +99,7 @@
 </template>
 
 <script>
-  import moment from 'moment'
+  import dayjs from 'dayjs'
   // import { utilityMixin } from '../../mixins/utility_mixin'
   import CourseEventCardLite from './course_event_card_lite'
 
@@ -160,7 +160,7 @@
         })
       },
       today() {
-        return moment().format("YYYY-MM-DD")
+        return dayjs().format("YYYY-MM-DD")
       },
       typeToLabel() {
         return {
