@@ -3,5 +3,7 @@
 //  require active_admin/minicolors
 //= require jquery.minicolors
 //= require custom_minicolors
+//= require chartkick
+//= require Chart.bundle
 //= require turbolinks
 

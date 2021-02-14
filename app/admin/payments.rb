@@ -36,7 +36,7 @@ ActiveAdmin.register Payment do
     end
     column(:user)
     column(:order)
-    column(:state)          { |obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state)          { |obj| status_tag_for obj }
     column(:amount)
     column(:created_at)
     column(:updated_at)
@@ -58,7 +58,7 @@ ActiveAdmin.register Payment do
       end
       row(:user)
       row(:order)
-      row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+      row(:state) {|obj| status_tag_for obj }
       row(:amount)
       row(:external_service_response)
       row(:created_at)

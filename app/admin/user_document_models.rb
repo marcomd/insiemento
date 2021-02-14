@@ -33,7 +33,7 @@ ActiveAdmin.register UserDocumentModel do
     selectable_column
     id_column
     column(:organization) if current_admin_user.is_root?
-    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| status_tag_for obj }
     column(:title)
     column(:validity_days)
     column(:recurring)
@@ -47,7 +47,7 @@ ActiveAdmin.register UserDocumentModel do
       column do
         attributes_table do
           row(:organization) if current_admin_user.is_root?
-          row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          row(:state) {|obj| status_tag_for obj }
           row(:validity_days)
           row(:recurring)
           row(:created_at)
@@ -57,7 +57,7 @@ ActiveAdmin.register UserDocumentModel do
           table_for user_document_model.user_documents.order('id desc').last(10) do
             column(:id) { |obj| link_to obj.id, [:admin, obj] }
             column(:user)
-            column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+            column(:state) {|obj| status_tag_for obj }
             column(:created_at)
           end
         end

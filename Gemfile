@@ -113,6 +113,12 @@ gem 'stripe', '~> 5.29.1'
 # Prawn is a pure Ruby PDF generation library that provides a lot of great functionality while trying to remain simple and reasonably performant
 gem 'prawn', '~> 2.4.0'
 
+# Create beautiful JavaScript charts with one line of Ruby
+gem 'chartkick', '~> 3.4.2'
+
+# The simplest way to group by
+gem 'groupdate', '~> 5.2.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]

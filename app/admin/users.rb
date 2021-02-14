@@ -48,7 +48,7 @@ ActiveAdmin.register User do
     column(:child_firstname)
     column(:email)
     column(:phone)
-    column(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state)                 {|obj| status_tag_for obj }
     column(:confirmed_at)
     column(:current_sign_in_at)
     column(:sign_in_count)
@@ -110,7 +110,7 @@ ActiveAdmin.register User do
           row(:child_firstname)
           row(:child_lastname )
           row(:child_birthdate)
-          row(:state)                 {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          row(:state)                 {|obj| status_tag_for obj }
           if user.medical_certificate.present?
             if /^image/ === user.medical_certificate.content_type
               as_image_row(:medical_certificate)
@@ -120,7 +120,12 @@ ActiveAdmin.register User do
           else
             row(:medical_certificate) { |obj| image_tag('false.png') }
           end
-          row(:medical_certificate_expire_at)
+          row(:medical_certificate_expire_at) do |obj|
+            if obj.medical_certificate_expire_at
+              css_class = obj.medical_certificate_expire_at < Time.zone.today ? 'red' : ''
+              span(I18n.localize(obj.medical_certificate_expire_at, format: :long), class: css_class)
+            end
+          end
           row(:sign_in_count)
           if current_admin_user.is_root?
             row(:reset_password_token)
@@ -154,7 +159,7 @@ ActiveAdmin.register User do
         panel link_to(Order.model_name.human(count: 2), admin_orders_path('q[user_id_eq]' => user.id)) do
           table_for user.orders.order('id desc').limit(2) do |order|
             column(:id) { |obj| link_to obj.id, [:admin, obj] }
-            column(:state)                {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+            column(:state)                {|obj| status_tag_for obj }
             column(:total_amount)
             column(:amount_to_pay)
             column(:amount_paid)
@@ -168,7 +173,7 @@ ActiveAdmin.register User do
           table_for user.user_documents.order('id desc').limit(2) do |user_document|
             column(:id) { |obj| link_to obj.id, [:admin, obj] }
             column(:user_document_model) {|obj| link_to obj.user_document_model.title, [:admin, obj.user_document_model] }
-            column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+            column(:state) {|obj| status_tag_for obj }
             column(:created_at)
           end
         end
@@ -200,7 +205,7 @@ ActiveAdmin.register User do
                                                           else
                                                             ''
                                                           end
-          f.input :medical_certificate_expire_at #, as: :date_picker
+          f.input :medical_certificate_expire_at, as: :date_picker
           f.input :password
           f.input :password_confirmation
           f.input :state

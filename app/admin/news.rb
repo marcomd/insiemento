@@ -31,7 +31,7 @@ ActiveAdmin.register News do
     column(:organization) if current_admin_user.is_root?
     column(:title)
     column(:body)
-    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| status_tag_for obj }
     column(:expire_on)
     column(:news_type) {|obj| span obj.news_type, class: "status_tag #{obj.news_type}" }
     column(:dark_style)

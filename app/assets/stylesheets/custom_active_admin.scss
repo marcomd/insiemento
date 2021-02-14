@@ -55,4 +55,15 @@ body.active_admin {
   form input[type=date] {
     width: 120px;
   }
+
+  .red {
+    color: red;
+  }
+
+  .panel.users_with_expired_medical_certificate {
+    padding-bottom: 10px;
+    #index_footer {
+      margin-top: -5px
+    }
+  }
 }

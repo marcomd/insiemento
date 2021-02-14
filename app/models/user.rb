@@ -38,6 +38,7 @@ class User < ApplicationRecord
   #                                                                 .joins(:subscriptions).distinct }
   scope :with_not_ended_subscriptions, -> (date=Time.zone.today) { joins(:subscriptions).merge(Subscription.not_ended).distinct }
   scope :elegible_for_user_documents, -> { where.not(phone: nil) }
+  scope :with_expired_medical_certificate, ->(date=Time.zone.now) { where('medical_certificate_expire_at IS NOT NULL AND medical_certificate_expire_at < ?', date) }
 
   before_validation :set_default
   # after_save :set_state!

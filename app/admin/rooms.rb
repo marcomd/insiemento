@@ -30,7 +30,7 @@ ActiveAdmin.register Room do
     column(:organization) if current_admin_user.is_root?
     column(:name)
     column(:max_attendees)
-    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| status_tag_for obj }
     column(:created_at)
     column(:updated_at)
     actions

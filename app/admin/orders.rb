@@ -38,7 +38,7 @@ ActiveAdmin.register Order do
       column(:organization)
     end
     column(:user)
-    column(:state)                {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state)                {|obj| status_tag_for obj }
     column(:total_amount)
     column(:amount_to_pay)
     column(:amount_paid)
@@ -70,7 +70,7 @@ ActiveAdmin.register Order do
             row(:organization)
           end
           row(:user)
-          row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          row(:state) {|obj| status_tag_for obj }
           row(:currency)
           row(:total_amount)
           row(:discount)
@@ -97,7 +97,7 @@ ActiveAdmin.register Order do
             column(:id)           { |obj| link_to "#{obj.id}", admin_payment_path(obj.id)}
             column(:user)
             column(:source)
-            column(:state)        { |obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+            column(:state)        { |obj| status_tag_for obj }
             column(:amount)
           end
         end

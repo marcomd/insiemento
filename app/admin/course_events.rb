@@ -52,7 +52,7 @@ ActiveAdmin.register CourseEvent do
     column(:course_schedule)
     column(:event_date)
     column(:attendees_count)
-    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| status_tag_for obj }
     column(:created_at)
     column(:updated_at)
     actions
@@ -85,7 +85,7 @@ ActiveAdmin.register CourseEvent do
           row(:course_schedule)
           row(:event_date)
           row(:attendees_count)
-          row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          row(:state) {|obj| status_tag_for obj }
           row(:created_at)
           row(:updated_at)
         end

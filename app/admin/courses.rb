@@ -34,7 +34,7 @@ ActiveAdmin.register Course do
     column(:name)
     column(:start_booking_hours)
     column(:end_booking_minutes)
-    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| status_tag_for obj }
     column(:created_at)
     column(:updated_at)
     actions

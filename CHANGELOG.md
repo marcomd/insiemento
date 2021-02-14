@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.18.0 14/02/2021
+
+- Customized the dashboard and other little improvements
+  - Added users with expiring medical certificate
+  - Added a line chart with the incoming expiring medical certificate
+  - Added a column chart to show last registered users
+
 # v1.17.0 13/02/2021
 
 - Updated rails to 6.1

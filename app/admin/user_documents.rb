@@ -56,7 +56,7 @@ ActiveAdmin.register UserDocument do
     column(:organization) if current_admin_user.is_root?
     column(:user_document_model)
     column(:user)
-    column(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+    column(:state) {|obj| status_tag_for obj }
     column(:title)
     column(:expire_on)
     column(:created_at)
@@ -97,7 +97,7 @@ ActiveAdmin.register UserDocument do
           row(:uuid)
           row(:user_document_model)
           row(:user)
-          row(:state) {|obj| span obj.localized_state, class: "status_tag #{obj.state}" }
+          row(:state) {|obj| status_tag_for obj }
           row(:sign_checksum) {|obj| link_to(obj.sign_checksum, "#{CONFIG.dig(:otpservice, :host)}/users/signature?checksum=#{obj.sign_checksum}", target: '_blank') if obj.sign_checksum }
           row(:expire_on)
           row(:created_at)

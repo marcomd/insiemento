@@ -210,6 +210,7 @@ en:
         child_firstname: "Child's name"
         child_lastname: "Child's surname"
         child_birthdate: "Child birth date"
+        days_before_expiration: "Days before expiration"
         created_at: "Created at"
         updated_at: "Updated at"
       category:
@@ -403,6 +404,12 @@ en:
         private: "Check whether to show in private area"
 
   activeadmin:
+    dashboard:
+      users_with_expiring_medical_certificate: "Customers with an expiring medical certificate"
+      no_users_with_expiring_medical_certificate: "No customers with an expiring medical certificate"
+      deadlines_next_months: "Deadlines in the coming months"
+      latest_registered_users: "Latest registered customers"
+      show: "Show"
     panels:
       active_subscriptions: "Active subscriptions"
     footer:

@@ -396,6 +396,7 @@ it:
         child_firstname: "Nome bambino"
         child_lastname: "Cognome bambino"
         child_birthdate: "Data nascita bambino"
+        days_before_expiration: "Giorni pre scadenza"
         created_at: "Data creazione"
         updated_at: "Data modifica"
       category:
@@ -595,6 +596,12 @@ it:
         private: "Spunta se mostrare nell'area privata"
 
   activeadmin:
+    dashboard:
+      users_with_expiring_medical_certificate: "Clienti con certificato medico in scadenza"
+      no_users_with_expiring_medical_certificate: "Nessun cliente con certificato medico in scadenza"
+      deadlines_next_months: "Scadenze nei prossimi mesi"
+      latest_registered_users: "Ultimi clienti registrati"
+      show: "Mostra"
     panels:
       active_subscriptions: "Abbonamenti attivi"
     footer:
