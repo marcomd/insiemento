@@ -377,6 +377,12 @@
           })
       }
     },
+
+    watch: {
+      birthdatePickerOpened(val) {
+        val && setTimeout(() => (this.$refs.birthday_picker.activePicker = 'YEAR'))
+      },
+    }
   }
 </script>
 

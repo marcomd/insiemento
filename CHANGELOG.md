@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v1.19.0 15/03/2021
+
+- Updated rails and puma
+  - Updated rails from 6.1.2.1 to 6.1.3
+  - Updated puma from 5.2.1 to 5.2.2
+  - Executed active storage migrations
+- In the profile, the birthdate selection starts with the year 
+
 # v1.18.0 14/02/2021
 
 - Customized the dashboard and other little improvements
