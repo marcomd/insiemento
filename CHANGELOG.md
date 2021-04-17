@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.20.0 17/04/2021
+
+- Updated rails and other gems
+  - Updated rails from 6.1.3 to 6.1.3.1
+  - Updated nokogiri, marcel and other gems
+
 # v1.19.0 15/03/2021
 
 - Updated rails and puma
