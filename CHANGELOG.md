@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.20.2 17/04/2021
+
+- Updated a system file
+
 # v1.20.1 17/04/2021
 
 - Updated javascript plugins
