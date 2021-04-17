@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.20.1 17/04/2021
+
+- Updated javascript plugins
+
 # v1.20.0 17/04/2021
 
 - Updated rails and other gems
