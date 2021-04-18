@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.20.3 18/04/2021
+
+- Forced ssl for production environment
+
 # v1.20.2 17/04/2021
 
 - Updated a system file
