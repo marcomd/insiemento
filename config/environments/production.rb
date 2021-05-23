@@ -84,6 +84,13 @@ Rails.application.configure do
       enable_starttls_auto: true
   }
 
+  # Action cable configuration
+  config.action_cable.url = "wss://#{host}/cable"
+  config.web_socket_server_url = "wss://#{host}/cable"
+  config.action_cable.allowed_request_origins ||=  []
+  config.action_cable.allowed_request_origins << "https://#{host}"
+  config.action_cable.allowed_request_origins << "wss://#{host}"
+
   # Uses sidekiq for the "mailers" and "default" queues
   config.active_job.queue_adapter = :sidekiq
 

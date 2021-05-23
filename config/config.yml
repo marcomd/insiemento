@@ -1,7 +1,7 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "1.21.0"
+    version: "1.21.1"
     updated_at: "23/05/2021"
     started_at: "13/01/2020"
     commercial:

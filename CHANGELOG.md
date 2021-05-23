@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.21.1 23/05/2021
+
+- Updated websocket configuration
+
 # v1.21.0 23/05/2021
 
 - Added websocket connection to provide server feedbacks in realtime

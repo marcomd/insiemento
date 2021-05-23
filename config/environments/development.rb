@@ -73,8 +73,8 @@ Rails.application.configure do
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
 
   # Action cable configuration
-  config.action_cable.url = "wss://#{host}:#{host_port}/cable"
-  config.web_socket_server_url = "ws://##{host}:#{host_port}/cable"
+  config.action_cable.url = "ws://#{host}:#{host_port}/cable"
+  config.web_socket_server_url = "ws://#{host}:#{host_port}/cable"
   config.action_cable.allowed_request_origins ||=  []
   config.action_cable.allowed_request_origins << "http://#{host}:#{host_port}"
   config.action_cable.allowed_request_origins << "ws://#{host}:#{host_port}"
