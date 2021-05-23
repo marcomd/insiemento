@@ -14,6 +14,7 @@ import vuetify from './plugins/vuetify'
 import './plugins'
 
 // import * as VueGoogleMaps from 'vue2-google-maps'
+import ActionCableVue from 'actioncable-vue'
 
 Vue.use(VueResource)
 Vue.use(VueI18n)
@@ -24,7 +25,17 @@ const init = function() {
   if (el !== null) {
     let id = '#' + el.getAttribute('id')
     let props = JSON.parse(el.getAttribute('data-props'))
-      
+
+    if (props?.options?.websocketUrl) {
+      Vue.use(ActionCableVue, {
+        debug: true,
+        debugLevel: 'error',
+        connectionUrl: props.options.websocketUrl, // or function which returns a string with your JWT appended to your server URL as a query parameter
+        connectImmediately: true,
+      })
+    } else {
+      console.error("Please set props -> options -> websocketUrl")
+    }
     // Vue.use(VueGoogleMaps, {
     //   load: {
     //     key: 'AIzaSyAtHxouX3MKalgzR2gA7QP9CnONNDBBej8',

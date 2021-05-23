@@ -30,7 +30,7 @@
     },
     props: {
       urls: Object,
-      basePath: String,
+      options: Object,
       current_organization: Object,
     },
     computed: {
@@ -94,7 +94,7 @@
 
       this.$store.dispatch('application/loadInitialProps', {
         urls: this.urls,
-        basePath: this.basePath,
+        options: this.options,
         current_organization: this.current_organization,
       })
 

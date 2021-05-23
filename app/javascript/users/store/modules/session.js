@@ -4,7 +4,7 @@ import router from '../../router'
 export const namespaced = true
 
 export const state = {
-  basePath: '',
+  options: {},
   urls: {},
   authToken: localStorage.getItem('authToken') || null
 }

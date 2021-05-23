@@ -1,33 +1,39 @@
+<%
+default_port = %[development test].include?(Rails.env) ? 3000 : 80
+server_port = Rails::Server::Options.new.parse!(ARGV)[:Port] || default_port rescue default_port
+websocket_protocol = %[development test].include?(Rails.env) ? 'ws' : 'wss'
+websocket_url = ENV['WEBSOCKET_URL'] || "#{websocket_protocol}://localhost:#{server_port}/cable"
+%>
 <%=
   current_organization = if @current_organization
                            {
-                               logo: (url_for(@current_organization.logo) if @current_organization.logo.present?),
-                               name: @current_organization.name,
-                               payoff: @current_organization.payoff,
-                               theme: @current_organization.theme,
-                               image: (url_for(@current_organization.image) if @current_organization.image.present?),
-                               images: (@current_organization.images.map {|image| url_for(image)} if @current_organization.images.present?),
-                               homepage: {homepage_features: @current_organization.homepage_features,
-                                          homepage_contacts: @current_organization.homepage_contacts,
-                                          homepage_socials: @current_organization.homepage_socials}.merge(@current_organization.homepage_data),
-                               news: (@current_organization.active_news.map {|n| {id: n.id,
-                                                                                  title: n.title,
-                                                                                  body: n.body,
-                                                                                  icon: n.icon,
-                                                                                  color: n.color,
-                                                                                  dark_style: n.dark_style,
-                                                                                  public_news: n.public,
-                                                                                  private_news: n.private }} ),
-                               email: @current_organization.email,
-                               phone: @current_organization.phone,
-                               site_url: "https://#{@current_organization.site_url}",
-                               s_pk: ENV['STRIPE_PUBLIC_KEY'],
+                             uuid: @current_organization.uuid,
+                             logo: (url_for(@current_organization.logo) if @current_organization.logo.present?),
+                             name: @current_organization.name,
+                             payoff: @current_organization.payoff,
+                             theme: @current_organization.theme,
+                             image: (url_for(@current_organization.image) if @current_organization.image.present?),
+                             images: (@current_organization.images.map {|image| url_for(image)} if @current_organization.images.present?),
+                             homepage: {homepage_features: @current_organization.homepage_features,
+                                        homepage_contacts: @current_organization.homepage_contacts,
+                                        homepage_socials: @current_organization.homepage_socials}.merge(@current_organization.homepage_data),
+                             news: (@current_organization.active_news.map {|n| {id: n.id,
+                                                                                title: n.title,
+                                                                                body: n.body,
+                                                                                icon: n.icon,
+                                                                                color: n.color,
+                                                                                dark_style: n.dark_style,
+                                                                                public_news: n.public,
+                                                                                private_news: n.private }} ),
+                             email: @current_organization.email,
+                             phone: @current_organization.phone,
+                             site_url: "https://#{@current_organization.site_url}",
+                             s_pk: ENV['STRIPE_PUBLIC_KEY'],
                            }
                          else
                            {}
                          end
   vue component: 'users', props: {
-    basePath: users_path,
     current_organization: current_organization,
     urls: {
       login: api_ui_v1_authenticate_url,
@@ -50,6 +56,10 @@
       order: api_ui_v1_order_url(':id'),
       order_add_product: add_product_api_ui_v1_order_url(':id', ':product_id'),
       order_remove_product: remove_product_api_ui_v1_order_url(':id', ':product_id'),
+    },
+    options: {
+      basePath: users_path,
+      websocketUrl: websocket_url
     }
   }
 %>

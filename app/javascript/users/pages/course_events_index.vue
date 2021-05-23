@@ -42,6 +42,13 @@
       currentUserMixin,
     ],
 
+    mounted () {
+      this.$cable.subscribe({
+        channel: 'OrganizationChannel',
+        uuid: this.currentOrganizationUuid,
+      })
+    },
+
     created() {
       this.fetchCourseEvents()
     },
@@ -49,6 +56,7 @@
     computed: {
       ...mapState('course_event', ['course_events']),
       ...mapState('layout', ['loading']),
+      ...mapGetters('application', ['currentOrganizationUuid']),
       ...mapGetters('profile', ['currentUser', 'hasCurrentUser']),
       subscribed_course_events() {
         return this.course_events.filter(course_event => course_event.subscribed )
@@ -60,6 +68,20 @@
       setCourseEvent({course_event}) {
         console.log(' dashboard setCourseEvent', course_event)
         this.$router.push({ name: 'courseEventShow', params: { id: course_event.id } })
+      }
+    },
+
+    channels: {
+      OrganizationChannel: {
+        connected() { console.log(`Vue connected to the OrganizationChannel ${this.currentOrganizationUuid}, olè!`) },
+        rejected() { console.log(`Vue connection rejected :-(`) },
+        received(data) {
+          console.log(`Stream received from OrganizationChannel:`, data)
+          if (data.course_event) {
+            this.$store.dispatch('course_event/refreshCourseEvents', data.course_event)
+          }
+        },
+        disconnected() { console.log(`Vue left the OrganizationChannel`) }
       }
     },
   }

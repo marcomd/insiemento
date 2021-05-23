@@ -98,6 +98,7 @@
           { text: this.$t('course_event.attributes.subscribed'), value: 'subscribed' },
           { text: this.$t('course_event.attributes.trainer'), value: 'trainer.nickname' },
           { text: this.$t('course_event.attributes.room'), value: 'room.name' },
+          { text: this.$t('course_event.attributes.attendees_count'), value: 'attendees_count' },
           { text: 'Info', value: 'full' },
         ]
       }

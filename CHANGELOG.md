@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v1.21.0 23/05/2021
+
+- Added websocket connection to provide server feedbacks in realtime
+  - Now frontend connects to the server also by websocket action cable. This speed up data retrieving but over all
+    it makes possible to broadcasting updates made by other users.
+  - In the course event show page now you get, in real time, updates on attendees
+  - Updated rails from 6.1.3.1 to 6.1.3.2
+  - Updated puma from 5.2.2 to 5.3.2
+
 # v1.20.3 18/04/2021
 
 - Forced ssl for production environment

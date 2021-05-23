@@ -63,11 +63,27 @@
 
   export default {
     name: 'CourseEventShow',
+
     components: {
       CourseEventCardFull,
       CourseEventAttendeesAudit,
     },
+
     mixins: [courseEventMixin],
+
+    mounted () {
+      // This ensures a single web socket connection. Call it in every component that wants to use Action Cable.
+      // this.websocket = this.$cable.useGlobalConnection()
+      this.$cable.subscribe({
+        channel: 'OrganizationChannel',
+        uuid: this.currentOrganizationUuid,
+      })
+
+      // Or with an auth token: Calls your connectionUrl with a token GET-param, e.g. 'wss://www.your-app.de/cable?token=1290e42e42e5e1d68220d8de66092e75'
+      // const token = this.$auth.getToken('local').replace('Bearer ', '')
+      // this.websocket = this.$cable.useGlobalConnection(token)
+    },
+
     created() {
       this.$store.dispatch('course_event/fetchCourseEvent', {id: this.$route.params.id})
         .then(course_event => {
@@ -86,16 +102,20 @@
         console.log(`Cannot fetch course_event id ${this.$route.params.id}: ${error}`)
       })
     },
+
     data: () => {
       return {
         attendees: [],
       }
     },
+
     computed: {
       ...mapState('course_event', ['course_event']),
       ...mapState('layout', ['loading', 'submitting']),
+      ...mapGetters('application', ['currentOrganizationUuid']),
       ...mapGetters('profile', ['isTrainer']),
     },
+
     methods: {
       ...mapActions('course_event', ['getAttendees']),
       updateCourseEventSubscription() {
@@ -121,7 +141,37 @@
             console.log(`Cannot updateCourseEventSubscription`, error)
           })
       },
-    }
+      // sendMessageToChannel() {
+      //   this.$cable.perform({
+      //     channel: 'RoomChannel',
+      //     action: 'receive',
+      //     data: {
+      //       content: 'This is a try message...'
+      //     }
+      //   });
+      // }
+    },
+
+    channels: {
+      OrganizationChannel: {
+        connected() { console.log(`Vue connected to the OrganizationChannel ${this.currentOrganizationUuid}, olè!`) },
+        rejected() { console.log(`Vue connection rejected :-(`) },
+        received(data) {
+          console.log(`Stream received from OrganizationChannel:`, data)
+          // Per aggiornare la lista dei trainer il server dovrebbe propagare l'elenco aggiornato oltre all'oggetto course_event
+          // if (data.attendees) {
+          //   // this.course_event.attendees_count = this.attendees.length
+          //   if (this.isTrainer) this.attendees = data.attendees
+          // }
+          if (data.course_event) {
+            // Save the current subscription state because broadcasting doesn't know it
+            // data.course_event.subscribed = this.course_event.subscribed
+            this.$store.dispatch('course_event/setCourseEvent', {...data.course_event,subscribed: this.course_event.subscribed} )
+          }
+        },
+        disconnected() { console.log(`Vue left the OrganizationChannel`) }
+      }
+    },
   }
 </script>
 

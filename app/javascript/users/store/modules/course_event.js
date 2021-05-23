@@ -20,19 +20,25 @@ export const mutations = {
     state.course_event = course_event
   },
   // After updates use this mutation to refresh the single item into the cache
-  REFRESH_COURSE_EVENT_IN_COURSE_EVENTS(state, course_event=state.course_event) {
-    console.log('Refresh course_events, currently items:', state.course_events.length)
+  REFRESH_COURSE_EVENT_IN_COURSE_EVENTS_OR_ADD(state, course_event=state.course_event) {
+    console.log('Refresh course_events or add, currently items:', state.course_events.length)
     let indexToReplace = state.course_events.findIndex(obj => obj.id == course_event.id)
     if (indexToReplace != -1) {
-      console.log(' - replace old with newest, id', course_event.id)
-      state.course_events[indexToReplace] = course_event
-      //this is for vue reaction
-      state.course_events.push({})
-      state.course_events.splice(-1, 1)
+      // console.log(' - replace old with newest, id', course_event.id)
+      state.course_events.splice(indexToReplace, 1, course_event)
     } else {
+      // console.log('  - replaced! New items:', state.course_events.length)
       state.course_events.push(course_event)
     }
-    // console.log('  - replaced! New items:', state.course_events.length)
+  },
+  REFRESH_COURSE_EVENT_IN_COURSE_EVENTS(state, {course_event=state.course_event, fromBroadcast=false}) {
+    // console.log('Refresh course_events, currently items:', state.course_events.length)
+    let indexToReplace = state.course_events.findIndex(obj => obj.id == course_event.id)
+    if (indexToReplace != -1) {
+      const subscribed = fromBroadcast ? state.course_events[indexToReplace].subscribed : course_event.subscribed
+      // console.log(' - replace old with newest, id', course_event.id)
+      state.course_events.splice(indexToReplace, 1, {...course_event, subscribed: subscribed})
+    }
   },
   SET_SEARCH(state, search) {
     state.search = search
@@ -82,7 +88,7 @@ export const actions = {
           }).then(response => {
             course_event = response.data
             commit('SET_COURSE_EVENT', course_event)
-            commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS', course_event)
+            commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS_OR_ADD', course_event)
             dispatch('layout/set_loading', false, { root: true })
             resolve(course_event)
           })
@@ -104,7 +110,7 @@ export const actions = {
           course_event = response.body
           console.log(`updateSubscription course_event`, course_event)
           commit('SET_COURSE_EVENT', course_event)
-          commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS', course_event)
+          commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS_OR_ADD', course_event)
           resolve(response)
         }, error => {
           reject(error)
@@ -153,6 +159,13 @@ export const actions = {
   setListOptions({ commit }, options) {
     commit('SET_LIST_OPTIONS', options)
   },
+  setCourseEvent({ commit }, course_event) {
+    commit('SET_COURSE_EVENT', course_event)
+    commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS', {course_event, fromBroadcast: true})
+  },
+  refreshCourseEvents({ commit }, course_event) {
+    commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS', {course_event, fromBroadcast: true})
+  }
 }
 
 export const getters = {

@@ -1,4 +1,4 @@
-host = 'localhost'
+host = 'www.fitness.io'
 host_port = 3100
 Rails.application.default_url_options = { host: host, port: host_port }
 
@@ -71,6 +71,15 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { host: host, port: 1025 }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
+
+  # Action cable configuration
+  config.action_cable.url = "wss://#{host}:#{host_port}/cable"
+  config.web_socket_server_url = "ws://##{host}:#{host_port}/cable"
+  config.action_cable.allowed_request_origins ||=  []
+  config.action_cable.allowed_request_origins << "http://#{host}:#{host_port}"
+  config.action_cable.allowed_request_origins << "ws://#{host}:#{host_port}"
+  config.action_cable.allowed_request_origins << "wss://#{host}:#{host_port}"
+
   config.hosts << "insiemento.local"
   config.hosts << "fitness.insiemento.local"
   config.hosts << "rspec.insiemento.local"

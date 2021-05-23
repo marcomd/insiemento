@@ -1,7 +1,7 @@
 export const namespaced = true
 
 export const state = {
-  basePath: '',
+  options: {},
   urls: {},
   current_organization: {},
 }
@@ -22,4 +22,7 @@ export const actions = {
 }
 
 export const getters = {
+  currentOrganizationUuid: state => {
+    return state.current_organization.uuid
+  },
 }

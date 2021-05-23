@@ -853,7 +853,7 @@
   resolved "https://registry.yarnpkg.com/@mdi/font/-/font-4.9.95.tgz#00ed2ffe289c9230f146e74559c07542d3f4475a"
   integrity sha512-m2sbAs+SMwRnWpkMriBxEulwuhmqRyh6X+hdOZlqSxYZUM2C2TaDnQ4gcilzdoAgru2XYnWViZ/xPuSDGgRXVw==
 
-"@rails/actioncable@^6.0.0":
+"@rails/actioncable@^6.0.0", "@rails/actioncable@^6.0.2":
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.3.tgz#c8a67ec4d22ecd6931f7ebd98143fddbc815419a"
   integrity sha512-m02524MR9cTnUNfGz39Lkx9jVvuL0tle4O7YgvouJ7H83FILxzG1nQ5jw8pAjLAr9XQGu+P1sY4SKE3zyhCNjw==
@@ -918,6 +918,11 @@
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
+
+"@types/actioncable@^5.2.3":
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/@types/actioncable/-/actioncable-5.2.4.tgz#c5f58188ea163b750ed0399519e220d04fb90e02"
+  integrity sha512-Uwkg/6kdYQfTCCxuBhtBkqPLyB/sSMgwsTtqTYBHeKgu3ED7onS+teO0Cgd3+2ttM9nfdOgt53mSd+MSXaDDqA==
 
 "@types/glob@^7.1.1":
   version "7.1.3"
@@ -1140,6 +1145,14 @@ acorn@^6.4.1:
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.2.tgz#35866fd710528e92de10cf06016498e47e39e1e6"
   integrity sha512-XtGIhXwF8YM8bJhGxG5kXgjkEuNGLTkoYqVE+KMR+aspr4KGYmKYg7yUe3KghyQ9yheNwLnjmzh/7+gfDBmHCQ==
+
+actioncable-vue@^2.4.6:
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/actioncable-vue/-/actioncable-vue-2.4.6.tgz#42ef1f074b3ed0215589787daefe1d16e6620171"
+  integrity sha512-iDPiaosqAlKSnp/5etExVFOlcdSVRX7Vdb2fErefzcqeMduYP7V58V2+mvcLvnOmEqamrdzC1czbVAd/PYtE6w==
+  dependencies:
+    "@rails/actioncable" "^6.0.2"
+    "@types/actioncable" "^5.2.3"
 
 aggregate-error@^3.0.0:
   version "3.1.0"
