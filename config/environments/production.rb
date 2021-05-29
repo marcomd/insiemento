@@ -1,4 +1,5 @@
 host = 'www.insiemento.com'
+other_hosts = ['dsmdanceschool.it']
 Rails.application.default_url_options = { host: host, protocol: 'https://' }
 
 Rails.application.configure do
@@ -85,7 +86,13 @@ Rails.application.configure do
   }
 
   # Action cable configuration
+  config.action_cable.url = "wss://#{host}/cable"
   config.web_socket_server_url = "wss://#{host}/cable"
+  config.action_cable.allowed_request_origins = []
+  config.action_cable.allowed_request_origins << %r{https://(.*\.)*insiemento.com}
+  other_hosts.each do |host|
+    config.action_cable.allowed_request_origins << %r{https://(.*\.)*#{host}}
+  end
 
   # Uses sidekiq for the "mailers" and "default" queues
   config.active_job.queue_adapter = :sidekiq
