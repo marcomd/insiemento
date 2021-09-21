@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.21.4 21/09/2021
+
+- Fixed a bug that occurred during registration
+- Added viewed state to user document
+
 # v1.21.3 29/05/2021
 
 - Updated websocket configuration

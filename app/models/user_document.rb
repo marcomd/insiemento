@@ -15,6 +15,7 @@ class UserDocument < ApplicationRecord
       exporting:              30, # Job is sending document to external service
       exporting_error:        40, # An error was occured during exporting
       exported:               50, # The document has been sent to external service
+      viewed:                 60, # The document has been signed by signer
       signed:                 70, # The document has been signed by signer
       completed:              80, # The signed document has been sent to signer
       expired:                100,# The document is no more valid
@@ -23,7 +24,7 @@ class UserDocument < ApplicationRecord
   include AASM
   aasm :state, column: :state, enum: true do
     state :draft, initial: true
-    state :ready, :exporting, :exporting_error, :exported, :signed, :completed, :expired
+    state :ready, :exporting, :exporting_error, :exported, :viewed, :signed, :completed, :expired
 
     event :send_to_otpservice do
       transitions from: [:draft, :exporting_error], to: :ready,

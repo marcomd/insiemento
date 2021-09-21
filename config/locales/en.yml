@@ -341,6 +341,7 @@ en:
           exporting: "Sending"
           exporting_error: "Error"
           exported: "Sent"
+          viewed: "Viewed"
           signed: "Signed"
           completed: "Completed"
           expired: "Expired"

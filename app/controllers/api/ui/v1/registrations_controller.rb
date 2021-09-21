@@ -14,30 +14,12 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
     #   @current_organization = Organization.find_by_uuid(user_attributes[:organization_uuid]) if user_attributes[:organization_uuid]
     #   user_attributes[:organization_id] = @current_organization&.id
     # end
-    user = User.new(user_attributes.except(:email_confirmation))
-    result = begin
-      User.transaction do
-        if user.save
-          # require_relative Rails.root.join 'app/services/authenticate_api_user.rb'
-          service = AuthenticateApiUser.call(user_attributes[:email],
-                                             user_attributes[:password],
-                                             request)
-          @auth_token = service.result
-          @user = service.user
-        end
-        # Oltre a crearlo, dobbiamo verificare che si possa loggare
-        raise 'User not authenticated' unless @user
-        true
-      end
-    rescue
-      user && user.errors.add(:base, $!.message)
-      false
-    end
-    if result
+    @user = User.new(user_attributes.except(:email_confirmation))
+    if @user.save
       render :create, status: 201
     else
       warden.custom_failure!
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: @user.errors }, status: 422
     end
   end
 
