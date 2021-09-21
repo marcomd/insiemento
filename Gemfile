@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.3.2'
+gem 'rails', '~> 6.1.4.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.2.3', '< 2.0'
@@ -158,7 +158,7 @@ group :development do
   gem 'awesome_print', '~> 1.8.0'
 
   # Provides a better error page for Rails
-  gem 'better_errors', '~> 2.5.1'
+  gem 'better_errors', '~> 2.8.0'
 
   # Retrieve the binding of a method's caller.
   gem 'binding_of_caller', '~> 0.8.0'
