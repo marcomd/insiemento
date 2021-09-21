@@ -527,6 +527,7 @@ it:
           exporting: "Invio"
           exporting_error: "Errore"
           exported: "Inviato"
+          viewed: "Visualizzato"
           signed: "Firmato"
           completed: "Completato"
           expired: "Scaduto"
