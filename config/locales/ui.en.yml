@@ -111,7 +111,7 @@ en:
           genders:
             male: Male
             female: Female
-            robot: Robot
+            robot: Non-Binary
           child_account: Parent or guardian
           child_firstname: Child's name
           child_lastname: Child's surname

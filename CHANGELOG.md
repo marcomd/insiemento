@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.22.0 21/09/2021
+
+- Updated rails from 6.1.3 to 6.1.4 and other gems
+
 # v1.21.4 21/09/2021
 
 - Fixed a bug that occurred during registration

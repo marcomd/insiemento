@@ -110,7 +110,7 @@ it:
           genders:
             male: Maschio
             female: Femmina
-            robot: Androide
+            robot: Non-Binario
           child_account: Genitore o tutore
           child_firstname: Nome del bambino
           child_lastname: Cognome del bambino
