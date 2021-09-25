@@ -72,7 +72,7 @@
   import ProductCardTiny from '../products/product_card_tiny'
   import { utilityMixin } from '../../mixins/utility_mixin'
   import { orderMixin } from '../../mixins/order_mixin'
-  import dayjs from 'dayjs'
+  import moment from 'moment'
 
   export default {
     components: {
@@ -94,7 +94,7 @@
     },
     computed: {
       max_start_on() {
-        return dayjs().add(60,'days').format('YYYY-MM-DD')
+        return moment().add(60,'days').format('YYYY-MM-DD')
       },
     },
     methods: {
