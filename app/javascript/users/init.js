@@ -4,7 +4,7 @@ import App from './components/index'
 import store from './store/store'
 import router from './router'
 
-import dayjs from 'dayjs'
+import moment from 'moment'
 
 import VueResource from 'vue-resource'
 import VueI18n from 'vue-i18n'
@@ -63,7 +63,7 @@ const init = function() {
     // })
 
     let locale = localStorage.getItem('userLocale') || el.getAttribute('data-locale')
-    dayjs.locale('it') // force IT locale to have a consistent date format for all locales
+    moment.locale('it') // force IT locale to have a consistent date format for all locales
     Vue.http.headers.common['Accept-Language'] = locale
 
     let i18n = new VueI18n({
