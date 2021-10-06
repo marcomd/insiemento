@@ -45,7 +45,7 @@ gem 'activeadmin', '~> 2.9.0'
 gem 'devise', '~> 4.7.0'
 
 # Simple, efficient background processing for Ruby
-gem 'sidekiq', '~> 6.1.3'
+gem 'sidekiq', '~> 6.2.1'
 
 # A scheduling add-on for Sidekiq.
 gem 'sidekiq-cron', '~> 1.2.0'
