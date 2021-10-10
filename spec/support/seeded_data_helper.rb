@@ -15,6 +15,26 @@ module SeededDataHelper
     User.find_by_email('linda@fitness.io')
   end
 
+  def user_marco
+    User.find_by_email('marco@fitness.io')
+  end
+
+  def organization_fitness
+    Organization.find(1)
+  end
+
+  def category_fitness
+    Category.find(1)
+  end
+
+  def course_fitness_zumba
+    Course.find(1)
+  end
+
+  def course_fitness_yoga
+    Course.find(2)
+  end
+
   def stefania_subscribed_course_event_id
     1
   end

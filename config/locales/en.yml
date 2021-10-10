@@ -33,6 +33,7 @@ en:
   errors:
     messages:
       already_subscribed: "Already subscribed to this course!"
+      already_inhibited: "Penalty already present for this event"
       max_attendees_reached: "Max attendees has been reached!"
       attending_not_found: "Sorry, attending was not found!"
       active_subscription_needed: "You can only proceed with a subscription, please contact us!"
@@ -99,6 +100,9 @@ en:
       user_document:
         one: "Sending document"
         other: "Send documents"
+      penalty:
+        one: "Penalty"
+        other: "Penalties"
     attributes: &attributes
       id: "Id"
       created_at: "Created at"
@@ -188,6 +192,19 @@ en:
           closed: "Closed"
         created_at: "Created at"
         updated_at: "Updated at"
+      attendee:
+        organization: "Organization"
+        course_event: "Session"
+        course_event_id: "Session ID"
+        user: "Participant"
+        subscription: "Subscription"
+        subscription_id: "Subscription ID"
+        presence: "Presence"
+        present_at_this_time: "Attendance at this time"
+        event_at: "Start session"
+        inhibited_until: "Inhibited until"
+        created_at: "Reservation date"
+        updated_at: "Presence check date"
       user:
         organization: "Organization"
         email: "eMail"
@@ -363,6 +380,18 @@ en:
         dark_style: "Dark Style"
         public: "Public"
         private: "Private"
+        created_at: "Created at"
+        updated_at: "Updated at"
+      penalty:
+        organization: "Organization"
+        category: "Category"
+        course: "Course"
+        course_id: "Course ID"
+        state: "State"
+        states:
+          active: "Active"
+          suspended: "Suspended"
+        days: "Penalty days"
         created_at: "Created at"
         updated_at: "Updated at"
     error:

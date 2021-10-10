@@ -131,6 +131,7 @@ it:
         one: è della lunghezza sbagliata (deve essere di 1 carattere)
         other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
       already_subscribed: "Iscrizione già presente per questo corso"
+      already_inhibited: "Penalità già presente per questo evento"
       max_attendees_reached: "È stato raggiunto il numero massimo di partecipanti!"
       attending_not_found: "Siamo spiacenti, non è stata trovata l'iscrizione!"
       active_subscription_needed: "Puoi procedere solo disponendo di un abbonamento, contattaci!"
@@ -140,6 +141,7 @@ it:
       course_event_not_unsubscribable: "Siamo spiacenti ma non è più possibile cancellarsi dalla lista."
       course_event_suspended: "Questa sessione è stata sospesa pertanto non è possibile iscriversi"
       course_event_closed: "Questa sessione è stata chiusa pertanto non è possibile iscriversi"
+      penalty_prevents_booking: "Hai una penalizzazione in corso che impedisce la prenotazione"
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:
@@ -273,6 +275,12 @@ it:
       news:
         one: "Notizia"
         other: "Notizie"
+      penalty:
+        one: "Penalità"
+        other: "Penalità"
+      user_penalty:
+        one: "Utente inibito"
+        other: "Utenti inibiti"
     attributes: &attributes
       id: "Id"
       created_at: "Data creazione"
@@ -372,6 +380,7 @@ it:
         presence: "Presenza"
         present_at_this_time: "Presenze in questo momento"
         event_at: "Inizio sessione"
+        inhibited_until: "Inibito fino al"
         created_at: "Data prenotazione"
         updated_at: "Data controllo presenza"
       user:
@@ -549,6 +558,27 @@ it:
         dark_style: "Stile scuro"
         public: "Pubblico"
         private: "Private"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      penalty:
+        organization: "Organizzazione"
+        category: "Categoria"
+        course: "Corso"
+        course_id: "ID Corso"
+        state: "Stato"
+        states:
+          active: "Attiva"
+          suspended: "Sospesa"
+        days: "Giorni penalità"
+        created_at: "Data creazione"
+        updated_at: "Data modifica"
+      user_penalty:
+        organization: "Organizzazione"
+        course_event: "Sessione"
+        attendee: "Prenotazione"
+        category: "Categoria"
+        course: "Corso"
+        inhibited_until: "Inibito fino al"
         created_at: "Data creazione"
         updated_at: "Data modifica"
     errors:

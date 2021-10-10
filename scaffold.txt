@@ -56,3 +56,13 @@ user_document organization:references user_document_model:references user:refere
 
 # News for users
 news organization:references state:integer{1}:index title:string{255} body:text expire_on:date news_type:integer
+
+# To set what happen when a user miss a booked session
+penalties organization:references category:references course:references days:integer{2} state:integer{1}
+# category: if set, the penalty will be restricted to this category
+# course: if set, the penalty will be restricted to this course
+# days: number of days in which the service is inhibited
+
+# Inhibitions when a user miss a booked session
+user_penalties organization:references user:references subscription:references course_event:references attendee:references category:references course:references inhibited_until:date:index
+#add_index :user_penalties, :inhibited_until

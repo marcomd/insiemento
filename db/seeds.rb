@@ -212,7 +212,7 @@ stripe_complete_payment_response = {
 }.to_json
 
 if Organization.count == 0
-  o_dance = Organization.create(name: 'Fitness center', payoff: 'Run, Jump, Burn!',
+  o_fitness = Organization.create(name: 'Fitness center', payoff: 'Run, Jump, Burn!',
                                 email: 'support@fitness.io', phone: '0211223344',
                                 domain: 'fitness.io', state: :active,
                                 theme: {
@@ -245,7 +245,7 @@ if Organization.count == 0
                                 }
   )
 else
-  o_dance, o_swim = Organization.all
+  o_fitness, o_swim = Organization.all
 end
 
 if AdminUser.count == 0
@@ -274,8 +274,8 @@ if AdminUser.count == 0
 end
 
 if Category.count == 0
-  ca_fitness = Category.create!(organization: o_dance,  name: 'Fitness',)
-  ca_spa     = Category.create!(organization: o_dance,  name: 'Spa',)
+  ca_fitness = Category.create!(organization: o_fitness,  name: 'Fitness',)
+  ca_spa     = Category.create!(organization: o_fitness,  name: 'Spa',)
   ca_swim    = Category.create!(organization: o_swim,   name: 'Aquagym',)
   puts "Categories: #{Category.count}"
 else
@@ -288,7 +288,7 @@ if Course.count == 0
                          start_booking_hours: 168,
                          end_booking_minutes: 90,
                          state: :active,
-                         organization: o_dance,
+                         organization: o_fitness,
                          category: ca_fitness,
   )
   c_yoga=Course.create!(name: 'Yoga',
@@ -296,7 +296,7 @@ if Course.count == 0
                          start_booking_hours: 96,
                          end_booking_minutes: 360,
                          state: :active,
-                         organization: o_dance,
+                         organization: o_fitness,
                          category: ca_fitness,
                          )
   c_pilates=Course.create!(name: 'Pilates',
@@ -304,7 +304,7 @@ if Course.count == 0
                           start_booking_hours: 24,
                           end_booking_minutes: 60,
                           state: :active,
-                          organization: o_dance,
+                          organization: o_fitness,
                           category: ca_fitness,
                         )
   c_spa=Course.create!(name: 'Relax',
@@ -312,7 +312,7 @@ if Course.count == 0
                            start_booking_hours: 24,
                            end_booking_minutes: 60,
                            state: :active,
-                           organization: o_dance,
+                           organization: o_fitness,
                            category: ca_spa,
                            )
   c_aqua_gym=Course.create!(name: 'Acqua Gym',
@@ -329,11 +329,11 @@ else
 end
 
 if Trainer.count == 0
-  t_miguel=Trainer.create!(firstname: 'Miguel', lastname: 'Dos Santos', nickname: 'El Nino', state: :active, organization: o_dance,
+  t_miguel=Trainer.create!(firstname: 'Miguel', lastname: 'Dos Santos', nickname: 'El Nino', state: :active, organization: o_fitness,
                            bio: "Un caliente ballerino brasiliano, tra i tre più grandi ballerini italiani di zumba di tutti i tempi.")
-  t_jenny=Trainer.create!(firstname: 'Jennifer', lastname: 'Santorini', nickname: 'Saint', state: :active, organization: o_dance,
+  t_jenny=Trainer.create!(firstname: 'Jennifer', lastname: 'Santorini', nickname: 'Saint', state: :active, organization: o_fitness,
                           bio: "Percorso accademico completato negli states, eletta Miss chiappe d'oro 2019, con lei è vivamente consigliata una bombola di ossigeno!")
-  t_sandy=Trainer.create!(firstname: 'Sandy', lastname: 'Marton', nickname: 'Sese', state: :active, organization: o_dance,
+  t_sandy=Trainer.create!(firstname: 'Sandy', lastname: 'Marton', nickname: 'Sese', state: :active, organization: o_fitness,
                          bio: "È un artista in grado di interpretare la musica e tradurla attraverso il linguaggio del corpo.")
   t_ana=Trainer.create!(firstname: 'Anita', lastname: 'Mena', nickname: 'Ana', state: :active, organization: o_swim,
                           bio: "Ottima preparazione atletica e dispone di una certa predisposizione all’insegnamento. Conoscenza delle tecniche avanzate del nuoto, ascolta, stimola e motiva i suoi atleti.")
@@ -346,40 +346,40 @@ generic_user_names = %w(user1 user2 user3 user4 user5 user6 user7)
 generic_lastname = 'Generic'
 
 if User.count == 0
-  u_stefy=User.new(firstname: 'Stefania', lastname: 'Rossini', email: "stefania@#{o_dance.domain}",
-                      organization: o_dance,
+  u_stefy=User.new(firstname: 'Stefania', lastname: 'Rossini', email: "stefania@#{o_fitness.domain}",
+                      organization: o_fitness,
                       birthdate: '1990-05-25', gender: 'F', phone: '3391122333',
                       password: default_password,
                       password_confirmation: default_password)
   u_stefy.skip_confirmation!
   u_stefy.save!
 
-  u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: "marco@#{o_dance.domain}",
-                   organization: o_dance,
+  u_marco=User.new(firstname: 'Marco', lastname: 'Tonelli', email: "marco@#{o_fitness.domain}",
+                   organization: o_fitness,
                    birthdate: '1995-06-15', gender: 'M', phone: '3354455555',
                    password: default_password,
                    password_confirmation: default_password)
   u_marco.skip_confirmation!
   u_marco.save!
 
-  u_linda=User.new(firstname: 'Linda', lastname: 'Sacco', email: "linda@#{o_dance.domain}",
-                   organization: o_dance,
+  u_linda=User.new(firstname: 'Linda', lastname: 'Sacco', email: "linda@#{o_fitness.domain}",
+                   organization: o_fitness,
                    birthdate: '2000-01-12', gender: 'F', phone: '3382244333',
                    password: default_password,
                    password_confirmation: default_password)
   u_linda.skip_confirmation!
   u_linda.save!
 
-  u_paolo=User.new(firstname: 'Paolo', lastname: 'Paolotto', email: "paolo@#{o_dance.domain}",
-                   organization: o_dance,
+  u_paolo=User.new(firstname: 'Paolo', lastname: 'Paolotto', email: "paolo@#{o_fitness.domain}",
+                   organization: o_fitness,
                    birthdate: '1990-10-04', gender: 'M', phone: '3382244444',
                    password: default_password,
                    password_confirmation: default_password)
   u_paolo.skip_confirmation!
   u_paolo.save!
 
-  u_elena=User.new(firstname: 'Elena', lastname: 'Elica', email: "elena@#{o_dance.domain}",
-                   organization: o_dance,
+  u_elena=User.new(firstname: 'Elena', lastname: 'Elica', email: "elena@#{o_fitness.domain}",
+                   organization: o_fitness,
                    birthdate: '2001-10-04', gender: 'F', phone: '3301020300',
                    password: default_password,
                    password_confirmation: default_password)
@@ -395,8 +395,8 @@ if User.count == 0
   u_pina.save!
 
   generic_user_names.each do |name|
-    user=User.new(firstname: name.capitalize, lastname: generic_lastname, email: "#{name}@#{o_dance.domain}",
-                  organization: o_dance,
+    user=User.new(firstname: name.capitalize, lastname: generic_lastname, email: "#{name}@#{o_fitness.domain}",
+                  organization: o_fitness,
                   birthdate: '2000-01-12', gender: 'M', phone: '3382244666',
                   password: default_password,
                   password_confirmation: default_password)
@@ -411,9 +411,9 @@ end
 generic_users = User.where(lastname: generic_lastname)
 
 if Room.count == 0
-  r_small      = Room.create!(organization: o_dance , name: 'Piccola', description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 10 persone', max_attendees: 10, state: :active,)
-  r_middle     = Room.create!(organization: o_dance , name: 'Media'  , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 20 persone', max_attendees: 20, state: :active,)
-  r_large      = Room.create!(organization: o_dance , name: 'Grande' , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 30 persone', max_attendees: 30, state: :active,)
+  r_small      = Room.create!(organization: o_fitness , name: 'Piccola', description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 10 persone', max_attendees: 10, state: :active,)
+  r_middle     = Room.create!(organization: o_fitness , name: 'Media'  , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 20 persone', max_attendees: 20, state: :active,)
+  r_large      = Room.create!(organization: o_fitness , name: 'Grande' , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 30 persone', max_attendees: 30, state: :active,)
   r_swim_small = Room.create!(organization: o_swim  , name: 'Piccola', description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 25 persone', max_attendees: 25, state: :active,)
   r_swim_large = Room.create!(organization: o_swim  , name: 'Grande' , description: 'La nostra magnifica sala, ben attrezzata e che può ospitare fino a 50 persone', max_attendees: 50, state: :active,)
   puts "Rooms: #{Room.count}"
@@ -424,15 +424,15 @@ end
 if CourseSchedule.count == 0
   course_event_attributes = []
   [1,2,3,4,5,6,0].each do |event_day|
-    course_event_attributes << {organization: o_dance, course: c_zumba   , category: c_zumba.category   , room: r_small     , trainer: t_miguel, event_day: event_day, event_time:  '7:00', state: :active}
-    course_event_attributes << {organization: o_dance, course: c_zumba   , category: c_zumba.category   , room: r_middle    , trainer: t_miguel, event_day: event_day, event_time: '10:00', state: :active}
-    course_event_attributes << {organization: o_dance, course: c_zumba   , category: c_zumba.category   , room: r_large     , trainer: t_miguel, event_day: event_day, event_time: '13:00', state: :active}
-    course_event_attributes << {organization: o_dance, course: c_yoga    , category: c_yoga.category    , room: r_small     , trainer: t_jenny , event_day: event_day, event_time: '14:30', state: :active}
-    course_event_attributes << {organization: o_dance, course: c_yoga    , category: c_yoga.category    , room: r_middle    , trainer: t_jenny , event_day: event_day, event_time: '16:30', state: :active}
-    course_event_attributes << {organization: o_dance, course: c_yoga    , category: c_yoga.category    , room: r_large     , trainer: t_jenny , event_day: event_day, event_time: '18:30', state: :active}
-    course_event_attributes << {organization: o_dance, course: c_pilates , category: c_pilates.category , room: r_large     , trainer: t_sandy , event_day: event_day, event_time: '21:00', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_zumba   , category: c_zumba.category   , room: r_small     , trainer: t_miguel, event_day: event_day, event_time:  '7:00', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_zumba   , category: c_zumba.category   , room: r_middle    , trainer: t_miguel, event_day: event_day, event_time: '10:00', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_zumba   , category: c_zumba.category   , room: r_large     , trainer: t_miguel, event_day: event_day, event_time: '13:00', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_yoga    , category: c_yoga.category    , room: r_small     , trainer: t_jenny , event_day: event_day, event_time: '14:30', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_yoga    , category: c_yoga.category    , room: r_middle    , trainer: t_jenny , event_day: event_day, event_time: '16:30', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_yoga    , category: c_yoga.category    , room: r_large     , trainer: t_jenny , event_day: event_day, event_time: '18:30', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_pilates , category: c_pilates.category , room: r_large     , trainer: t_sandy , event_day: event_day, event_time: '21:00', state: :active}
 
-    course_event_attributes << {organization: o_dance, course: c_spa     , category: c_spa.category     , room: r_large     , trainer: t_sandy , event_day: event_day, event_time: '10:00', state: :active}
+    course_event_attributes << {organization: o_fitness, course: c_spa     , category: c_spa.category     , room: r_large     , trainer: t_sandy , event_day: event_day, event_time: '10:00', state: :active}
 
     course_event_attributes << {organization: o_swim , course: c_aqua_gym, category: c_aqua_gym.category, room: r_swim_small, trainer: t_ana   , event_day: event_day, event_time: '13:00', state: :active}
     course_event_attributes << {organization: o_swim , course: c_aqua_gym, category: c_aqua_gym.category, room: r_swim_large, trainer: t_ana   , event_day: event_day, event_time: '20:00', state: :active}
@@ -447,51 +447,51 @@ if CourseEvent.count == 0
 end
 
 if Product.count == 0
-  p_fitness_try   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :trial       , state: :active, price_cents: 0     , days: 15 , max_accesses_number: 1   ,name: 'Periodo di prova'            , description: 'A description...'  )
-  p_fitness_month = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 19_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile fitness' , description: 'A description...'  )
-  p_fitness_year  = Product.create!(organization: o_dance, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 199_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale fitness' , description: 'A description...'  )
-  p_spa_single    = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 29_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola spa'         , description: 'A description...'  )
-  p_spa_month     = Product.create!(organization: o_dance, category: ca_spa    , product_type: :fee         , state: :active, price_cents: 149_00, days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile spa'     , description: 'A description...'  )
+  p_fitness_try   = Product.create!(organization: o_fitness, category: ca_fitness, product_type: :trial       , state: :active, price_cents: 0     , days: 15 , max_accesses_number: 1   ,name: 'Periodo di prova'            , description: 'A description...'  )
+  p_fitness_month = Product.create!(organization: o_fitness, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 19_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile fitness' , description: 'A description...'  )
+  p_fitness_year  = Product.create!(organization: o_fitness, category: ca_fitness, product_type: :fee         , state: :active, price_cents: 199_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale fitness' , description: 'A description...'  )
+  p_spa_single    = Product.create!(organization: o_fitness, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 29_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola spa'         , description: 'A description...'  )
+  p_spa_month     = Product.create!(organization: o_fitness, category: ca_spa    , product_type: :fee         , state: :active, price_cents: 149_00, days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile spa'     , description: 'A description...'  )
   p_swim_month    = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 49_00 , days: 30 , max_accesses_number: nil ,name: 'Abbonamento mensile aquagym' , description: 'A description...'  )
   p_swim_year     = Product.create!(organization: o_swim , category: ca_swim   , product_type: :fee         , state: :active, price_cents: 539_00, days: 365, max_accesses_number: nil ,name: 'Abbonamento annuale aquagym' , description: 'A description...'  )
   p_swim_single   = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 11_00 , days: 30 , max_accesses_number: 1   ,name: 'Entrata singola aquagym'     , description: 'A description...'  )
   p_swim_ten      = Product.create!(organization: o_swim , category: ca_swim   , product_type: :consumption , state: :active, price_cents: 100_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate aquagym', description: 'A description...'  )
-  p_fitness_ten   = Product.create!(organization: o_dance, category: ca_fitness, product_type: :consumption , state: :active, price_cents: 24_00 , days: 60 , max_accesses_number: 10  ,name: 'Carnet dieci entrate fitness', description: 'A description...'  )
-  p_spa_ten       = Product.create!(organization: o_dance, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 149_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate spa'    , description: 'A description...'  )
+  p_fitness_ten   = Product.create!(organization: o_fitness, category: ca_fitness, product_type: :consumption , state: :active, price_cents: 24_00 , days: 60 , max_accesses_number: 10  ,name: 'Carnet dieci entrate fitness', description: 'A description...'  )
+  p_spa_ten       = Product.create!(organization: o_fitness, category: ca_spa    , product_type: :consumption , state: :active, price_cents: 149_00, days: 90 , max_accesses_number: 10  ,name: 'Carnet dieci entrate spa'    , description: 'A description...'  )
   puts "Products: #{Product.count}"
 else
   p_fitness_try, p_fitness_month, p_fitness_year, p_spa_single, p_spa_month, p_swim_month, p_swim_year = Product.all
 end
 
 if Order.count == 0
-  ord_stefy  = Order.create!(organization: o_dance, user: u_stefy, start_on: Time.zone.today, products: [p_fitness_year, p_spa_ten]  )
-  ord_paolo  = Order.create!(organization: o_dance, user: u_paolo, start_on: Time.zone.today, products: [p_fitness_month]  )
-  ord_elena  = Order.create!(organization: o_dance, user: u_elena, start_on: Time.zone.today, products: [p_fitness_month]  )
+  ord_stefy  = Order.create!(organization: o_fitness, user: u_stefy, start_on: Time.zone.today, products: [p_fitness_year, p_spa_ten]  )
+  ord_paolo  = Order.create!(organization: o_fitness, user: u_paolo, start_on: Time.zone.today, products: [p_fitness_month]  )
+  ord_elena  = Order.create!(organization: o_fitness, user: u_elena, start_on: Time.zone.today, products: [p_fitness_month]  )
   puts "Orders: #{Order.count}"
 else
   ord_stefy, ord_paolo, ord_elena = Order.all
 end
 
 if Payment.count == 0
-  pay_stefy  = StripePayment.create!(organization: o_dance, user: u_stefy, order: ord_stefy, source: :frontend, state: :confirmed, amount_cents: 34800, external_service_response: stripe_complete_payment_response  )
-  pay_paolo  = StripePayment.create!(organization: o_dance, user: u_paolo, order: ord_paolo, source: :frontend, state: :just_made, amount_cents:  1900, external_service_response: stripe_new_payment_response  )
+  pay_stefy  = StripePayment.create!(organization: o_fitness, user: u_stefy, order: ord_stefy, source: :frontend, state: :confirmed, amount_cents: 34800, external_service_response: stripe_complete_payment_response  )
+  pay_paolo  = StripePayment.create!(organization: o_fitness, user: u_paolo, order: ord_paolo, source: :frontend, state: :just_made, amount_cents:  1900, external_service_response: stripe_new_payment_response  )
   puts "Payments: #{Payment.count}"
 
   # Subscriptions are created after the payment is created but these simulate an admin creation
   subscription_attributes = []
   # Redeemed active subscriptions...
- #subscription_attributes << { organization: o_dance, category: p_fitness_year.category , product: p_fitness_year , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_fitness_year.days, order: ord_stefy  }
- #subscription_attributes << { organization: o_dance, category: p_spa_month.category    , product: p_spa_month    , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_spa_month.days   , order: ord_stefy  }
-  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, state: :active, start_on: Time.zone.today }
-  subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_ten  , user: u_linda, state: :active, start_on: Time.zone.today }
-  subscription_attributes << { organization: o_dance, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, state: :active, start_on: Time.zone.today }
+ #subscription_attributes << { organization: o_fitness, category: p_fitness_year.category , product: p_fitness_year , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_fitness_year.days, order: ord_stefy  }
+ #subscription_attributes << { organization: o_fitness, category: p_spa_month.category    , product: p_spa_month    , user: u_stefy, start_on: ord_stefy.start_on, end_on: Time.zone.today + p_spa_month.days   , order: ord_stefy  }
+  subscription_attributes << { organization: o_fitness, category: p_fitness_month.category, product: p_fitness_month, user: u_marco, state: :active, start_on: Time.zone.yesterday }
+  subscription_attributes << { organization: o_fitness, category: p_fitness_month.category, product: p_fitness_ten  , user: u_linda, state: :active, start_on: Time.zone.yesterday }
+  subscription_attributes << { organization: o_fitness, category: p_fitness_try.category  , product: p_fitness_try  , user: u_paolo, state: :active, start_on: Time.zone.yesterday }
   # Add subscription to generic users to allow them to attendee course event
   generic_users.each do |user|
-    subscription_attributes << { organization: o_dance, category: p_fitness_try.category, product: p_fitness_try  , user: user,    state: :active, start_on: Time.zone.today }
+    subscription_attributes << { organization: o_fitness, category: p_fitness_try.category, product: p_fitness_try  , user: user,    state: :active, start_on: Time.zone.yesterday }
   end
   # Free subscription codes...
   5.times do
-    subscription_attributes << { organization: o_dance, category: p_fitness_month.category, product: p_fitness_month, user: nil, start_on: nil, end_on: nil }
+    subscription_attributes << { organization: o_fitness, category: p_fitness_month.category, product: p_fitness_month, user: nil, start_on: nil, end_on: nil }
   end
   Subscription.create!(subscription_attributes)
   puts "Subscriptions: #{Subscription.count}"
@@ -500,19 +500,19 @@ else
 end
 
 if Attendee.count == 0
-  Attendee.new(course_event_id:  1, user_id: u_stefy.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  1, user_id: u_marco.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  1, user_id: u_linda.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  1, user_id: u_stefy.id, disable_bookability_checks: true).save!
+  Attendee.new(course_event_id:  1, user_id: u_marco.id, disable_bookability_checks: true).save!
+  Attendee.new(course_event_id:  1, user_id: u_linda.id, disable_bookability_checks: true).save!
 
   generic_users.each do |user|
-    Attendee.new(course_event_id:  1, user_id: user.id, disable_bookability: true).save!
+    Attendee.new(course_event_id:  1, user_id: user.id, disable_bookability_checks: true).save!
   end
 
-  Attendee.new(course_event_id:  2, user_id: u_stefy.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  2, user_id: u_marco.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  3, user_id: u_stefy.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  4, user_id: u_stefy.id, disable_bookability: true).save!
-  Attendee.new(course_event_id:  6, user_id: u_stefy.id, disable_bookability: true).save!
+  Attendee.new(course_event_id:  2, user_id: u_stefy.id, disable_bookability_checks: true).save!
+  Attendee.new(course_event_id:  2, user_id: u_marco.id, disable_bookability_checks: true).save!
+  Attendee.new(course_event_id:  3, user_id: u_stefy.id, disable_bookability_checks: true).save!
+  Attendee.new(course_event_id:  4, user_id: u_stefy.id, disable_bookability_checks: true).save!
+  Attendee.new(course_event_id:  6, user_id: u_stefy.id, disable_bookability_checks: true).save!
 
   puts "Attendees: #{Attendee.count}"
 end
@@ -548,7 +548,7 @@ Il presente modulo sarà conservato da #{organization.name} nel rispetto della n
 tutela dei dati personali, fino al termine dello stato di emergenza sanitaria.
 TEXT
 
-  doc_covid=UserDocumentModel.create!(organization_id: o_dance.id, title: 'Autocertificazione Covid', body: body, validity_days: 14, recurring: true)
+  doc_covid=UserDocumentModel.create!(organization_id: o_fitness.id, title: 'Autocertificazione Covid', body: body, validity_days: 14, recurring: true)
   puts "UserDocumentModel: #{UserDocumentModel.count}"
 else
   doc_covid, other = UserDocumentModel.all
@@ -566,9 +566,9 @@ end
 
 if News.count == 0
   news_attributes = []
-  news_attributes << {organization_id: o_dance.id, news_type: :info   , title: 'Nuovo corso Brasilian Fitness!', body: 'Siamo lieti di annunciare che abbiamo aggiunto al palinsesto il nuovo corso, divertente e adatto a tutti, provalo!', expire_on: 1.month.ago, state: :expired}
-  news_attributes << {organization_id: o_dance.id, news_type: :warning, title: 'Smarrito mazzo di chiavi', body: 'Chiunque lo avesse trovato è pregato di consegnarlo in segreteria, grazie!', expire_on: 2.weeks.from_now}
-  news_attributes << {organization_id: o_dance.id, news_type: :success, title: 'Obiettivo raggiunto!', body: 'Grazie a tutti per aver consentito il raggiungimento di questo straordinario risultato!', expire_on: 2.weeks.from_now, state: :active}
+  news_attributes << {organization_id: o_fitness.id, news_type: :info   , title: 'Nuovo corso Brasilian Fitness!', body: 'Siamo lieti di annunciare che abbiamo aggiunto al palinsesto il nuovo corso, divertente e adatto a tutti, provalo!', expire_on: 1.month.ago, state: :expired}
+  news_attributes << {organization_id: o_fitness.id, news_type: :warning, title: 'Smarrito mazzo di chiavi', body: 'Chiunque lo avesse trovato è pregato di consegnarlo in segreteria, grazie!', expire_on: 2.weeks.from_now}
+  news_attributes << {organization_id: o_fitness.id, news_type: :success, title: 'Obiettivo raggiunto!', body: 'Grazie a tutti per aver consentito il raggiungimento di questo straordinario risultato!', expire_on: 2.weeks.from_now, state: :active}
 
   News.create!(news_attributes)
   puts "News: #{News.count}"

@@ -97,6 +97,7 @@ ActiveAdmin.register CourseEvent do
             column :user
             column :presence
             column :created_at
+            column :inhibited_until
             column do |obj|
               span link_to 'Mostra', [:admin, obj]
               span link_to 'Modifica', edit_admin_attendee_path(obj)

@@ -14,7 +14,7 @@
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-text-field
-                    v-model='firstname'
+                    v-model.trim='firstname'
                     prepend-icon='mdi-account'
                     :label='labelFor("firstname")'
                     :error-messages='firstNameErrors'
@@ -24,7 +24,7 @@
                 </v-col>
                 <v-col>
                   <v-text-field
-                    v-model='lastname'
+                    v-model.trim='lastname'
                     prepend-icon='mdi-account'
                     :label='labelFor("lastname")'
                     :error-messages='lastNameErrors'

@@ -169,6 +169,22 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
               expect(last_response.status).to eq 200
             end.to change(Attendee, :count).by(1)
           end
+
+          context 'when user has a penalty' do
+            let(:last_previuos_missed_attendee) do
+              user.attendees.where(course_events: { course_id: course_event.course_id}).includes(:course_event).last
+            end
+            before { create(:user_penalty, user: user, attendee: last_previuos_missed_attendee) }
+
+            it 'cannot subscribe' do
+              expect do
+                action
+                expect(json).to be_a(Hash)
+                expect(json['errors']).to be_present
+                expect(last_response.status).to eq 422
+              end.to_not change(Attendee, :count)
+            end
+          end
         end
 
         # Without active subscription user cannot partecipate to a course event

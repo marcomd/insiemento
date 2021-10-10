@@ -11,7 +11,7 @@
           <v-card-text>
             <v-form id='login-form' @submit.prevent='login'>
               <v-text-field required
-                v-model='email'
+                v-model.trim='email'
                 :label='$t("session.attributes.email")'
                 prepend-icon='mdi-at'
                 :error-messages='emailErrors'

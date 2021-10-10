@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_15_165645) do
+ActiveRecord::Schema.define(version: 2021_10_02_161612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_03_15_165645) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "subscription_id", null: false
     t.bigint "organization_id", null: false
-    t.boolean "presence"
+    t.boolean "presence", default: false
     t.index ["course_event_id"], name: "index_attendees_on_course_event_id"
     t.index ["organization_id"], name: "index_attendees_on_organization_id"
     t.index ["subscription_id"], name: "index_attendees_on_subscription_id"
@@ -250,6 +250,19 @@ ActiveRecord::Schema.define(version: 2021_03_15_165645) do
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
+  create_table "penalties", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "course_id"
+    t.integer "state", limit: 2
+    t.integer "days", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_penalties_on_category_id"
+    t.index ["course_id"], name: "index_penalties_on_course_id"
+    t.index ["organization_id"], name: "index_penalties_on_organization_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "category_id", null: false
@@ -358,6 +371,27 @@ ActiveRecord::Schema.define(version: 2021_03_15_165645) do
     t.index ["uuid"], name: "index_user_documents_on_uuid"
   end
 
+  create_table "user_penalties", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "subscription_id", null: false
+    t.bigint "course_event_id", null: false
+    t.bigint "attendee_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "course_id"
+    t.date "inhibited_until"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attendee_id"], name: "index_user_penalties_on_attendee_id"
+    t.index ["category_id"], name: "index_user_penalties_on_category_id"
+    t.index ["course_event_id"], name: "index_user_penalties_on_course_event_id"
+    t.index ["course_id"], name: "index_user_penalties_on_course_id"
+    t.index ["inhibited_until"], name: "index_user_penalties_on_inhibited_until"
+    t.index ["organization_id"], name: "index_user_penalties_on_organization_id"
+    t.index ["subscription_id"], name: "index_user_penalties_on_subscription_id"
+    t.index ["user_id"], name: "index_user_penalties_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "firstname", limit: 30
@@ -429,6 +463,9 @@ ActiveRecord::Schema.define(version: 2021_03_15_165645) do
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "organizations"
   add_foreign_key "payments", "users"
+  add_foreign_key "penalties", "categories"
+  add_foreign_key "penalties", "courses"
+  add_foreign_key "penalties", "organizations"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "organizations"
   add_foreign_key "rooms", "organizations"
@@ -443,6 +480,13 @@ ActiveRecord::Schema.define(version: 2021_03_15_165645) do
   add_foreign_key "user_documents", "organizations"
   add_foreign_key "user_documents", "user_document_models"
   add_foreign_key "user_documents", "users"
+  add_foreign_key "user_penalties", "attendees"
+  add_foreign_key "user_penalties", "categories"
+  add_foreign_key "user_penalties", "course_events"
+  add_foreign_key "user_penalties", "courses"
+  add_foreign_key "user_penalties", "organizations"
+  add_foreign_key "user_penalties", "subscriptions"
+  add_foreign_key "user_penalties", "users"
   add_foreign_key "users", "organizations"
   add_foreign_key "users", "trainers"
 end

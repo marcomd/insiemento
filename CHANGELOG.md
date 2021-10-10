@@ -1,5 +1,18 @@
 # CHANGELOG
 
+# v1.24.0 10/10/2021
+
+- Inhibition of booking due to a missed attendance
+  - UpdateCourseEventsJob now update event state after 70 minutes to let the trainer to update presences, previously 
+    was 15
+  - New resource Penalty to configure penalties to assign to users that miss booked event. It is possible to set 
+    the category to be inhibited and if the course is present, the inhibition will be restricted to this only.
+  - New resource UserPenalty to inhibit users to book a new event until the end of the penalty
+  - New PenaltyService and PenaltyJob which creates user penalties each time an attendee is missed
+  - Added the index event_date to course_events table and now returned events are sorted by event date. Previously, they
+    were sorted by id and any events entered manually after scheduling were shown in the wrong chronological order
+  - Reservations are now inhibited if the user has an active penalty
+
 # v1.23.0 25/09/2021
 
 - Replaced dayjs with moment
