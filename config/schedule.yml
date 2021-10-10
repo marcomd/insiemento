@@ -25,3 +25,7 @@ news:
   cron: "18 0 * * *"
   class: UpdateNewsJob
   queue: news
+user_penalties:
+  cron: "25 0 * * *"
+  class: UserPenaltyJob
+  queue: users

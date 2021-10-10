@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :payments, dependent: :nullify
   has_many :user_documents, dependent: :restrict_with_error
   has_many :active_user_documents, -> { active }, class_name: 'UserDocument'
+  has_many :user_penalties, dependent: :destroy
+  has_many :active_user_penalties, -> { active }, class_name: 'UserPenalty'
 
   has_one_attached :medical_certificate, dependent: :destroy
 
@@ -89,6 +91,13 @@ class User < ApplicationRecord
 
   def has_minor_child?
     self.child_firstname.present? && self.child_lastname.present?
+  end
+
+  def is_inhibited?(category_id: nil, course_id: nil)
+    inhibitions = active_user_penalties #user_penalties.where('inhibited_until >= ?', Time.zone.today)
+    inhibitions = inhibitions.where(category_id: category_id) if category_id
+    inhibitions = inhibitions.where(course_id: course_id) if course_id
+    inhibitions.last(50).count > 0
   end
 
   private

@@ -18,7 +18,8 @@ RSpec.describe UpdateCourseEventsJob, type: :job do
 
   context 'when job is performed' do
     let!(:course_event) do
-      create(:course_event, event_date: event_date, state: :active, organization_id: 1, category_id: 1, course_id: 1, course_schedule_id: 1, room_id: 1, trainer_id: 1)
+      create(:course_event, event_date: event_date, state: :active, organization_id: 1, category_id: 1,
+             course_id: 1, course_schedule_id: 1, room_id: 1, trainer_id: 1)
     end
 
     context 'when event is expired many time ago' do
@@ -32,7 +33,7 @@ RSpec.describe UpdateCourseEventsJob, type: :job do
     end
 
     context 'when event is expired little time ago' do
-      let(:event_date) { 16.minutes.ago }
+      let(:event_date) { 71.minutes.ago }
       it do
         expect do
           perform_enqueued_jobs{ subject }

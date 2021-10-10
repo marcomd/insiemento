@@ -53,6 +53,10 @@ class Ability
         can [:create], Attendee
         can [:read, :update, :destroy], News, organization_id: admin_user.organization_id
         can [:create], News
+        can [:read, :update, :destroy], Penalty, organization_id: admin_user.organization_id
+        can [:create], Penalty
+        can [:read, :update, :destroy], UserPenalty, organization_id: admin_user.organization_id
+        can [:create], UserPenalty
         # Accountant resources
         can [:read], Category, organization_id: admin_user.organization_id
         can [:read], Product, organization_id: admin_user.organization_id
@@ -71,6 +75,8 @@ class Ability
         can [:read], Room, organization_id: admin_user.organization_id
         can [:read], Trainer, organization_id: admin_user.organization_id
         can [:read], News, organization_id: admin_user.organization_id
+        can [:read], Penalty, organization_id: admin_user.organization_id
+        can [:read], UserPenalty, organization_id: admin_user.organization_id
         can [:read, :update, :destroy], Category, organization_id: admin_user.organization_id
         can [:create], Category
         can [:read, :update, :destroy], Product, organization_id: admin_user.organization_id

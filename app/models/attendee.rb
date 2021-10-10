@@ -7,11 +7,11 @@ class Attendee < ApplicationRecord
   has_one :course, through: :course_event
   has_many :attendees, through: :course_event
 
-  attr_accessor :disable_bookability
+  attr_accessor :disable_bookability_checks
   validates :course_event_id, uniqueness: { scope: :user_id,
                                  message: I18n.t('errors.messages.already_subscribed') }
-  validate :check_max_attendees, :check_valid_subscriptions
-  validate :check_course_event_bookability, unless: :disable_bookability
+  validate :check_max_attendees, :check_valid_subscriptions, :check_no_penalty
+  validate :check_course_event_bookability, unless: :disable_bookability_checks
 
   before_validation :check_valid_subscriptions
   before_destroy :check_course_event_unsubscribable, prepend: true
@@ -61,6 +61,14 @@ class Attendee < ApplicationRecord
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_not_unsubscribable'))
       throw :abort
       false
+    end
+    true
+  end
+
+  def check_no_penalty
+    if user.is_inhibited?(category_id: course_event.category_id, course_id: course_event.course_id)
+      errors.add(:course_event_id, I18n.t('errors.messages.penalty_prevents_booking'))
+      return false
     end
     true
   end
