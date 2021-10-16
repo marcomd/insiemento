@@ -62,9 +62,9 @@ const init = function() {
     //   // installComponents: true,
     // })
 
-    let locale = localStorage.getItem('userLocale') || el.getAttribute('data-locale')
-    moment.locale('it') // force IT locale to have a consistent date format for all locales
+    let locale = localStorage.getItem('userLocale') || el.getAttribute('data-locale') || 'it'
     Vue.http.headers.common['Accept-Language'] = locale
+    moment.locale(locale)
 
     let i18n = new VueI18n({
       locale: locale,

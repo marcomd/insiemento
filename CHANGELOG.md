@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v1.25.0 16/10/2021
+
+- Deadline to cancel booking, best image selection and others improvements
+  - The deadline by which a user can cancel the booking is now shown in the course event detail
+  - The course event image is now selected based on best relevance and not by precise name  
+  - Updated mdi/font icon set
+  - Several improvements and bug fixes
+
 # v1.24.0 10/10/2021
 
 - Inhibition of booking due to a missed attendance

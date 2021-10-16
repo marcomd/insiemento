@@ -151,6 +151,10 @@ en:
             suspended: Suspended
           attendees_count: Participants
           subscribed: Membership
+        hints:
+          can_cancel_booking: "You can cancel your reservation within"
+          cannot_cancel_booking: "You could cancel your booking within"
+          you_are_not_subscribed: "You are not subscribed yet"
       product:
         one: Product
         other: Products

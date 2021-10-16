@@ -25,6 +25,10 @@ export const utilityMixin = {
     calculateAge(datetime) {
       return moment().diff(datetime, 'years')
     },
+    subtractFromDate(inDate, { quantity=1, period='days' }={}) {
+      const date = inDate ? moment(inDate) : moment()
+      return date.subtract(quantity, period)
+    },
     // Used to show translated error below the form's field
     show_error_form_field(errors) {
       //return errors.map(error => this.isObject(error) ? this.$t(`errors.${error.error}`) : this.$t(`errors.${error}`) ).join(' - ')

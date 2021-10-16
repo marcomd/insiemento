@@ -150,6 +150,10 @@ it:
             suspended: Sospeso
           attendees_count: Partecipanti
           subscribed: Iscritto
+        hints:
+          can_cancel_booking: "Puoi disdire la prenotazione entro"
+          cannot_cancel_booking: "Potevi disdire la prenotazione entro"
+          you_are_not_subscribed: "Non sei ancora iscritto"
       product:
         one: Prodotto
         other: Prodotti

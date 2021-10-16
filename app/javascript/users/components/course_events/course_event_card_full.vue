@@ -59,13 +59,25 @@
             {{ $t('course_event.attributes.attendees_count') }}<br>
             <span :class="isCourseEventFull ? 'red--text' : ''"><strong>{{ course_event.attendees_count }}</strong> / <strong>{{ room.max_attendees }}</strong></span>
           </v-col>
+        </v-row>
+
+        <v-row>
           <v-icon large>mdi-human-greeting</v-icon>
           <v-col v-if="course_event.subscribed">
             {{ $t('course_event.attributes.subscribed') }}<br>
             <v-icon color="success">mdi-check-bold</v-icon>
           </v-col>
           <v-col v-else>
+            {{ $t('course_event.hints.you_are_not_subscribed') }}
+          </v-col>
 
+          <v-icon large>mdi-delete-clock-outline</v-icon>
+          <v-col v-if="course_event.subscribed">
+            {{ isCourseEventUncancelable ? $t('course_event.hints.cannot_cancel_booking') : $t('course_event.hints.can_cancel_booking') }}<br>
+            <span :class="isCourseEventUncancelable ? 'red--text' : ''"><strong>{{ cancelBookingUntil.calendar() }}</strong></span>
+          </v-col>
+          <v-col v-else>
+            {{ $t('course_event.hints.you_are_not_subscribed') }}
           </v-col>
         </v-row>
       </v-img>
@@ -85,19 +97,23 @@
 
 
   export default {
-    components: {
-    },
-    mixins: [ utilityMixin, courseEventMixin ],
+    name: "CourseEventCardFull",
+
+    mixins: [
+      utilityMixin,
+      courseEventMixin
+    ],
+
     props: {
       course_event: {
         type: Object,
         required: true
       }
     },
+
     computed: {
       minHeight () {
         const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
-
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },
     }

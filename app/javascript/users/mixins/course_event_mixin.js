@@ -1,3 +1,5 @@
+import stringSimilarity from 'string-similarity'
+import moment from "moment";
 
 export const courseEventMixin = {
   computed: {
@@ -21,13 +23,24 @@ export const courseEventMixin = {
     },
     courseImageName() {
       const planned_courses = ['zumba', 'yoga', 'pilates', 'total_body', 'pole_dance', 'gag',
-        'kangoo_jumps', 'street', 'lab_dancehall', 'brasilian_fitness', 'funzionale']
+        'kangoo_jumps', 'street', 'dancehall', 'brasilian_fitness', 'funzionale']
       const course_name_lowered = this.course.name.toLowerCase().replace(/\./g, '').replace(/\s/g, '_')
-      return `course_${planned_courses.includes(course_name_lowered) ? course_name_lowered : planned_courses[0]}_600.jpg`
+      const matches = stringSimilarity.findBestMatch(course_name_lowered, planned_courses)
+      // console.log(`Searching ${course_name_lowered}... `, matches)
+      const planned_course = matches ? planned_courses[matches.bestMatchIndex] : planned_courses[0]
+      return `course_${planned_course}_600.jpg`
     },
     isCourseEventFull() {
       if (!this.room) return
       return this.course_event && this.course_event.attendees_count >= this.room.max_attendees
+    },
+    cancelBookingUntil() {
+      return this.subtractFromDate(this.course_event.event_date, { quantity: this.course.end_booking_minutes, period: "minutes" })
+    },
+    isCourseEventUncancelable() {
+      const result = moment().diff(this.cancelBookingUntil, 'minutes')
+      console.log('isCourseEventCancelable', result)
+      return result > 0
     },
   },
 }
