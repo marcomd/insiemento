@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v1.25.1 24/10/2021
+
+- Bugfix course event broadcasting and other improvements
+  - Now course event view update current object only if it is the same one propagated
+  - Now course event subscription lock the object before update it
+  - If subscription fails, the message is set according to subscribe param (true shows a message, false shows another
+    message)
+
 # v1.25.0 16/10/2021
 
 - Deadline to cancel booking, best image selection and others improvements

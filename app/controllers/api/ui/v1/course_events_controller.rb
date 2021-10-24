@@ -43,14 +43,17 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   # PUT /api/ui/v1/course_events/:id/subscribe
   def subscribe
     simulate_delay_for_development
-    status =
-      if course_event_filter_params[:subscribe] == true
-        attendee = Attendee.new(user_id: current_user.id)
-        @course_event.attendees << attendee
-      else
-        attendee = @course_event.attendees.find_by_user_id(current_user.id)
-        attendee&.destroy
-      end
+    status, attendee = nil, nil
+    @course_event.with_lock do
+      status =
+        if course_event_filter_params[:subscribe] == true
+          attendee = Attendee.new(user_id: current_user.id)
+          @course_event.attendees << attendee
+        else
+          attendee = @course_event.attendees.find_by_user_id(current_user.id)
+          attendee&.destroy
+        end
+    end
     if status
       # ActionCable.server.broadcast "room_#{@course_event.id}", attendees: @course_event.attendees.map { |a| { id: a.id, presence: a.presence, user_name: "#{a.user.firstname} #{a.user.lastname}" } }
       @show_subscribed = false
@@ -61,7 +64,11 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     elsif attendee
       render json: { errors: attendee.errors }, status: :unprocessable_entity
     else
-      render json: { course_event_id: [t('errors.messages.attending_not_found')] }, status: :not_found
+      if course_event_filter_params[:subscribe] == true
+        render json: { error: t('errors.messages.course_event_generic_error') }, status: :unprocessable_entity
+      else
+        render json: { error: t('errors.messages.attending_not_found') }, status: :not_found
+      end
     end
   end
 

@@ -160,6 +160,7 @@ export const actions = {
     commit('SET_LIST_OPTIONS', options)
   },
   setCourseEvent({ commit }, course_event) {
+    // console.log(`setCourseEvent`, course_event)
     commit('SET_COURSE_EVENT', course_event)
     commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS', {course_event, fromBroadcast: true})
   },

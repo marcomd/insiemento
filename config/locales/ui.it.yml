@@ -227,6 +227,7 @@ it:
         invalid_token: Errore, il link usato non è più valido, si prega di chiedere nuovamente l'invio delle istruzioni per resettarla.
         unconfirmed: Devi confermare il tuo indirizzo email per continuare
         error_500: Oh oh! Un errore imprevisto sta impedendo di proseguire ma non temere, qualcuno è già al lavoro per risolvere
+        course_event_not_found: "Oh oh, questa sessione non è stata trovata"
       hints:
         write_city_name: Scrivi il nome della città
         search_city: Scrivi le iniziali per restringere la ricerca

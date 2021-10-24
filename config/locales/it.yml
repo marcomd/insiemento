@@ -141,6 +141,7 @@ it:
       course_event_not_unsubscribable: "Siamo spiacenti ma non è più possibile cancellarsi dalla lista."
       course_event_suspended: "Questa sessione è stata sospesa pertanto non è possibile iscriversi"
       course_event_closed: "Questa sessione è stata chiusa pertanto non è possibile iscriversi"
+      course_event_generic_error: "Purtroppo si è verificato un imprevisto, riprova fra qualche istante"
       penalty_prevents_booking: "Hai una penalizzazione in corso che impedisce la prenotazione"
     template:
       body: 'Ricontrolla i seguenti campi:'

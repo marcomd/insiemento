@@ -127,7 +127,7 @@
                   }
           )
           .then( _ => {
-            console.log(`updateCourseEventSubscription OK to ${this.course_event.subscribed}`)
+            // console.log(`updateCourseEventSubscription OK to ${this.course_event.subscribed}`)
           })
           .catch(error => {
             // const myObject = error && error.body ? error.body : error
@@ -164,9 +164,13 @@
           //   if (this.isTrainer) this.attendees = data.attendees
           // }
           if (data.course_event) {
-            // Save the current subscription state because broadcasting doesn't know it
-            // data.course_event.subscribed = this.course_event.subscribed
-            this.$store.dispatch('course_event/setCourseEvent', {...data.course_event,subscribed: this.course_event.subscribed} )
+            if (data.course_event.id === this.course_event.id) {
+              // Save the current subscription state because broadcasting doesn't know it
+              // data.course_event.subscribed = this.course_event.subscribed
+              this.$store.dispatch('course_event/setCourseEvent', {...data.course_event,subscribed: this.course_event.subscribed} )
+            } else {
+              this.$store.dispatch('course_event/refreshCourseEvents', data.course_event)
+            }
           }
         },
         disconnected() { console.log(`Vue left the OrganizationChannel`) }

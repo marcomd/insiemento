@@ -10,7 +10,7 @@ gem 'rails', '~> 6.1.4.1'
 gem 'pg', '~> 1.2.3', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.3.2'
+gem 'puma', '~> 5.5.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0.0'
@@ -45,7 +45,7 @@ gem 'activeadmin', '~> 2.9.0'
 gem 'devise', '~> 4.7.0'
 
 # Simple, efficient background processing for Ruby
-gem 'sidekiq', '~> 6.1.3'
+gem 'sidekiq', '~> 6.2.0'
 
 # A scheduling add-on for Sidekiq.
 gem 'sidekiq-cron', '~> 1.2.0'

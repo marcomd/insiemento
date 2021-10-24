@@ -227,6 +227,7 @@ en:
         invalid_token: Error, invalid link. Enter your email address, you will be sent instructions to reset it
         unconfirmed: You have to confirm your email address before continuing
         error_500: Oh oh! An unexpected error has occurred but do not worry, someone is already working to resolve
+        course_event_not_found: "Oh oh, this session was not found"
       hints:
         write_city_name: Write the name of the city
         search_city: Write the initials to narrow your search

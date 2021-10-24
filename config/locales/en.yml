@@ -43,6 +43,8 @@ en:
       course_event_not_unsubscribable: "We are sorry but it is no longer possible to unsubscribe from the list."
       course_event_suspended: "This event has been suspended so it is not possible to register"
       course_event_closed: "This event has been closed so it is not possible to register"
+      course_event_generic_error: "Unfortunately something unexpected has occurred, please try again in a few moments"
+      penalty_prevents_booking: "You have an ongoing penalty that prevents the booking"
   flash:
     actions:
       destroy:
