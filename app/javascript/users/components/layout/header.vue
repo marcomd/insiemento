@@ -4,13 +4,15 @@
              :color="organizationBackgroundColor"
              elevation='1'>
     <v-toolbar-title>
-      <router-link :to='{name: "dashboard"}' tag='button'>
-        <img
-          :src='organizationLogo'
-          height='45'
-          class='logo'
-        />
-        <span class="align-center" style="vertical-align: super;">{{ organizationName }}</span>
+      <router-link :to='{name: "dashboard"}' custom v-slot="{ navigate }">
+        <button @click="navigate">
+          <img
+              :src='organizationLogo'
+              height='45'
+              class='logo'
+          />
+          <span class="align-center" style="vertical-align: super;">{{ organizationName }}</span>
+        </button>
       </router-link>
     </v-toolbar-title>
     <v-spacer/>

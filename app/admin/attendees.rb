@@ -17,6 +17,8 @@ ActiveAdmin.register Attendee do
   # end
 
   controller do
+    include AdminSharedBatchActions
+
     def scoped_collection
       myscope = super
       myscope = myscope.includes :organization, :course_event, :user, :subscription
@@ -43,6 +45,18 @@ ActiveAdmin.register Attendee do
     column(:created_at)
     column(:updated_at)
     actions
+  end
+
+  batch_action :destroy, :if => proc{ @current_scope },
+               confirm: "Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)" do |selection|
+    shared_batch_action class_object: Attendee, selection: selection, action_name: 'destroy' #, return_scope_if_ok:'all', return_scope_if_error:'all'
+  end
+
+  batch_action :elimina_senza_controlli, :if => proc{ @current_scope },
+               confirm: "Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)" do |selection|
+    records = Attendee.find(selection)
+    records.each { |record| record.disable_bookability_checks = true }
+    shared_batch_action class_object: Attendee, records: records, action_name: 'destroy' #, return_scope_if_ok:'all', return_scope_if_error:'all'
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }

@@ -4,21 +4,23 @@ module AdminSharedBatchActions
   extend ActiveSupport::Concern
 
   # See https://github.com/activeadmin/activeadmin/issues/3673
-  def shared_batch_action(class_object:, selection:, transaction_name:, return_scope_if_ok: nil, return_scope_if_error: nil)
-    records = class_object.find(selection)
+  def shared_batch_action(class_object:, action_name:, selection: nil, records: nil, is_transaction: false, return_scope_if_ok: nil, return_scope_if_error: nil)
+    raise 'Please set selection ids or records param!' unless selection || records
+    records ||= class_object.find(selection)
     err, ok = [], []
     messaggio = ""
     records.each do |record|
       begin
-        raise "Operazione #{transaction_name} non valida!" unless record.send("may_#{transaction_name}?")
+        raise "Operazione #{action_name} non valida!" unless record.send("may_#{action_name}?") if is_transaction
 
-        if record.send("#{transaction_name}!")
+        if record.send("#{action_name}!")
           ok << record.id
         else
           raise record.errors.map {|e| e.message}.join(', ')
         end
       rescue
-        err << "#{record.id}: #{$!.message}"
+        message = record.errors.map {|e| e.message}.join(', ') if record.errors.present?
+        err << "#{record.id}: #{message || $!.message}"
       end
     end
 

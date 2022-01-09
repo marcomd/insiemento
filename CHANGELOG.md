@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v1.27.0 09/01/2022
+
+- Several improvements and bug fixes
+  - Now is possible to delete course's attendees from admin interface even if normal user cannot do it
+  - The ability to suspend and reactivate course schedules has been restored
+  - Upgraded several yarn packages due to known security vulnerabilities
+  - Fixed vue deprecation warning about router-link tag
+
 # v1.26.0 09/01/2022
 
 - Updated rails, redis, sidekiq and other gems

@@ -57,6 +57,7 @@ class Attendee < ApplicationRecord
   end
 
   def check_course_event_unsubscribable(datetime=Time.zone.now)
+    return true if self.disable_bookability_checks
     if datetime >= (course_event.event_date - course.end_booking_minutes.minutes)
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_not_unsubscribable'))
       throw :abort

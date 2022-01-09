@@ -47,16 +47,16 @@ ActiveAdmin.register CourseSchedule do
     actions
   end
 
-  batch_action :sospendi, :if => proc{ @current_scope && @current_scope.id == "active" },
+  batch_action :sospendi, :if => proc{ @current_scope && @current_scope.scope_method == :active },
                confirm: "Confermi di voler sospendere le schedulazioni selezionate?" do |selection|
 
-    shared_batch_action class_object: CourseSchedule, selection: selection, transaction_name: 'pause', return_scope_if_ok:'suspended', return_scope_if_error:'active'
+    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'pause', is_transaction: true, return_scope_if_ok:'suspended', return_scope_if_error:'active'
   end
 
-  batch_action :attiva, :if => proc{ @current_scope && @current_scope.id == "suspended" },
+  batch_action :attiva, :if => proc{ @current_scope && @current_scope.scope_method == :suspended },
                confirm: "Confermi di voler riattivare le schedulazioni selezionate?" do |selection|
 
-    shared_batch_action class_object: CourseSchedule, selection: selection, transaction_name: 'activate', return_scope_if_ok:'active', return_scope_if_error:'suspended'
+    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'activate', is_transaction: true, return_scope_if_ok:'active', return_scope_if_error:'suspended'
   end
 
   filter :organization    , if: proc { current_admin_user.is_root? }

@@ -172,6 +172,15 @@ RSpec.describe Attendee, type: :model do
           expect(subject.errors).to be_present
         end.to raise_exception UncaughtThrowError
       end
+
+      context 'when inhibitions are disabled' do
+        before { subject.disable_bookability_checks = true }
+
+        it do
+          result
+          expect(subject.errors).to_not be_present
+        end
+      end
     end
   end
 end

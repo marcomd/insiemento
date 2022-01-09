@@ -64,16 +64,17 @@ ActiveAdmin.register UserDocument do
     actions
   end
 
-  batch_action :invia, :if => proc{ @current_scope && [I18n.t('activerecord.attributes.user_document.states.draft').downcase,
-                                                       I18n.t('activerecord.attributes.user_document.states.exporting_error').downcase].include?(@current_scope.id) },
+  batch_action :invia, :if => proc{ @current_scope && %i[draft exporting_error].include?(@current_scope.scope_method) },
                confirm: 'Confermi di voler inviare a Otp Service le pratiche selezionate?' do |selection|
-    shared_batch_action class_object: UserDocument, selection: selection, transaction_name: 'send_to_otpservice',
+    shared_batch_action class_object: UserDocument, selection: selection,
+                        action_name: 'send_to_otpservice', is_transaction: true,
                         return_scope_if_ok: I18n.t('activerecord.attributes.user_document.states.ready').downcase,
                         return_scope_if_error: I18n.t('activerecord.attributes.user_document.states.draft').downcase
   end
-  batch_action :annulla_invio, :if => proc{ @current_scope && @current_scope.id == I18n.t('activerecord.attributes.user_document.states.ready').downcase && current_admin_user.is_root? },
+  batch_action :annulla_invio, :if => proc{ @current_scope && @current_scope.scope_method == :ready && current_admin_user.is_root? },
                confirm: 'Confermi di voler annullare l''invio delle pratiche selezionate?' do |selection|
-    shared_batch_action class_object: UserDocument, selection: selection, transaction_name: 'not_ready_anymore',
+    shared_batch_action class_object: UserDocument, selection: selection,
+                        action_name: 'not_ready_anymore', is_transaction: true,
                         return_scope_if_ok: I18n.t('activerecord.attributes.user_document.states.draft').downcase,
                         return_scope_if_error: I18n.t('activerecord.attributes.user_document.states.ready').downcase
   end
