@@ -1,5 +1,6 @@
 class CourseSchedule < ApplicationRecord
   include Stateable
+  include Suspendable
 
   belongs_to :organization
   belongs_to :category
@@ -47,22 +48,6 @@ class CourseSchedule < ApplicationRecord
 
   def localized_event_day
     I18n.t('date.day_names')[read_attribute_before_type_cast(:event_day)]
-  end
-
-  def may_activate?
-    suspended?
-  end
-
-  def activate!
-    self.update state: :active
-  end
-
-  def may_pause?
-    active?
-  end
-
-  def pause!
-    self.update state: :suspended
   end
 
   class << self

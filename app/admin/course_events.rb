@@ -26,6 +26,8 @@ ActiveAdmin.register CourseEvent do
   # end
 
   controller do
+    include AdminSharedBatchActions
+
     def scoped_collection
       myscope = super
       myscope = myscope.includes :organization, :category, :course, :room, :trainer, :course_schedule
@@ -38,6 +40,7 @@ ActiveAdmin.register CourseEvent do
   end
 
   scope I18n.t('activerecord.attributes.course_event.states.active'), :active, default: true
+  scope I18n.t('activerecord.attributes.course_event.states.suspended'), :suspended
   scope I18n.t('activerecord.attributes.course_event.states.closed'), :closed
   scope I18n.t('ui.users.commons.all')                              , :all
 
@@ -56,6 +59,18 @@ ActiveAdmin.register CourseEvent do
     column(:created_at)
     column(:updated_at)
     actions
+  end
+
+  batch_action :sospendi, :if => proc{ @current_scope && @current_scope.scope_method == :active },
+               confirm: "Confermi di voler sospendere le sessioni selezionate?" do |selection|
+
+    shared_batch_action class_object: CourseEvent, selection: selection, action_name: 'pause', is_transaction: true, return_scope_if_ok:'suspended', return_scope_if_error:'active'
+  end
+
+  batch_action :attiva, :if => proc{ @current_scope && @current_scope.scope_method == :suspended },
+               confirm: "Confermi di voler riattivare le sessioni selezionate?" do |selection|
+
+    shared_batch_action class_object: CourseEvent, selection: selection, action_name: 'activate', is_transaction: true, return_scope_if_ok:'active', return_scope_if_error:'suspended'
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }

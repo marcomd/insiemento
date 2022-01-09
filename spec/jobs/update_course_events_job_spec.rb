@@ -17,8 +17,9 @@ RSpec.describe UpdateCourseEventsJob, type: :job do
   end
 
   context 'when job is performed' do
+    let(:state) { :active }
     let!(:course_event) do
-      create(:course_event, event_date: event_date, state: :active, organization_id: 1, category_id: 1,
+      create(:course_event, event_date: event_date, state: state, organization_id: 1, category_id: 1,
              course_id: 1, course_schedule_id: 1, room_id: 1, trainer_id: 1)
     end
 
@@ -39,6 +40,17 @@ RSpec.describe UpdateCourseEventsJob, type: :job do
           perform_enqueued_jobs{ subject }
           course_event.reload
         end.to change(course_event, :state).from('active').to('closed')
+      end
+
+      context 'when session was suspended' do
+        let(:state) { :suspended }
+
+        it do
+          expect do
+            perform_enqueued_jobs{ subject }
+            course_event.reload
+          end.to change(course_event, :state).to('closed')
+        end
       end
     end
 

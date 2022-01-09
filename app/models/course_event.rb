@@ -1,5 +1,6 @@
 class CourseEvent < ApplicationRecord
   include Stateable
+  include Suspendable
 
   belongs_to :organization
   belongs_to :category

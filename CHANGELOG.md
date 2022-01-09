@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.28.0 09/01/2022
+
+- Course events suspendable and other improvements
+  - Now course events may be suspended by admin ui
+  - The update course events job now closes suspended course events as well
+  - New Suspendable concern con centralize logic to suspend a record (it replace a state machine, not used at the moment)
+
 # v1.27.0 09/01/2022
 
 - Several improvements and bug fixes
