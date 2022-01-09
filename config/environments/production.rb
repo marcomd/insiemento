@@ -90,8 +90,8 @@ Rails.application.configure do
   config.web_socket_server_url = "wss://#{host}/cable"
   config.action_cable.allowed_request_origins = []
   config.action_cable.allowed_request_origins << %r{https://(.*\.)*insiemento.com}
-  other_hosts.each do |host|
-    config.action_cable.allowed_request_origins << %r{https://(.*\.)*#{host}}
+  other_hosts.each do |other_host|
+    config.action_cable.allowed_request_origins << %r{https://(.*\.)*#{other_host}}
   end
 
   # Uses sidekiq for the "mailers" and "default" queues

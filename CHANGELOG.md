@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.26.0 09/01/2022
+
+- Updated rails, redis, sidekiq and other gems
+  - Updated rails from 6.1.4.1 to 6.1.4.4 and others related gems
+  - Updated redis from 4.2.5 to 4.5.1
+  - Updated sidekiq from 6.2.2 to 6.3.1
+
 # v1.25.1 24/10/2021
 
 - Bugfix course event broadcasting and other improvements
