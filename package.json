@@ -17,7 +17,7 @@
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "node-forge": "^1.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "nth-check": "^2.0.1",
     "postcss": "^8.2.13",
     "sass": "^1.25.0",
