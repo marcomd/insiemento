@@ -51,7 +51,8 @@ export const actions = {
     router.push({ name: 'login' })
     dispatch('layout/replaceAlert', alert, { root: true })
   },
-  signUp({ commit, rootState }, userData) {
+  signUp({ commit, dispatch, rootState }, userData) {
+    dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.signUp, {
         user: userData
@@ -59,7 +60,7 @@ export const actions = {
         resolve(response)
       }, error => {
         reject(error)
-      })
+      }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
   passwordReset({ commit, dispatch, rootState }, email) {

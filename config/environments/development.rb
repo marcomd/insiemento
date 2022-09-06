@@ -68,7 +68,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = config.default_url_options
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { host: host, port: 1025 }
+  config.action_mailer.smtp_settings = {
+    :user_name => Rails.application.credentials.smtp[:development][:username],
+    :password => Rails.application.credentials.smtp[:development][:password],
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
 

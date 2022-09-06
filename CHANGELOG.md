@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.28.2 06/09/2022
+
+- Added mailtrap and spinner after registration
+  - Replaced mailcatcher with mailtrap
+  - After user click on the submit button in the signup form a spinner shows the request is performing
+
 # v1.28.1 06/09/2022
 
 - Updated Rails and ruby
