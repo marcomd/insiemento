@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.28.4 06/09/2022
+
+- Added feedback after many session actions
+  - Added the spinner effect after user clicks on any action like login, forgot password email etc.
+
 # v1.28.3 06/09/2022
 
 - Minor fixes to smtp configuration

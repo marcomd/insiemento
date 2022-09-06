@@ -22,6 +22,7 @@ export const mutations = {
 
 export const actions = {
   login({ commit, dispatch, rootState }, credentials) {
+    dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.login, credentials)
       .then(response => {
@@ -42,7 +43,7 @@ export const actions = {
       }, error => {
         commit('LOGOUT')
         reject(error)
-      })
+      }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
   logout({ commit, dispatch }, force) {
@@ -64,6 +65,7 @@ export const actions = {
     })
   },
   passwordReset({ commit, dispatch, rootState }, email) {
+    dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.passwordReset, {
         user: { email: email }
@@ -80,10 +82,11 @@ export const actions = {
           key: 'password_reset_error'
         }, { root: true })
         reject(error)
-      })
+      }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
   newPassword({ commit, dispatch, rootState }, data) {
+    dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       Vue.http.put(rootState.application.urls.passwordReset, {
         user: {
@@ -103,10 +106,11 @@ export const actions = {
           key: 'new_password_error'
         }, { root: true })
         reject(error)
-      })
+      }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
   sendConfirmationEmail({ commit, dispatch, rootState }, email) {
+    dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       Vue.http.post(rootState.application.urls.confirmationEmail, {
         user: { email: email }
@@ -123,7 +127,7 @@ export const actions = {
           key: 'confirmation_email_error'
         }, { root: true })
         reject(error)
-      })
+      }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   }
 }

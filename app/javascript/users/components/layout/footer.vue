@@ -12,7 +12,7 @@
           class="text-center"
           cols="12"
       >
-        {{ new Date().getFullYear() }} — {{ !!current_organization.name  ? 'Powered by' : 'Created by Marco Mastrodonato' }}  <v-btn text href="https://www.insiemento.com" target="_blank">Insiemento</v-btn>
+        {{ new Date().getFullYear() }} — {{ !!current_organization.name  ? 'Powered by' : 'Created by' }}  Marco Mastrodonato
       </v-col>
     </v-row>
   </v-footer>
