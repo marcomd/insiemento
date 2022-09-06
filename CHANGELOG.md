@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.28.1 06/09/2022
+
+- Updated Rails and ruby
+  - Updated rails from 6.1.4.4 to 6.1.6.1 and other related gems
+  - Updated ruby from 2.7.2 to 2.7.5
+
 # v1.28.0 09/01/2022
 
 - Course events suspendable and other improvements

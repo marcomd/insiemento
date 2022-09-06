@@ -239,7 +239,7 @@
           return ce.subscribed && event_date >= min && event_date <= max
         }).forEach(ce => {
           const name = ce.course.name
-          console.log(`updateRange Add event ${name} ${ce.event_date}`)
+          // console.log(`updateRange Add event ${name} ${ce.event_date}`)
           const eventDateStart = new Date(ce.event_date)
           // const durationTimestamp = this.rnd(2, 8) * 900000
           const durationTimestamp =  3600000 // 4 * 900000 -> 1 = Quarter of hour * 4 * 900.000
