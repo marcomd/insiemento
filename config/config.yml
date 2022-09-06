@@ -1,7 +1,7 @@
 defaults: &defaults
   application:
     name: "Insiemento"
-    version: "1.28.2"
+    version: "1.28.3"
     updated_at: "06/09/2022"
     started_at: "13/01/2020"
     commercial:
@@ -10,7 +10,6 @@ defaults: &defaults
       url: "https://www.insiemento.com"
       email: "info@insiemento.com"
       support_email: "support@insiemento.com"
-      sender_email: "please-do-not-reply@insiemento.com"
       address: "Via Dostoevskij San Giuliano Milanese (MI)"
       ceo: "Marco Mastrodonato"
       twitter_account: ""

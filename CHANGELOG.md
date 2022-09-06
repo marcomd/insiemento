@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.28.3 06/09/2022
+
+- Minor fixes to smtp configuration
+
 # v1.28.2 06/09/2022
 
 - Added mailtrap and spinner after registration

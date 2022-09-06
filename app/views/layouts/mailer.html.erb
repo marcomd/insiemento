@@ -78,7 +78,7 @@
       <table>
         <tr>
           <td class="content footer" align="center">
-            <p><%= @organization ? "#{@organization.name} - " : nil %>Powered by <a href="<%= CONFIG[:application][:commercial][:url] %>"><%= CONFIG[:application][:commercial][:brand] %></a></p>
+            <p><%= @organization ? "#{@organization.name} - " : nil %>Powered by Marco Mastrodonato</a></p>
             <p><a href="mailto:<%= @organization ? @organization.email : CONFIG[:application][:commercial][:support_email] %>"><%= @organization ? @organization.email : CONFIG[:application][:commercial][:support_email] %></a></p>
           </td>
         </tr>
