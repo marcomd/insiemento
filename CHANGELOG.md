@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.28.5 07/09/2022
+
+- Fixed websocket issue and improved no courses message
+  - Fixed the action cable host, previously it was using the old generic domain
+  - When no courses are selected but they are not yet available, we now avoid asking "what are you waiting for?" 
+
 # v1.28.4 06/09/2022
 
 - Added feedback after many session actions

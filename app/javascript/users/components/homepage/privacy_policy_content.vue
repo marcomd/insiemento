@@ -160,7 +160,7 @@
       <li id="codiceFiscale" style="display: block;">Codice Fiscale: <span id="codice_Fiscale">MSTMCN75R15F205R</span></li>
       <li><span id="indirizzo">Via Dostoevskij 5</span></li>
       <li><span id="cap">20098</span> - <span id="citta">San Giuliano Milanese</span> (<span id="provincia">MI</span>)</li>
-      <li>E-mail: <span id="email">privacy@insiemento.com</span></li>
+      <li>E-mail: <span id="email">m.mastrodonato@gmail.com</span></li>
     </ul>
     <br>
     <p>Per esercitare i diritti previsti all'art. 7 del Codice della Privacy ovvero per la cancellazione dei vostri dati

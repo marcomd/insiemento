@@ -12,7 +12,7 @@
           class="text-center"
           cols="12"
       >
-        {{ new Date().getFullYear() }} — {{ !!current_organization.name  ? 'Powered by' : 'Created by' }}  Marco Mastrodonato
+        {{ new Date().getFullYear() }} — An open source project created by Marco Mastrodonato
       </v-col>
     </v-row>
   </v-footer>

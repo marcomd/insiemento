@@ -6,9 +6,8 @@
     <CourseEventsTable :course_events="course_events" @select-course_event="setCourseEvent"/>
     <h3 v-if="course_events.length == 0 && !loading"
         class="d-flex justify-center subtitle">{{ $t('course_event.list.none') }}</h3>
-
-    <CourseEventsListCards v-if="subscribed_course_events.length > 0" :course_events="subscribed_course_events" />
-    <h3 v-else-if="subscribed_course_events.length == 0 && !loading"
+    <CourseEventsListCards v-else-if="subscribed_course_events.length > 0 && !loading" :course_events="subscribed_course_events" />
+    <h3 v-else-if="course_events.length > 0 && subscribed_course_events.length == 0 && !loading"
         class="d-flex justify-center subtitle">{{ $t('course_event.list.none_subscribed') }}</h3>
     <v-card v-else
             elevation="0"

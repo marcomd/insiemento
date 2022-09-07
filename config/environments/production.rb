@@ -1,5 +1,5 @@
-host = 'www.insiemento.com'
 other_hosts = ['dsmdanceschool.it']
+host = other_hosts.first #'www.insiemento.com'
 Rails.application.default_url_options = { host: host, protocol: 'https://' }
 
 Rails.application.configure do
