@@ -79,7 +79,7 @@ ActiveAdmin.register CourseSchedule do
         f.input :organization, collection: [current_admin_user.organization]
       end
       f.input :category, collection: current_admin_user.categories
-      f.input :course, collection: current_admin_user.courses
+      f.input :course, collection: current_admin_user.courses.active
       f.input :room, collection: current_admin_user.rooms
       f.input :trainer, collection: current_admin_user.trainers
       f.input :event_day
