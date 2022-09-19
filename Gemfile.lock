@@ -223,7 +223,7 @@ GEM
       responders (>= 2, < 4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     jquery-minicolors-rails (2.2.6.2)
       jquery-rails
       rails (>= 3.2.8)
