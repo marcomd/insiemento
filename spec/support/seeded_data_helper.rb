@@ -74,8 +74,6 @@ module SeededDataHelper
   def authenticated_user(email)
     service = AuthenticateApiUser.call(email, Rails.application.credentials.seed.dig(:default_password))
 
-    if service.success?
-      service.result
-    end
+    service.result if service.success?
   end
 end

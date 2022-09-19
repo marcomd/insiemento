@@ -15,29 +15,29 @@ class Order < ApplicationRecord
   after_update :set_amounts!, if: :updatable?
   attr_accessor :disable_set_amounts
 
-  accepts_nested_attributes_for :order_products, reject_if: lambda { |obj| obj[:product_id].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :order_products, reject_if: ->(obj) { obj[:product_id].blank? }, allow_destroy: true
 
-  STATES = { just_made: 10, processing: 20, canceled: 30, completed: 40}
+  STATES = { just_made: 10, processing: 20, canceled: 30, completed: 40 }.freeze
   enum state: STATES
 
-  ACTIVE_STATES = [:just_made, :processing]
-  UNACTIVE_STATES = [:canceled, :completed]
+  ACTIVE_STATES = %i[just_made processing].freeze
+  UNACTIVE_STATES = %i[canceled completed].freeze
 
   enum currency: { eur: 0, usd: 1 }
 
   monetize :total_amount_cents, :amount_to_pay_cents, :discount_cents, :amount_paid_cents
 
   # It uses comma as thousand separator
-  ransacker :total_amount, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+  ransacker :total_amount, formatter: proc { |v| v.sub(',', '.').to_r * 100 } do |parent|
     parent.table[:total_amount_cents]
   end
-  ransacker :amount_to_pay, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+  ransacker :amount_to_pay, formatter: proc { |v| v.sub(',', '.').to_r * 100 } do |parent|
     parent.table[:amount_to_pay_cents]
   end
-  ransacker :discount, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+  ransacker :discount, formatter: proc { |v| v.sub(',', '.').to_r * 100 } do |parent|
     parent.table[:discount_cents]
   end
-  ransacker :amount_paid, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+  ransacker :amount_paid, formatter: proc { |v| v.sub(',', '.').to_r * 100 } do |parent|
     parent.table[:amount_paid_cents]
   end
 
@@ -51,11 +51,11 @@ class Order < ApplicationRecord
     end
 
     event :complete do
-      transitions from: [:just_made, :processing], to: :completed, success: :create_subscriptions
+      transitions from: %i[just_made processing], to: :completed, success: :create_subscriptions
     end
 
     event :cancel do
-      transitions from: [:just_made, :processing], to: :canceled
+      transitions from: %i[just_made processing], to: :canceled
     end
 
     event :resume do
@@ -77,7 +77,7 @@ class Order < ApplicationRecord
   def set_amounts!
     self.disable_set_amounts = true
     self.total_amount_cents = products.map(&:price_cents).sum
-    self.amount_to_pay_cents = self.total_amount_cents - self.discount_cents
+    self.amount_to_pay_cents = total_amount_cents - discount_cents
     result = save!
     self.disable_set_amounts = nil
     result
@@ -85,10 +85,10 @@ class Order < ApplicationRecord
 
   def set_state!
     bol_saved =
-      if self.amount_paid_cents == self.amount_to_pay_cents
-        self.complete! if may_complete?
+      if amount_paid_cents == amount_to_pay_cents
+        complete! if may_complete?
       else
-        self.start_process! if self.may_start_process?
+        start_process! if may_start_process?
       end
     bol_saved || save!
   end

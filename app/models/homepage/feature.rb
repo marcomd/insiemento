@@ -7,7 +7,7 @@ module Homepage
       @icon   = attr[:icon]  || attr['icon']
       @text   = attr[:text]  || attr['text']
       @dark   = attr[:dark]  || attr['dark']
-      @color   = attr[:color]  || attr['color']
+      @color = attr[:color] || attr['color']
     end
 
     validates :title, :icon, :text, presence: true
@@ -18,6 +18,5 @@ module Homepage
     #     [a, send(a)]
     #   end.to_h
     # end
-
   end
 end

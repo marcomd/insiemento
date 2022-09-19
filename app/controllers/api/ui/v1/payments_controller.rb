@@ -1,5 +1,5 @@
 class Api::Ui::V1::PaymentsController < Api::Ui::BaseController
-  before_action :set_payment, except: [:index, :create]
+  before_action :set_payment, except: %i[index create]
 
   respond_to :json
 
@@ -12,10 +12,10 @@ class Api::Ui::V1::PaymentsController < Api::Ui::BaseController
       if params[:state].present?
         if params[:state].downcase == 'active'
           @payments = @payments.where(state: Payment::ACTIVE_STATES)
-          #.where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+          # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
         elsif params[:state].downcase == 'closed'
           @payments = @payments.where(state: Payment::UNACTIVE_STATES)
-          #.where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
+          # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
         elsif params[:state] == 'ALL'
           # Do nothing
         else
@@ -70,7 +70,7 @@ class Api::Ui::V1::PaymentsController < Api::Ui::BaseController
 
   def payment_params
     params.require(:payment).permit(
-        :user_id, :order_id, :source, :state, :amount
+      :user_id, :order_id, :source, :state, :amount
     )
   end
 end

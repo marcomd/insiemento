@@ -30,32 +30,32 @@ class Ability
     if admin_user.is_root?
       can :manage, :all
     else
-      can :read, ActiveAdmin::Page, name: "Dashboard"
+      can :read, ActiveAdmin::Page, name: 'Dashboard'
       if admin_user.has_role? :manager
-        can [:read, :update], Organization, id: admin_user.organization_id
-        can [:read, :update, :destroy], User, organization_id: admin_user.organization_id
+        can %i[read update], Organization, id: admin_user.organization_id
+        can %i[read update destroy], User, organization_id: admin_user.organization_id
         can [:create], User
-        can [:read, :update, :destroy], Course, organization_id: admin_user.organization_id
+        can %i[read update destroy], Course, organization_id: admin_user.organization_id
         can [:create], Course
-        can [:read, :update, :destroy], CourseEvent, organization_id: admin_user.organization_id
+        can %i[read update destroy], CourseEvent, organization_id: admin_user.organization_id
         can [:create], CourseEvent
-        can [:read, :update, :destroy], CourseSchedule, organization_id: admin_user.organization_id
+        can %i[read update destroy], CourseSchedule, organization_id: admin_user.organization_id
         can [:create], CourseSchedule
-        can [:read, :update, :destroy], Room, organization_id: admin_user.organization_id
+        can %i[read update destroy], Room, organization_id: admin_user.organization_id
         can [:create], Room
-        can [:read, :update, :destroy], Trainer, organization_id: admin_user.organization_id
+        can %i[read update destroy], Trainer, organization_id: admin_user.organization_id
         can [:create], Trainer
-        can [:read, :update, :destroy], UserDocumentModel, organization_id: admin_user.organization_id
+        can %i[read update destroy], UserDocumentModel, organization_id: admin_user.organization_id
         can [:create], UserDocumentModel
-        can [:read, :update, :destroy], UserDocument, organization_id: admin_user.organization_id
+        can %i[read update destroy], UserDocument, organization_id: admin_user.organization_id
         can [:create], UserDocument
-        can [:read, :update, :destroy], Attendee, organization_id: admin_user.organization_id
+        can %i[read update destroy], Attendee, organization_id: admin_user.organization_id
         can [:create], Attendee
-        can [:read, :update, :destroy], News, organization_id: admin_user.organization_id
+        can %i[read update destroy], News, organization_id: admin_user.organization_id
         can [:create], News
-        can [:read, :update, :destroy], Penalty, organization_id: admin_user.organization_id
+        can %i[read update destroy], Penalty, organization_id: admin_user.organization_id
         can [:create], Penalty
-        can [:read, :update, :destroy], UserPenalty, organization_id: admin_user.organization_id
+        can %i[read update destroy], UserPenalty, organization_id: admin_user.organization_id
         can [:create], UserPenalty
         # Accountant resources
         can [:read], Category, organization_id: admin_user.organization_id
@@ -67,27 +67,27 @@ class Ability
       end
       if admin_user.has_role? :accountant
         can [:read], Organization, id: admin_user.organization_id
-        can [:read, :update], User, organization_id: admin_user.organization_id
+        can %i[read update], User, organization_id: admin_user.organization_id
         can [:read], Course, organization_id: admin_user.organization_id
-        can [:read, :update], CourseEvent, organization_id: admin_user.organization_id
-        can [:read, :update], Attendee, organization_id: admin_user.organization_id
+        can %i[read update], CourseEvent, organization_id: admin_user.organization_id
+        can %i[read update], Attendee, organization_id: admin_user.organization_id
         can [:read], CourseSchedule, organization_id: admin_user.organization_id
         can [:read], Room, organization_id: admin_user.organization_id
         can [:read], Trainer, organization_id: admin_user.organization_id
         can [:read], News, organization_id: admin_user.organization_id
         can [:read], Penalty, organization_id: admin_user.organization_id
         can [:read], UserPenalty, organization_id: admin_user.organization_id
-        can [:read, :update, :destroy], Category, organization_id: admin_user.organization_id
+        can %i[read update destroy], Category, organization_id: admin_user.organization_id
         can [:create], Category
-        can [:read, :update, :destroy], Product, organization_id: admin_user.organization_id
+        can %i[read update destroy], Product, organization_id: admin_user.organization_id
         can [:create], Product
-        can [:read, :update, :destroy], Subscription, organization_id: admin_user.organization_id
+        can %i[read update destroy], Subscription, organization_id: admin_user.organization_id
         can [:create], Subscription
-        can [:read, :update, :destroy], Order, organization_id: admin_user.organization_id
+        can %i[read update destroy], Order, organization_id: admin_user.organization_id
         can [:create], Order
-        can [:read, :update, :destroy], OrderProduct, organization_id: admin_user.organization_id
+        can %i[read update destroy], OrderProduct, organization_id: admin_user.organization_id
         can [:create], OrderProduct
-        can [:read, :update, :destroy], Payment, organization_id: admin_user.organization_id
+        can %i[read update destroy], Payment, organization_id: admin_user.organization_id
         can [:create], Payment
       end
     end

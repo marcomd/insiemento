@@ -1,5 +1,5 @@
 ActiveAdmin.register Category do
-  menu parent: 'products_management', if: proc{ can?(:read, Category) }
+  menu parent: 'products_management', if: proc { can?(:read, Category) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -27,9 +27,7 @@ ActiveAdmin.register Category do
   index do
     selectable_column
     id_column
-    if current_admin_user.is_root?
-      column(:organization)
-    end
+    column(:organization) if current_admin_user.is_root?
     column(:name)
     column(:created_at)
     column(:updated_at)
@@ -43,7 +41,7 @@ ActiveAdmin.register Category do
 
   form do |f|
     f.inputs do
-      f.semantic_errors *f.object.errors.keys
+      f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
         f.input :organization
       else

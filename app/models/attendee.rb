@@ -9,7 +9,7 @@ class Attendee < ApplicationRecord
 
   attr_accessor :disable_bookability_checks
   validates :course_event_id, uniqueness: { scope: :user_id,
-                                 message: I18n.t('errors.messages.already_subscribed') }
+                                            message: I18n.t('errors.messages.already_subscribed') }
   validate :check_max_attendees, :check_valid_subscriptions, :check_no_penalty
   validate :check_course_event_bookability, unless: :disable_bookability_checks
 
@@ -18,7 +18,7 @@ class Attendee < ApplicationRecord
   after_create :update_subscription
   after_destroy :update_subscription
 
-  scope :present_at_this_time, -> (date=Time.zone.now) { where(presence: true).where('updated_at > ?', date - 70.minutes) }
+  scope :present_at_this_time, ->(date=Time.zone.now) { where(presence: true).where('updated_at > ?', date - 70.minutes) }
 
   private
 
@@ -57,7 +57,8 @@ class Attendee < ApplicationRecord
   end
 
   def check_course_event_unsubscribable(datetime=Time.zone.now)
-    return true if self.disable_bookability_checks
+    return true if disable_bookability_checks
+
     if datetime >= (course_event.event_date - course.end_booking_minutes.minutes)
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_not_unsubscribable'))
       throw :abort

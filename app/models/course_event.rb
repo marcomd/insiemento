@@ -12,13 +12,13 @@ class CourseEvent < ApplicationRecord
   has_many :attendees, dependent: :restrict_with_error
   has_many :users, through: :attendees
 
-  accepts_nested_attributes_for :attendees, reject_if: lambda { |obj| obj[:user_id].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :attendees, reject_if: ->(obj) { obj[:user_id].blank? }, allow_destroy: true
 
-  validates :course_id, uniqueness: { scope: [:room_id, :trainer_id, :event_date] }
+  validates :course_id, uniqueness: { scope: %i[room_id trainer_id event_date] }
 
   before_validation :set_default
 
-  STATES = { just_made: 10, active: 20, suspended: 30, closed: 40}
+  STATES = { just_made: 10, active: 20, suspended: 30, closed: 40 }.freeze
   enum state: STATES
 
   # def attendees_count

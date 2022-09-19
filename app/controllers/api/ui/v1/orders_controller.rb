@@ -1,5 +1,5 @@
 class Api::Ui::V1::OrdersController < Api::Ui::BaseController
-  before_action :set_order, except: [:index, :create]
+  before_action :set_order, except: %i[index create]
 
   respond_to :json
 
@@ -14,10 +14,10 @@ class Api::Ui::V1::OrdersController < Api::Ui::BaseController
       if params[:state].present?
         if params[:state].downcase == 'active'
           @orders = @orders.where(state: Order::ACTIVE_STATES)
-          #.where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+          # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
         elsif params[:state].downcase == 'closed'
           @orders = @orders.where(state: Order::UNACTIVE_STATES)
-          #.where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
+          # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
         elsif params[:state] == 'ALL'
           # Do nothing
         else
@@ -99,7 +99,7 @@ class Api::Ui::V1::OrdersController < Api::Ui::BaseController
 
   def order_params
     params.require(:order).permit(
-        :currency, :start_on, product_ids: [],
+      :currency, :start_on, product_ids: []
     )
   end
 end

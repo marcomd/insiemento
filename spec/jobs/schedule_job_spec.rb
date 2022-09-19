@@ -26,7 +26,7 @@ RSpec.describe ScheduleJob, type: :job do
       it do
         Timecop.freeze 2.weeks.from_now do
           expect do
-            perform_enqueued_jobs{ subject }
+            perform_enqueued_jobs { subject }
           end.to change(CourseEvent, :count).by(1)
         end
       end
@@ -35,7 +35,7 @@ RSpec.describe ScheduleJob, type: :job do
     context 'when course event already exists' do
       it do
         expect do
-          perform_enqueued_jobs{ subject }
+          perform_enqueued_jobs { subject }
         end.to change(SystemLog, :count).by(2) # One for each organization in the ScheduleService + the global one wrote at the end of the job
         # raise_exception(ActiveRecord::RecordInvalid, /Course è già presente/)
       end

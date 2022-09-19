@@ -10,11 +10,11 @@ class VirtualTable
     false
   end
 
-  def attributes(ar_variables=self.instance_variables)
-    ar_variables.map {|a| [a.to_s.gsub('@',''), self.instance_variable_get(a)]}.to_h
+  def attributes(ar_variables=instance_variables)
+    ar_variables.map { |a| [a.to_s.gsub('@', ''), instance_variable_get(a)]}.to_h
   end
 
-  def to_json
+  def to_json(*_args)
     attributes.to_json
   end
 

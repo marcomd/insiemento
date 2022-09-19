@@ -5,29 +5,29 @@ class Api::Ui::V1::SubscriptionsController < Api::Ui::BaseController
 
   def index
     @subscriptions = current_user.subscriptions
-                         .order('id')
-                         .includes(:category, :product, attendees: {course_event: [:course, :trainer, :room]})
+                                 .order('id')
+                                 .includes(:category, :product, attendees: { course_event: %i[course trainer room] })
     # Consente di filtrare tramite https://github.com/activerecord-hackery/ransack
-    if params[:q].present?
-      @subscriptions = @subscriptions.ransack(params[:q]).result
-    else
-      # if params[:state].present?
-      #   if params[:state].downcase == 'active'
-      #     @subscriptions = @subscriptions.where(state: Subscription::ACTIVE_STATES)
-      #     #.where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
-      #   elsif params[:state].downcase == 'closed'
-      #     @subscriptions = @subscriptions.where(state: Subscription::UNACTIVE_STATES)
-      #     #.where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
-      #   elsif params[:state] == 'ALL'
-      #     # Do nothing
-      #   else
-      #     raise API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!"
-      #   end
-      #   # This params is only used to filter above
-      #   params.delete :state
-      # end
-      @subscriptions = @subscriptions.where(subscription_filter_params)
-    end
+    @subscriptions = if params[:q].present?
+                       @subscriptions.ransack(params[:q]).result
+                     else
+                       # if params[:state].present?
+                       #   if params[:state].downcase == 'active'
+                       #     @subscriptions = @subscriptions.where(state: Subscription::ACTIVE_STATES)
+                       #     #.where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+                       #   elsif params[:state].downcase == 'closed'
+                       #     @subscriptions = @subscriptions.where(state: Subscription::UNACTIVE_STATES)
+                       #     #.where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
+                       #   elsif params[:state] == 'ALL'
+                       #     # Do nothing
+                       #   else
+                       #     raise API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!"
+                       #   end
+                       #   # This params is only used to filter above
+                       #   params.delete :state
+                       # end
+                       @subscriptions.where(subscription_filter_params)
+                     end
 
     render :index
   end

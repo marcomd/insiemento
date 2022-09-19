@@ -25,7 +25,7 @@ class ScheduleService
                 trainer_id: cs.trainer_id,
                 course_schedule_id: cs.id,
                 event_date: cs.next_event_datetime(progressive_date),
-                state: cs.state}
+                state: cs.state }
         if debug
           puts "CourseEvent #{ce}" unless Rails.env.test?
         else
@@ -33,22 +33,17 @@ class ScheduleService
         end
         progressive_date = ce[:event_date].to_date - 1
       end
-      if attribute_course_events.present?
-        begin
-          CourseEvent.create!(attribute_course_events)
-          all_attribute_course_events_size += attribute_course_events.size
-        rescue
-          # HERE!!!
-          SystemLog.create!(message: $!.message, log_level: :error, organization_id: organization.id)
-        end
+      next unless attribute_course_events.present?
+
+      begin
+        CourseEvent.create!(attribute_course_events)
+        all_attribute_course_events_size += attribute_course_events.size
+      rescue StandardError
+        # HERE!!!
+        SystemLog.create!(message: $!.message, log_level: :error, organization_id: organization.id)
       end
     end
 
     all_attribute_course_events_size
   end
-
-  private
-
-
-
 end

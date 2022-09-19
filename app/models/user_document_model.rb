@@ -9,8 +9,8 @@ class UserDocumentModel < ApplicationRecord
   validates_presence_of :title, :body, :state, :validity_days
 
   enum state: {
-      active:                 20,
-      suspended:              30,
+    active: 20,
+    suspended: 30
   }, _suffix: true
 
   private
@@ -19,6 +19,6 @@ class UserDocumentModel < ApplicationRecord
   # Vedi le sottoclassi sti per l'override dei valori
   def set_default
     self.state ||= :active
-    self.validity_days  ||= 14
+    self.validity_days ||= 14
   end
 end

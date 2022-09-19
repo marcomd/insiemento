@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  menu parent: 'users_management', if: proc{ can?(:read, User) }
+  menu parent: 'users_management', if: proc { can?(:read, User) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -11,9 +11,9 @@ ActiveAdmin.register User do
   # or
 
   permit_params do
-    permitted = [ :firstname, :lastname, :email, :birthdate, :password, :password_confirmation, :gender, :phone, :state,
-                  :medical_certificate, :medical_certificate_expire_at, :confirmed_at, :trainer_id,
-                  :child_firstname, :child_lastname, :child_birthdate]
+    permitted = %i[firstname lastname email birthdate password password_confirmation gender phone state
+                   medical_certificate medical_certificate_expire_at confirmed_at trainer_id
+                   child_firstname child_lastname child_birthdate]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -48,7 +48,7 @@ ActiveAdmin.register User do
     column(:child_firstname)
     column(:email)
     column(:phone)
-    column(:state)                 {|obj| status_tag_for obj }
+    column(:state) { |obj| status_tag_for obj }
     column(:confirmed_at)
     column(:current_sign_in_at)
     column(:sign_in_count)
@@ -57,7 +57,7 @@ ActiveAdmin.register User do
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
-  filter :state       , as: :select, collection: User.localized_states
+  filter :state, as: :select, collection: User.localized_states
   filter :firstname
   filter :lastname
   filter :email
@@ -93,14 +93,14 @@ ActiveAdmin.register User do
           row(:trainer) if user.trainer_id
           row(:email)
           row(:impersonate) do |obj|
-            auth_token = JsonWebToken.encode({user_id: obj.id}, expiration_hours: 1)
-            link_to(obj.full_name, '#', target: "_blank",
-                    data: {
-                        token: auth_token,
-                        url: [users_path, 'profile'].join('/')
-                    },
-                    id: 'impersonate-user',
-                    title: "Impersona #{obj.firstname} #{obj.lastname}")
+            auth_token = JsonWebToken.encode({ user_id: obj.id }, expiration_hours: 1)
+            link_to(obj.full_name, '#', target: '_blank',
+                                        data: {
+                                          token: auth_token,
+                                          url: [users_path, 'profile'].join('/')
+                                        },
+                                        id: 'impersonate-user',
+                                        title: "Impersona #{obj.firstname} #{obj.lastname}")
           end
           row(:firstname)
           row(:lastname)
@@ -108,9 +108,9 @@ ActiveAdmin.register User do
           row(:birthdate)
           row(:phone)
           row(:child_firstname)
-          row(:child_lastname )
+          row(:child_lastname)
           row(:child_birthdate)
-          row(:state)                 {|obj| status_tag_for obj }
+          row(:state) { |obj| status_tag_for obj }
           if user.medical_certificate.present?
             if /^image/ === user.medical_certificate.content_type
               as_image_row(:medical_certificate)
@@ -118,7 +118,7 @@ ActiveAdmin.register User do
               row(:medical_certificate) { |obj| link_to('Download', obj.medical_certificate) }
             end
           else
-            row(:medical_certificate) { |obj| image_tag('false.png') }
+            row(:medical_certificate) { |_obj| image_tag('false.png') }
           end
           row(:medical_certificate_expire_at) do |obj|
             if obj.medical_certificate_expire_at
@@ -157,9 +157,9 @@ ActiveAdmin.register User do
           end
         end
         panel link_to(Order.model_name.human(count: 2), admin_orders_path('q[user_id_eq]' => user.id)) do
-          table_for user.orders.order('id desc').limit(2) do |order|
+          table_for user.orders.order('id desc').limit(2) do |_order|
             column(:id) { |obj| link_to obj.id, [:admin, obj] }
-            column(:state)                {|obj| status_tag_for obj }
+            column(:state) { |obj| status_tag_for obj }
             column(:total_amount)
             column(:amount_to_pay)
             column(:amount_paid)
@@ -170,10 +170,10 @@ ActiveAdmin.register User do
           end
         end
         panel link_to(UserDocument.model_name.human(count: 2), admin_user_documents_path('q[user_id_eq]' => user.id)) do
-          table_for user.user_documents.order('id desc').limit(2) do |user_document|
+          table_for user.user_documents.order('id desc').limit(2) do |_user_document|
             column(:id) { |obj| link_to obj.id, [:admin, obj] }
-            column(:user_document_model) {|obj| link_to obj.user_document_model.title, [:admin, obj.user_document_model] }
-            column(:state) {|obj| status_tag_for obj }
+            column(:user_document_model) { |obj| link_to obj.user_document_model.title, [:admin, obj.user_document_model] }
+            column(:state) { |obj| status_tag_for obj }
             column(:created_at)
           end
         end
@@ -195,7 +195,7 @@ ActiveAdmin.register User do
           f.input :email
           f.input :phone
           f.input :birthdate, as: :date_picker
-          f.input :gender, as: :select, collection: [['Maschio', 'M'], ['Femmina', 'F'], ['Robot', 'R'],]
+          f.input :gender, as: :select, collection: [%w[Maschio M], %w[Femmina F], %w[Robot R]]
           f.input :medical_certificate, as: :file, hint:  if f.object.medical_certificate.present?
                                                             if /^image/ === f.object.medical_certificate.content_type
                                                               image_tag(f.object.medical_certificate, height: '50px')
@@ -212,8 +212,8 @@ ActiveAdmin.register User do
           f.input :confirmed_at, as: :datetime_picker
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
           f.input :trainer_id, as: :search_select, url: admin_trainers_path(tmp_params),
-                  fields: [:lastname], display_name: 'lastname', minimum_input_length: 3,
-                  order_by: 'lastname_asc'
+                               fields: [:lastname], display_name: 'lastname', minimum_input_length: 3,
+                               order_by: 'lastname_asc'
         end
       end
 
@@ -228,5 +228,4 @@ ActiveAdmin.register User do
 
     f.actions
   end
-
 end

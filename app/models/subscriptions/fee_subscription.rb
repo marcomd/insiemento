@@ -4,7 +4,4 @@ class FeeSubscription
   def set_current_state
     subscription.state
   end
-
-  private
-
 end

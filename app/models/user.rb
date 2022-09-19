@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :attendees, dependent: :destroy
   has_many :course_events, through: :attendees
   # No, user can have multiple active subscriptions
-  #has_one :last_subscription, -> { order id: :desc }, class_name: 'Subscription'
+  # has_one :last_subscription, -> { order id: :desc }, class_name: 'Subscription'
   has_many :subscriptions, dependent: :destroy
   has_many :active_subscriptions, -> { active_state }, class_name: 'Subscription'
   # has_many :active_subscriptions_at, -> (date) { active_at(date) }, class_name: 'Subscription'
@@ -38,7 +38,7 @@ class User < ApplicationRecord
   # scope :with_not_ended_subscriptions, -> (date=Time.zone.today) { where(subscriptions: { state: [:new, :active] })
   #                                                                 .where('subscriptions.end_on >= ?', date)
   #                                                                 .joins(:subscriptions).distinct }
-  scope :with_not_ended_subscriptions, -> (date=Time.zone.today) { joins(:subscriptions).merge(Subscription.not_ended).distinct }
+  scope :with_not_ended_subscriptions, ->(_date=Time.zone.today) { joins(:subscriptions).merge(Subscription.not_ended).distinct }
   scope :elegible_for_user_documents, -> { where.not(phone: nil) }
   scope :with_expired_medical_certificate, ->(date=Time.zone.now) { where('medical_certificate_expire_at IS NOT NULL AND medical_certificate_expire_at < ?', date) }
 
@@ -48,7 +48,7 @@ class User < ApplicationRecord
 
   STATES = { new: 10,
              active: 20,
-             suspended: 30}
+             suspended: 30 }.freeze
   enum state: STATES, _suffix: true
 
   def full_name
@@ -90,11 +90,11 @@ class User < ApplicationRecord
   # end
 
   def has_minor_child?
-    self.child_firstname.present? && self.child_lastname.present?
+    child_firstname.present? && child_lastname.present?
   end
 
   def is_inhibited?(category_id: nil, course_id: nil)
-    inhibitions = active_user_penalties #user_penalties.where('inhibited_until >= ?', Time.zone.today)
+    inhibitions = active_user_penalties # user_penalties.where('inhibited_until >= ?', Time.zone.today)
     inhibitions = inhibitions.where(category_id: category_id) if category_id
     inhibitions = inhibitions.where(course_id: course_id) if course_id
     inhibitions.last(50).count > 0
@@ -105,7 +105,7 @@ class User < ApplicationRecord
   def set_state
     any_active_subscriptions = active_subscriptions.count > 0
     if any_active_subscriptions
-      self.state = :active if !active_state?
+      self.state = :active unless active_state?
     else
       self.state = :suspended if active_state?
     end
@@ -116,9 +116,9 @@ class User < ApplicationRecord
   end
 
   def format_user_data
-    self.firstname = self.firstname&.titleize
-    self.lastname = self.lastname&.titleize
-    self.email = self.email.downcase.strip
-    self.phone = self.phone.gsub(' ', '') if self.phone&.include?(' ')
+    self.firstname = firstname&.titleize
+    self.lastname = lastname&.titleize
+    self.email = email.downcase.strip
+    self.phone = phone.gsub(' ', '') if phone&.include?(' ')
   end
 end

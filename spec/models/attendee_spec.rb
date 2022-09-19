@@ -68,7 +68,6 @@ RSpec.describe Attendee, type: :model do
         end
       end
     end
-
   end
 
   describe '#check_max_attendees' do

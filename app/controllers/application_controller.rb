@@ -35,22 +35,22 @@ class ApplicationController < ActionController::Base
   # 4. Uuid param (only for standard domain without subdomain) (for example www.insiemento.com?uuid=...)
   def current_organization
     @current_organization ||=
-        if ENV['ORGANIZATION'].present?
-          Organization.find(ENV['ORGANIZATION'])
+      if ENV['ORGANIZATION'].present?
+        Organization.find(ENV['ORGANIZATION'])
+      else
+        domain = request.domain
+        if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
+          Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
         else
-          domain = request.domain
-          if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
-            Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
-          else
-            # Standard domain: insiemento.com ...
-            subdomain = parsed_subdomain
-            if subdomain.present?
-              Organization.find_by_domain(subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
-            elsif params.permit(:organization)[:organization].present?
-              Organization.find_by_uuid(params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
-            end
+          # Standard domain: insiemento.com ...
+          subdomain = parsed_subdomain
+          if subdomain.present?
+            Organization.find_by_domain(subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+          elsif params.permit(:organization)[:organization].present?
+            Organization.find_by_uuid(params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
           end
         end
+      end
   end
 
   def json_request?
@@ -77,12 +77,17 @@ class ApplicationController < ActionController::Base
   # Set locale by http header
   def get_language_header
     accepts_languages       = request.env['HTTP_ACCEPT_LANGUAGE'] || 'en'
-    languages               = HTTP::Accept::Languages.parse(accepts_languages) rescue [HTTP::Accept::Languages::LanguageRange.new('en')]
+    languages               = begin
+                                HTTP::Accept::Languages.parse(accepts_languages)
+                              rescue StandardError
+                                [HTTP::Accept::Languages::LanguageRange.new('en')]
+                              end
     available_locales       = I18n.available_locales.map(&:to_s).reverse
     available_localizations = HTTP::Accept::Languages::Locales.new(available_locales)
     desired_localizations   = available_localizations & languages
     # IE headers fix for IT locale!
     return ['it'] if request.env['HTTP_ACCEPT_LANGUAGE'] == 'it-IT'
+
     # if desired_localizations is an empty array this means
     # that the user does not have any available language configured on
     # the browser that matches any of our locales ['it', 'en']
@@ -92,7 +97,8 @@ class ApplicationController < ActionController::Base
 
   # This should authenticate only api calls (devise included)
   def authenticate_request
-    return true if /\/admin\// === request.referrer
+    return true if %r{/admin/} === request.referrer
+
     @current_user = AuthorizeApiRequest.call(request.headers).result
     render json: { error: 'Not Authorized' }, status: 401 unless @current_user
   end

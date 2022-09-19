@@ -6,7 +6,7 @@ class Penalty < ApplicationRecord
   belongs_to :course, optional: true
 
   enum state: {
-    active:                 10,
-    suspended:              20,
+    active: 10,
+    suspended: 20
   }, _suffix: true
 end

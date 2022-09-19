@@ -24,7 +24,7 @@ RSpec.describe UpdateUsersJob, type: :job do
       it do
         user.reload
         expect do
-          perform_enqueued_jobs{ subject }
+          perform_enqueued_jobs { subject }
           user.reload
         end.to change(user, :state).from('active').to('suspended') # because it does not have any subscription
       end
@@ -36,7 +36,7 @@ RSpec.describe UpdateUsersJob, type: :job do
       it do
         user.reload
         expect do
-          perform_enqueued_jobs{ subject }
+          perform_enqueued_jobs { subject }
           user.reload
         end.to change(user, :state).from('new').to('active') # because it has an active subscription
       end

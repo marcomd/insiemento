@@ -39,7 +39,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Active Admin is a Ruby on Rails framework for creating elegant backends for website administration.
 gem 'activeadmin', '~> 2.9.0'
 
-#gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
+# gem 'active_leonardo', path: '/home/mark/Lavoro/Gems/ActiveLeonardo'
 
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.7.0'
@@ -66,7 +66,7 @@ gem 'http', '~> 4.3.0'
 gem 'http-accept', '~> 2.1.1'
 
 # Find out which locale the user preferes by reading the languages they specified in their browser or in the header
-#gem 'http_accept_language' #, '~> 2.1.1'
+# gem 'http_accept_language' #, '~> 2.1.1'
 
 # A simple HTTP and REST client for Ruby
 gem 'rest-client', '~> 2.0.2'
@@ -86,8 +86,8 @@ gem 'money-rails', '~> 1.13.4'
 # Simple authorization solution for Rails. All permissions are stored in a single location.
 gem 'cancancan', '~> 3.2.1'
 
-# Extends ActiveAdmin to enable a set of great optional UX improving add-ons
-gem 'activeadmin_addons' #, '~> 1.7.0'
+#  Extends ActiveAdmin to enable a set of great optional UX improving add-ons
+gem 'activeadmin_addons' # , '~> 1.7.0'
 
 # Ruby state machines
 gem 'aasm', '~> 5.1.1'
@@ -121,7 +121,7 @@ gem 'groupdate', '~> 5.2.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '~> 11.0.1', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '~> 11.0.1', platforms: %i[mri mingw x64_mingw]
 
   # RSpec for Rails - Need to be in development for mail preview
   gem 'rspec-rails', '~> 4.0.0'
@@ -136,8 +136,8 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.5.1'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 2.1.1'
   gem 'spring-watcher-listen', '~> 2.0.1'
@@ -146,13 +146,13 @@ group :development do
   gem 'spring-commands-rspec'
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-  gem 'rubocop', '~> 0.79.0'
+  gem 'rubocop', '~> 0.92.0'
 
   # A static analysis security vulnerability scanner for Ruby on Rails applications
   gem 'brakeman', '~> 4.7.2'
 
   # A code metric tool for rails projects
-  #gem 'rails_best_practices', '~> 1.20'
+  # gem 'rails_best_practices', '~> 1.20'
 
   # Great Ruby dubugging companion: pretty print Ruby objects to visualize their structure
   gem 'awesome_print', '~> 1.8.0'
@@ -178,14 +178,14 @@ group :test do
   gem 'vcr', '~> 5.1.0'
 
   # Library for stubbing and setting expectations on HTTP requests in Ruby.
-  gem  'webmock', '~> 3.8.0'
+  gem 'webmock', '~> 3.8.0'
 
   # SimpleCov is a code coverage analysis tool for Ruby
   gem 'simplecov', '~> 0.18.0', require: false
 
-  #A gem providing 'time travel', 'time freezing', and 'time acceleration' capabilities, making it simple to test time-dependent code. It provides a unified method to mock Time.now, Date.today, and DateTime.now in a single call.
+  # A gem providing 'time travel', 'time freezing', and 'time acceleration' capabilities, making it simple to test time-dependent code. It provides a unified method to mock Time.now, Date.today, and DateTime.now in a single call.
   gem 'timecop', '~> 0.9.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

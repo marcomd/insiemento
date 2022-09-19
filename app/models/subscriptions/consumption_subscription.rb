@@ -9,10 +9,9 @@ class ConsumptionSubscription
 
   private
 
-  def exceeded_caps(date=Time.zone.today)
+  def exceeded_caps(_date=Time.zone.today)
     _exceeded_caps = []
     _exceeded_caps << :max_accesses_number if max_accesses_number && attendees.count >= max_accesses_number
     _exceeded_caps
   end
-
 end

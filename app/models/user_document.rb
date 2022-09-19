@@ -10,15 +10,15 @@ class UserDocument < ApplicationRecord
   validates_presence_of :title, :body, :state
 
   enum state: {
-      draft:                  10, # Write the text...
-      ready:                  20, # The document is ready to sent to external service
-      exporting:              30, # Job is sending document to external service
-      exporting_error:        40, # An error was occured during exporting
-      exported:               50, # The document has been sent to external service
-      viewed:                 60, # The document has been signed by signer
-      signed:                 70, # The document has been signed by signer
-      completed:              80, # The signed document has been sent to signer
-      expired:                100,# The document is no more valid
+    draft: 10, # Write the text...
+    ready: 20, # The document is ready to sent to external service
+    exporting: 30, # Job is sending document to external service
+    exporting_error: 40, # An error was occured during exporting
+    exported: 50, # The document has been sent to external service
+    viewed: 60, # The document has been signed by signer
+    signed: 70, # The document has been signed by signer
+    completed: 80, # The signed document has been sent to signer
+    expired: 100 # The document is no more valid
   }, _suffix: true
 
   include AASM
@@ -27,7 +27,7 @@ class UserDocument < ApplicationRecord
     state :ready, :exporting, :exporting_error, :exported, :viewed, :signed, :completed, :expired
 
     event :send_to_otpservice do
-      transitions from: [:draft, :exporting_error], to: :ready,
+      transitions from: %i[draft exporting_error], to: :ready,
                   if: [:body],
                   success: :create_dossier_on_otpservice
     end
@@ -37,12 +37,12 @@ class UserDocument < ApplicationRecord
     end
 
     event :start_export do
-      transitions from: [:ready, :exporting, :exporting_error], to: :exporting,
+      transitions from: %i[ready exporting exporting_error], to: :exporting,
                   if: [:body]
     end
 
     event :created_on_otpservice do
-      transitions from: [:exporting, :exporting_error], to: :exported
+      transitions from: %i[exporting exporting_error], to: :exported
     end
 
     event :error_on_otpservice do
@@ -53,9 +53,8 @@ class UserDocument < ApplicationRecord
   end
 
   # Used by User model to get active user document
-  scope :active, -> (date=Time.zone.today) { where.not(state: :expired).where('expire_on > ?', date) }
-  scope :to_expire, -> (date=Time.zone.today) { where.not(state: :expired).where('expire_on <= ?', date) }
-
+  scope :active, ->(date=Time.zone.today) { where.not(state: :expired).where('expire_on > ?', date) }
+  scope :to_expire, ->(date=Time.zone.today) { where.not(state: :expired).where('expire_on <= ?', date) }
 
   # def active?(date=Time.zone.today)
   #   expire_on > date
@@ -63,7 +62,7 @@ class UserDocument < ApplicationRecord
 
   def parsed_body
     eval "\"#{body}\""
-  rescue
+  rescue StandardError
     "Error: #{$!.message}"
   end
 

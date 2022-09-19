@@ -1,5 +1,5 @@
 ActiveAdmin.register Subscription do
-  menu parent: 'users_management', if: proc{ can?(:read, Subscription) }
+  menu parent: 'users_management', if: proc { can?(:read, Subscription) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -11,8 +11,8 @@ ActiveAdmin.register Subscription do
   # or
   #
   permit_params do
-    permitted = [:code, :category_id, :product_id, :user_id, :start_on, :end_on, :subscription_type, :max_accesses_number]
-    permitted.concat [:organization_id, :state] if current_admin_user.is_root? || params[:action] == 'create'
+    permitted = %i[code category_id product_id user_id start_on end_on subscription_type max_accesses_number]
+    permitted.concat %i[organization_id state] if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 
@@ -36,7 +36,7 @@ ActiveAdmin.register Subscription do
     column(:category)
     column(:product)
     column(:user)
-   #column(:order)
+    # column(:order)
     column(:subscription_type)  { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
     column(:state)              { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
     column(:start_on)
@@ -46,12 +46,12 @@ ActiveAdmin.register Subscription do
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
-  filter :category    , collection: proc { current_admin_user.categories }
+  filter :category, collection: proc { current_admin_user.categories }
   # filter :subscription_type #, as: :select, collection: proc { Subscription.localized_states }
-  filter :product     , collection: proc { current_admin_user.products }
-  filter :user        , collection: proc { current_admin_user.users }
-  filter :order       , collection: proc { current_admin_user.orders }
-  filter :state       , as: :select, collection: Order.localized_states
+  filter :product, collection: proc { current_admin_user.products }
+  filter :user, collection: proc { current_admin_user.users }
+  filter :order, collection: proc { current_admin_user.orders }
+  filter :state, as: :select, collection: Order.localized_states
   filter :code
   filter :start_on
   filter :end_on
@@ -67,10 +67,10 @@ ActiveAdmin.register Subscription do
           row(:category)
           row(:product)
           row(:user)
-          #row(:order)
+          # row(:order)
           row(:code)
           row(:subscription_type) { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
-          row(:state)             {|obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
+          row(:state)             { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
           row(:start_on)
           row(:end_on)
           row(:max_accesses_number)
@@ -100,20 +100,20 @@ ActiveAdmin.register Subscription do
       # f.input :category, collection: current_admin_user.categories
       # f.input :product, as: :select, collection: current_admin_user.products
       f.input :product_id, as: :nested_select,
-              level_1: {
-                  attribute: :category_id,
-                  collection: current_admin_user.categories
-              },
-              level_2: {
-                  attribute: :product_id,
-                  collection: current_admin_user.products
-              }
+                           level_1: {
+                             attribute: :category_id,
+                             collection: current_admin_user.categories
+                           },
+                           level_2: {
+                             attribute: :product_id,
+                             collection: current_admin_user.products
+                           }
       # f.input :subscription_type
       # Root admin could access all users so ability is not sufficient
       tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
       f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
-              fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
-              order_by: 'lastname_asc'
+                        fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,
+                        order_by: 'lastname_asc'
 
       f.input :start_on
       f.input(:end_on)

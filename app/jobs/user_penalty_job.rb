@@ -3,8 +3,6 @@ class UserPenaltyJob < ApplicationJob
 
   def perform
     service = PenaltyService.call
-    if !service.success?
-      SystemLog.create!(message: "UserPenaltyJob success: #{service.success?} #{service.errors}")
-    end
+    SystemLog.create!(message: "UserPenaltyJob success: #{service.success?} #{service.errors}") unless service.success?
   end
 end

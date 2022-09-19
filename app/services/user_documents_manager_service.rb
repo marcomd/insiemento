@@ -23,29 +23,33 @@ class UserDocumentsManagerService
               if user_document_model.recurring
                 true
               else
-                puts "UserDocumentsService user #{user.id} have one document model #{user_document_model.id} which is not recurring" if debug && !Rails.env.test?
+                if debug && !Rails.env.test?
+                  puts "UserDocumentsService user #{user.id} have one document model #{user_document_model.id} which is not recurring"
+                end
                 false
               end
             else
-              puts "UserDocumentsService user #{user.id} already have document model #{user_document_model.id}" if debug && !Rails.env.test?
+              if debug && !Rails.env.test?
+                puts "UserDocumentsService user #{user.id} already have document model #{user_document_model.id}"
+              end
               false
             end
           else
             true
           end
 
-        if bol_create_user_document
-          attributes = {  organization_id: user_document_model.organization_id,
-                          user_document_model_id: user_document_model.id,
-                          title: user_document_model.title,
-                          body: user_document_model.body,
-                          user_id: user.id,
-                          state: :draft}
-          if debug
-            puts "UserDocument #{attributes}" unless Rails.env.test?
-          else
-            h_user_documents << attributes
-          end
+        next unless bol_create_user_document
+
+        attributes = {  organization_id: user_document_model.organization_id,
+                        user_document_model_id: user_document_model.id,
+                        title: user_document_model.title,
+                        body: user_document_model.body,
+                        user_id: user.id,
+                        state: :draft }
+        if debug
+          puts "UserDocument #{attributes}" unless Rails.env.test?
+        else
+          h_user_documents << attributes
         end
 
         # if user.has_active_document?(user_document_model.id)
@@ -63,10 +67,8 @@ class UserDocumentsManagerService
         #   end
         # end
       end
-
     end
     UserDocument.create!(h_user_documents) if h_user_documents.present?
-    return expired_count, h_user_documents
+    [expired_count, h_user_documents]
   end
-
 end

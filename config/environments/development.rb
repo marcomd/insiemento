@@ -69,12 +69,12 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => Rails.application.credentials.smtp[:development][:username],
-    :password => Rails.application.credentials.smtp[:development][:password],
-    :address => 'smtp.mailtrap.io',
-    :domain => 'smtp.mailtrap.io',
-    :port => '2525',
-    :authentication => :cram_md5
+    user_name: Rails.application.credentials.smtp[:development][:username],
+    password: Rails.application.credentials.smtp[:development][:password],
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
+    port: '2525',
+    authentication: :cram_md5
   }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
@@ -82,15 +82,15 @@ Rails.application.configure do
   # Action cable configuration
   config.action_cable.url = "ws://#{host}:#{host_port}/cable"
   config.web_socket_server_url = "ws://#{host}:#{host_port}/cable"
-  config.action_cable.allowed_request_origins ||=  []
+  config.action_cable.allowed_request_origins ||= []
   config.action_cable.allowed_request_origins << "http://#{host}:#{host_port}"
   config.action_cable.allowed_request_origins << "ws://#{host}:#{host_port}"
   config.action_cable.allowed_request_origins << "wss://#{host}:#{host_port}"
 
-  config.hosts << "insiemento.local"
-  config.hosts << "fitness.insiemento.local"
-  config.hosts << "rspec.insiemento.local"
-  config.hosts << "wrong.insiemento.local"
-  config.hosts << "rspec.local"
-  config.hosts << "www.fitness.io"
+  config.hosts << 'insiemento.local'
+  config.hosts << 'fitness.insiemento.local'
+  config.hosts << 'rspec.insiemento.local'
+  config.hosts << 'wrong.insiemento.local'
+  config.hosts << 'rspec.local'
+  config.hosts << 'www.fitness.io'
 end

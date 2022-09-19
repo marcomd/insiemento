@@ -4,12 +4,12 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Insiemento"
+  config.site_title = 'Insiemento'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  config.site_title_link = "/admin"
+  config.site_title_link = '/admin'
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -157,7 +157,7 @@ ActiveAdmin.setup do |config|
   # You can exclude possibly sensitive model attributes from being displayed,
   # added to forms, or exported by default by ActiveAdmin
   #
-  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
+  config.filter_attributes = %i[encrypted_password password password_confirmation]
 
   # == Localize Date/Time Format
   #
@@ -254,7 +254,7 @@ ActiveAdmin.setup do |config|
       menu.add id: 'users_management', label: I18n.t('menu.users_management'), priority: 60
       menu.add id: 'platform_management', label: I18n.t('menu.platform_management'), priority: 70
       menu.add id: 'diagnostics', label: I18n.t('menu.diagnostics'), priority: 80 do |pages|
-        pages.add label: I18n.t('menu.sidekiq'), url: '/admin/sidekiq', html_options: { target: :blank }, if: proc{ current_admin_user.is_root? }
+        pages.add label: I18n.t('menu.sidekiq'), url: '/admin/sidekiq', html_options: { target: :blank }, if: proc { current_admin_user.is_root? }
       end
     end
   end

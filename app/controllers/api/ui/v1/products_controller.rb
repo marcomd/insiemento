@@ -7,11 +7,11 @@ class Api::Ui::V1::ProductsController < Api::Ui::BaseController
   def index
     @products = @organization.products.order('id')
     # Consente di filtrare tramite https://github.com/activerecord-hackery/ransack
-    if params[:q].present?
-      @products = @products.ransack(params[:q]).result
-    else
-      @products = @products.where(product_filter_params)
-    end
+    @products = if params[:q].present?
+                  @products.ransack(params[:q]).result
+                else
+                  @products.where(product_filter_params)
+                end
 
     render :index
   end

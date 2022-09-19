@@ -9,12 +9,14 @@ RSpec.describe UserPenaltyJob, type: :job do
   let(:course) { course_fitness_zumba }
   let(:penalty) { create(:penalty, organization: organization, category: category) }
   let(:event_date) { 1.day.ago }
-  let(:course_event) { create(:course_event,
-                              organization: organization,
-                              category: category,
-                              course: course,
-                              state: :active,
-                              event_date: event_date) }
+  let(:course_event) do
+    create(:course_event,
+           organization: organization,
+           category: category,
+           course: course,
+           state: :active,
+           event_date: event_date)
+  end
   # Dopo il seed lo user è senza abbonamento, verificare
   let(:user) { user_linda }
   let(:attendee) { create(:attendee, user: user, course_event: course_event, presence: presence, disable_bookability_checks: true) }
@@ -41,7 +43,7 @@ RSpec.describe UserPenaltyJob, type: :job do
 
       it do
         expect do
-          perform_enqueued_jobs{ subject }
+          perform_enqueued_jobs { subject }
         end.to change(UserPenalty, :count).by(1)
       end
     end

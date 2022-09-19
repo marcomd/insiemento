@@ -1,18 +1,17 @@
 module VueHelper
-
   def vue(component:, props: {})
     content_tag :div do
       content_tag :div, nil,
-        id: "#{component}-vue-wrapper",
-        'data-props': props.to_json,
-        'data-locale': I18n.locale,
-        'data-i18n': translations(component),
-        'data-env': Rails.env
+                  id: "#{component}-vue-wrapper",
+                  'data-props': props.to_json,
+                  'data-locale': I18n.locale,
+                  'data-i18n': translations(component),
+                  'data-env': Rails.env
       # 'data-rollbar-token': rollbar_token,
     end
   end
 
-private
+  private
 
   def translations(component)
     translations_json = {}
@@ -27,5 +26,4 @@ private
   # def rollbar_token
   #   Rollbar.configuration.js_options[:accessToken] unless Rails.env.development? || Rails.env.test?
   # end
-
 end

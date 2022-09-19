@@ -1,7 +1,7 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe ApplicationHelper, type: :helper do
-  describe "#get_organization_domain" do
+  describe '#get_organization_domain' do
     let(:result) { helper.get_organization_domain(organization) }
 
     let(:organization) { user_stefania.organization }

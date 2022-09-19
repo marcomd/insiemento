@@ -18,6 +18,6 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
   private
 
   def login_params
-    params.require(:authentication).permit(:email, :password, :rememberMe, :format )
+    params.require(:authentication).permit(:email, :password, :rememberMe, :format)
   end
 end

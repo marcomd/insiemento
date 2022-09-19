@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :news do
     organization
-    title { "MyTitle" }
-    body { "MyBody" }
+    title { 'MyTitle' }
+    body { 'MyBody' }
   end
 end

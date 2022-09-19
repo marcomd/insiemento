@@ -15,10 +15,10 @@ class StripePayment < Payment
 
   def create_intent
     intent = Stripe::PaymentIntent.create({
-                                              amount: self.amount_cents,
-                                              currency: 'eur',
-                                              # Verify your integration in this guide by including this parameter
-                                              metadata: {integration_check: "payment"},
+                                            amount: amount_cents,
+                                            currency: 'eur',
+                                            # Verify your integration in this guide by including this parameter
+                                            metadata: { integration_check: 'payment' }
                                           })
     update_columns external_service_response: intent
     intent

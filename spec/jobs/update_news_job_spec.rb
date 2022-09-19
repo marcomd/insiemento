@@ -30,7 +30,7 @@ RSpec.describe UpdateNewsJob, type: :job do
       it do
         expect do
           expect(news).to be_active_state
-          perform_enqueued_jobs{ subject }
+          perform_enqueued_jobs { subject }
           news.reload
         end.to change(news, :state).from('active').to('expired')
       end
@@ -40,7 +40,7 @@ RSpec.describe UpdateNewsJob, type: :job do
         it do
           expect do
             expect(news).to be_draft_state
-            perform_enqueued_jobs{ subject }
+            perform_enqueued_jobs { subject }
             news.reload
           end.to_not change(news, :state)
         end
@@ -52,7 +52,7 @@ RSpec.describe UpdateNewsJob, type: :job do
       let(:expire_on) { 1.day.from_now }
       it do
         expect do
-          perform_enqueued_jobs{ subject }
+          perform_enqueued_jobs { subject }
           news.reload
         end.to_not change(news, :state)
       end

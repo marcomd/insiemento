@@ -1,5 +1,5 @@
 ActiveAdmin.register CourseSchedule do
-  menu parent: 'courses_management', if: proc{ can?(:read, CourseSchedule) }
+  menu parent: 'courses_management', if: proc { can?(:read, CourseSchedule) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -11,7 +11,7 @@ ActiveAdmin.register CourseSchedule do
   # or
 
   permit_params do
-    permitted = [:category_id, :course_id, :room_id, :trainer_id, :event_day, :event_time, :state]
+    permitted = %i[category_id course_id room_id trainer_id event_day event_time state]
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
@@ -29,7 +29,7 @@ ActiveAdmin.register CourseSchedule do
 
   scope I18n.t('activerecord.attributes.course_schedule.states.active'), :active, default: true
   scope I18n.t('activerecord.attributes.course_schedule.states.suspended'), :suspended
-  scope I18n.t('ui.users.commons.all')                        , :all
+  scope I18n.t('ui.users.commons.all'), :all
 
   index do
     selectable_column
@@ -39,40 +39,38 @@ ActiveAdmin.register CourseSchedule do
     column(:course)
     column(:room)
     column(:trainer)
-    column(:event_day) { |obj|  obj.localized_event_day }
-    column(:event_time) { |obj|  obj.event_time_short }
-    column(:state) {|obj| status_tag_for obj }
+    column(:event_day) { |obj| obj.localized_event_day }
+    column(:event_time) { |obj| obj.event_time_short }
+    column(:state) { |obj| status_tag_for obj }
     column(:created_at)
     column(:updated_at)
     actions
   end
 
-  batch_action :sospendi, :if => proc{ @current_scope && @current_scope.scope_method == :active },
-               confirm: "Confermi di voler sospendere le schedulazioni selezionate?" do |selection|
-
-    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'pause', is_transaction: true, return_scope_if_ok:'suspended', return_scope_if_error:'active'
+  batch_action :sospendi, if: proc { @current_scope && @current_scope.scope_method == :active },
+                          confirm: 'Confermi di voler sospendere le schedulazioni selezionate?' do |selection|
+    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'pause', is_transaction: true, return_scope_if_ok: 'suspended', return_scope_if_error: 'active'
   end
 
-  batch_action :attiva, :if => proc{ @current_scope && @current_scope.scope_method == :suspended },
-               confirm: "Confermi di voler riattivare le schedulazioni selezionate?" do |selection|
-
-    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'activate', is_transaction: true, return_scope_if_ok:'active', return_scope_if_error:'suspended'
+  batch_action :attiva, if: proc { @current_scope && @current_scope.scope_method == :suspended },
+                        confirm: 'Confermi di voler riattivare le schedulazioni selezionate?' do |selection|
+    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'activate', is_transaction: true, return_scope_if_ok: 'active', return_scope_if_error: 'suspended'
   end
 
-  filter :organization    , if: proc { current_admin_user.is_root? }
-  filter :category        , collection: proc { current_admin_user.categories }
-  filter :course          , collection: proc { current_admin_user.courses }
-  filter :room            , collection: proc { current_admin_user.rooms }
-  filter :trainer         , collection: proc { current_admin_user.trainers }
-  filter :event_day       , as: :select, collection: CourseSchedule.localized_event_days
- #filter :event_time
-  filter :state           , as: :select, collection: CourseSchedule.localized_states
+  filter :organization, if: proc { current_admin_user.is_root? }
+  filter :category, collection: proc { current_admin_user.categories }
+  filter :course, collection: proc { current_admin_user.courses }
+  filter :room, collection: proc { current_admin_user.rooms }
+  filter :trainer, collection: proc { current_admin_user.trainers }
+  filter :event_day, as: :select, collection: CourseSchedule.localized_event_days
+  # filter :event_time
+  filter :state, as: :select, collection: CourseSchedule.localized_states
   filter :created_at
   filter :updated_at
 
   form do |f|
     f.inputs do
-      f.semantic_errors *f.object.errors.keys
+      f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
         f.input :organization
       else

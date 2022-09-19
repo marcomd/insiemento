@@ -1,5 +1,5 @@
 ActiveAdmin.register Room do
-  menu parent: 'gym_management', if: proc{ can?(:read, Room) }
+  menu parent: 'gym_management', if: proc { can?(:read, Room) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -11,7 +11,7 @@ ActiveAdmin.register Room do
   # or
 
   permit_params do
-    permitted = [:name, :description, :max_attendees, :state]
+    permitted = %i[name description max_attendees state]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
@@ -30,7 +30,7 @@ ActiveAdmin.register Room do
     column(:organization) if current_admin_user.is_root?
     column(:name)
     column(:max_attendees)
-    column(:state) {|obj| status_tag_for obj }
+    column(:state) { |obj| status_tag_for obj }
     column(:created_at)
     column(:updated_at)
     actions
@@ -40,13 +40,13 @@ ActiveAdmin.register Room do
   filter :name
   filter :description
   filter :max_attendees
-  filter :state       , as: :select, collection: Room.localized_states
+  filter :state, as: :select, collection: Room.localized_states
   filter :created_at
   filter :updated_at
 
   form do |f|
     f.inputs do
-      f.semantic_errors *f.object.errors.keys
+      f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
         f.input :organization
       else

@@ -1,5 +1,5 @@
 ActiveAdmin.register Attendee do
-  menu parent: 'courses_management', if: proc{ can?(:read, Attendee) }
+  menu parent: 'courses_management', if: proc { can?(:read, Attendee) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -47,20 +47,20 @@ ActiveAdmin.register Attendee do
     actions
   end
 
-  batch_action :destroy, :if => proc{ @current_scope },
-               confirm: "Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)" do |selection|
-    shared_batch_action class_object: Attendee, selection: selection, action_name: 'destroy' #, return_scope_if_ok:'all', return_scope_if_error:'all'
+  batch_action :destroy, if: proc { @current_scope },
+                         confirm: 'Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)' do |selection|
+    shared_batch_action class_object: Attendee, selection: selection, action_name: 'destroy' # , return_scope_if_ok:'all', return_scope_if_error:'all'
   end
 
-  batch_action :elimina_senza_controlli, :if => proc{ @current_scope },
-               confirm: "Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)" do |selection|
+  batch_action :elimina_senza_controlli, if: proc { @current_scope },
+                                         confirm: 'Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)' do |selection|
     records = Attendee.find(selection)
     records.each { |record| record.disable_bookability_checks = true }
-    shared_batch_action class_object: Attendee, records: records, action_name: 'destroy' #, return_scope_if_ok:'all', return_scope_if_error:'all'
+    shared_batch_action class_object: Attendee, records: records, action_name: 'destroy' # , return_scope_if_ok:'all', return_scope_if_error:'all'
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
-  filter :user        , collection: proc { current_admin_user.users }
+  filter :user, collection: proc { current_admin_user.users }
   filter :course_event_id
   filter :subscription_id
   filter :presence
@@ -71,7 +71,7 @@ ActiveAdmin.register Attendee do
     columns do
       column do
         f.inputs do
-          f.semantic_errors *f.object.errors.keys
+          f.semantic_errors(*f.object.errors.keys)
           if current_admin_user.is_root?
             f.input :organization
           else
@@ -79,8 +79,8 @@ ActiveAdmin.register Attendee do
           end
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
           f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
-                  fields: [:firstname, :lastname], display_name: :full_name, minimum_input_length: 3,
-                   order_by: 'lastname_asc'
+                            fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,
+                            order_by: 'lastname_asc'
           f.input :course_event_id
           f.input :subscription_id
           f.input :presence

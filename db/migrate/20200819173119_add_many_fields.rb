@@ -1,12 +1,12 @@
 class AddManyFields < ActiveRecord::Migration[6.0]
   def change
     add_reference :attendees, :subscription, null: true, foreign_key: true
-    add_column :products, :product_type, :integer, limit:1
-    add_column :products, :state, :integer, limit:1
-    add_column :products, :max_accesses_number, :integer, limit:2
-    add_column :subscriptions, :subscription_type, :integer, limit:1
-    add_column :subscriptions, :state, :integer, limit:1
-    add_column :subscriptions, :max_accesses_number, :integer, limit:2
+    add_column :products, :product_type, :integer, limit: 1
+    add_column :products, :state, :integer, limit: 1
+    add_column :products, :max_accesses_number, :integer, limit: 2
+    add_column :subscriptions, :subscription_type, :integer, limit: 1
+    add_column :subscriptions, :state, :integer, limit: 1
+    add_column :subscriptions, :max_accesses_number, :integer, limit: 2
     add_index :products, :product_type
     add_index :products, :state
     add_index :subscriptions, :subscription_type
@@ -14,7 +14,7 @@ class AddManyFields < ActiveRecord::Migration[6.0]
 
     reversible do |dir|
       dir.up do
-        Attendee.find_in_batches(batch_size:500) do |group|
+        Attendee.find_in_batches(batch_size: 500) do |group|
           group.each do |attendee|
             course_event = attendee.course_event
             # subscription = Subscription.where(category_id: course_event.category_id, user_id: attendee.user_id)

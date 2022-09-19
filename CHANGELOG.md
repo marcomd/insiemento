@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.28.7 19/09/2022
+
+- Rubocop's fixes
+  - Updated rubocop from 0.79 to 0.92
+  - The corrections reported by rubocop -a have been applied
+
 # v1.28.6 18/09/2022
 
 - Updated rails, ruby and a fix to course schedule admin UI

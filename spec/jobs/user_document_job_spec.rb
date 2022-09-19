@@ -18,12 +18,11 @@ RSpec.describe UserDocumentJob, type: :job do
   end
 
   context 'when job is performed' do
-
     context 'when state is correct' do
       it do
         expect do
           VCR.use_cassette "otpservice/create_user_document_id_#{user_document.id}_status_201" do
-            perform_enqueued_jobs{ subject }
+            perform_enqueued_jobs { subject }
           end
           user_document.reload
         end.to change(user_document, :state).from('exporting').to('exported')
@@ -34,7 +33,7 @@ RSpec.describe UserDocumentJob, type: :job do
       let(:user_document) { UserDocument.draft_state.first }
 
       it do
-        expect { perform_enqueued_jobs{ subject } }.to raise_exception /Event 'start_export' cannot transition from 'draft'/
+        expect { perform_enqueued_jobs { subject } }.to raise_exception(/Event 'start_export' cannot transition from 'draft'/)
       end
     end
 
@@ -42,7 +41,7 @@ RSpec.describe UserDocumentJob, type: :job do
       it do
         expect do
           VCR.use_cassette "otpservice/create_user_document_id_#{user_document.id}_status_422" do
-            perform_enqueued_jobs{ subject }
+            perform_enqueued_jobs { subject }
           end
           user_document.reload
         end.to raise_exception(/UserDocumentJob failed/).and change(SystemLog, :count).by(1)

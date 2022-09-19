@@ -5,8 +5,8 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :validatable, :trackable
 
-  ROLES = %w[root manager accountant]
-  scope :with_role   , ->(role) { where("roles_mask & #{2**ROLES.index(role.to_s)} > 0 ") }
+  ROLES = %w[root manager accountant].freeze
+  scope :with_role, ->(role) { where("roles_mask & #{2**ROLES.index(role.to_s)} > 0 ") }
   scope :without_role, ->(role) { where("roles_mask & #{2**ROLES.index(role.to_s)} = 0 ") }
 
   def fullname
@@ -26,7 +26,7 @@ class AdminUser < ApplicationRecord
   end
 
   def is_root?
-    self.has_role? 'root'
+    has_role? 'root'
   end
 
   def categories

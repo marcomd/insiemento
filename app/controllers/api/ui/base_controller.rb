@@ -43,6 +43,4 @@ class Api::Ui::BaseController < ApplicationController
   def simulate_delay_for_development
     sleep(rand(0.0..1.5)) if Rails.env.development?
   end
-
-
 end

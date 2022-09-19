@@ -6,24 +6,24 @@ class News < ApplicationRecord
   before_save :set_current_state
 
   enum state: {
-      draft:                  10, # Write the text...
-      active:                 20, # The news is published
-      expired:                100,# The news is no more shown
+    draft: 10, # Write the text...
+    active: 20, # The news is published
+    expired: 100  # The news is no more shown
   }, _suffix: true
 
   enum news_type: {
-      critical: 1,
-      warning: 2,
-      info: 3,
-      success: 4,
-      happy: 5,
-      kidding: 6,
-      sad: 7,
-      disconcert: 8,
-      love: 9,
-      angry: 10,
-      tech: 11,
-      premium: 12,
+    critical: 1,
+    warning: 2,
+    info: 3,
+    success: 4,
+    happy: 5,
+    kidding: 6,
+    sad: 7,
+    disconcert: 8,
+    love: 9,
+    angry: 10,
+    tech: 11,
+    premium: 12
   }, _suffix: true
 
   def icon
@@ -42,9 +42,9 @@ class News < ApplicationRecord
     when 'tech'       then 'monitor-cellphone'
     when 'premium'    then 'star'
     else
-          news_type
+      news_type
     end
-    }"
+  }"
   end
 
   def color
@@ -66,16 +66,16 @@ class News < ApplicationRecord
   private
 
   def set_current_state(date=Time.zone.today)
-    self.state = 'expired' if self.state == 'active' && self.expire_on < date
-    self.state = 'active' if self.state == 'expired' && self.expire_on >= date
+    self.state = 'expired' if state == 'active' && expire_on < date
+    self.state = 'active' if state == 'expired' && expire_on >= date
   end
 
   def set_default
     self.state ||= :draft
     self.news_type ||= :info
     self.expire_on ||= Time.zone.today + 1.week
-    self.dark_style = true if self.dark_style == nil
-    self.public = true if self.public == nil
-    self.private = true if self.private == nil
+    self.dark_style = true if dark_style.nil?
+    self.public = true if public.nil?
+    self.private = true if private.nil?
   end
 end

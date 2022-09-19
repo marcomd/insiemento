@@ -1,5 +1,5 @@
 class Api::Ui::V1::UsersController < Api::Ui::BaseController
-  before_action :set_user, except: [:index, :availability]
+  before_action :set_user, except: %i[index availability]
   skip_before_action :authenticate_request, only: [:availability], raise: false
 
   respond_to :json
@@ -23,7 +23,7 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
 
   def availability
     sleep(rand(0.0..0.8)) if Rails.env.development?
-    permitted_params = [:email, :format]
+    permitted_params = %i[email format]
     email = params.permit(*permitted_params)[:email]
     if email
       email = URI.decode(email)
@@ -50,5 +50,4 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
                                  :child_firstname, :child_lastname, :child_birthdate,
                                  :phone, :gender, :format)
   end
-
 end

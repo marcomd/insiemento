@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe '#has_active_document?' do
     let(:result) { subject.has_active_document?(user_document_model_id) }
     let(:user_document_model_id) { 1 }
@@ -33,7 +32,6 @@ RSpec.describe User, type: :model do
       end
 
       context 'when user is NOT active' do
-
         before { subject.state = :new }
         it do
           expect do

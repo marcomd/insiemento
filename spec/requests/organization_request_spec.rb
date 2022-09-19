@@ -1,5 +1,4 @@
 describe 'OrganizationRequest', type: :request do
-
   let!(:organization) { create(:organization, domain: domain) }
 
   context 'when host has subdomain dsm' do
@@ -7,13 +6,13 @@ describe 'OrganizationRequest', type: :request do
     let(:my_hostname) { "#{domain}.insiemento.local" }
 
     before(:all) do
-      ENV['ORGANIZATION']=nil
+      ENV['ORGANIZATION'] = nil
     end
 
     it 'must set organization by subdomain' do
       host! my_hostname
       get '/users'
-      expect(response.request.env['action_controller.instance'].send :current_organization).to eq organization
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq organization
       expect(response).to have_http_status(:ok)
     end
 
@@ -37,13 +36,13 @@ describe 'OrganizationRequest', type: :request do
     let(:my_hostname) { domain }
 
     before(:all) do
-      ENV['ORGANIZATION']=nil
+      ENV['ORGANIZATION'] = nil
     end
 
     it 'must set organization' do
       host! my_hostname
       get '/users'
-      expect(response.request.env['action_controller.instance'].send :current_organization).to eq organization
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq organization
       expect(response).to have_http_status(:ok)
     end
 
@@ -60,7 +59,7 @@ describe 'OrganizationRequest', type: :request do
     let(:domain) { 'rspec' }
 
     before(:all) do
-      ENV['ORGANIZATION']='1'
+      ENV['ORGANIZATION'] = '1'
     end
     after(:all) do
       ENV.delete 'ORGANIZATION'
@@ -77,20 +76,20 @@ describe 'OrganizationRequest', type: :request do
     let(:domain) { 'rspec.local' }
 
     before(:all) do
-      ENV['ORGANIZATION']=nil
+      ENV['ORGANIZATION'] = nil
       host! CONFIG[:domains].first
     end
 
     it 'must set no organization' do
       get '/users'
-      expect(response.request.env['action_controller.instance'].send :current_organization).to eq nil
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq nil
       expect(response).to have_http_status(:ok)
     end
 
     context 'when organizazion param is present' do
       it 'must set organization by url param' do
         get "/users?organization=#{organization.uuid}"
-        expect(response.request.env['action_controller.instance'].send :current_organization).to eq organization
+        expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq organization
         expect(response).to have_http_status(:ok)
       end
 

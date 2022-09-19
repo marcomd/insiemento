@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ConsumptionSubscription, type: :model do
-
   subject { user_linda.active_subscriptions.where(subscription_type: 'consumption').first }
 
   describe '#set_current_state' do
     let(:result) { subject.send(:set_current_state, current_date) }
-    let(:current_date) { Date.new(2020,8,2) }
+    let(:current_date) { Date.new(2020, 8, 2) }
     let(:course_event) { CourseEvent.find course_event_id }
 
     before do
@@ -33,5 +32,4 @@ RSpec.describe ConsumptionSubscription, type: :model do
       end
     end
   end
-
 end

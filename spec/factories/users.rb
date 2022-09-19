@@ -4,7 +4,7 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@email.com" }
     sequence(:firstname) { |n| "John#{n}" }
     sequence(:lastname) { |n| "Smith#{n}" }
-    sequence(:gender) { |n| n%2 == 0 ? 'M' : 'F' }
+    sequence(:gender) { |n| n.even? ? 'M' : 'F' }
     password { 'heicwhihc1234' }
     password_confirmation { 'heicwhihc1234' }
     phone { '3331122333' }

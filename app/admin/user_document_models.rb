@@ -1,5 +1,5 @@
 ActiveAdmin.register UserDocumentModel do
-  menu parent: 'platform_management', if: proc{ can?(:read, UserDocumentModel) }
+  menu parent: 'platform_management', if: proc { can?(:read, UserDocumentModel) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -11,7 +11,7 @@ ActiveAdmin.register UserDocumentModel do
   # or
   #
   permit_params do
-    permitted = [:state, :title, :body, :validity_days, :recurring]
+    permitted = %i[state title body validity_days recurring]
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     permitted
@@ -25,15 +25,15 @@ ActiveAdmin.register UserDocumentModel do
     end
   end
 
-  scope I18n.t('activerecord.attributes.user_document_model.states.active')    , :active_state
-  scope I18n.t('activerecord.attributes.user_document_model.states.suspended') , :suspended_state
-  scope I18n.t('ui.users.commons.all')                        , :all, default: true
+  scope I18n.t('activerecord.attributes.user_document_model.states.active'), :active_state
+  scope I18n.t('activerecord.attributes.user_document_model.states.suspended'), :suspended_state
+  scope I18n.t('ui.users.commons.all'), :all, default: true
 
   index do
     selectable_column
     id_column
     column(:organization) if current_admin_user.is_root?
-    column(:state) {|obj| status_tag_for obj }
+    column(:state) { |obj| status_tag_for obj }
     column(:title)
     column(:validity_days)
     column(:recurring)
@@ -47,7 +47,7 @@ ActiveAdmin.register UserDocumentModel do
       column do
         attributes_table do
           row(:organization) if current_admin_user.is_root?
-          row(:state) {|obj| status_tag_for obj }
+          row(:state) { |obj| status_tag_for obj }
           row(:validity_days)
           row(:recurring)
           row(:created_at)
@@ -57,7 +57,7 @@ ActiveAdmin.register UserDocumentModel do
           table_for user_document_model.user_documents.order('id desc').last(10) do
             column(:id) { |obj| link_to obj.id, [:admin, obj] }
             column(:user)
-            column(:state) {|obj| status_tag_for obj }
+            column(:state) { |obj| status_tag_for obj }
             column(:created_at)
           end
         end

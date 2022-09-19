@@ -3,6 +3,7 @@ module ApplicationHelper
     hostname = Rails.application.default_url_options[:host]
     domain = organization.domain
     return hostname unless domain.present?
+
     if domain.include?('.')
       domain.include?('www.') ? domain : "www.#{domain}"
     else
@@ -10,6 +11,7 @@ module ApplicationHelper
       [organization.domain, hostname.sub('www.', '')].join('.')
     end
   end
+
   def status_tag_for(object, field: :state)
     value = object.send(field)
     content_tag :span, class: "status_tag #{value}" do

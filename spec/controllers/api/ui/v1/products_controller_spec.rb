@@ -1,8 +1,8 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Api::Ui::V1::ProductsController, type: :api do
   before do
-    ENV['ORGANIZATION']='1'
+    ENV['ORGANIZATION'] = '1'
     header 'Content-Type', 'application/json; charset=utf-8'
     header 'X-Auth-Token', jwt_token
     header 'Accept-Language', language
@@ -60,5 +60,4 @@ describe Api::Ui::V1::ProductsController, type: :api do
       end
     end
   end
-
 end

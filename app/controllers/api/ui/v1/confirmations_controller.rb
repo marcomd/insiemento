@@ -1,15 +1,15 @@
 class Api::Ui::V1::ConfirmationsController < Devise::ConfirmationsController
-  #protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
   skip_before_action :authenticate_request
   respond_to :json
 
   def create
     resource = User.find_for_database_authentication(email: resource_params[:email])
     if resource.nil?
-      render json: { success: false, email: resource_params[:email], errors: {email: [I18n.t('errors.messages.not_found')]} }, status: :unprocessable_entity
+      render json: { success: false, email: resource_params[:email], errors: { email: [I18n.t('errors.messages.not_found')] } }, status: :unprocessable_entity
       return
     elsif resource.confirmed_at.present?
-      render json: { success: false, email: resource_params[:email], errors: {email: [I18n.t('errors.messages.already_confirmed')]} }, status: :unprocessable_entity
+      render json: { success: false, email: resource_params[:email], errors: { email: [I18n.t('errors.messages.already_confirmed')] } }, status: :unprocessable_entity
       return
     end
 
@@ -32,7 +32,7 @@ class Api::Ui::V1::ConfirmationsController < Devise::ConfirmationsController
     end
   end
 
-private
+  private
 
   def resource_params
     params.require(:user).permit(:email, :auth_token)
@@ -41,5 +41,4 @@ private
     #   {}
     # end
   end
-
 end

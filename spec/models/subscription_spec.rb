@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Subscription, type: :model do
-
   describe '#type' do
     subject { build(:subscription, subscription_type: subscription_type) }
     let(:result) { subject.type }
@@ -51,10 +50,10 @@ RSpec.describe Subscription, type: :model do
   describe '#set_current_state' do
     let(:result) { subject.send(:set_current_state, current_date) }
     subject { build(:subscription, subscription_type: :fee, state: :active, start_on: '2020-08-02', end_on: '2020-08-03') }
-    let(:current_date) { Date.new(2020,8,2) }
+    let(:current_date) { Date.new(2020, 8, 2) }
 
     context 'when start on is in the future' do
-      let(:current_date) { Date.new(2020,8,1) }
+      let(:current_date) { Date.new(2020, 8, 1) }
       it { expect(result).to eq 'new' }
     end
 
@@ -63,12 +62,12 @@ RSpec.describe Subscription, type: :model do
     end
 
     context 'when start on is passed and end_on is today' do
-      let(:current_date) { Date.new(2020,8,3) }
+      let(:current_date) { Date.new(2020, 8, 3) }
       it { expect(result).to eq 'active' }
     end
 
     context 'when start on and end_on are both passed' do
-      let(:current_date) { Date.new(2020,8,4) }
+      let(:current_date) { Date.new(2020, 8, 4) }
       it { expect(result).to eq 'expired' }
     end
   end
@@ -135,6 +134,5 @@ RSpec.describe Subscription, type: :model do
         it { expect(result).to eq 0 }
       end
     end
-
   end
 end

@@ -7,7 +7,7 @@ class Trainer < ApplicationRecord
 
   before_validation :set_default
 
-  STATES = { just_made: 10, active: 20, suspended: 30}
+  STATES = { just_made: 10, active: 20, suspended: 30 }.freeze
   enum state: STATES
 
   def full_name

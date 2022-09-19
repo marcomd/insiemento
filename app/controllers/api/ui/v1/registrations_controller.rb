@@ -30,7 +30,7 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   def user_params
     params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
                                  :firstname, :lastname, :phone, :birthdate, :gender,
-                                 :child_firstname, :child_lastname, :child_birthdate, :format )
+                                 :child_firstname, :child_lastname, :child_birthdate, :format)
   end
 
   def check_and_sanitize_email_confirmation

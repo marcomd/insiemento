@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'users#index'
 
   get 'users', to: 'users#index'
@@ -13,7 +12,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :ui do
       namespace :v1 do
-        devise_for :users, controllers: {registrations: 'api/ui/v1/registrations' }
+        devise_for :users, controllers: { registrations: 'api/ui/v1/registrations' }
         delete 'unregister', to: 'users#destroy'
         post 'authenticate', to: 'authentication#authenticate'
         get 'profile',        to: 'users#show'
@@ -33,7 +32,7 @@ Rails.application.routes.draw do
           end
         end
         resources :payments, :products, :subscriptions
-        put 'user_documents/callback/:uuid/:state',        to: 'user_documents#callback'
+        put 'user_documents/callback/:uuid/:state', to: 'user_documents#callback'
         resources :news, only: :index
       end
     end

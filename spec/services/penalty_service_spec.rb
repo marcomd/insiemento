@@ -10,12 +10,14 @@ describe PenaltyService do
   let(:penalty_category) { category_fitness }
   let(:penalty_course) { nil }
   let(:penalty) { create(:penalty, organization: organization, category: penalty_category, course: penalty_course) }
-  let(:course_event) { create(:course_event,
-                              organization: organization,
-                              category: category_fitness,
-                              course: course_fitness_zumba,
-                              state: :active,
-                              event_date: event_date) }
+  let(:course_event) do
+    create(:course_event,
+           organization: organization,
+           category: category_fitness,
+           course: course_fitness_zumba,
+           state: :active,
+           event_date: event_date)
+  end
   # Dopo il seed lo user è senza abbonamento, verificare
   let(:user) { user_linda }
   let(:attendee) { create(:attendee, user: user, course_event: course_event, presence: presence, disable_bookability_checks: true) }
@@ -96,12 +98,14 @@ describe PenaltyService do
         end
 
         context 'when there are more course events' do
-          let(:another_course_event) { create(:course_event,
-                                      organization: organization,
-                                      category: category_fitness,
-                                      course: course_fitness_yoga,
-                                      state: :active,
-                                      event_date: event_date) }
+          let(:another_course_event) do
+            create(:course_event,
+                   organization: organization,
+                   category: category_fitness,
+                   course: course_fitness_yoga,
+                   state: :active,
+                   event_date: event_date)
+          end
           let!(:another_attendee) { create(:attendee, user: user_marco, course_event: another_course_event, presence: presence, disable_bookability_checks: true) }
 
           it do
@@ -121,7 +125,6 @@ describe PenaltyService do
           end
         end
       end
-
     end
 
     # it 'creates course events' do

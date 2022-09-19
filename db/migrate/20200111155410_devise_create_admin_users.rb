@@ -8,8 +8,8 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.0]
       t.string :lastname, limit: 30
 
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -35,7 +35,7 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.0]
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
-      t.integer "roles_mask"
+      t.integer 'roles_mask'
 
       t.timestamps null: false
     end

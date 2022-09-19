@@ -10,7 +10,7 @@ module Insiemento
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-    #config.active_record.belongs_to_required_by_default = false
+    # config.active_record.belongs_to_required_by_default = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -20,15 +20,15 @@ module Insiemento
     config.time_zone = 'Rome'
 
     config.i18n.default_locale = :it
-    config.i18n.available_locales = [:en, :it]
+    config.i18n.available_locales = %i[en it]
 
     # config.assets.precompile += %w[active_admin.scss active_admin.js]
 
     config.active_job.queue_adapter = :sidekiq
-    config.action_mailer.deliver_later_queue_name = "insiemento_mailer"
+    config.action_mailer.deliver_later_queue_name = 'insiemento_mailer'
 
     config.active_storage.variant_processor = :vips
 
-    config.autoload_paths += %W(#{Rails.root}/app/models/payments #{Rails.root}/app/models/subscriptions)
+    config.autoload_paths += %W[#{Rails.root}/app/models/payments #{Rails.root}/app/models/subscriptions]
   end
 end

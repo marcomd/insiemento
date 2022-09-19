@@ -1,7 +1,7 @@
 class AuthorizeApiRequest
   prepend SimpleCommand
 
-  HEADER_NAME = 'X-Auth-Token'
+  HEADER_NAME = 'X-Auth-Token'.freeze
 
   def initialize(headers = {})
     @headers = headers
@@ -30,6 +30,7 @@ class AuthorizeApiRequest
     else
       errors.add(:token, 'Missing token')
     end
+
     nil
   end
 end

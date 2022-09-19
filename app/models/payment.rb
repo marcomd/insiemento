@@ -12,19 +12,19 @@ class Payment < ApplicationRecord
   enum source: { frontend: 0, backend: 1 }, _prefix: true
   enum type: { StripePayment: 0, PaypalPayment: 1, BankTransferPayment: 2 }
 
-  STATES = { just_made: 10, canceled: 30, synched: 40, confirmed: 50}
+  STATES = { just_made: 10, canceled: 30, synched: 40, confirmed: 50 }.freeze
   enum state: STATES
 
   # validate :check_json_format
-  validates :external_service_response, json: {message: :invalid_json_format}
+  validates :external_service_response, json: { message: :invalid_json_format }
 
-  ACTIVE_STATES = [:just_made]
-  UNACTIVE_STATES = [:canceled, :confirmed]
+  ACTIVE_STATES = [:just_made].freeze
+  UNACTIVE_STATES = %i[canceled confirmed].freeze
 
   monetize :amount_cents
 
   # It uses comma as thousand separator
-  ransacker :amount, formatter: proc { |v| v.sub(',','.').to_r * 100 } do |parent|
+  ransacker :amount, formatter: proc { |v| v.sub(',', '.').to_r * 100 } do |parent|
     parent.table[:amount_cents]
   end
 
@@ -41,11 +41,13 @@ class Payment < ApplicationRecord
 
   def add_to_order!
     return if order.blank? || !confirmed?
+
     order.update_paid_amounts!
   end
 
   def update_order!
     return unless order
+
     order.update_paid_amounts!
   end
 

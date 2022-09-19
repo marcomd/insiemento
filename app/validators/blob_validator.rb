@@ -9,9 +9,7 @@ class BlobValidator < ActiveModel::EachValidator
         end
       end
 
-      unless valid_content_type?(value.blob)
-        record.errors.add(attribute, :content_type)
-      end
+      record.errors.add(attribute, :content_type) unless valid_content_type?(value.blob)
     end
   end
 

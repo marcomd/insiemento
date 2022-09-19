@@ -1,9 +1,9 @@
 ActiveAdmin.register AdminUser do
-  menu parent: 'platform_management', if: proc{ can?(:update, AdminUser) }
+  menu parent: 'platform_management', if: proc { can?(:update, AdminUser) }
 
   # permit_params :email, :password, :password_confirmation
   permit_params do
-    permitted = [:email, :firstname, :lastname, :password, :password_confirmation]
+    permitted = %i[email firstname lastname password password_confirmation]
     permitted.concat([:organization_id, :roles_mask, roles: []]) if current_admin_user.is_root?
     permitted
   end
@@ -37,13 +37,13 @@ ActiveAdmin.register AdminUser do
     actions
   end
 
-  show do |admin_user|
+  show do |_admin_user|
     attributes_table do
       row(:organization)
       row(:email)
       row(:firstname)
       row(:lastname)
-      row(:roles_mask)  { |obj| obj.roles.join(', ') }
+      row(:roles_mask) { |obj| obj.roles.join(', ') }
       row(:sign_in_count)
       row(:current_sign_in_at)
       row(:last_sign_in_at)
@@ -64,10 +64,12 @@ ActiveAdmin.register AdminUser do
   filter :created_at
 
   form do |f|
-    f.inputs 'Admin' do
-      f.input :organization
-      f.input :roles, as: :check_boxes, collection: AdminUser::ROLES
-    end if current_admin_user.is_root?
+    if current_admin_user.is_root?
+      f.inputs 'Admin' do
+        f.input :organization
+        f.input :roles, as: :check_boxes, collection: AdminUser::ROLES
+      end
+    end
     f.inputs do
       f.input :firstname
       f.input :lastname
@@ -77,5 +79,4 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
-
 end

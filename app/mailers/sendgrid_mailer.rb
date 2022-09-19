@@ -2,14 +2,13 @@
 # Sendgrid mailer wrapper
 #
 class SendgridMailer < ApplicationMailer
-
   def account_confirmation(user, link_url:, debug: false)
     current_organization = user.organization
     language = 'it'
     json_data = {
-        firstname: user.firstname,
-        application_name: current_organization.name,
-        link_url: link_url
+      firstname: user.firstname,
+      application_name: current_organization.name,
+      link_url: link_url
     }
 
     template_id = get_remote_template_id(__method__)[language]
@@ -23,18 +22,17 @@ class SendgridMailer < ApplicationMailer
                            template_id: template_id,
                            dynamic_template_data: json_data,
                            attachments: nil,
-                           debug: debug,
+                           debug: debug
                          })
-
   end
 
   def reset_password(user, link_url:, debug: false)
     current_organization = user.organization
     language = 'it'
     json_data = {
-        firstname: user.firstname,
-        application_name: current_organization.name,
-        link_url: link_url
+      firstname: user.firstname,
+      application_name: current_organization.name,
+      link_url: link_url
     }
 
     template_id = get_remote_template_id(__method__)[language]
@@ -48,14 +46,13 @@ class SendgridMailer < ApplicationMailer
                            template_id: template_id,
                            dynamic_template_data: json_data,
                            attachments: nil,
-                           debug: debug,
+                           debug: debug
                          })
-end
+  end
 
   private
 
   def get_remote_template_id(mailer)
     YAML.load(File.read("#{Rails.root}/config/sendgrid/templates.yml")).fetch(mailer.to_s)
   end
-
 end

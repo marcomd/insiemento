@@ -6,12 +6,10 @@
 # In your yaml use:
 #   some_i18n_key: "detailed exception message: %{exception_message}"
 class JsonValidator < ActiveModel::EachValidator
-
   def initialize(options)
     options.reverse_merge!(message: :invalid)
     super(options)
   end
-
 
   def validate_each(record, attribute, value)
     if value.is_a?(Hash) || value.is_a?(Array)
@@ -20,8 +18,7 @@ class JsonValidator < ActiveModel::EachValidator
       value = value.strip
     end
     JSON.parse(value)
-  rescue JSON::ParserError, TypeError => exception
-    record.errors.add(attribute, options[:message], exception_message: exception.message)
+  rescue JSON::ParserError, TypeError => e
+    record.errors.add(attribute, options[:message], exception_message: e.message)
   end
-
 end

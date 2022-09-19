@@ -7,7 +7,7 @@ class Api::Ui::V1::PasswordsController < Devise::PasswordsController
   def create
     resource = User.find_for_database_authentication(email: resource_params[:email])
     if resource.nil?
-      render json: { success: false, email: resource_params[:email], errors: {email: [I18n.t('errors.messages.not_found')]} }, status: :unprocessable_entity
+      render json: { success: false, email: resource_params[:email], errors: { email: [I18n.t('errors.messages.not_found')] } }, status: :unprocessable_entity
       return
     end
 

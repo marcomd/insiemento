@@ -1,5 +1,5 @@
 other_hosts = ['dsmdanceschool.it']
-host = other_hosts.first #'www.insiemento.com'
+host = other_hosts.first # 'www.insiemento.com'
 Rails.application.default_url_options = { host: host, protocol: 'https://' }
 
 Rails.application.configure do
@@ -55,7 +55,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -70,19 +70,19 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options   = { :host => host }
+  config.action_mailer.default_url_options   = { host: host }
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-      user_name: Rails.application.credentials.smtp[:production][:username],
-      password: Rails.application.credentials.smtp[:production][:password],
-      domain: host,
-      address: 'mail.smtp2go.com',
-      port: '2525',
-      authentication: :plain,
-      enable_starttls_auto: true
+    user_name: Rails.application.credentials.smtp[:production][:username],
+    password: Rails.application.credentials.smtp[:production][:password],
+    domain: host,
+    address: 'mail.smtp2go.com',
+    port: '2525',
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   # Action cable configuration
@@ -111,7 +111,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)

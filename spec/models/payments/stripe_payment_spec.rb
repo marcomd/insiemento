@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe StripePayment, type: :model do
-
   subject { build(:stripe_payment) }
 
   context 'create' do
     let(:result) do
-      VCR.use_cassette "generic_sendgrid/create_user" do
+      VCR.use_cassette 'generic_sendgrid/create_user' do
         subject.save
       end
     end
 
-    before { ENV['ORGANIZATION']='1' }
+    before { ENV['ORGANIZATION'] = '1' }
 
     it { expect(result).to be_truthy }
 

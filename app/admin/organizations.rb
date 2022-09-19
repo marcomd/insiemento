@@ -1,5 +1,5 @@
 ActiveAdmin.register Organization do
-  menu parent: 'platform_management', if: proc{ can?(:update, Organization) }
+  menu parent: 'platform_management', if: proc { can?(:update, Organization) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -14,9 +14,9 @@ ActiveAdmin.register Organization do
                 :homepage_customer_title, :homepage_customer_description,
                 :homepage_features_title, :homepage_features_summary,
                 :homepage_bio_title, :homepage_bio_description,
-                homepage_features_attributes: [:title, :icon, :text, :dark, :color, :_destroy],
-                homepage_contacts_attributes: [:title, :icon, :text, :dark, :color, :_destroy],
-                homepage_socials_attributes: [:title, :icon, :text, :dark, :color, :_destroy],
+                homepage_features_attributes: %i[title icon text dark color _destroy],
+                homepage_contacts_attributes: %i[title icon text dark color _destroy],
+                homepage_socials_attributes: %i[title icon text dark color _destroy],
                 images: []
   #
   # or
@@ -33,14 +33,14 @@ ActiveAdmin.register Organization do
     column(:name)
     column(:email)
     column(:phone)
-    column(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+    column(:state) { |obj| span obj.state, class: "status_tag #{obj.state}" }
     actions
   end
 
   filter :name
   filter :email
   filter :phone
-  filter :state       , as: :select, collection: CourseEvent.localized_states
+  filter :state, as: :select, collection: CourseEvent.localized_states
   filter :analytics_tag
   filter :created_at
   filter :updated_at
@@ -55,7 +55,7 @@ ActiveAdmin.register Organization do
           row(:domain)
           row(:email)
           row(:phone)
-          row(:state) {|obj| span obj.state, class: "status_tag #{obj.state}" }
+          row(:state) { |obj| span obj.state, class: "status_tag #{obj.state}" }
           row(:analytics_tag)
           row(:created_at)
           row(:updated_at)
@@ -92,14 +92,14 @@ ActiveAdmin.register Organization do
         end
       end
       column do
-        content_tag(:iframe, src: "#{root_url}?uuid=#{organization.uuid}", frameborder: '0', style: 'display:block; position: relative; height: 600px; width: 100%;' ) do
+        content_tag(:iframe, src: "#{root_url}?uuid=#{organization.uuid}", frameborder: '0', style: 'display:block; position: relative; height: 600px; width: 100%;') do
           content_tag(:div, 'No iframe supported')
         end
       end
     end
   end
 
-  form html: {multipart: true } do |f|
+  form html: { multipart: true } do |f|
     columns do
       column do
         f.inputs 'Dati principali' do
@@ -108,7 +108,7 @@ ActiveAdmin.register Organization do
           f.input :domain
           f.input :email
           f.input :phone
-          f.input :state #, collection: Organization::STATES
+          f.input :state # , collection: Organization::STATES
           f.input :analytics_tag
         end
       end
@@ -117,20 +117,20 @@ ActiveAdmin.register Organization do
     end
     columns do
       column do
-        f.inputs 'Aspetto estetico'do
+        f.inputs 'Aspetto estetico' do
           f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo, height: '50px') : ''
           f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, height: '50px') : ''
           f.input :images, as: :file, hint: f.object.images.present? ? f.object.images.map { |image| image_tag(image, height: '50px') }.join(' ').html_safe : '', input_html: { multiple: true }
           Organization.stored_attributes[:theme].each do |accessor|
             f.input accessor,
-                    as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :minicolors_picker ),
+                    as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :minicolors_picker),
                     required: false
           end
         end
       end
       column do
         f.inputs 'Homepage' do
-          f.semantic_errors *f.object.errors.keys
+          f.semantic_errors(*f.object.errors.keys)
           f.input :homepage_title
           f.input :homepage_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
           f.input :homepage_customer_title
@@ -166,5 +166,4 @@ ActiveAdmin.register Organization do
 
     f.actions
   end
-
 end

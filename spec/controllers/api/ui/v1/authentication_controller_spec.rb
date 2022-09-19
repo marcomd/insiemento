@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Api::Ui::V1::AuthenticationController, type: :api do
   # include Rack::Test::Methods # Include this when type is "request"
@@ -12,7 +12,7 @@ describe Api::Ui::V1::AuthenticationController, type: :api do
     let(:url) { '/api/ui/v1/authenticate' }
     let(:authenticate_email)     { user.email }
     let(:authenticate_password)  { user_password }
-    let(:params) { {email: authenticate_email, password: authenticate_password} }
+    let(:params) { { email: authenticate_email, password: authenticate_password } }
     let(:action) { post url, params.to_json }
     let(:organization) { user.organization }
 
@@ -31,7 +31,7 @@ describe Api::Ui::V1::AuthenticationController, type: :api do
         expect(last_response.status).to eq 200
 
         expect(json).to be_a(Hash)
-        expect(json['auth_token']).to match /\A.{20}\..{30,60}\..{43}\Z/
+        expect(json['auth_token']).to match(/\A.{20}\..{30,60}\..{43}\Z/)
         # Example Jwt:
         # eyJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcl9pZCI6MSwiZXhwIjoxNTYxMjA3NzM4fQ.Y4tfQKJRGUvigQDYXFk9R4ym-pkCnXX-fTYfxDwTKQs
         # Beware, it does not have a fixed length
@@ -39,17 +39,17 @@ describe Api::Ui::V1::AuthenticationController, type: :api do
 
       context 'when password is wrong' do
         let(:authenticate_password) { 'A_wrong_password' }
-        it { expect(last_response.status).to eq 401 } #unauthorized
+        it { expect(last_response.status).to eq 401 } # unauthorized
       end
 
       context 'when user does not exist' do
         let(:authenticate_email) { 'pluto@abc.com' }
-        it { expect(last_response.status).to eq 401 } #unauthorized
+        it { expect(last_response.status).to eq 401 } # unauthorized
       end
 
       context 'when email has invalid format' do
         let(:authenticate_email) { 'pluto' }
-        it { expect(last_response.status).to eq 401 } #unauthorized
+        it { expect(last_response.status).to eq 401 } # unauthorized
       end
 
       # context 'when user exists under another organization' do
@@ -72,5 +72,4 @@ describe Api::Ui::V1::AuthenticationController, type: :api do
       it { expect(last_response.status).to eq 404 }
     end
   end
-
 end

@@ -3,11 +3,10 @@ module ActiveAdmin
     # Custom footer
     # lib/active_admin/views/footer.rb
     class Footer < Component
-
       def build(namespace)
         @namespace = namespace
 
-        div :id => "footer" do
+        div id: 'footer' do
           ar_footer = [CONFIG.dig(:application, :name),
                        "#{I18n.t('activeadmin.footer.env')} <b>#{Rails.env}</b>",
                        "#{I18n.t('activeadmin.footer.version')} <b>#{CONFIG.dig(:application, :version)}</b>",
@@ -38,7 +37,7 @@ GOOGLEANALYTICS
         if options[:class]
           classes << options[:class]
         elsif title.present?
-          classes << "row-#{title.to_s.parameterize(separator: "_")}"
+          classes << "row-#{title.to_s.parameterize(separator: '_')}"
         end
         options[:class] = classes.join(' ')
 
@@ -53,8 +52,9 @@ GOOGLEANALYTICS
           end
         end
       end
+
       def color_row(*args)
-        title   = args[0]
+        title = args[0]
 
         @table << tr do
           th do
@@ -64,8 +64,7 @@ GOOGLEANALYTICS
             td do
               content_tag(:div, ''.html_safe <<
                   content_tag(:span, ' ', style: "background-color: #{record.send(title)}; padding: 4px 10px; border: 1px solid #ddd; border-radius: 8px;") <<
-                  content_tag(:span, record.send(title), style: "font-family: Courier; margin-left: 10px;")
-              )
+                  content_tag(:span, record.send(title), style: 'font-family: Courier; margin-left: 10px;'))
             end
           end
         end
@@ -84,11 +83,11 @@ GOOGLEANALYTICS
         options = {}
 
         options[:resource_errors] =
-            if resource && resource.errors.any?
-              "#{resource.errors.full_messages.to_sentence}."
-            else
-              ""
-            end
+          if resource && resource.errors.any?
+            "#{resource.errors.full_messages.to_sentence}."
+          else
+            ''
+          end
 
         options
       end

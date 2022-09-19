@@ -1,5 +1,5 @@
 ActiveAdmin.register ActiveStorage::Attachment do
-  menu parent: 'diagnostics', if: proc{ can?(:manage, SystemLog) }
+  menu parent: 'diagnostics', if: proc { can?(:manage, SystemLog) }
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -15,5 +15,4 @@ ActiveAdmin.register ActiveStorage::Attachment do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
 end

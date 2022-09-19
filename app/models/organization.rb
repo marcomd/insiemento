@@ -20,9 +20,9 @@ class Organization < ApplicationRecord
   has_many :homepage_features, class_name: 'Homepage::Feature'
   has_many :homepage_contacts, class_name: 'Homepage::Contact'
   has_many :homepage_socials, class_name: 'Homepage::Social'
-  accepts_nested_attributes_for :homepage_features, reject_if: lambda { |obj| obj[:title].blank? }, allow_destroy: true
-  accepts_nested_attributes_for :homepage_contacts, reject_if: lambda { |obj| obj[:title].blank? }, allow_destroy: true
-  accepts_nested_attributes_for :homepage_socials, reject_if: lambda { |obj| obj[:title].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :homepage_features, reject_if: ->(obj) { obj[:title].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :homepage_contacts, reject_if: ->(obj) { obj[:title].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :homepage_socials, reject_if: ->(obj) { obj[:title].blank? }, allow_destroy: true
 
   has_one_attached :logo, dependent: :destroy
   has_one_attached :image, dependent: :destroy
@@ -30,14 +30,14 @@ class Organization < ApplicationRecord
 
   before_validation :set_default_value
 
-  STATES = { activating: 10, active: 20, suspended: 30 }
+  STATES = { activating: 10, active: 20, suspended: 30 }.freeze
   enum state: STATES
 
   include Storext.model
   store_attributes :theme do
     dark_mode         Boolean, default: false
     header_dark       Boolean, default: false
-    header_background_color  String, default: '#FFFFFF'
+    header_background_color String, default: '#FFFFFF'
     color             String, default: '#000000'
     primary_color     String, default: '#1976D2'
     secondary_color   String, default: '#424242'
@@ -68,7 +68,7 @@ class Organization < ApplicationRecord
   end
 
   def homepage_features
-    read_attribute(:homepage_features)&.map {|v| Homepage::Feature.new({}.merge(v)) }
+    read_attribute(:homepage_features)&.map { |v| Homepage::Feature.new({}.merge(v)) }
   end
 
   def homepage_features=(ar_homepage_features)
@@ -77,8 +77,9 @@ class Organization < ApplicationRecord
 
   def homepage_features_attributes=(attributes)
     homepage_features = []
-    attributes.each do |index, attrs|
+    attributes.each do |_index, attrs|
       next if attrs.delete('_destroy') == '1'
+
       %w[dark].each do |field_name|
         field_value = attrs[field_name]
         field_value = true if field_value == '1'
@@ -91,7 +92,7 @@ class Organization < ApplicationRecord
   end
 
   def homepage_contacts
-    read_attribute(:homepage_contacts)&.map {|v| Homepage::Contact.new({}.merge(v)) }
+    read_attribute(:homepage_contacts)&.map { |v| Homepage::Contact.new({}.merge(v)) }
   end
 
   def homepage_contacts=(ar_homepage_contacts)
@@ -100,8 +101,9 @@ class Organization < ApplicationRecord
 
   def homepage_contacts_attributes=(attributes)
     homepage_contacts = []
-    attributes.each do |index, attrs|
+    attributes.each do |_index, attrs|
       next if attrs.delete('_destroy') == '1'
+
       %w[dark].each do |field_name|
         field_value = attrs[field_name]
         field_value = true if field_value == '1'
@@ -114,7 +116,7 @@ class Organization < ApplicationRecord
   end
 
   def homepage_socials
-    read_attribute(:homepage_socials)&.map {|v| Homepage::Social.new({}.merge(v)) }
+    read_attribute(:homepage_socials)&.map { |v| Homepage::Social.new({}.merge(v)) }
   end
 
   def homepage_socials=(ar_homepage_socials)
@@ -123,8 +125,9 @@ class Organization < ApplicationRecord
 
   def homepage_socials_attributes=(attributes)
     homepage_socials = []
-    attributes.each do |index, attrs|
+    attributes.each do |_index, attrs|
       next if attrs.delete('_destroy') == '1'
+
       %w[dark].each do |field_name|
         field_value = attrs[field_name]
         field_value = true if field_value == '1'
@@ -164,26 +167,28 @@ class Organization < ApplicationRecord
 
   def set_default_value
     self.uuid ||= SecureRandom.uuid
-    self.homepage_features = [
-        {title: 'Tanti corsi per tutti',
-         icon: 'mdi-yoga',
-         text: 'Abbiamo pensato ad ognuno di voi per offrirvi tantissimi corsi che coprono diversi orari'},
-        {title: 'Istruttori competenti',
-         icon: 'mdi-account-star-outline',
-         text: 'Avrai a disposizione bravissimi istruttori che lavorano con noi da molti anni.'},
-        {title: 'Interfaccia web mobile',
-         icon: 'mdi-tablet-cellphone',
-         text: 'Puoi prenotare i tuoi corsi con la nostra interfaccia web moderna che si adatta in automatico a tutti i tipi di dispositivi, anche sullo smartphone.'},
-        {title: 'Prezzi chiari',
-         icon: 'mdi-cash',
-         text: 'Una sola tariffa, ci piacciono le cose chiare e semplici.'},
-    ] unless self.homepage_features.present?
-    self.homepage_contacts ||= [{icon:'mdi-map-marker-outline', title: 'Indirizzo', text: 'Via...'},
-                              {icon:'mdi-cellphone', title: 'Telefono', text: 'N. telefono'},
-                              {icon:'mdi-email', title: 'Email', text: 'Email contatto'}]
-    self.homepage_socials ||= [{icon:'mdi-facebook', title: 'Facebook', text: 'https://facebook.com'},
-                             {icon:'mdi-twitter', title: 'Twitter', text: 'https://twitter.com'},
-                             {icon:'mdi-instagram', title: 'Instagram', text: 'https://instagram.com'},
-                             {icon:'mdi-linkedin', title: 'Linkedin', text: 'https://linkedin.com'}]
+    unless homepage_features.present?
+      self.homepage_features = [
+        { title: 'Tanti corsi per tutti',
+          icon: 'mdi-yoga',
+          text: 'Abbiamo pensato ad ognuno di voi per offrirvi tantissimi corsi che coprono diversi orari' },
+        { title: 'Istruttori competenti',
+          icon: 'mdi-account-star-outline',
+          text: 'Avrai a disposizione bravissimi istruttori che lavorano con noi da molti anni.' },
+        { title: 'Interfaccia web mobile',
+          icon: 'mdi-tablet-cellphone',
+          text: 'Puoi prenotare i tuoi corsi con la nostra interfaccia web moderna che si adatta in automatico a tutti i tipi di dispositivi, anche sullo smartphone.' },
+        { title: 'Prezzi chiari',
+          icon: 'mdi-cash',
+          text: 'Una sola tariffa, ci piacciono le cose chiare e semplici.' }
+      ]
+    end
+    self.homepage_contacts ||= [{ icon: 'mdi-map-marker-outline', title: 'Indirizzo', text: 'Via...' },
+                                { icon: 'mdi-cellphone', title: 'Telefono', text: 'N. telefono' },
+                                { icon: 'mdi-email', title: 'Email', text: 'Email contatto' }]
+    self.homepage_socials ||= [{ icon: 'mdi-facebook', title: 'Facebook', text: 'https://facebook.com' },
+                               { icon: 'mdi-twitter', title: 'Twitter', text: 'https://twitter.com' },
+                               { icon: 'mdi-instagram', title: 'Instagram', text: 'https://instagram.com' },
+                               { icon: 'mdi-linkedin', title: 'Linkedin', text: 'https://linkedin.com' }]
   end
 end

@@ -18,6 +18,5 @@ module Homepage
     #     [a, send(a)]
     #   end.to_h
     # end
-
   end
 end

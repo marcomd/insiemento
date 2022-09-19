@@ -9,18 +9,18 @@ module EmailHelper
       end
     else
       binary ||=
-          if image
-            # open(url_for(image)) { |f| f.read }
-            image.download
-          else
-            File.open(Rails.root.join(path, image_name), 'rb'){|f| f.read}
-          end
+        if image
+          # open(url_for(image)) { |f| f.read }
+          image.download
+        else
+          File.open(Rails.root.join(path, image_name), 'rb') { |f| f.read}
+        end
       encoded_content = Base64.encode64(binary)
       # Per rails 4+ potrebbe essere necessario usare il tag data al posto di content
       attachments.inline[image_name] = {
-          mime_type:  'image/png',
-          encoding:   "base64",
-          content:    encoded_content
+        mime_type: 'image/png',
+        encoding: 'base64',
+        content: encoded_content
       }
 
       image_tag(attachments[image_name].url, size: size, style: style)

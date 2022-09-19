@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe CourseSchedule, type: :model do
-
   context 'ActiveRecord' do
     it { expect(subject).to belong_to(:organization)}
     it { expect(subject).to belong_to(:category)}

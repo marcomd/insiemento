@@ -16,11 +16,13 @@ json.set!('attendees') do
     json.extract! attendee, :id
     json.reservation_date attendee.created_at
     course_event = attendee.course_event
-    json.set!('course_event') do
-      json.extract! course_event, :id, :event_date
-      json.course course_event.course.name
-      json.trainer "#{course_event.trainer.firstname} #{course_event.trainer.lastname}"
-      json.room course_event.room.name
-    end if course_event
+    if course_event
+      json.set!('course_event') do
+        json.extract! course_event, :id, :event_date
+        json.course course_event.course.name
+        json.trainer "#{course_event.trainer.firstname} #{course_event.trainer.lastname}"
+        json.room course_event.room.name
+      end
+    end
   end
 end

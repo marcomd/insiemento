@@ -1,10 +1,10 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Api::Ui::V1::CourseEventsController, type: :api do
   let(:organization_id) { 1 }
 
   before do
-    ENV['ORGANIZATION']='1'
+    ENV['ORGANIZATION'] = '1'
     header 'Content-Type', 'application/json; charset=utf-8'
     header 'Accept-Language', language
     header 'X-Auth-Token', jwt_token
@@ -87,7 +87,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
   describe 'PUT subscribe' do
     let(:url) { "/api/ui/v1/course_events/#{course_event_id}/subscribe" }
     let(:action) { put url, params.to_json }
-    let(:params) { {subscribe: subscribe} }
+    let(:params) { { subscribe: subscribe } }
 
     let(:subscribe) { true }
     let(:course_event) do
@@ -175,7 +175,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
 
             context 'when user has a penalty' do
               let(:last_previuos_missed_attendee) do
-                user.attendees.where(course_events: { course_id: course_event.course_id}).includes(:course_event).last
+                user.attendees.where(course_events: { course_id: course_event.course_id }).includes(:course_event).last
               end
               before { create(:user_penalty, user: user, attendee: last_previuos_missed_attendee) }
 
@@ -271,7 +271,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
                 expect(json).to be_a(Hash)
                 expect(last_response.status).to eq 422
                 expect(json['errors']).to be_present
-                expect(json['errors']['course_event_id']).to include "Siamo spiacenti ma non è più possibile cancellarsi dalla lista."
+                expect(json['errors']['course_event_id']).to include 'Siamo spiacenti ma non è più possibile cancellarsi dalla lista.'
               end.to_not change(Attendee, :count)
             end
           end
@@ -347,7 +347,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
   describe 'PUT audit' do
     let(:url) { "/api/ui/v1/course_events/#{course_event_id}/audit" }
     let(:action) { put url, params.to_json }
-    let(:params) { { presences: {'1': true, '2': false, '3': false, '7': false, '8': false, '9': false, '10': false, '11': false, '12': false, '13': false}} }
+    let(:params) { { presences: { '1': true, '2': false, '3': false, '7': false, '8': false, '9': false, '10': false, '11': false, '12': false, '13': false } } }
 
     let(:course_event_id) { stefania_subscribed_course_event_id }
 

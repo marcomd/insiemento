@@ -11,18 +11,16 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     simulate_delay_for_development
     @course_events = @organization.course_events.includes(:course, :room, :trainer).order('course_events.event_date')
     # .where(course_event_filter_params)
-    if params[:subscribed]
-      @course_events = @course_events.where(user_id: current_user.id)
-    end
+    @course_events = @course_events.where(user_id: current_user.id) if params[:subscribed]
     if params[:state].present?
       if params[:state].downcase == 'active'
         @course_events = @course_events
-                    .where(state: [:active, :suspended])
-                    # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+                         .where(state: %i[active suspended])
+      # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
       elsif params[:state].downcase == 'closed'
         @course_events = @course_events
-                             .where(state: :closed)
-                             #.where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
+                         .where(state: :closed)
+      # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
       elsif params[:state] == 'ALL'
         # Do nothing
       else
@@ -43,7 +41,8 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   # PUT /api/ui/v1/course_events/:id/subscribe
   def subscribe
     simulate_delay_for_development
-    status, attendee = nil, nil
+    status = nil
+    attendee = nil
     @course_event.with_lock do
       status =
         if course_event_filter_params[:subscribe] == true
@@ -75,10 +74,14 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   # PUT /api/ui/v1/course_events/:id/audit
   def audit
     if current_user.trainer_id && current_user.trainer_id == @course_event.trainer_id
-      true_ids = course_event_filter_params[:presences].select { |k, v| v }.keys
-      @course_event.attendees.where(id: true_ids).update_all(presence: true, updated_at: Time.zone.now) if true_ids.present?
-      false_ids = course_event_filter_params[:presences].select { |k, v| !v }.keys
-      @course_event.attendees.where(id: false_ids).update_all(presence: false, updated_at: Time.zone.now) if false_ids.present?
+      true_ids = course_event_filter_params[:presences].select { |_k, v| v }.keys
+      if true_ids.present?
+        @course_event.attendees.where(id: true_ids).update_all(presence: true, updated_at: Time.zone.now)
+      end
+      false_ids = course_event_filter_params[:presences].select { |_k, v| !v }.keys
+      if false_ids.present?
+        @course_event.attendees.where(id: false_ids).update_all(presence: false, updated_at: Time.zone.now)
+      end
       render json: { presences: course_event_filter_params[:presences] }, status: :ok
     else
       render json: { errors: ['Operation not allowed'] }, status: 403

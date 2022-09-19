@@ -1,5 +1,5 @@
 ActiveAdmin.register UserPenalty do
-  menu parent: 'users_management', if: proc{ can?(:read, UserPenalty) }
+  menu parent: 'users_management', if: proc { can?(:read, UserPenalty) }
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -10,7 +10,7 @@ ActiveAdmin.register UserPenalty do
   # or
   #
   permit_params do
-    permitted = [:user_id, :subscription_id, :course_event_id, :attendee_id, :category_id, :course_id, :inhibited_until]
+    permitted = %i[user_id subscription_id course_event_id attendee_id category_id course_id inhibited_until]
     permitted << :organization_id if current_admin_user.is_root? || params[:action] == 'create'
     # permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
@@ -39,5 +39,4 @@ ActiveAdmin.register UserPenalty do
     column(:updated_at)
     actions
   end
-
 end
