@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Stateable
+  include Presentable
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :registerable, :confirmable

@@ -41,6 +41,7 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
   private
 
   def set_user
+    byebug
     @user = current_user
   end
 
