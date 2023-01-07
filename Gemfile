@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.4'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.7'
@@ -119,6 +119,11 @@ gem 'chartkick', '~> 3.4.2'
 # The simplest way to group by
 gem 'groupdate', '~> 5.2.2'
 
+# Required by ruby 3.1
+# An implementation of Matrix and Vector classes.
+gem "matrix", "~> 0.4.2"
+gem 'psych', '< 4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: %i[mri mingw x64_mingw]
@@ -175,7 +180,7 @@ group :test do
   gem 'shoulda-matchers', '~> 4.3'
 
   # Record your test suite's HTTP interactions and replay them during future test
-  gem 'vcr', '~> 5.1.0'
+  gem 'vcr' #, '~> 5.1.0'
 
   # Library for stubbing and setting expectations on HTTP requests in Ruby.
   gem 'webmock', '~> 3.8.0'
@@ -184,7 +189,7 @@ group :test do
   gem 'simplecov', '~> 0.18.5', require: false
 
   # A gem providing 'time travel', 'time freezing', and 'time acceleration' capabilities, making it simple to test time-dependent code. It provides a unified method to mock Time.now, Date.today, and DateTime.now in a single call.
-  gem 'timecop', '~> 0.9.1'
+  gem 'timecop' #, '~> 0.9.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

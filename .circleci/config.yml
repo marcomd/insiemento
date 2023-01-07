@@ -6,10 +6,10 @@ orbs:
 executors:
   ruby:
     docker:
-      - image: circleci/ruby:2.7.6-node-browsers
+      - image: cimg/ruby:3.1.2-browsers
   ruby_with_db:
     docker:
-      - image: circleci/ruby:2.7.6-node-browsers
+      - image: cimg/ruby:3.1.2-browsers
         environment: # environment variables for primary container
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
