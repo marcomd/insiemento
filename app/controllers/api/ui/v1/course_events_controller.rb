@@ -54,10 +54,9 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
         end
     end
     if status
-      # ActionCable.server.broadcast "room_#{@course_event.id}", attendees: @course_event.attendees.map { |a| { id: a.id, presence: a.presence, user_name: "#{a.user.firstname} #{a.user.lastname}" } }
+      # ActionCable.server.broadcast "room_#{@course_event.id}", { attendees: @course_event.attendees.map { |a| { id: a.id, presence: a.presence, user_name: "#{a.user.firstname} #{a.user.lastname}" } } }
       @show_subscribed = false
-      # ActionCable.server.broadcast "room_#{@course_event.id}", course_event: JSON.parse(render_to_string(:show))
-      ActionCable.server.broadcast "organization_#{@organization.uuid}", course_event: JSON.parse(render_to_string(:show))
+      ActionCable.server.broadcast "organization_#{@organization.uuid}", { course_event: JSON.parse(render_to_string(:show)) }
       @show_subscribed = true
       render :show
     elsif attendee

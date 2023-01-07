@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.0.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.7'
@@ -161,7 +161,7 @@ group :development do
   gem 'better_errors', '~> 2.8.0'
 
   # Retrieve the binding of a method's caller.
-  gem 'binding_of_caller', '~> 0.8.0'
+  gem 'binding_of_caller', '~> 1.0.0'
 end
 
 group :test do
@@ -181,7 +181,7 @@ group :test do
   gem 'webmock', '~> 3.8.0'
 
   # SimpleCov is a code coverage analysis tool for Ruby
-  gem 'simplecov', '~> 0.18.0', require: false
+  gem 'simplecov', '~> 0.18.5', require: false
 
   # A gem providing 'time travel', 'time freezing', and 'time acceleration' capabilities, making it simple to test time-dependent code. It provides a unified method to mock Time.now, Date.today, and DateTime.now in a single call.
   gem 'timecop', '~> 0.9.1'
