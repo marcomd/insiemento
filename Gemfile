@@ -102,7 +102,7 @@ gem 'activeadmin-minicolors', github: 'kholdrex/activeadmin-minicolors'
 # This gem can process images with either ImageMagick/GraphicsMagick or libvips libraries.
 # ImageMagick is a good default choice, especially if you are migrating from another gem or library that uses ImageMagick.
 # Libvips is a newer library that can process images very rapidly (often multiple times faster than ImageMagick).
-gem 'image_processing', '~> 1.12.1'
+gem 'image_processing', '~> 1.12.2'
 
 # This is version 3 of the aws-sdk gem
 gem 'aws-sdk-s3', require: false
