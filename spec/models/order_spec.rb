@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Order, type: :model do
+describe Order do
   context 'ActiveRecord' do
     it { expect(subject).to belong_to(:organization) }
     it { expect(subject).to belong_to(:user) }

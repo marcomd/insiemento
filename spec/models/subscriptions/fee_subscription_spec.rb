@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe FeeSubscription, type: :model do
+describe FeeSubscription do
   subject { user_stefania.active_subscriptions.where(subscription_type: 'fee').first }
 
   describe '#set_current_state' do

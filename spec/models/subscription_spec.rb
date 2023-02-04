@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Subscription, type: :model do
+describe Subscription do
   describe '#type' do
     subject { build(:subscription, subscription_type:) }
     let(:result) { subject.type }

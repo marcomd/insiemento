@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-describe CourseEventComment, type: :model do
+describe CourseEventComment do
   pending "add some examples to (or delete) #{__FILE__}"
 end

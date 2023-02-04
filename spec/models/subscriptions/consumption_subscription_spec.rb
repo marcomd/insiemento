@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ConsumptionSubscription, type: :model do
+describe ConsumptionSubscription do
   subject { user_linda.active_subscriptions.where(subscription_type: 'consumption').first }
 
   describe '#set_current_state' do

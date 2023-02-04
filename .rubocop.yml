@@ -120,11 +120,13 @@ Rails/UniqueValidationWithoutIndex:
 
 
 # RSPEC
-RSpec/Capybara/CurrentPathExpectation:
+Capybara/CurrentPathExpectation:
   Enabled: false
+Capybara/VisibilityMatcher:
+  Enabled: false
+
+
 RSpec/Capybara/FeatureMethods:
-  Enabled: false
-RSpec/Capybara/VisibilityMatcher:
   Enabled: false
 RSpec/FactoryBot/CreateList:
   Enabled: false

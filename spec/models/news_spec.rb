@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-describe News, type: :model do
+describe News do
   pending "add some examples to (or delete) #{__FILE__}"
 end

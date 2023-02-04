@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Attendee, type: :model do
+describe Attendee do
   subject { Attendee.new(user_id: user.id, course_event_id:) }
 
   describe '#create' do

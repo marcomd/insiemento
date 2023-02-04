@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 describe PenaltyService do
+  subject { described_class.call(starting_date:, debug:) }
+
   let(:event_date) { 1.day.ago }
   let(:starting_date) { event_date.to_date }
   let(:debug) { false }
-  subject { described_class.call(starting_date:, debug:) }
   let(:duplicated_service) { described_class.call(starting_date:, debug:) }
   let(:organization) { organization_fitness }
   let(:penalty_category) { category_fitness }

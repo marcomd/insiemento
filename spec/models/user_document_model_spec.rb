@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-describe UserDocumentModel, type: :model do
+describe UserDocumentModel do
   pending "add some examples to (or delete) #{__FILE__}"
 end

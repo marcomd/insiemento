@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe TrialSubscription, type: :model do
+describe TrialSubscription do
   subject { user_paolo.active_subscriptions.where(subscription_type: 'trial').first }
 
   describe '#set_current_state' do

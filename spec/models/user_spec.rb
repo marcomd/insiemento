@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User, type: :model do
+describe User do
   describe '#has_active_document?' do
     let(:result) { subject.has_active_document?(user_document_model_id) }
     let(:user_document_model_id) { 1 }

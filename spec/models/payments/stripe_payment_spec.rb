@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe StripePayment, type: :model do
+describe StripePayment do
   subject { build(:stripe_payment) }
 
   context 'create' do
