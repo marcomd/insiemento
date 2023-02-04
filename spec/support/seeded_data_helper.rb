@@ -4,19 +4,19 @@ module SeededDataHelper
   end
 
   def user_elena
-    User.find_by_email('elena@fitness.io')
+    User.find_by(email: 'elena@fitness.io')
   end
 
   def user_paolo
-    User.find_by_email('paolo@fitness.io')
+    User.find_by(email: 'paolo@fitness.io')
   end
 
   def user_linda
-    User.find_by_email('linda@fitness.io')
+    User.find_by(email: 'linda@fitness.io')
   end
 
   def user_marco
-    User.find_by_email('marco@fitness.io')
+    User.find_by(email: 'marco@fitness.io')
   end
 
   def organization_fitness

@@ -11,7 +11,7 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
     user_attributes[:email] = user_attributes[:email].downcase
     user_attributes[:organization_id] = @current_organization&.id
     # unless user_attributes[:organization_id]
-    #   @current_organization = Organization.find_by_uuid(user_attributes[:organization_uuid]) if user_attributes[:organization_uuid]
+    #   @current_organization = Organization.find_by(uuid: user_attributes[:organization_uuid]) if user_attributes[:organization_uuid]
     #   user_attributes[:organization_id] = @current_organization&.id
     # end
     @user = User.new(user_attributes.except(:email_confirmation))

@@ -40,14 +40,14 @@ class ApplicationController < ActionController::Base
       else
         domain = request.domain
         if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
-          Organization.find_by_domain(domain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+          Organization.find_by(domain:) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
         else
           # Standard domain: insiemento.com ...
           subdomain = parsed_subdomain
           if subdomain.present?
-            Organization.find_by_domain(subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+            Organization.find_by(domain: subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
           elsif params.permit(:organization)[:organization].present?
-            Organization.find_by_uuid(params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+            Organization.find_by(uuid: params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
           end
         end
       end

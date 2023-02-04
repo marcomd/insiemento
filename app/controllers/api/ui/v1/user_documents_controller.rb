@@ -6,7 +6,7 @@ class Api::Ui::V1::UserDocumentsController < Api::Ui::BaseController
   # PUT from external service to update the state and the sign_checksum
   # Example of a sign checksum: 9d1f97c55893d83fa241ef73fd2612e7
   def callback
-    user_document = UserDocument.find_by_uuid(user_document_params[:uuid])
+    user_document = UserDocument.find_by(uuid: user_document_params[:uuid])
     raise(ActiveRecord::RecordNotFound, "Uuid #{user_document_params[:uuid]} does not exist") unless user_document
 
     user_document.errors.add(:state, 'State expired does not allow this') if user_document.expired_state?

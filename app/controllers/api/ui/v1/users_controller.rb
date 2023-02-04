@@ -31,7 +31,7 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
     regexp_email = /\A([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})\Z/
     raise(Api::BadRequestError, I18n.t('ui.users.errors.email_invalid_format')) unless regexp_email === email
 
-    user = User.find_by_email(email)
+    user = User.find_by(email:)
     json_attributes = { available: !user }
     render(json: json_attributes, status: :ok)
   end
