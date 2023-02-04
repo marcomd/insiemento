@@ -121,7 +121,7 @@ gem 'groupdate', '~> 5.2.2'
 
 # Required by ruby 3.1
 # An implementation of Matrix and Vector classes.
-gem "matrix", "~> 0.4.2"
+gem 'matrix', '~> 0.4.2'
 gem 'psych', '< 4'
 
 group :development, :test do
@@ -137,6 +137,12 @@ group :development, :test do
 
   # Shim to load environment variables from .env into ENV in development
   gem 'dotenv-rails'
+
+  # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
+  gem 'rubocop' # , '~> 0.92.0'
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do
@@ -144,14 +150,11 @@ group :development do
   gem 'listen', '~> 3.7.1'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring' #, '~> 2.1.1'
+  gem 'spring' # , '~> 2.1.1'
   gem 'spring-watcher-listen', '~> 2.1.0'
 
   # RSpec command for spring
   gem 'spring-commands-rspec'
-
-  # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-  gem 'rubocop' #, '~> 0.92.0'
 
   # A static analysis security vulnerability scanner for Ruby on Rails applications
   gem 'brakeman', '~> 4.7.2'
@@ -180,7 +183,7 @@ group :test do
   gem 'shoulda-matchers', '~> 4.3'
 
   # Record your test suite's HTTP interactions and replay them during future test
-  gem 'vcr' #, '~> 5.1.0'
+  gem 'vcr' # , '~> 5.1.0'
 
   # Library for stubbing and setting expectations on HTTP requests in Ruby.
   gem 'webmock', '~> 3.8.0'
@@ -189,7 +192,7 @@ group :test do
   gem 'simplecov', '~> 0.18.5', require: false
 
   # A gem providing 'time travel', 'time freezing', and 'time acceleration' capabilities, making it simple to test time-dependent code. It provides a unified method to mock Time.now, Date.today, and DateTime.now in a single call.
-  gem 'timecop' #, '~> 0.9.1'
+  gem 'timecop' # , '~> 0.9.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

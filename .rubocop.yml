@@ -1,0 +1,136 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+#inherit_gem:
+#  rubocop-shopify: rubocop.yml
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'bin/*'
+  TargetRubyVersion: 3.1.2
+
+Layout/ArgumentAlignment:
+  Enabled: false
+  # EnforcedStyle: with_fixed_indentation
+
+Layout/LineLength:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false
+
+Lint/RequireRangeParentheses:
+  Enabled: true
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+  Enabled: false
+
+# Trailing commas make for clearer diffs because the last line won't appear
+# to have been changed, as it would if it lacked a comma and had one added.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Security/Open:
+  Enabled: false
+
+Style/GlobalStdStream:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+
+Style/WordArray:
+  EnforcedStyle: percent
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ClassMethodsDefinitions:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  AllowParenthesesInMultilineCall: true
+  Enabled: true
+  Exclude:
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+  IgnoredMethods:
+    # long list of other methods that are also better without parentheses
+    - to
+    - not_to
+    - to_not
+
+# Rails Cops
+Rails:
+  Enabled: true
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/RedundantForeignKey:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Style/CaseEquality:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/DuplicateAssociation:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+# Enforces use of I18n and locale files
+# instead of locale specific strings.
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/RequestReferer:
+  Enabled: false
