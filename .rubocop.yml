@@ -17,120 +17,285 @@ AllCops:
     - 'bin/*'
   TargetRubyVersion: 3.1.2
 
+
+
 Layout/ArgumentAlignment:
   Enabled: false
   # EnforcedStyle: with_fixed_indentation
-
 Layout/LineLength:
   Enabled: false
-
 Layout/HashAlignment:
   Enabled: false
-
-Lint/RequireRangeParentheses:
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/RescueEnsureAlignment:
+  Enabled: false
+Layout/SpaceAroundOperators:
+  Enabled: false
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+Layout/SpaceInsideParens:
   Enabled: true
 
+
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true
 Lint/AssignmentInCondition:
   Enabled: false
+Lint/RaiseException:
+  Enabled: false
+Lint/RequireRangeParentheses:
+  Enabled: true
+Lint/SendWithMixinArgument:
+  Enabled: false
+Lint/StructNewOverride:
+  Enabled: false
+Lint/NonDeterministicRequireOrder:
+  Enabled: false
 
+
+  
 Metrics/BlockLength:
   Enabled: false
-
 Metrics/ClassLength:
   Enabled: false
-
 Metrics/MethodLength:
   Enabled: false
-
 Metrics/ModuleLength:
   Enabled: false
 
+
+
 Naming/AccessorMethodName:
   Enabled: false
-
 Naming/PredicateName:
   Enabled: false
-
-Style/RedundantSelf:
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+Naming/VariableNumber:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  EnforcedStyle: never
+
+
+Performance/Casecmp:
+  Enabled: false
+Performance/Count:
+  Enabled: false
+Performance/Detect:
+  Enabled: false
+Performance/InefficientHashSearch:
+  Enabled: false
+Performance/RegexpMatch:
+  Enabled: false
+Performance/ReverseEach:
+  Enabled: false
+Performance/StringReplacement:
   Enabled: false
 
-# Trailing commas make for clearer diffs because the last line won't appear
-# to have been changed, as it would if it lacked a comma and had one added.
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: comma
 
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
 
-Style/FormatString:
-  EnforcedStyle: percent
+# RAILS Cops
+Rails:
+  Enabled: true
+Rails/DuplicateAssociation:
+  Enabled: false
+# Enforces use of I18n and locale files
+# instead of locale specific strings.
+Rails/I18nLocaleTexts:
+  Enabled: false
+Rails/InverseOf:
+  Enabled: false
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+Rails/RedundantForeignKey:
+  Enabled: false
+Rails/RequestReferer:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+
+
+# RSPEC
+RSpec/Capybara/CurrentPathExpectation:
+  Enabled: false
+RSpec/Capybara/FeatureMethods:
+  Enabled: false
+RSpec/Capybara/VisibilityMatcher:
+  Enabled: false
+RSpec/FactoryBot/CreateList:
+  Enabled: false
+RSpec/FactoryBot/FactoryClassName:
+  Enabled: false
+RSpec/Rails/HttpStatus:
+  Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/BeforeAfterAll:
+  Enabled: false
+RSpec/ContextMethod:
+  Enabled: false
+RSpec/ContextWording:
+  Enabled: false
+RSpec/DescribedClass:
+  Enabled: false
+RSpec/DescribeMethod:
+  Enabled: false
+RSpec/EmptyExampleGroup:
+  Enabled: false
+RSpec/EmptyHook:
+  Enabled: false
+RSpec/EmptyLineAfterExample:
+  Enabled: false
+RSpec/EmptyLineAfterExampleGroup:
+  Enabled: false
+RSpec/EmptyLineAfterFinalLet:
+  Enabled: false
+RSpec/EmptyLineAfterHook:
+  Enabled: false
+RSpec/EmptyLineAfterSubject:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/ExpectChange:
+  Enabled: false
+RSpec/ExpectInHook:
+  Enabled: false
+RSpec/FilePath:
+  Enabled: false
+RSpec/HookArgument:
+  Enabled: false
+RSpec/HooksBeforeExamples:
+  Enabled: false
+RSpec/ImplicitBlockExpectation:
+  Enabled: false
+RSpec/ImplicitExpect:
+  Enabled: false
+RSpec/ImplicitSubject:
+  Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/IteratedExpectation:
+  Enabled: false
+RSpec/LeadingSubject:
+  Enabled: false
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
+RSpec/LetBeforeExamples:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/MessageChain:
+  Enabled: false
+RSpec/MissingExampleGroupArgument:
+  Enabled: false
+RSpec/MultipleDescribes:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/MultipleSubjects:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/NotToNot:
+  Enabled: false
+RSpec/OverwritingSetup:
+  Enabled: false
+RSpec/PredicateMatcher:
+  Enabled: false
+RSpec/ReceiveCounts:
+  Enabled: false
+RSpec/RepeatedDescription:
+  Enabled: false
+RSpec/RepeatedExample:
+  Enabled: false
+RSpec/RepeatedExampleGroupBody:
+  Enabled: false
+RSpec/RepeatedExampleGroupDescription:
+  Enabled: false
+RSpec/ScatteredLet:
+  Enabled: false
+RSpec/ScatteredSetup:
+  Enabled: false
+RSpec/SharedContext:
+  Enabled: false
+RSpec/SharedExamples:
+  Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
+RSpec/SubjectStub:
+  Enabled: false
+RSpec/UnspecifiedException:
+  Enabled: false
+RSpec/VariableName:
+  Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false
+RSpec/VoidExpect:
+  Enabled: false
+
+
 
 Security/Open:
   Enabled: false
 
-Style/GlobalStdStream:
+
+
+Style/CaseEquality:
   Enabled: false
-
-Style/SymbolArray:
-  EnforcedStyle: percent
-
-Style/WordArray:
-  EnforcedStyle: percent
-
-Style/TrailingCommaInArguments:
-  EnforcedStyleForMultiline: comma
-
 Style/ClassAndModuleChildren:
   Enabled: false
-
 Style/ClassMethodsDefinitions:
   Enabled: false
-
+Style/FormatString:
+  EnforcedStyle: percent
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
 Style/MethodCallWithArgsParentheses:
   AllowParenthesesInMultilineCall: true
   Enabled: true
   Exclude:
     - 'db/migrate/*'
     - 'db/schema.rb'
-  IgnoredMethods:
+  AllowedMethods:
     # long list of other methods that are also better without parentheses
     - to
     - not_to
     - to_not
-
-# Rails Cops
-Rails:
-  Enabled: true
-
-Rails/InverseOf:
+    - can
+    - alias_action
+    - puts
+RSpec/MultipleMemoizedHelpers:
   Enabled: false
-
-Rails/RedundantForeignKey:
+Style/OptionalBooleanParameter:
   Enabled: false
-
-Rails/HasManyOrHasOneDependent:
+Style/RedundantSelf:
   Enabled: false
-
-Style/CaseEquality:
+Style/SingleArgumentDig:
   Enabled: false
-
-Rails/SkipsModelValidations:
+Style/StringConcatenation:
   Enabled: false
-
-Rails/DuplicateAssociation:
+Style/SymbolArray:
+  EnforcedStyle: percent
   Enabled: false
-
-Rails/UniqueValidationWithoutIndex:
+Style/WordArray:
+  EnforcedStyle: percent
   Enabled: false
-
-# Enforces use of I18n and locale files
-# instead of locale specific strings.
-Rails/I18nLocaleTexts:
-  Enabled: false
-
-Rails/RequestReferer:
-  Enabled: false
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+# Trailing commas make for clearer diffs because the last line won't appear
+# to have been changed, as it would if it lacked a comma and had one added.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
