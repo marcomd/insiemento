@@ -67,12 +67,12 @@ ActiveAdmin.register Organization do
     columns do
       column do
         attributes_table do
-          as_image_row(:logo, style: 'height: 100px')
-          as_image_row(:image, style: 'height: 100px')
+          as_image_row(:logo, height: '100px')
+          as_image_row(:image, height: '100px')
           row(:images) do
             html = ''
             organization.images.each do |image|
-              html << image_tag(image)
+              html << image_tag(image, height: '100px')
             end
             html.html_safe
           end
