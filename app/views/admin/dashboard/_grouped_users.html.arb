@@ -5,12 +5,12 @@
 h_last_users_started = {}
 begin
   starting_date = 2.years.ago
-  organization.users.unscoped.where("created_at > '#{starting_date.strftime('%Y-%m-%d')}'").
-    where(organization_id: organization.id).
-    select("to_char(date(created_at),'YYYY-MM') as year_month, count(*)")
+  organization.users.unscoped.where("created_at > '#{starting_date.strftime('%Y-%m-%d')}'")
+              .where(organization_id: organization.id)
+              .select("to_char(date(created_at),'YYYY-MM') as year_month, count(*)")
               .group(1).order(1).each { |g| h_last_users_started[g.year_month] = g.count }
 rescue StandardError
-  raise $! if Rails.env.development? || Rails.env.test?
+  raise($!) if Rails.env.development? || Rails.env.test?
 end
 
 columns do

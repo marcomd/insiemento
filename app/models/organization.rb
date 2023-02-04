@@ -180,7 +180,7 @@ class Organization < ApplicationRecord
           text: 'Puoi prenotare i tuoi corsi con la nostra interfaccia web moderna che si adatta in automatico a tutti i tipi di dispositivi, anche sullo smartphone.' },
         { title: 'Prezzi chiari',
           icon: 'mdi-cash',
-          text: 'Una sola tariffa, ci piacciono le cose chiare e semplici.' }
+          text: 'Una sola tariffa, ci piacciono le cose chiare e semplici.' },
       ]
     end
     self.homepage_contacts ||= [{ icon: 'mdi-map-marker-outline', title: 'Indirizzo', text: 'Via...' },

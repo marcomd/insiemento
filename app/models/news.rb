@@ -8,7 +8,7 @@ class News < ApplicationRecord
   enum state: {
     draft: 10, # Write the text...
     active: 20, # The news is published
-    expired: 100  # The news is no more shown
+    expired: 100,  # The news is no more shown
   }, _suffix: true
 
   enum news_type: {
@@ -23,7 +23,7 @@ class News < ApplicationRecord
     love: 9,
     angry: 10,
     tech: 11,
-    premium: 12
+    premium: 12,
   }, _suffix: true
 
   def icon
@@ -65,7 +65,7 @@ class News < ApplicationRecord
 
   private
 
-  def set_current_state(date=Time.zone.today)
+  def set_current_state(date = Time.zone.today)
     self.state = 'expired' if state == 'active' && expire_on < date
     self.state = 'active' if state == 'expired' && expire_on >= date
   end

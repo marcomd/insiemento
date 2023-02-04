@@ -1,7 +1,7 @@
 describe ScheduleService do
   let(:starting_date) { Date.parse('2020-02-22') }
   let(:debug) { false }
-  subject { described_class.call(starting_date: starting_date, debug: debug) }
+  subject { described_class.call(starting_date:, debug:) }
 
   describe '#call' do
     context 'when in debug mode' do

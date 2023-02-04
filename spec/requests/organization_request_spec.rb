@@ -1,5 +1,5 @@
 describe 'OrganizationRequest', type: :request do
-  let!(:organization) { create(:organization, domain: domain) }
+  let!(:organization) { create(:organization, domain:) }
 
   context 'when host has subdomain dsm' do
     let(:domain) { 'rspec' }
@@ -12,7 +12,7 @@ describe 'OrganizationRequest', type: :request do
     it 'must set organization by subdomain' do
       host! my_hostname
       get '/users'
-      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq organization
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq(organization)
       expect(response).to have_http_status(:ok)
     end
 
@@ -27,7 +27,7 @@ describe 'OrganizationRequest', type: :request do
       host! 'wrong.insiemento.local'
       # expect { get '/users' }.to raise_error(ActionController::RoutingError)
       get '/users'
-      expect(response.body).to include "The page you were looking for doesn't exist"
+      expect(response.body).to include("The page you were looking for doesn't exist")
     end
   end
 
@@ -42,7 +42,7 @@ describe 'OrganizationRequest', type: :request do
     it 'must set organization' do
       host! my_hostname
       get '/users'
-      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq organization
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq(organization)
       expect(response).to have_http_status(:ok)
     end
 
@@ -62,12 +62,12 @@ describe 'OrganizationRequest', type: :request do
       ENV['ORGANIZATION'] = '1'
     end
     after(:all) do
-      ENV.delete 'ORGANIZATION'
+      ENV.delete('ORGANIZATION')
     end
 
     it 'must set organization 1' do
       get '/users'
-      expect(response.request.env['action_controller.instance'].send(:current_organization)&.id).to eq 1
+      expect(response.request.env['action_controller.instance'].send(:current_organization)&.id).to eq(1)
       expect(response).to have_http_status(:ok)
     end
   end
@@ -82,21 +82,21 @@ describe 'OrganizationRequest', type: :request do
 
     it 'must set no organization' do
       get '/users'
-      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq nil
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq(nil)
       expect(response).to have_http_status(:ok)
     end
 
     context 'when organizazion param is present' do
       it 'must set organization by url param' do
         get "/users?organization=#{organization.uuid}"
-        expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq organization
+        expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq(organization)
         expect(response).to have_http_status(:ok)
       end
 
       it 'must show 404 page if no organization with same subdomain is found' do
         # expect { get '/users' }.to raise_error(ActionController::RoutingError)
         get '/users?organization=aaa'
-        expect(response.body).to include "The page you were looking for doesn't exist"
+        expect(response.body).to include("The page you were looking for doesn't exist")
       end
     end
   end

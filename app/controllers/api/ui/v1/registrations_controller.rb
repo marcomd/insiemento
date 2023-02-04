@@ -16,10 +16,10 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
     # end
     @user = User.new(user_attributes.except(:email_confirmation))
     if @user.save
-      render :create, status: 201
+      render(:create, status: :created)
     else
       warden.custom_failure!
-      render json: { errors: @user.errors }, status: 422
+      render(json: { errors: @user.errors }, status: :unprocessable_entity)
     end
   end
 
@@ -47,6 +47,6 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
       errors[:email] ||= []
       errors[:email] << 'does not coincide with email_confirmation'
     end
-    render(json: { success: false, errors: errors }, status: 422) and return if errors.present?
+    render(json: { success: false, errors: }, status: :unprocessable_entity) and return if errors.present?
   end
 end

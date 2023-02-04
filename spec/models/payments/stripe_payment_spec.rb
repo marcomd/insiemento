@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe StripePayment, type: :model do
+describe StripePayment, type: :model do
   subject { build(:stripe_payment) }
 
   context 'create' do
     let(:result) do
-      VCR.use_cassette 'generic_sendgrid/create_user' do
+      VCR.use_cassette('generic_sendgrid/create_user') do
         subject.save
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe StripePayment, type: :model do
 
   context 'update' do
     subject { stripe_payment_confirmed }
-    let(:result) { subject.update amount_cents: amount_cents }
+    let(:result) { subject.update(amount_cents:) }
     let(:amount_cents) { 5000 }
 
     it 'calls update_order! method' do

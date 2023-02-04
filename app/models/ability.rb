@@ -31,7 +31,7 @@ class Ability
       can :manage, :all
     else
       can :read, ActiveAdmin::Page, name: 'Dashboard'
-      if admin_user.has_role? :manager
+      if admin_user.has_role?(:manager)
         can %i[read update], Organization, id: admin_user.organization_id
         can %i[read update destroy], User, organization_id: admin_user.organization_id
         can [:create], User
@@ -65,7 +65,7 @@ class Ability
         can [:read], OrderProduct, organization_id: admin_user.organization_id
         can [:read], Payment, organization_id: admin_user.organization_id
       end
-      if admin_user.has_role? :accountant
+      if admin_user.has_role?(:accountant)
         can [:read], Organization, id: admin_user.organization_id
         can %i[read update], User, organization_id: admin_user.organization_id
         can [:read], Course, organization_id: admin_user.organization_id

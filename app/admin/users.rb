@@ -1,4 +1,4 @@
-ActiveAdmin.register User do
+ActiveAdmin.register(User) do
   menu parent: 'users_management', if: proc { can?(:read, User) }
 
   # See permitted parameters documentation:
@@ -21,14 +21,13 @@ ActiveAdmin.register User do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
-      myscope
+      myscope.includes(:organization)
     end
 
     def update
       unless params[:user][:password].present?
-        params[:user].delete 'password'
-        params[:user].delete 'password_confirmation'
+        params[:user].delete('password')
+        params[:user].delete('password_confirmation')
       end
       super
     end
@@ -97,10 +96,10 @@ ActiveAdmin.register User do
             link_to(obj.full_name, '#', target: '_blank',
                                         data: {
                                           token: auth_token,
-                                          url: [users_path, 'profile'].join('/')
+                                          url: [users_path, 'profile'].join('/'),
                                         },
                                         id: 'impersonate-user',
-                                        title: "Impersona #{obj.firstname} #{obj.lastname}")
+                                        title: "Impersona #{obj.firstname} #{obj.lastname}", rel: 'noopener')
           end
           row(:firstname)
           row(:lastname)
@@ -123,7 +122,7 @@ ActiveAdmin.register User do
           row(:medical_certificate_expire_at) do |obj|
             if obj.medical_certificate_expire_at
               css_class = obj.medical_certificate_expire_at < Time.zone.today ? 'red' : ''
-              span(I18n.localize(obj.medical_certificate_expire_at, format: :long), class: css_class)
+              span(I18n.l(obj.medical_certificate_expire_at, format: :long), class: css_class)
             end
           end
           row(:sign_in_count)
@@ -186,17 +185,17 @@ ActiveAdmin.register User do
       column do
         f.inputs do
           if current_admin_user.is_root?
-            f.input :organization
+            f.input(:organization)
           else
-            f.input :organization, collection: [current_admin_user.organization]
+            f.input(:organization, collection: [current_admin_user.organization])
           end
-          f.input :firstname
-          f.input :lastname
-          f.input :email
-          f.input :phone
-          f.input :birthdate, as: :date_picker
-          f.input :gender, as: :select, collection: [%w[Maschio M], %w[Femmina F], %w[Robot R]]
-          f.input :medical_certificate, as: :file, hint:  if f.object.medical_certificate.present?
+          f.input(:firstname)
+          f.input(:lastname)
+          f.input(:email)
+          f.input(:phone)
+          f.input(:birthdate, as: :date_picker)
+          f.input(:gender, as: :select, collection: [%w[Maschio M], %w[Femmina F], %w[Robot R]])
+          f.input(:medical_certificate, as: :file, hint:  if f.object.medical_certificate.present?
                                                             if /^image/ === f.object.medical_certificate.content_type
                                                               image_tag(f.object.medical_certificate, height: '50px')
                                                             else
@@ -204,24 +203,24 @@ ActiveAdmin.register User do
                                                             end
                                                           else
                                                             ''
-                                                          end
-          f.input :medical_certificate_expire_at, as: :date_picker
-          f.input :password
-          f.input :password_confirmation
-          f.input :state
-          f.input :confirmed_at, as: :datetime_picker
+                                                          end)
+          f.input(:medical_certificate_expire_at, as: :date_picker)
+          f.input(:password)
+          f.input(:password_confirmation)
+          f.input(:state)
+          f.input(:confirmed_at, as: :datetime_picker)
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-          f.input :trainer_id, as: :search_select, url: admin_trainers_path(tmp_params),
+          f.input(:trainer_id, as: :search_select, url: admin_trainers_path(tmp_params),
                                fields: [:lastname], display_name: 'lastname', minimum_input_length: 3,
-                               order_by: 'lastname_asc'
+                               order_by: 'lastname_asc')
         end
       end
 
       column do
-        f.inputs 'Bambino' do
-          f.input :child_firstname
-          f.input :child_lastname
-          f.input :child_birthdate, as: :date_picker
+        f.inputs('Bambino') do
+          f.input(:child_firstname)
+          f.input(:child_lastname)
+          f.input(:child_birthdate, as: :date_picker)
         end
       end
     end

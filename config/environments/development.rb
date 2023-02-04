@@ -1,6 +1,6 @@
 host = 'www.fitness.io'
 host_port = 3100
-Rails.application.default_url_options = { host: host, port: host_port }
+Rails.application.default_url_options = { host:, port: host_port }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -24,7 +24,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = false
@@ -64,7 +64,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Configure action mailer
-  config.default_url_options = { host: host, port: host_port }
+  config.default_url_options = { host:, port: host_port }
   config.action_mailer.default_url_options = config.default_url_options
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
@@ -74,7 +74,7 @@ Rails.application.configure do
     address: 'smtp.mailtrap.io',
     domain: 'smtp.mailtrap.io',
     port: '2525',
-    authentication: :cram_md5
+    authentication: :cram_md5,
   }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"

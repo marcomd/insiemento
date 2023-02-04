@@ -4,23 +4,23 @@ describe PenaltyService do
   let(:event_date) { 1.day.ago }
   let(:starting_date) { event_date.to_date }
   let(:debug) { false }
-  subject { described_class.call(starting_date: starting_date, debug: debug) }
-  let(:duplicated_service) { described_class.call(starting_date: starting_date, debug: debug) }
+  subject { described_class.call(starting_date:, debug:) }
+  let(:duplicated_service) { described_class.call(starting_date:, debug:) }
   let(:organization) { organization_fitness }
   let(:penalty_category) { category_fitness }
   let(:penalty_course) { nil }
-  let(:penalty) { create(:penalty, organization: organization, category: penalty_category, course: penalty_course) }
+  let(:penalty) { create(:penalty, organization:, category: penalty_category, course: penalty_course) }
   let(:course_event) do
     create(:course_event,
-           organization: organization,
+           organization:,
            category: category_fitness,
            course: course_fitness_zumba,
            state: :active,
-           event_date: event_date)
+           event_date:)
   end
   # Dopo il seed lo user è senza abbonamento, verificare
   let(:user) { user_linda }
-  let(:attendee) { create(:attendee, user: user, course_event: course_event, presence: presence, disable_bookability_checks: true) }
+  let(:attendee) { create(:attendee, user:, course_event:, presence:, disable_bookability_checks: true) }
   let(:presence) { false }
 
   describe '#call' do
@@ -85,14 +85,14 @@ describe PenaltyService do
         end
 
         context 'when service runs twice' do
-          let(:another_attendee) { create(:attendee, user: user_marco, course_event: course_event, presence: presence, disable_bookability_checks: true) }
+          let(:another_attendee) { create(:attendee, user: user_marco, course_event:, presence:, disable_bookability_checks: true) }
 
           it do
             expect do
-              expect(subject.result).to eq 1
+              expect(subject.result).to eq(1)
               another_attendee
               # It returns only the just created one
-              expect(duplicated_service.result).to eq 1
+              expect(duplicated_service.result).to eq(1)
             end.to change(UserPenalty, :count).by(2)
           end
         end
@@ -100,17 +100,17 @@ describe PenaltyService do
         context 'when there are more course events' do
           let(:another_course_event) do
             create(:course_event,
-                   organization: organization,
+                   organization:,
                    category: category_fitness,
                    course: course_fitness_yoga,
                    state: :active,
-                   event_date: event_date)
+                   event_date:)
           end
-          let!(:another_attendee) { create(:attendee, user: user_marco, course_event: another_course_event, presence: presence, disable_bookability_checks: true) }
+          let!(:another_attendee) { create(:attendee, user: user_marco, course_event: another_course_event, presence:, disable_bookability_checks: true) }
 
           it do
             expect do
-              expect(subject.result).to eq 2
+              expect(subject.result).to eq(2)
             end.to change(UserPenalty, :count).by(2)
           end
 
@@ -119,7 +119,7 @@ describe PenaltyService do
 
             it do
               expect do
-                expect(subject.result).to eq 1
+                expect(subject.result).to eq(1)
               end.to change(UserPenalty, :count).by(1)
             end
           end

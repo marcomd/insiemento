@@ -1,23 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe Subscription, type: :model do
+describe Subscription, type: :model do
   describe '#type' do
-    subject { build(:subscription, subscription_type: subscription_type) }
+    subject { build(:subscription, subscription_type:) }
     let(:result) { subject.type }
 
     context 'when payment type is trial' do
       let(:subscription_type) { :trial }
-      it { expect(result).to be_a TrialSubscription }
+      it { expect(result).to be_a(TrialSubscription) }
     end
 
     context 'when payment type is consumption' do
       let(:subscription_type) { :consumption }
-      it { expect(result).to be_a ConsumptionSubscription }
+      it { expect(result).to be_a(ConsumptionSubscription) }
     end
 
     context 'when payment type is fee' do
       let(:subscription_type) { :fee }
-      it { expect(result).to be_a FeeSubscription }
+      it { expect(result).to be_a(FeeSubscription) }
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe Subscription, type: :model do
       it do
         Timecop.freeze(str_date) do
           expect(result).to be_truthy
-          expect(subject.state).to eq 'active'
+          expect(subject.state).to eq('active')
         end
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe Subscription, type: :model do
       it do
         Timecop.freeze(str_date) do
           expect(result).to be_truthy
-          expect(subject.state).to eq 'expired'
+          expect(subject.state).to eq('expired')
         end
       end
     end
@@ -54,28 +54,28 @@ RSpec.describe Subscription, type: :model do
 
     context 'when start on is in the future' do
       let(:current_date) { Date.new(2020, 8, 1) }
-      it { expect(result).to eq 'new' }
+      it { expect(result).to eq('new') }
     end
 
     context 'when start on is today and end_on in the future' do
-      it { expect(result).to eq 'active' }
+      it { expect(result).to eq('active') }
     end
 
     context 'when start on is passed and end_on is today' do
       let(:current_date) { Date.new(2020, 8, 3) }
-      it { expect(result).to eq 'active' }
+      it { expect(result).to eq('active') }
     end
 
     context 'when start on and end_on are both passed' do
       let(:current_date) { Date.new(2020, 8, 4) }
-      it { expect(result).to eq 'expired' }
+      it { expect(result).to eq('expired') }
     end
   end
 
   describe '#add_attendee' do
     let(:result) { subject.add_attendee(course_event_id) }
     subject { user_stefania.active_subscriptions.where(subscription_type: 'fee').first }
-    let(:course_event) { CourseEvent.find course_event_id }
+    let(:course_event) { CourseEvent.find(course_event_id) }
 
     context 'when course event is subscribable' do
       let(:course_event_id) { stefania_unsubscribed_course_event_id }
@@ -105,7 +105,7 @@ RSpec.describe Subscription, type: :model do
     context 'when scope is global' do
       context 'when date is after the end' do
         let(:date) { Date.today + 370.days }
-        it { expect(result).to eq 0 }
+        it { expect(result).to eq(0) }
       end
     end
 
@@ -116,22 +116,22 @@ RSpec.describe Subscription, type: :model do
 
       context 'when date is before starting' do
         let(:date) { subject.subscriptions.first.start_on - 1 }
-        it { expect(result).to eq 0 }
+        it { expect(result).to eq(0) }
       end
 
       context 'when date is at the beginning of the active period' do
         let(:date) { subject.subscriptions.first.start_on }
-        it { expect(result).to eq 2 }
+        it { expect(result).to eq(2) }
       end
 
       context 'when date is at the end of the active period' do
         let(:date) { subject.subscriptions.first.end_on }
-        it { expect(result).to eq 1 }
+        it { expect(result).to eq(1) }
       end
 
       context 'when date is after the end' do
         let(:date) { subject.subscriptions.first.end_on + 1 }
-        it { expect(result).to eq 0 }
+        it { expect(result).to eq(0) }
       end
     end
   end

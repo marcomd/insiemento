@@ -5,24 +5,20 @@ module AdminSharedBatchActions
 
   # See https://github.com/activeadmin/activeadmin/issues/3673
   def shared_batch_action(class_object:, action_name:, selection: nil, records: nil, is_transaction: false, return_scope_if_ok: nil, return_scope_if_error: nil)
-    raise 'Please set selection ids or records param!' unless selection || records
+    raise('Please set selection ids or records param!') unless selection || records
 
     records ||= class_object.find(selection)
     err = []
     ok = []
     messaggio = ''
     records.each do |record|
-      if is_transaction
-        raise "Operazione #{action_name} non valida!" unless record.send("may_#{action_name}?")
-      end
+      raise("Operazione #{action_name} non valida!") if is_transaction && !record.send("may_#{action_name}?")
 
-      if record.send("#{action_name}!")
-        ok << record.id
-      else
-        raise record.errors.map { |e| e.message}.join(', ')
-      end
+      raise(record.errors.map { |e| e.message }.join(', ')) unless record.send("#{action_name}!")
+      ok << record.id
+
     rescue StandardError
-      message = record.errors.map { |e| e.message}.join(', ') if record.errors.present?
+      message = record.errors.map { |e| e.message }.join(', ') if record.errors.present?
       err << "#{record.id}: #{message || $!.message}"
     end
 
@@ -48,6 +44,6 @@ module AdminSharedBatchActions
       flash[:error] << ' ' << messaggio
     end
 
-    redirect_to collection_path(scope: return_scope)
+    redirect_to(collection_path(scope: return_scope))
   end
 end

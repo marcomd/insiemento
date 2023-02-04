@@ -8,7 +8,7 @@ class SendgridMailer < ApplicationMailer
     json_data = {
       firstname: user.firstname,
       application_name: current_organization.name,
-      link_url: link_url
+      link_url:,
     }
 
     template_id = get_remote_template_id(__method__)[language]
@@ -19,10 +19,10 @@ class SendgridMailer < ApplicationMailer
                            from: { email: "please-do-not-reply@#{current_organization.domain}", name: current_organization.name },
                            to: user.email,
                            reply_to: nil,
-                           template_id: template_id,
+                           template_id:,
                            dynamic_template_data: json_data,
                            attachments: nil,
-                           debug: debug
+                           debug:,
                          })
   end
 
@@ -32,7 +32,7 @@ class SendgridMailer < ApplicationMailer
     json_data = {
       firstname: user.firstname,
       application_name: current_organization.name,
-      link_url: link_url
+      link_url:,
     }
 
     template_id = get_remote_template_id(__method__)[language]
@@ -43,10 +43,10 @@ class SendgridMailer < ApplicationMailer
                            from: { email: "please-do-not-reply@#{current_organization.domain}", name: current_organization.name },
                            to: user.email,
                            reply_to: nil,
-                           template_id: template_id,
+                           template_id:,
                            dynamic_template_data: json_data,
                            attachments: nil,
-                           debug: debug
+                           debug:,
                          })
   end
 

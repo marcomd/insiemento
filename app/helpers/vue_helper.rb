@@ -1,12 +1,12 @@
 module VueHelper
   def vue(component:, props: {})
-    content_tag :div do
-      content_tag :div, nil,
+    content_tag(:div) do
+      content_tag(:div, nil,
                   id: "#{component}-vue-wrapper",
                   'data-props': props.to_json,
                   'data-locale': I18n.locale,
                   'data-i18n': translations(component),
-                  'data-env': Rails.env
+                  'data-env': Rails.env)
       # 'data-rollbar-token': rollbar_token,
     end
   end

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :course do
     organization
-    category { build(:category, organization: organization) }
-    course { build(:course, organization: organization, category: category) }
+    category { build(:category, organization:) }
+    course { build(:course, organization:, category:) }
     sequence(:name) { |n| "Course#{n}" }
     sequence(:description) { |n| "Description#{n}" }
     start_booking_hours { 24 }

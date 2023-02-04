@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserDocumentJob, type: :job do
+describe UserDocumentJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later(user_document) }
@@ -8,7 +8,7 @@ RSpec.describe UserDocumentJob, type: :job do
 
   context 'when job is enqueued' do
     # We reset the queue manually so as not to affect next tests
-    after {clear_enqueued_jobs}
+    after { clear_enqueued_jobs }
 
     it { expect { subject }.to change(enqueued_jobs, :size).by(1) }
 
@@ -21,7 +21,7 @@ RSpec.describe UserDocumentJob, type: :job do
     context 'when state is correct' do
       it do
         expect do
-          VCR.use_cassette "otpservice/create_user_document_id_#{user_document.id}_status_201" do
+          VCR.use_cassette("otpservice/create_user_document_id_#{user_document.id}_status_201") do
             perform_enqueued_jobs { subject }
           end
           user_document.reload
@@ -40,11 +40,11 @@ RSpec.describe UserDocumentJob, type: :job do
     context 'when service call fails' do
       it do
         expect do
-          VCR.use_cassette "otpservice/create_user_document_id_#{user_document.id}_status_422" do
+          VCR.use_cassette("otpservice/create_user_document_id_#{user_document.id}_status_422") do
             perform_enqueued_jobs { subject }
           end
           user_document.reload
-        end.to raise_exception(/UserDocumentJob failed/).and change(SystemLog, :count).by(1)
+        end.to raise_exception(/UserDocumentJob failed/).and(change(SystemLog, :count).by(1))
       end
     end
   end

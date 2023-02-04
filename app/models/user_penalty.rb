@@ -9,5 +9,5 @@ class UserPenalty < ApplicationRecord
 
   validates :attendee_id, uniqueness: { message: I18n.t('errors.messages.already_inhibited') }
 
-  scope :active, ->(date=Time.zone.today) { where('inhibited_until >= ?', date) }
+  scope :active, ->(date = Time.zone.today) { where('inhibited_until >= ?', date) }
 end

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe UpdateNewsJob, type: :job do
+describe UpdateNewsJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }
 
   context 'when job is enqueued' do
     # We reset the queue manually so as not to affect next tests
-    after {clear_enqueued_jobs}
+    after { clear_enqueued_jobs }
 
     it { expect { subject }.to change(enqueued_jobs, :size).by(1) }
 
@@ -18,14 +18,14 @@ RSpec.describe UpdateNewsJob, type: :job do
 
   context 'when job is performed' do
     let!(:news) do
-      create(:news, organization_id: 1, expire_on: expire_on)
+      create(:news, organization_id: 1, expire_on:)
     end
 
     context 'when news is expired' do
       let(:state) { :active }
       let(:expire_on) { 1.day.ago }
 
-      before { news.update_columns state: state }
+      before { news.update_columns(state:) }
 
       it do
         expect do

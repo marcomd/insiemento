@@ -11,7 +11,7 @@ class UserDocumentsManagerService
   end
 
   def call
-    expired_count = UserDocument.to_expire.update_all state: :expired
+    expired_count = UserDocument.to_expire.update_all(state: :expired)
     h_user_documents = []
     UserDocumentModel.active_state.order('id').each do |user_document_model|
       # user_document_model.organization.users.active_state.each do |user|
@@ -23,15 +23,11 @@ class UserDocumentsManagerService
               if user_document_model.recurring
                 true
               else
-                if debug && !Rails.env.test?
-                  puts "UserDocumentsService user #{user.id} have one document model #{user_document_model.id} which is not recurring"
-                end
+                puts "UserDocumentsService user #{user.id} have one document model #{user_document_model.id} which is not recurring" if debug && !Rails.env.test?
                 false
               end
             else
-              if debug && !Rails.env.test?
-                puts "UserDocumentsService user #{user.id} already have document model #{user_document_model.id}"
-              end
+              puts "UserDocumentsService user #{user.id} already have document model #{user_document_model.id}" if debug && !Rails.env.test?
               false
             end
           else

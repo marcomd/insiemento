@@ -5,7 +5,7 @@
 
 host = 'localhost'
 host_port = 3100
-Rails.application.default_url_options = { host: host, port: host_port }
+Rails.application.default_url_options = { host:, port: host_port }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -20,7 +20,7 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+    'Cache-Control' => "public, max-age=#{1.hour.to_i}",
   }
 
   # Show full error reports and disable caching.

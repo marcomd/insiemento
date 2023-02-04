@@ -1,4 +1,4 @@
-ActiveAdmin.register CourseSchedule do
+ActiveAdmin.register(CourseSchedule) do
   menu parent: 'courses_management', if: proc { can?(:read, CourseSchedule) }
 
   # See permitted parameters documentation:
@@ -22,8 +22,7 @@ ActiveAdmin.register CourseSchedule do
 
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category, :course, :room, :trainer
-      myscope
+      myscope.includes(:organization, :category, :course, :room, :trainer)
     end
   end
 
@@ -49,12 +48,12 @@ ActiveAdmin.register CourseSchedule do
 
   batch_action :sospendi, if: proc { @current_scope && @current_scope.scope_method == :active },
                           confirm: 'Confermi di voler sospendere le schedulazioni selezionate?' do |selection|
-    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'pause', is_transaction: true, return_scope_if_ok: 'suspended', return_scope_if_error: 'active'
+    shared_batch_action class_object: CourseSchedule, selection:, action_name: 'pause', is_transaction: true, return_scope_if_ok: 'suspended', return_scope_if_error: 'active'
   end
 
   batch_action :attiva, if: proc { @current_scope && @current_scope.scope_method == :suspended },
                         confirm: 'Confermi di voler riattivare le schedulazioni selezionate?' do |selection|
-    shared_batch_action class_object: CourseSchedule, selection: selection, action_name: 'activate', is_transaction: true, return_scope_if_ok: 'active', return_scope_if_error: 'suspended'
+    shared_batch_action class_object: CourseSchedule, selection:, action_name: 'activate', is_transaction: true, return_scope_if_ok: 'active', return_scope_if_error: 'suspended'
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
@@ -72,17 +71,17 @@ ActiveAdmin.register CourseSchedule do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :category, collection: current_admin_user.categories
-      f.input :course, collection: current_admin_user.courses.active
-      f.input :room, collection: current_admin_user.rooms
-      f.input :trainer, collection: current_admin_user.trainers
-      f.input :event_day
-      f.input :event_time, as: :time_picker
-      f.input :state
+      f.input(:category, collection: current_admin_user.categories)
+      f.input(:course, collection: current_admin_user.courses.active)
+      f.input(:room, collection: current_admin_user.rooms)
+      f.input(:trainer, collection: current_admin_user.trainers)
+      f.input(:event_day)
+      f.input(:event_time, as: :time_picker)
+      f.input(:state)
     end
     f.actions
   end

@@ -6,24 +6,21 @@ module ActiveAdmin
       def build(namespace)
         @namespace = namespace
 
-        div id: 'footer' do
+        div(id: 'footer') do
           ar_footer = [CONFIG.dig(:application, :name),
                        "#{I18n.t('activeadmin.footer.env')} <b>#{Rails.env}</b>",
                        "#{I18n.t('activeadmin.footer.version')} <b>#{CONFIG.dig(:application, :version)}</b>",
                        "#{I18n.t('activeadmin.footer.last_update')} <b>#{CONFIG.dig(:application, :updated_at)}</b>"]
-          if Rails.env.development?
-            ar_footer << "#{I18n.t('activeadmin.footer.last_commit')} <b>#{`git rev-parse HEAD`[0..6]}</b>"
-          end
+          ar_footer << "#{I18n.t('activeadmin.footer.last_commit')} <b>#{`git rev-parse HEAD`[0..6]}</b>" if Rails.env.development?
           # if Rails.env.staging?
           #   ar_footer << "#{I18n.t('activeadmin.footer.last_commit')} <b>#{ProjectDiagnostic.get_last_deployed_commit}</b>"
           # end
-          para ar_footer.join(', ').html_safe
+          para(ar_footer.join(', ').html_safe)
           if Rails.env.production? || Rails.env.production_itw?
-            para image_tag('logo_200.png', size: '50x50')
-            para <<GOOGLEANALYTICS.gsub(/^              /, '').html_safe
-GOOGLEANALYTICS
+            para(image_tag('logo_200.png', size: '50x50'))
+            para(''.gsub(/^              /, '').html_safe)
           else
-            para image_tag('logo_200.png', size: '50x50')
+            para(image_tag('logo_200.png', size: '50x50'))
           end
         end
       end
@@ -47,7 +44,7 @@ GOOGLEANALYTICS
           end
           @collection.each do |record|
             td do
-              image_tag(record.send(title).present? ? record.send(title) : 'logo_placeholder.png', options)
+              image_tag((record.send(title).presence || 'logo_placeholder.png'), options)
             end
           end
         end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+describe User, type: :model do
   describe '#has_active_document?' do
     let(:result) { subject.has_active_document?(user_document_model_id) }
     let(:user_document_model_id) { 1 }
@@ -79,18 +79,18 @@ RSpec.describe User, type: :model do
 
   describe '#is_inhibited?' do
     subject { user_stefania }
-    let(:result) { subject.is_inhibited?(category_id: category_id, course_id: course_id) }
+    let(:result) { subject.is_inhibited?(category_id:, course_id:) }
     let(:category_id) { nil }
     let(:course_id) { nil }
 
-    it { expect(result).to eq false }
+    it { expect(result).to eq(false) }
 
     context 'when there is an inhibition' do
       # before { user_stefania.attendees.first.update_column(:inhibited_until, Time.zone.tomorrow) }
       before { create(:user_penalty, user: subject) }
 
       it do
-        expect(result).to eq true
+        expect(result).to eq(true)
       end
     end
   end
@@ -98,12 +98,12 @@ RSpec.describe User, type: :model do
   describe '.with_not_ended_subscriptions' do
     let(:result) { described_class.with_not_ended_subscriptions }
 
-    it { expect(result.size).to eq 4 }
+    it { expect(result.size).to eq(4) }
   end
 
   describe '.elegible_for_user_documents' do
     let(:result) { described_class.elegible_for_user_documents }
 
-    it { expect(result.size).to eq 13 }
+    it { expect(result.size).to eq(13) }
   end
 end

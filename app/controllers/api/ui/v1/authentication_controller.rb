@@ -9,9 +9,9 @@ class Api::Ui::V1::AuthenticationController < Api::Ui::BaseController
     if service.success?
       @auth_token = service.result
       @user = service.user
-      render :authenticate
+      render(:authenticate)
     else
-      render json: { errors: service.errors }, status: :unauthorized
+      render(json: { errors: service.errors }, status: :unauthorized)
     end
   end
 

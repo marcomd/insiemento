@@ -1,30 +1,30 @@
 require 'rails_helper'
 
-RSpec.describe UserPenaltyJob, type: :job do
+describe UserPenaltyJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }
   let(:organization) { organization_fitness }
   let(:category) { category_fitness }
   let(:course) { course_fitness_zumba }
-  let(:penalty) { create(:penalty, organization: organization, category: category) }
+  let(:penalty) { create(:penalty, organization:, category:) }
   let(:event_date) { 1.day.ago }
   let(:course_event) do
     create(:course_event,
-           organization: organization,
-           category: category,
-           course: course,
+           organization:,
+           category:,
+           course:,
            state: :active,
-           event_date: event_date)
+           event_date:)
   end
   # Dopo il seed lo user è senza abbonamento, verificare
   let(:user) { user_linda }
-  let(:attendee) { create(:attendee, user: user, course_event: course_event, presence: presence, disable_bookability_checks: true) }
+  let(:attendee) { create(:attendee, user:, course_event:, presence:, disable_bookability_checks: true) }
   let(:presence) { false }
 
   context 'when job is enqueued' do
     # We reset the queue manually so as not to affect next tests
-    after {clear_enqueued_jobs}
+    after { clear_enqueued_jobs }
 
     it { expect { subject }.to change(enqueued_jobs, :size).by(1) }
 

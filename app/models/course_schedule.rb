@@ -19,7 +19,7 @@ class CourseSchedule < ApplicationRecord
     wednesday: 3,
     thursday: 4,
     friday: 5,
-    saturday: 6
+    saturday: 6,
   }.freeze
   enum event_day: EVENT_DAYS
 
@@ -38,7 +38,7 @@ class CourseSchedule < ApplicationRecord
     next_date == date ? next_date + 7 : next_date
   end
 
-  def next_event_datetime(date=Time.zone.today)
+  def next_event_datetime(date = Time.zone.today)
     Time.zone.parse("#{next_event_date(date).strftime('%Y-%m-%d')} #{event_time_short}")
   end
 

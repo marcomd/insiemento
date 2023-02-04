@@ -1,4 +1,4 @@
-ActiveAdmin.register Attendee do
+ActiveAdmin.register(Attendee) do
   menu parent: 'courses_management', if: proc { can?(:read, Attendee) }
 
   # See permitted parameters documentation:
@@ -21,8 +21,7 @@ ActiveAdmin.register Attendee do
 
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :course_event, :user, :subscription
-      myscope
+      myscope.includes(:organization, :course_event, :user, :subscription)
     end
 
     def show
@@ -49,14 +48,14 @@ ActiveAdmin.register Attendee do
 
   batch_action :destroy, if: proc { @current_scope },
                          confirm: 'Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)' do |selection|
-    shared_batch_action class_object: Attendee, selection: selection, action_name: 'destroy' # , return_scope_if_ok:'all', return_scope_if_error:'all'
+    shared_batch_action class_object: Attendee, selection:, action_name: 'destroy' # , return_scope_if_ok:'all', return_scope_if_error:'all'
   end
 
   batch_action :elimina_senza_controlli, if: proc { @current_scope },
                                          confirm: 'Confermi di voler eliminare i partecipanti selezionati? (li hai avvisati?)' do |selection|
     records = Attendee.find(selection)
     records.each { |record| record.disable_bookability_checks = true }
-    shared_batch_action class_object: Attendee, records: records, action_name: 'destroy' # , return_scope_if_ok:'all', return_scope_if_error:'all'
+    shared_batch_action class_object: Attendee, records:, action_name: 'destroy' # , return_scope_if_ok:'all', return_scope_if_error:'all'
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
@@ -73,17 +72,17 @@ ActiveAdmin.register Attendee do
         f.inputs do
           f.semantic_errors(*f.object.errors.keys)
           if current_admin_user.is_root?
-            f.input :organization
+            f.input(:organization)
           else
-            f.input :organization, collection: [current_admin_user.organization]
+            f.input(:organization, collection: [current_admin_user.organization])
           end
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-          f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+          f.input(:user_id, as: :search_select, url: admin_users_path(tmp_params),
                             fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,
-                            order_by: 'lastname_asc'
-          f.input :course_event_id
-          f.input :subscription_id
-          f.input :presence
+                            order_by: 'lastname_asc')
+          f.input(:course_event_id)
+          f.input(:subscription_id)
+          f.input(:presence)
         end
       end
     end

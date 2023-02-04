@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe UpdateUsersJob, type: :job do
+describe UpdateUsersJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }
 
   context 'when job is enqueued' do
     # We reset the queue manually so as not to affect next tests
-    after {clear_enqueued_jobs}
+    after { clear_enqueued_jobs }
 
     it { expect { subject }.to change(enqueued_jobs, :size).by(1) }
 

@@ -10,7 +10,7 @@ class StripePayment < Payment
   private
 
   def external_service_response_or_create
-    external_service_response.present? ? external_service_response : create_intent
+    (external_service_response.presence || create_intent)
   end
 
   def create_intent
@@ -18,9 +18,9 @@ class StripePayment < Payment
                                             amount: amount_cents,
                                             currency: 'eur',
                                             # Verify your integration in this guide by including this parameter
-                                            metadata: { integration_check: 'payment' }
+                                            metadata: { integration_check: 'payment' },
                                           })
-    update_columns external_service_response: intent
+    update_columns(external_service_response: intent)
     intent
   end
 end

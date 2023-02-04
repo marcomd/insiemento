@@ -13,11 +13,11 @@ class Api::Ui::V1::ProductsController < Api::Ui::BaseController
                   @products.where(product_filter_params)
                 end
 
-    render :index
+    render(:index)
   end
 
   def show
-    render :show
+    render(:show)
   end
 
   private

@@ -1,4 +1,4 @@
-ActiveAdmin.register ActiveStorage::Attachment do
+ActiveAdmin.register(ActiveStorage::Attachment) do
   menu parent: 'diagnostics', if: proc { can?(:manage, SystemLog) }
 
   # See permitted parameters documentation:

@@ -1,4 +1,4 @@
-ActiveAdmin.register UserDocumentModel do
+ActiveAdmin.register(UserDocumentModel) do
   menu parent: 'platform_management', if: proc { can?(:read, UserDocumentModel) }
 
   # See permitted parameters documentation:
@@ -20,8 +20,7 @@ ActiveAdmin.register UserDocumentModel do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
-      myscope
+      myscope.includes(:organization)
     end
   end
 

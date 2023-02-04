@@ -1,4 +1,4 @@
-ActiveAdmin.register Subscription do
+ActiveAdmin.register(Subscription) do
   menu parent: 'users_management', if: proc { can?(:read, Subscription) }
 
   # See permitted parameters documentation:
@@ -12,15 +12,14 @@ ActiveAdmin.register Subscription do
   #
   permit_params do
     permitted = %i[code category_id product_id user_id start_on end_on subscription_type max_accesses_number]
-    permitted.concat %i[organization_id state] if current_admin_user.is_root? || params[:action] == 'create'
+    permitted.concat(%i[organization_id state]) if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category, :product
-      myscope
+      myscope.includes(:organization, :category, :product)
     end
   end
 
@@ -37,8 +36,11 @@ ActiveAdmin.register Subscription do
     column(:product)
     column(:user)
     # column(:order)
-    column(:subscription_type)  { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
-    column(:state)              { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
+    column(:subscription_type) do |obj|
+      value = obj.subscription_type.downcase
+      span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}"
+    end
+    column(:state) { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}" }
     column(:start_on)
     column(:end_on)
     column(:max_accesses_number)
@@ -69,8 +71,11 @@ ActiveAdmin.register Subscription do
           row(:user)
           # row(:order)
           row(:code)
-          row(:subscription_type) { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
-          row(:state)             { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
+          row(:subscription_type) do |obj|
+            value = obj.subscription_type.downcase
+            span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}"
+          end
+          row(:state) { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}" }
           row(:start_on)
           row(:end_on)
           row(:max_accesses_number)
@@ -93,29 +98,29 @@ ActiveAdmin.register Subscription do
   form do |f|
     f.inputs do
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
       # f.input :category, collection: current_admin_user.categories
       # f.input :product, as: :select, collection: current_admin_user.products
-      f.input :product_id, as: :nested_select,
+      f.input(:product_id, as: :nested_select,
                            level_1: {
                              attribute: :category_id,
-                             collection: current_admin_user.categories
+                             collection: current_admin_user.categories,
                            },
                            level_2: {
                              attribute: :product_id,
-                             collection: current_admin_user.products
-                           }
+                             collection: current_admin_user.products,
+                           })
       # f.input :subscription_type
       # Root admin could access all users so ability is not sufficient
       tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-      f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+      f.input(:user_id, as: :search_select, url: admin_users_path(tmp_params),
                         fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,
-                        order_by: 'lastname_asc'
+                        order_by: 'lastname_asc')
 
-      f.input :start_on
+      f.input(:start_on)
       f.input(:end_on)
       if current_admin_user.is_root?
         f.input(:code)
@@ -123,7 +128,7 @@ ActiveAdmin.register Subscription do
       else
         f.input(:state, input_html: { disabled: true })
       end
-      f.input :max_accesses_number
+      f.input(:max_accesses_number)
     end
     f.actions
   end

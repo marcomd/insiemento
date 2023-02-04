@@ -1,4 +1,4 @@
-ActiveAdmin.register Category do
+ActiveAdmin.register(Category) do
   menu parent: 'products_management', if: proc { can?(:read, Category) }
 
   # See permitted parameters documentation:
@@ -19,8 +19,7 @@ ActiveAdmin.register Category do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
-      myscope
+      myscope.includes(:organization)
     end
   end
 
@@ -43,11 +42,11 @@ ActiveAdmin.register Category do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :name
+      f.input(:name)
     end
     f.actions
   end

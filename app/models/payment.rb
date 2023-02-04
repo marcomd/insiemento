@@ -29,14 +29,14 @@ class Payment < ApplicationRecord
   end
 
   def confirm!
-    update! state: :confirmed
+    update!(state: :confirmed)
   end
 
   private
 
   # This method must be overridden in subclasses
   def external_service_response_or_create
-    raise "Please override in the subclass #{self.class.name}"
+    raise("Please override in the subclass #{self.class.name}")
   end
 
   def add_to_order!

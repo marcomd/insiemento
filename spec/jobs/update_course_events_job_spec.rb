@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe UpdateCourseEventsJob, type: :job do
+describe UpdateCourseEventsJob, type: :job do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }
 
   context 'when job is enqueued' do
     # We reset the queue manually so as not to affect next tests
-    after {clear_enqueued_jobs}
+    after { clear_enqueued_jobs }
 
     it { expect { subject }.to change(enqueued_jobs, :size).by(1) }
 
@@ -19,7 +19,7 @@ RSpec.describe UpdateCourseEventsJob, type: :job do
   context 'when job is performed' do
     let(:state) { :active }
     let!(:course_event) do
-      create(:course_event, event_date: event_date, state: state, organization_id: 1, category_id: 1,
+      create(:course_event, event_date:, state:, organization_id: 1, category_id: 1,
                             course_id: 1, course_schedule_id: 1, room_id: 1, trainer_id: 1)
     end
 

@@ -12,14 +12,14 @@ class Subscription < ApplicationRecord
   before_save :set_current_state
   after_save :update_user_state
 
-  validates_presence_of :subscription_type
-  validates_presence_of :start_on, if: :user
-  validates_presence_of :end_on, if: -> { user && product }
-  validates_presence_of :max_accesses_number, if: -> { %w[trial consumption].include? subscription_type }
+  validates :subscription_type, presence: true
+  validates :start_on, presence: { if: :user }
+  validates :end_on, presence: { if: -> { user && product } }
+  validates :max_accesses_number, presence: { if: -> { %w[trial consumption].include?(subscription_type) } }
   # validates_absence_of :max_accesses_number, if: -> { ['fee'].include? subscription_type } # Removed validation to define a cap
 
-  scope :active_at, ->(date=Time.zone.today) { where('start_on <= :date AND end_on >= :date', date: date) }
-  scope :not_ended, ->(date=Time.zone.today) { where(state: %i[new active]).where('end_on >= ?', date) }
+  scope :active_at, ->(date = Time.zone.today) { where('start_on <= :date AND end_on >= :date', date:) }
+  scope :not_ended, ->(date = Time.zone.today) { where(state: %i[new active]).where('end_on >= ?', date) }
 
   # enum type: { TrialSubscription: 10, ConsumptionSubscription: 20, FeeSubscription: 30 }
   enum subscription_type: { trial: 10, consumption: 20, fee: 30 }
@@ -28,7 +28,7 @@ class Subscription < ApplicationRecord
     new: 10,
     active: 20,
     expired: 30,
-    consumed: 40
+    consumed: 40,
   }, _suffix: true
 
   # scope :active, -> (date=Time.zone.today) { where('start_on <= ? and end_on > ?', date, date) }
@@ -46,19 +46,19 @@ class Subscription < ApplicationRecord
     when 'fee'
       FeeSubscription.new(self)
     else
-      raise "Unknown subscription type #{subscription_type}"
+      raise("Unknown subscription type #{subscription_type}")
     end
   end
 
   def add_attendee(course_event_id)
-    _attendee = Attendee.new(user_id: user_id, course_event_id: course_event_id)
+    _attendee = Attendee.new(user_id:, course_event_id:)
     attendees << _attendee
     _attendee
   end
 
   private
 
-  def set_current_state(date=Time.zone.today)
+  def set_current_state(date = Time.zone.today)
     _exceeded_caps = exceeded_caps(date)
     self.state =
       if _exceeded_caps.include?(:end_on)
@@ -71,7 +71,7 @@ class Subscription < ApplicationRecord
     type.set_current_state
   end
 
-  def exceeded_caps(date=Time.zone.today)
+  def exceeded_caps(date = Time.zone.today)
     _exceeded_caps = []
     _exceeded_caps << :start_on if !start_on || date < start_on
     _exceeded_caps << :end_on   if end_on && date > end_on
@@ -91,11 +91,10 @@ class Subscription < ApplicationRecord
     self.state                  ||= :new
     self.start_on               ||= Time.zone.today if user
 
-    if product
-      self.category_id          ||= product&.category_id
-      self.subscription_type    ||= product&.product_type
-      self.max_accesses_number  ||= product&.max_accesses_number
-      self.end_on               ||= self.start_on + product.days if start_on
-    end
+    return unless product
+    self.category_id          ||= product&.category_id
+    self.subscription_type    ||= product&.product_type
+    self.max_accesses_number  ||= product&.max_accesses_number
+    self.end_on               ||= self.start_on + product.days if start_on
   end
 end

@@ -1,4 +1,4 @@
-ActiveAdmin.register Organization do
+ActiveAdmin.register(Organization) do
   menu parent: 'platform_management', if: proc { can?(:update, Organization) }
 
   # See permitted parameters documentation:
@@ -102,14 +102,14 @@ ActiveAdmin.register Organization do
   form html: { multipart: true } do |f|
     columns do
       column do
-        f.inputs 'Dati principali' do
-          f.input :name
-          f.input :payoff
-          f.input :domain
-          f.input :email
-          f.input :phone
-          f.input :state # , collection: Organization::STATES
-          f.input :analytics_tag
+        f.inputs('Dati principali') do
+          f.input(:name)
+          f.input(:payoff)
+          f.input(:domain)
+          f.input(:email)
+          f.input(:phone)
+          f.input(:state) # , collection: Organization::STATES
+          f.input(:analytics_tag)
         end
       end
       column do
@@ -117,48 +117,48 @@ ActiveAdmin.register Organization do
     end
     columns do
       column do
-        f.inputs 'Aspetto estetico' do
-          f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo, height: '50px') : ''
-          f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, height: '50px') : ''
-          f.input :images, as: :file, hint: f.object.images.present? ? f.object.images.map { |image| image_tag(image, height: '50px') }.join(' ').html_safe : '', input_html: { multiple: true }
+        f.inputs('Aspetto estetico') do
+          f.input(:logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo, height: '50px') : '')
+          f.input(:image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, height: '50px') : '')
+          f.input(:images, as: :file, hint: f.object.images.present? ? f.object.images.map { |image| image_tag(image, height: '50px') }.join(' ').html_safe : '', input_html: { multiple: true })
           Organization.stored_attributes[:theme].each do |accessor|
-            f.input accessor,
+            f.input(accessor,
                     as: (Organization.storext_definitions[accessor][:type].name.include?('Boolean') ? :boolean : :minicolors_picker),
-                    required: false
+                    required: false)
           end
         end
       end
       column do
-        f.inputs 'Homepage' do
+        f.inputs('Homepage') do
           f.semantic_errors(*f.object.errors.keys)
-          f.input :homepage_title
-          f.input :homepage_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
-          f.input :homepage_customer_title
-          f.input :homepage_customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 }
-          f.input :homepage_features_title
-          f.input :homepage_features_summary
-          f.has_many :homepage_features, heading: 'Caratteristiche  ', allow_destroy: true, new_record: true do |ff|
-            ff.input :title, as: :string
-            ff.input :icon, as: :string
-            ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
-            ff.input :dark, as: :boolean
-            ff.input :color, as: :string
+          f.input(:homepage_title)
+          f.input(:homepage_description, as: :text, input_html: { class: 'autogrow', rows: 5 })
+          f.input(:homepage_customer_title)
+          f.input(:homepage_customer_description, as: :text, input_html: { class: 'autogrow', rows: 5 })
+          f.input(:homepage_features_title)
+          f.input(:homepage_features_summary)
+          f.has_many(:homepage_features, heading: 'Caratteristiche  ', allow_destroy: true, new_record: true) do |ff|
+            ff.input(:title, as: :string)
+            ff.input(:icon, as: :string)
+            ff.input(:text, as: :text, input_html: { class: 'autogrow', rows: 3 })
+            ff.input(:dark, as: :boolean)
+            ff.input(:color, as: :string)
           end
-          f.input :homepage_bio_title
-          f.input :homepage_bio_description
-          f.has_many :homepage_contacts, heading: 'Contatti  ', allow_destroy: true, new_record: true do |ff|
-            ff.input :title, as: :string
-            ff.input :icon, as: :string
-            ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
-            ff.input :dark, as: :boolean
-            ff.input :color, as: :string
+          f.input(:homepage_bio_title)
+          f.input(:homepage_bio_description)
+          f.has_many(:homepage_contacts, heading: 'Contatti  ', allow_destroy: true, new_record: true) do |ff|
+            ff.input(:title, as: :string)
+            ff.input(:icon, as: :string)
+            ff.input(:text, as: :text, input_html: { class: 'autogrow', rows: 3 })
+            ff.input(:dark, as: :boolean)
+            ff.input(:color, as: :string)
           end
-          f.has_many :homepage_socials, heading: 'Social  ', allow_destroy: true, new_record: true do |ff|
-            ff.input :title, as: :string
-            ff.input :icon, as: :string
-            ff.input :text, as: :text, input_html: { class: 'autogrow', rows: 3 }
-            ff.input :dark, as: :boolean
-            ff.input :color, as: :string
+          f.has_many(:homepage_socials, heading: 'Social  ', allow_destroy: true, new_record: true) do |ff|
+            ff.input(:title, as: :string)
+            ff.input(:icon, as: :string)
+            ff.input(:text, as: :text, input_html: { class: 'autogrow', rows: 3 })
+            ff.input(:dark, as: :boolean)
+            ff.input(:color, as: :string)
           end
         end
       end

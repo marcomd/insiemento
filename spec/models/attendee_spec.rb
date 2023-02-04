@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Attendee, type: :model do
-  subject { Attendee.new(user_id: user.id, course_event_id: course_event_id) }
+describe Attendee, type: :model do
+  subject { Attendee.new(user_id: user.id, course_event_id:) }
 
   describe '#create' do
     let(:result) { subject.save }
-    let(:course_event) { CourseEvent.find course_event_id }
+    let(:course_event) { CourseEvent.find(course_event_id) }
 
     context 'when user has a valid subscription' do
       let(:user) { user_stefania }
@@ -46,7 +46,7 @@ RSpec.describe Attendee, type: :model do
         before do
           start_on = course_event.event_date + 1.day
           end_on = start_on + 30
-          user_paolo.subscriptions.update_all(start_on: start_on, end_on: end_on)
+          user_paolo.subscriptions.update_all(start_on:, end_on:)
         end
         it do
           result
@@ -60,7 +60,7 @@ RSpec.describe Attendee, type: :model do
         before do
           end_on = course_event.event_date - 1.day
           start_on = end_on - 30
-          user_paolo.subscriptions.update_all(start_on: start_on, end_on: end_on)
+          user_paolo.subscriptions.update_all(start_on:, end_on:)
         end
         it do
           result
@@ -80,7 +80,7 @@ RSpec.describe Attendee, type: :model do
     context 'when course events is full' do
       let(:course_event_id) { stefania_subscribed_course_event_id }
       it do
-        expect(result.type).to include 'È stato raggiunto il numero massimo di partecipanti!'
+        expect(result.type).to include('È stato raggiunto il numero massimo di partecipanti!')
       end
     end
   end
@@ -128,7 +128,7 @@ RSpec.describe Attendee, type: :model do
     context 'when course event is suspended' do
       let(:check_datetime) { course_event.event_date - 8.hours }
 
-      before { course_event.update state: :suspended }
+      before { course_event.update(state: :suspended) }
       it { expect(result).to be_falsey }
       it do
         result
@@ -139,7 +139,7 @@ RSpec.describe Attendee, type: :model do
     context 'when course event is closed' do
       let(:check_datetime) { course_event.event_date - 8.hours }
 
-      before { course_event.update state: :closed }
+      before { course_event.update(state: :closed) }
       it { expect(result).to be_falsey }
       it do
         result
@@ -169,7 +169,7 @@ RSpec.describe Attendee, type: :model do
         expect do
           expect(result).to be_falsey
           expect(subject.errors).to be_present
-        end.to raise_exception UncaughtThrowError
+        end.to raise_exception(UncaughtThrowError)
       end
 
       context 'when inhibitions are disabled' do

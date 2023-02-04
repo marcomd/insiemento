@@ -9,7 +9,7 @@ class SendgridService
 
   attr_reader :status_code
 
-  def initialize(operation, organization, params={})
+  def initialize(operation, organization, params = {})
     @operation = operation
     @organization = organization
     @params = params
@@ -24,15 +24,13 @@ class SendgridService
   attr_reader :operation, :organization, :params
 
   def execute_operation
-    response_body =
-      case operation
-      when :send_email, :evaluate_template then send operation, params
-      when :auth then auth_token
-      else
-        errors.add :base, "Operation #{operation} not valid!"
-        nil
-      end
-    response_body
+    case operation
+    when :send_email, :evaluate_template then send(operation, params)
+    when :auth then auth_token
+    else
+      errors.add(:base, "Operation #{operation} not valid!")
+      nil
+    end
   end
 
   #
@@ -40,7 +38,7 @@ class SendgridService
   #
   def evaluate_template
     template_name = params[:template_name]
-    raise 'Template name must be set!' unless template_name.present?
+    raise('Template name must be set!') unless template_name.present?
 
     template_id = get_remote_template_id(template_name)
     @status_code, body = retrieve_single_template(template_id)
@@ -50,7 +48,7 @@ class SendgridService
       hbs = Handlebars::Handlebars.new
       mail_html_content = hbs.compile(raw_content).call(dynamic_template_data)
     else
-      errors.add :base, body
+      errors.add(:base, body)
       mail_html_content = nil
     end
 
@@ -114,13 +112,13 @@ class SendgridService
     # Comment sandbox_mode to test real email
     payload.merge!(sandbox_mode) if is_development?
     payload = faking_recipients(payload) if is_not_production?
-    @status_code, body = post(method_name: __method__, payload: payload)
-    errors.add :base, body unless request_succeded?(@status_code)
+    @status_code, body = post(method_name: __method__, payload:)
+    errors.add(:base, body) unless request_succeded?(@status_code)
     body
   end
 
   def required_params_not_filled(**args)
-    params_not_filled = %i[from to template_id].select { |p| args[p].nil?}
+    params_not_filled = %i[from to template_id].select { |p| args[p].nil? }
     {}.tap do |error_messages|
       params_not_filled.each do |param|
         error_messages[param] = "#{param} is required"
@@ -152,11 +150,11 @@ class SendgridService
                    { email: mail }
                  end
                end),
-          dynamic_template_data: args[:dynamic_template_data]
-        }.compact
+          dynamic_template_data: args[:dynamic_template_data],
+        }.compact,
       ],
       attachments: args[:attachments],
-      template_id: args[:template_id]
+      template_id: args[:template_id],
     }.compact
   end
 
@@ -164,9 +162,9 @@ class SendgridService
     {
       mail_settings: {
         sandbox_mode: {
-          enable: true
-        }
-      }
+          enable: true,
+        },
+      },
     }
   end
 
@@ -178,7 +176,7 @@ class SendgridService
       create_list: 'contactdb/lists',
       add_recipients_ids_to_a_list: 'contactdb/lists/_list_id/recipients',
       add_recipients: 'contactdb/recipients',
-      send_email: 'mail/send'
+      send_email: 'mail/send',
     }
   end
 
@@ -187,39 +185,39 @@ class SendgridService
       # From Sendgrid doc:
       # The rate limit is three requests every 2 seconds.
       # You can upload 1000 contacts per request. So the maximum upload rate is 1500 recipients per second.
-      add_recipients: -> { sleep(1) }
+      add_recipients: -> { sleep(1) },
     }
   end
 
   def post(method_name:, payload:, params: nil)
     endpoint = endpoints[method_name.to_sym]
-    endpoint = (endpoint.gsub(/\w+/) { |m| params.fetch(m, m)}) if params
+    endpoint = (endpoint.gsub(/\w+/) { |m| params.fetch(m, m) }) if params
     presets[method_name.to_sym].call if presets[method_name.to_sym]
-    request(url: endpoint, payload: payload, method: :post)
+    request(url: endpoint, payload:, method: :post)
   end
 
   def get(method_name:, payload: nil, params: nil)
     endpoint = endpoints[method_name.to_sym]
-    endpoint = (endpoint.gsub(/\w+/) { |m| params.fetch(m, m)}) if params
-    request(url: endpoint, payload: payload, method: :get)
+    endpoint = (endpoint.gsub(/\w+/) { |m| params.fetch(m, m) }) if params
+    request(url: endpoint, payload:, method: :get)
   end
 
   def request(url:, payload:, method:)
     response = begin
-        RestClient::Request.execute(
-          method: method,
-          url: [CONFIG.dig(:sendgrid, :apipath), url].join('/'),
-          payload: (payload.to_json if payload),
-          headers: { authorization: "Bearer #{Rails.application.credentials.sendgrid.dig(:apikey)}", 'Content-Type': 'application/json' }
-        )
-               rescue RestClient::ExceptionWithResponse => e
-                 e.response
-      end
+      RestClient::Request.execute(
+        method:,
+        url: [CONFIG.dig(:sendgrid, :apipath), url].join('/'),
+        payload: (payload.to_json if payload),
+        headers: { authorization: "Bearer #{Rails.application.credentials.sendgrid.dig(:apikey)}", 'Content-Type': 'application/json' },
+      )
+             rescue RestClient::ExceptionWithResponse => e
+               e.response
+    end
     body = begin
-             JSON.parse(response.body)
-           rescue StandardError
-             {}
-           end
+      JSON.parse(response.body)
+    rescue StandardError
+      {}
+    end
     payload_without_attachments = strip_attachments(payload) if payload
     log_request(payload_without_attachments, response)
     [response.code, body]
@@ -248,15 +246,13 @@ class SendgridService
         p_hash[:to]  = [{ email: Rails.application.credentials.email.dig(:recipient_for_interceptor) }] if p_hash[:to]
         p_hash[:bcc] = nil if p_hash[:bcc]
         p_hash[:cc]  = nil if p_hash[:cc]
-        if p_hash[:dynamic_template_data] && p_hash[:dynamic_template_data][:subject]
-          p_hash[:dynamic_template_data][:subject] = p_hash[:dynamic_template_data][:subject].prepend('[SENDGRID_TEST] ')
-        end
+        p_hash[:dynamic_template_data][:subject] = p_hash[:dynamic_template_data][:subject].prepend('[SENDGRID_TEST] ') if p_hash[:dynamic_template_data] && p_hash[:dynamic_template_data][:subject]
       end && payload
     end
   end
 
   def log_request(payload, response)
-    SystemLog.create!(organization: organization,
+    SystemLog.create!(organization:,
                       message: "payload:#{payload} url:#{response.request.url} status:#{response.code}")
   end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Payment, type: :model do
+describe Payment, type: :model do
   context 'ActiveRecord' do
     it { expect(subject).to belong_to(:organization) }
     it { expect(subject).to belong_to(:user).optional }

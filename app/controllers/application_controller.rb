@@ -78,10 +78,10 @@ class ApplicationController < ActionController::Base
   def get_language_header
     accepts_languages       = request.env['HTTP_ACCEPT_LANGUAGE'] || 'en'
     languages               = begin
-                                HTTP::Accept::Languages.parse(accepts_languages)
-                              rescue StandardError
-                                [HTTP::Accept::Languages::LanguageRange.new('en')]
-                              end
+      HTTP::Accept::Languages.parse(accepts_languages)
+    rescue StandardError
+      [HTTP::Accept::Languages::LanguageRange.new('en')]
+    end
     available_locales       = I18n.available_locales.map(&:to_s).reverse
     available_localizations = HTTP::Accept::Languages::Locales.new(available_locales)
     desired_localizations   = available_localizations & languages
@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
     return true if %r{/admin/} === request.referrer
 
     @current_user = AuthorizeApiRequest.call(request.headers).result
-    render json: { error: 'Not Authorized' }, status: 401 unless @current_user
+    render(json: { error: 'Not Authorized' }, status: :unauthorized) unless @current_user
   end
 
   def parsed_subdomain

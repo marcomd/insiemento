@@ -3,8 +3,7 @@ class UserDocumentsManagerJob < ApplicationJob
 
   def perform
     service = UserDocumentsManagerService.call
-    unless service.success?
-      SystemLog.create!(message: "UserDocumentsManagerJob success: #{service.success?} #{service.errors}")
-    end
+    return if service.success?
+    SystemLog.create!(message: "UserDocumentsManagerJob success: #{service.success?} #{service.errors}")
   end
 end

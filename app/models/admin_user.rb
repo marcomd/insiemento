@@ -18,15 +18,15 @@ class AdminUser < ApplicationRecord
   end
 
   def roles
-    ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
+    ROLES.reject { |r| ((roles_mask || 0) & (2**ROLES.index(r))).zero? }
   end
 
   def has_role?(role)
-    roles.include? role.to_s
+    roles.include?(role.to_s)
   end
 
   def is_root?
-    has_role? 'root'
+    has_role?('root')
   end
 
   def categories

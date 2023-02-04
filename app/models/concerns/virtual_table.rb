@@ -10,8 +10,8 @@ class VirtualTable
     false
   end
 
-  def attributes(ar_variables=instance_variables)
-    ar_variables.map { |a| [a.to_s.gsub('@', ''), instance_variable_get(a)]}.to_h
+  def attributes(ar_variables = instance_variables)
+    ar_variables.map { |a| [a.to_s.gsub('@', ''), instance_variable_get(a)] }.to_h
   end
 
   def to_json(*_args)
@@ -52,8 +52,8 @@ class VirtualTable
 
     def load_all
       all = []
-      UserDocumentModel.all.each do |document|
-        all.concat document.sign_points
+      UserDocumentModel.all.find_each do |document|
+        all.concat(document.sign_points)
         # all << new({ document_id: document.id }.merge data)
       end
       all

@@ -87,8 +87,8 @@ class Order < ApplicationRecord
     bol_saved =
       if amount_paid_cents == amount_to_pay_cents
         complete! if may_complete?
-      else
-        start_process! if may_start_process?
+      elsif may_start_process?
+        start_process!
       end
     bol_saved || save!
   end
@@ -96,9 +96,9 @@ class Order < ApplicationRecord
   # Move it in a service if this method become more complex
   def create_subscriptions
     products.each do |product|
-      subscriptions << Subscription.new(organization: organization,
-                                        product: product,
-                                        user: user,
+      subscriptions << Subscription.new(organization:,
+                                        product:,
+                                        user:,
                                         start_on: Time.zone.today)
     end
   end

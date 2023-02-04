@@ -1,4 +1,4 @@
-ActiveAdmin.register SystemLog do
+ActiveAdmin.register(SystemLog) do
   menu parent: 'diagnostics', if: proc { can?(:manage, SystemLog) }
 
   # See permitted parameters documentation:

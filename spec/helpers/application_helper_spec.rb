@@ -7,12 +7,12 @@ describe ApplicationHelper, type: :helper do
     let(:organization) { user_stefania.organization }
 
     context 'when the organization has a domain' do
-      it { expect(result).to eq 'www.fitness.io' }
+      it { expect(result).to eq('www.fitness.io') }
     end
 
     context 'when the organization has a subdomain' do
       before { organization.domain = 'fitness' }
-      it { expect(result).to eq 'fitness.localhost' }
+      it { expect(result).to eq('fitness.localhost') }
     end
   end
 end

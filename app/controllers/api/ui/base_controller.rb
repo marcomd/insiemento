@@ -25,7 +25,7 @@ class Api::Ui::BaseController < ApplicationController
   rescue_from Api::ConflictError do |exception|
     add_system_log exception.message, log_level: 'warning'
     respond_to do |format|
-      format.json { render json: { error: exception.message }, status: 409 }
+      format.json { render json: { error: exception.message }, status: :conflict }
     end
   end
 

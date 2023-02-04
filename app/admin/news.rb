@@ -1,4 +1,4 @@
-ActiveAdmin.register News do
+ActiveAdmin.register(News) do
   menu parent: 'platform_management', if: proc { can?(:read, UserDocumentModel) }
 
   # See permitted parameters documentation:
@@ -20,8 +20,7 @@ ActiveAdmin.register News do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
-      myscope
+      myscope.includes(:organization)
     end
   end
 
@@ -58,18 +57,18 @@ ActiveAdmin.register News do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :state
-      f.input :news_type # , as: :select, collection: News.news_types
-      f.input :title, input_html: { maxlength: 100 }
-      f.input :body, as: :text, input_html: { maxlength: 255, rows: 3 }
-      f.input :expire_on
-      f.input :dark_style
-      f.input :public
-      f.input :private
+      f.input(:state)
+      f.input(:news_type) # , as: :select, collection: News.news_types
+      f.input(:title, input_html: { maxlength: 100 })
+      f.input(:body, as: :text, input_html: { maxlength: 255, rows: 3 })
+      f.input(:expire_on)
+      f.input(:dark_style)
+      f.input(:public)
+      f.input(:private)
     end
     f.actions
   end

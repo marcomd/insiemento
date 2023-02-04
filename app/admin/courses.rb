@@ -1,4 +1,4 @@
-ActiveAdmin.register Course do
+ActiveAdmin.register(Course) do
   menu parent: 'courses_management', if: proc { can?(:read, Course) }
 
   # See permitted parameters documentation:
@@ -19,8 +19,7 @@ ActiveAdmin.register Course do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category
-      myscope
+      myscope.includes(:organization, :category)
     end
   end
 
@@ -55,16 +54,16 @@ ActiveAdmin.register Course do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :category, collection: current_admin_user.categories
-      f.input :name
-      f.input :description
-      f.input :start_booking_hours
-      f.input :end_booking_minutes
-      f.input :state
+      f.input(:category, collection: current_admin_user.categories)
+      f.input(:name)
+      f.input(:description)
+      f.input(:start_booking_hours)
+      f.input(:end_booking_minutes)
+      f.input(:state)
     end
     f.actions
   end

@@ -6,11 +6,11 @@ class UserDocumentModel < ApplicationRecord
 
   before_validation :set_default
 
-  validates_presence_of :title, :body, :state, :validity_days
+  validates :title, :body, :state, :validity_days, presence: true
 
   enum state: {
     active: 20,
-    suspended: 30
+    suspended: 30,
   }, _suffix: true
 
   private

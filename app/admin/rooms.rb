@@ -1,4 +1,4 @@
-ActiveAdmin.register Room do
+ActiveAdmin.register(Room) do
   menu parent: 'gym_management', if: proc { can?(:read, Room) }
 
   # See permitted parameters documentation:
@@ -19,8 +19,7 @@ ActiveAdmin.register Room do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
-      myscope
+      myscope.includes(:organization)
     end
   end
 
@@ -48,14 +47,14 @@ ActiveAdmin.register Room do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :name
-      f.input :description, as: :text, input_html: { maxlength: 255 }
-      f.input :max_attendees
-      f.input :state
+      f.input(:name)
+      f.input(:description, as: :text, input_html: { maxlength: 255 })
+      f.input(:max_attendees)
+      f.input(:state)
     end
     f.actions
   end

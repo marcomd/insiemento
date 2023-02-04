@@ -1,8 +1,8 @@
-json.extract! user, :id,
+json.extract!(user, :id,
               :email, :firstname, :lastname, :birthdate,
               :child_firstname, :child_lastname, :child_birthdate,
               :gender, :phone, :trainer_id,
-              :created_at, :updated_at
+              :created_at, :updated_at)
 
 # json.set!('last_subscriptions') do
 #   json.array!(user.subscriptions.last(5)) do |subscription|
@@ -21,6 +21,6 @@ json.extract! user, :id,
 pending_order = user.pending_order
 if pending_order
   json.set!('pending_order') do
-    json.partial! 'api/ui/v1/orders/order', order: pending_order
+    json.partial!('api/ui/v1/orders/order', order: pending_order)
   end
 end

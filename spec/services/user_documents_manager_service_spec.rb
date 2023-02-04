@@ -1,6 +1,6 @@
 describe UserDocumentsManagerService do
   let(:debug) { false }
-  subject { described_class.call(debug: debug) }
+  subject { described_class.call(debug:) }
 
   it { expect(subject).to be_an_instance_of(described_class) }
 
@@ -14,9 +14,9 @@ describe UserDocumentsManagerService do
     end
 
     context 'when user documents are expired' do
-      let(:future_date) { Time.zone.now + 2.weeks }
+      let(:future_date) { 2.weeks.from_now }
       it do
-        Timecop.freeze future_date do
+        Timecop.freeze(future_date) do
           expect do
             subject
           end.to change { UserDocument.to_expire.count }.by(-3)
@@ -26,7 +26,7 @@ describe UserDocumentsManagerService do
       context 'when document model is NOT recurring' do
         before { UserDocumentModel.first.update(recurring: false) }
         it 'creates only for new users' do
-          Timecop.freeze future_date do
+          Timecop.freeze(future_date) do
             expect do
               subject
             end.to change(UserDocument, :count).by(1)
@@ -37,7 +37,7 @@ describe UserDocumentsManagerService do
       context 'when document model is recurring' do
         before { UserDocumentModel.first.update(recurring: true) }
         it 'creates user documents for all users' do # ...also user who had one that now is expired
-          Timecop.freeze future_date do
+          Timecop.freeze(future_date) do
             expect do
               subject
             end.to change(UserDocument, :count).by(4)

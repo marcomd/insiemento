@@ -1,4 +1,4 @@
-ActiveAdmin.register UserDocument do
+ActiveAdmin.register(UserDocument) do
   menu parent: 'users_management', if: proc { can?(:read, UserDocument) }
 
   # See permitted parameters documentation:
@@ -24,8 +24,7 @@ ActiveAdmin.register UserDocument do
 
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :user_document_model, :user
-      myscope
+      myscope.includes(:organization, :user_document_model, :user)
     end
 
     def show
@@ -35,8 +34,8 @@ ActiveAdmin.register UserDocument do
         format.html
         format.pdf do
           pdf = Prawn::Document.new
-          pdf.text @user_document.parsed_body
-          send_data pdf.render, type: 'application/pdf', disposition: 'inline'
+          pdf.text(@user_document.parsed_body)
+          send_data(pdf.render, type: 'application/pdf', disposition: 'inline')
         end
       end
     end
@@ -67,14 +66,14 @@ ActiveAdmin.register UserDocument do
 
   batch_action :invia, if: proc { @current_scope && %i[draft exporting_error].include?(@current_scope.scope_method) },
                        confirm: 'Confermi di voler inviare a Otp Service le pratiche selezionate?' do |selection|
-    shared_batch_action class_object: UserDocument, selection: selection,
+    shared_batch_action class_object: UserDocument, selection:,
                         action_name: 'send_to_otpservice', is_transaction: true,
                         return_scope_if_ok: I18n.t('activerecord.attributes.user_document.states.ready').downcase,
                         return_scope_if_error: I18n.t('activerecord.attributes.user_document.states.draft').downcase
   end
   batch_action :annulla_invio, if: proc { @current_scope && @current_scope.scope_method == :ready && current_admin_user.is_root? },
                                confirm: 'Confermi di voler annullare l''invio delle pratiche selezionate?' do |selection|
-    shared_batch_action class_object: UserDocument, selection: selection,
+    shared_batch_action class_object: UserDocument, selection:,
                         action_name: 'not_ready_anymore', is_transaction: true,
                         return_scope_if_ok: I18n.t('activerecord.attributes.user_document.states.draft').downcase,
                         return_scope_if_error: I18n.t('activerecord.attributes.user_document.states.ready').downcase
@@ -101,9 +100,7 @@ ActiveAdmin.register UserDocument do
           row(:user)
           row(:state) { |obj| status_tag_for obj }
           row(:sign_checksum) do |obj|
-            if obj.sign_checksum
-              link_to(obj.sign_checksum, "#{CONFIG.dig(:otpservice, :host)}/users/signature?checksum=#{obj.sign_checksum}", target: '_blank')
-            end
+            link_to(obj.sign_checksum, "#{CONFIG.dig(:otpservice, :host)}/users/signature?checksum=#{obj.sign_checksum}", target: '_blank', rel: 'noopener') if obj.sign_checksum
           end
           row(:expire_on)
           row(:created_at)
@@ -126,28 +123,28 @@ ActiveAdmin.register UserDocument do
     columns do
       column do
         if current_admin_user.is_root?
-          f.inputs 'Admin' do
-            f.input :organization
-            f.input :uuid
-            f.input :sign_checksum
+          f.inputs('Admin') do
+            f.input(:organization)
+            f.input(:uuid)
+            f.input(:sign_checksum)
           end
         end
         f.inputs do
           f.semantic_errors(*f.object.errors.keys)
           f.input(:organization, collection: [current_admin_user.organization]) unless current_admin_user.is_root?
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-          f.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+          f.input(:user_id, as: :search_select, url: admin_users_path(tmp_params),
                             fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,
-                            order_by: 'lastname_asc'
-          f.input :user_document_model
-          f.input :state
-          f.input :expire_on
+                            order_by: 'lastname_asc')
+          f.input(:user_document_model)
+          f.input(:state)
+          f.input(:expire_on)
         end
       end
       column do
         f.inputs do
-          f.input :title
-          f.input :body, input_html: { rows: 30, class: 'autogrow' }
+          f.input(:title)
+          f.input(:body, input_html: { rows: 30, class: 'autogrow' })
         end
       end
     end
@@ -156,8 +153,6 @@ ActiveAdmin.register UserDocument do
   end
 
   action_item :pdf, only: %i[show edit] do
-    if authorized?(:pdf, user_document)
-      link_to 'Pdf', admin_user_document_path(user_document, format: :pdf), target: '_blank'
-    end
+    link_to 'Pdf', admin_user_document_path(user_document, format: :pdf), target: '_blank', rel: 'noopener' if authorized?(:pdf, user_document)
   end
 end

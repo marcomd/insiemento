@@ -48,7 +48,7 @@ module SeededDataHelper
   end
 
   def stefania_unsubscribed_course_event
-    CourseEvent.find stefania_unsubscribed_course_event_id
+    CourseEvent.find(stefania_unsubscribed_course_event_id)
   end
 
   def order_with_paid_payments

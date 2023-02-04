@@ -1,22 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe Order, type: :model do
+describe Order, type: :model do
   context 'ActiveRecord' do
-    it { expect(subject).to belong_to(:organization)}
-    it { expect(subject).to belong_to(:user)}
-    it { expect(subject).to have_many(:order_products)}
-    it { expect(subject).to have_many(:products)}
-    it { expect(subject).to have_many(:payments)}
+    it { expect(subject).to belong_to(:organization) }
+    it { expect(subject).to belong_to(:user) }
+    it { expect(subject).to have_many(:order_products) }
+    it { expect(subject).to have_many(:products) }
+    it { expect(subject).to have_many(:payments) }
   end
 
   let(:organization) { build(:organization) }
-  let(:product1) { build(:product, organization: organization) }
-  let(:product2) { build(:product, organization: organization) }
+  let(:product1) { build(:product, organization:) }
+  let(:product2) { build(:product, organization:) }
 
   context '#create' do
-    subject { build(:order, organization: organization) }
+    subject { build(:order, organization:) }
     let(:result) do
-      VCR.use_cassette 'generic_sendgrid/create_user' do
+      VCR.use_cassette('generic_sendgrid/create_user') do
         subject.save
       end
     end
@@ -35,10 +35,10 @@ RSpec.describe Order, type: :model do
   end
 
   describe '#set_amounts!' do
-    subject { build(:order, organization: organization) }
+    subject { build(:order, organization:) }
     let(:result) do
-      VCR.use_cassette 'generic_sendgrid/create_user' do
-        subject.send :set_amounts!
+      VCR.use_cassette('generic_sendgrid/create_user') do
+        subject.send(:set_amounts!)
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Order, type: :model do
 
     context 'when it have products' do
       let(:discount_cents) { 100 }
-      subject { build(:order, organization: organization, discount_cents: discount_cents, products: [product1, product2]) }
+      subject { build(:order, organization:, discount_cents:, products: [product1, product2]) }
 
       it { expect(result).to be_truthy }
 
@@ -65,38 +65,38 @@ RSpec.describe Order, type: :model do
   end
 
   describe '#set_state!' do
-    let(:result) { subject.send :set_state! }
+    let(:result) { subject.send(:set_state!) }
 
     before { ENV['ORGANIZATION'] = '1' }
 
     context 'when it have products' do
-      subject { build(:order, organization: organization, products: [product1, product2]) }
+      subject { build(:order, organization:, products: [product1, product2]) }
 
       before do
-        VCR.use_cassette 'generic_sendgrid/create_user' do
-          subject.send :set_amounts!
+        VCR.use_cassette('generic_sendgrid/create_user') do
+          subject.send(:set_amounts!)
         end
       end
 
       it 'set the right state' do
-        expect(subject.state).to eq 'just_made'
+        expect(subject.state).to eq('just_made')
         result
-        expect(subject.state).to eq 'processing'
+        expect(subject.state).to eq('processing')
       end
     end
   end
 
   describe '#update_paid_amounts!' do
-    let(:result) { subject.send :update_paid_amounts! }
+    let(:result) { subject.send(:update_paid_amounts!) }
 
     context 'when order has confirmed payments' do
       subject { order_with_unconfirmed_payments }
 
-      before { subject.payments.update_all state: :confirmed }
+      before { subject.payments.update_all(state: :confirmed) }
 
       it do
         result
-        expect(subject.amount_paid_cents).to eq 1900
+        expect(subject.amount_paid_cents).to eq(1900)
       end
     end
 
@@ -105,7 +105,7 @@ RSpec.describe Order, type: :model do
 
       it do
         result
-        expect(subject.amount_paid_cents).to eq 0
+        expect(subject.amount_paid_cents).to eq(0)
       end
     end
 
@@ -114,7 +114,7 @@ RSpec.describe Order, type: :model do
 
       it do
         result
-        expect(subject.amount_paid_cents).to eq 0
+        expect(subject.amount_paid_cents).to eq(0)
       end
     end
   end

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :payment do
     organization
-    user { build(:user, organization: organization) }
-    order { build(:order, user: user, organization: organization) }
+    user { build(:user, organization:) }
+    order { build(:order, user:, organization:) }
     source { 'frontend' }
     sequence(:amount_cents, 10_000) { |n| (n + 1) * 100 }
   end
@@ -29,7 +29,7 @@ FactoryBot.define do
           data: [],
           has_more: false,
           total_count: 0,
-          url: '/v1/charges?payment_intent=pi_1GmIPWFBKMhSCxMuij0bwJMo'
+          url: '/v1/charges?payment_intent=pi_1GmIPWFBKMhSCxMuij0bwJMo',
         },
         client_secret: 'pi_1GmIPWFBKMhSCxMuij0bwJMo_secret_WjkzuGJuFtmioE1hzl0UXbv3v',
         confirmation_method: 'automatic',
@@ -39,18 +39,18 @@ FactoryBot.define do
         description: nil,
         invoice: nil,
         metadata: {
-          integration_check: 'accept_a_payment'
+          integration_check: 'accept_a_payment',
         },
         on_behalf_of: nil,
         payment_method: nil,
         payment_method_options: {
           card: {
             installments: nil,
-            request_three_d_secure: 'automatic'
-          }
+            request_three_d_secure: 'automatic',
+          },
         },
         payment_method_types: [
-          'card'
+          'card',
         ],
         receipt_email: nil,
         review: nil,
@@ -60,7 +60,7 @@ FactoryBot.define do
         statement_descriptor: nil,
         statement_descriptor_suffix: nil,
         transfer_data: nil,
-        transfer_group: nil
+        transfer_group: nil,
       }.to_json
     end
   end

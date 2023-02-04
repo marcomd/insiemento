@@ -1,4 +1,4 @@
-ActiveAdmin.register CourseEvent do
+ActiveAdmin.register(CourseEvent) do
   menu parent: 'courses_management', if: proc { can?(:read, CourseEvent) }
 
   # See permitted parameters documentation:
@@ -30,8 +30,7 @@ ActiveAdmin.register CourseEvent do
 
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category, :course, :room, :trainer, :course_schedule
-      myscope
+      myscope.includes(:organization, :category, :course, :room, :trainer, :course_schedule)
     end
 
     def show
@@ -63,12 +62,12 @@ ActiveAdmin.register CourseEvent do
 
   batch_action :sospendi, if: proc { @current_scope && @current_scope.scope_method == :active },
                           confirm: 'Confermi di voler sospendere le sessioni selezionate?' do |selection|
-    shared_batch_action class_object: CourseEvent, selection: selection, action_name: 'pause', is_transaction: true, return_scope_if_ok: 'suspended', return_scope_if_error: 'active'
+    shared_batch_action class_object: CourseEvent, selection:, action_name: 'pause', is_transaction: true, return_scope_if_ok: 'suspended', return_scope_if_error: 'active'
   end
 
   batch_action :attiva, if: proc { @current_scope && @current_scope.scope_method == :suspended },
                         confirm: 'Confermi di voler riattivare le sessioni selezionate?' do |selection|
-    shared_batch_action class_object: CourseEvent, selection: selection, action_name: 'activate', is_transaction: true, return_scope_if_ok: 'active', return_scope_if_error: 'suspended'
+    shared_batch_action class_object: CourseEvent, selection:, action_name: 'activate', is_transaction: true, return_scope_if_ok: 'active', return_scope_if_error: 'suspended'
   end
 
   filter :organization, if: proc { current_admin_user.is_root? }
@@ -110,8 +109,8 @@ ActiveAdmin.register CourseEvent do
             column :created_at
             column :inhibited_until
             column do |obj|
-              span link_to 'Mostra', [:admin, obj]
-              span link_to 'Modifica', edit_admin_attendee_path(obj)
+              span link_to('Mostra', [:admin, obj])
+              span link_to('Modifica', edit_admin_attendee_path(obj))
               # span link_to 'Elimina', destroy_admin_attendee_path(obj)
             end
           end
@@ -126,28 +125,28 @@ ActiveAdmin.register CourseEvent do
         f.inputs do
           f.semantic_errors(*f.object.errors.keys)
           # f.input :course_schedule, collection: f.object.course_id ? current_admin_user.course_schedules.where(course_id: f.object.course_id) : current_admin_user.course_schedules
-          f.input :course_schedule, collection: current_admin_user.course_schedules
+          f.input(:course_schedule, collection: current_admin_user.course_schedules)
           if current_admin_user.is_root?
-            f.input :organization
+            f.input(:organization)
           else
-            f.input :organization, collection: [current_admin_user.organization]
+            f.input(:organization, collection: [current_admin_user.organization])
           end
-          f.input :category, collection: current_admin_user.categories
-          f.input :course, collection: current_admin_user.courses
-          f.input :room, collection: current_admin_user.rooms
-          f.input :trainer, collection: current_admin_user.trainers
-          f.input :event_date, as: :date_time_picker
-          f.input :state
+          f.input(:category, collection: current_admin_user.categories)
+          f.input(:course, collection: current_admin_user.courses)
+          f.input(:room, collection: current_admin_user.rooms)
+          f.input(:trainer, collection: current_admin_user.trainers)
+          f.input(:event_date, as: :date_time_picker)
+          f.input(:state)
         end
       end
       column do
-        f.has_many :attendees, allow_destroy: can?(:destroy, f.object), new_record: can?(:create, f.object) do |ff|
+        f.has_many(:attendees, allow_destroy: can?(:destroy, f.object), new_record: can?(:create, f.object)) do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
-          ff.input :user_id, as: :search_select, url: admin_users_path(tmp_params),
+          ff.input(:user_id, as: :search_select, url: admin_users_path(tmp_params),
                              fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,
-                             order_by: 'lastname_asc'
-          ff.input :presence
+                             order_by: 'lastname_asc')
+          ff.input(:presence)
         end
       end
     end

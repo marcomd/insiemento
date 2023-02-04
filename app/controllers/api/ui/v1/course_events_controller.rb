@@ -24,18 +24,18 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
       elsif params[:state] == 'ALL'
         # Do nothing
       else
-        raise API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!"
+        raise(API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!")
       end
       # This params is only used to filter above
-      params.delete :state
+      params.delete(:state)
     end
 
-    render :index
+    render(:index)
   end
 
   def show
     @show_subscribed = true
-    render :show
+    render(:show)
   end
 
   # PUT /api/ui/v1/course_events/:id/subscribe
@@ -56,17 +56,15 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     if status
       # ActionCable.server.broadcast "room_#{@course_event.id}", { attendees: @course_event.attendees.map { |a| { id: a.id, presence: a.presence, user_name: "#{a.user.firstname} #{a.user.lastname}" } } }
       @show_subscribed = false
-      ActionCable.server.broadcast "organization_#{@organization.uuid}", { course_event: JSON.parse(render_to_string(:show)) }
+      ActionCable.server.broadcast("organization_#{@organization.uuid}", { course_event: JSON.parse(render_to_string(:show)) })
       @show_subscribed = true
-      render :show
+      render(:show)
     elsif attendee
-      render json: { errors: attendee.errors }, status: :unprocessable_entity
+      render(json: { errors: attendee.errors }, status: :unprocessable_entity)
+    elsif course_event_filter_params[:subscribe] == true
+      render(json: { error: t('errors.messages.course_event_generic_error') }, status: :unprocessable_entity)
     else
-      if course_event_filter_params[:subscribe] == true
-        render json: { error: t('errors.messages.course_event_generic_error') }, status: :unprocessable_entity
-      else
-        render json: { error: t('errors.messages.attending_not_found') }, status: :not_found
-      end
+      render(json: { error: t('errors.messages.attending_not_found') }, status: :not_found)
     end
   end
 
@@ -74,16 +72,12 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   def audit
     if current_user.trainer_id && current_user.trainer_id == @course_event.trainer_id
       true_ids = course_event_filter_params[:presences].select { |_k, v| v }.keys
-      if true_ids.present?
-        @course_event.attendees.where(id: true_ids).update_all(presence: true, updated_at: Time.zone.now)
-      end
+      @course_event.attendees.where(id: true_ids).update_all(presence: true, updated_at: Time.zone.now) if true_ids.present?
       false_ids = course_event_filter_params[:presences].select { |_k, v| !v }.keys
-      if false_ids.present?
-        @course_event.attendees.where(id: false_ids).update_all(presence: false, updated_at: Time.zone.now)
-      end
-      render json: { presences: course_event_filter_params[:presences] }, status: :ok
+      @course_event.attendees.where(id: false_ids).update_all(presence: false, updated_at: Time.zone.now) if false_ids.present?
+      render(json: { presences: course_event_filter_params[:presences] }, status: :ok)
     else
-      render json: { errors: ['Operation not allowed'] }, status: 403
+      render(json: { errors: ['Operation not allowed'] }, status: :forbidden)
     end
   end
 
@@ -91,7 +85,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   def attendees
     simulate_delay_for_development
     @attendees = @course_event.attendees.includes(:user)
-    render 'api/ui/v1/attendees/index', status: :ok
+    render('api/ui/v1/attendees/index', status: :ok)
   end
 
   private

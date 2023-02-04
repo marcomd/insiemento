@@ -26,22 +26,22 @@ class User < ApplicationRecord
 
   validates :medical_certificate, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'], max_size: 2.megabytes }
 
-  validates_uniqueness_of :email, allow_blank: false, if: :email_changed?
-  validates_format_of     :email, with: URI::MailTo::EMAIL_REGEXP, allow_blank: true, if: :email_changed?
+  validates :email, uniqueness: { allow_blank: false, if: :email_changed? }
+  validates     :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true, if: :email_changed? }
 
-  validates_presence_of     :password, if: :password_required?
-  validates_presence_of     :firstname, :lastname
-  validates_confirmation_of :password, if: :password_required?
-  validates_length_of       :password, within: 8..64, allow_blank: true
-  validates_numericality_of :phone, allow_blank: true
-  validates_length_of :phone, is: 10, allow_blank: true
+  validates     :password, presence: { if: :password_required? }
+  validates     :firstname, :lastname, presence: true
+  validates :password, confirmation: { if: :password_required? }
+  validates :password, length: { within: 8..64, allow_blank: true }
+  validates :phone, numericality: { allow_blank: true }
+  validates :phone, length: { is: 10, allow_blank: true }
 
   # scope :with_not_ended_subscriptions, -> (date=Time.zone.today) { where(subscriptions: { state: [:new, :active] })
   #                                                                 .where('subscriptions.end_on >= ?', date)
   #                                                                 .joins(:subscriptions).distinct }
-  scope :with_not_ended_subscriptions, ->(_date=Time.zone.today) { joins(:subscriptions).merge(Subscription.not_ended).distinct }
+  scope :with_not_ended_subscriptions, ->(_date = Time.zone.today) { joins(:subscriptions).merge(Subscription.not_ended).distinct }
   scope :elegible_for_user_documents, -> { where.not(phone: nil) }
-  scope :with_expired_medical_certificate, ->(date=Time.zone.now) { where('medical_certificate_expire_at IS NOT NULL AND medical_certificate_expire_at < ?', date) }
+  scope :with_expired_medical_certificate, ->(date = Time.zone.now) { where('medical_certificate_expire_at IS NOT NULL AND medical_certificate_expire_at < ?', date) }
 
   before_validation :set_default
   # after_save :set_state!
@@ -96,8 +96,8 @@ class User < ApplicationRecord
 
   def is_inhibited?(category_id: nil, course_id: nil)
     inhibitions = active_user_penalties # user_penalties.where('inhibited_until >= ?', Time.zone.today)
-    inhibitions = inhibitions.where(category_id: category_id) if category_id
-    inhibitions = inhibitions.where(course_id: course_id) if course_id
+    inhibitions = inhibitions.where(category_id:) if category_id
+    inhibitions = inhibitions.where(course_id:) if course_id
     inhibitions.last(50).count > 0
   end
 
@@ -107,8 +107,8 @@ class User < ApplicationRecord
     any_active_subscriptions = active_subscriptions.count > 0
     if any_active_subscriptions
       self.state = :active unless active_state?
-    else
-      self.state = :suspended if active_state?
+    elsif active_state?
+      self.state = :suspended
     end
   end
 

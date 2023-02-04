@@ -1,4 +1,4 @@
-ActiveAdmin.register Trainer do
+ActiveAdmin.register(Trainer) do
   menu parent: 'gym_management', if: proc { can?(:read, Trainer) }
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -18,8 +18,7 @@ ActiveAdmin.register Trainer do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization
-      myscope
+      myscope.includes(:organization)
     end
   end
 
@@ -49,15 +48,15 @@ ActiveAdmin.register Trainer do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :firstname
-      f.input :lastname
-      f.input :nickname
-      f.input :bio
-      f.input :state
+      f.input(:firstname)
+      f.input(:lastname)
+      f.input(:nickname)
+      f.input(:bio)
+      f.input(:state)
     end
     f.actions
   end

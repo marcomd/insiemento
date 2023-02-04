@@ -1,4 +1,4 @@
-ActiveAdmin.register Penalty do
+ActiveAdmin.register(Penalty) do
   menu parent: 'users_management', if: proc { can?(:read, Penalty) }
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -18,8 +18,7 @@ ActiveAdmin.register Penalty do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category, :course
-      myscope
+      myscope.includes(:organization, :category, :course)
     end
   end
 

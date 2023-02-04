@@ -29,11 +29,11 @@ class Api::Ui::V1::SubscriptionsController < Api::Ui::BaseController
                        @subscriptions.where(subscription_filter_params)
                      end
 
-    render :index
+    render(:index)
   end
 
   def show
-    render :show
+    render(:show)
   end
 
   private

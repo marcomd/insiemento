@@ -9,8 +9,8 @@ class Product < ApplicationRecord
 
   before_validation :set_default
 
-  validates_presence_of :product_type, :name, :description, :price_cents, :days
-  validates_presence_of :max_accesses_number, if: -> { %w[trial consumption].include? product_type }
+  validates :product_type, :name, :description, :price_cents, :days, presence: true
+  validates :max_accesses_number, presence: { if: -> { %w[trial consumption].include?(product_type) } }
   # validates_absence_of :max_accesses_number, if: -> { ['fee'].include? product_type } # Removed validation to define a cap
 
   enum product_type: { trial: 10, consumption: 20, fee: 30 }, _suffix: true
@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   enum state: {
     new: 10,
     active: 20,
-    suspended: 30
+    suspended: 30,
   }, _suffix: true
 
   monetize :price_cents

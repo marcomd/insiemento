@@ -1,4 +1,4 @@
-ActiveAdmin.register_page 'Dashboard' do
+ActiveAdmin.register_page('Dashboard') do
   controller do
     def index
       @per_page = 10
@@ -24,7 +24,7 @@ ActiveAdmin.register_page 'Dashboard' do
               column(:medical_certificate_expire_at) do |obj|
                 if obj.medical_certificate_expire_at
                   css_class = obj.medical_certificate_expire_at < Time.zone.today ? 'red' : ''
-                  span(I18n.localize(obj.medical_certificate_expire_at, format: :long), class: css_class)
+                  span(I18n.l(obj.medical_certificate_expire_at, format: :long), class: css_class)
                 end
               end
               column(:days_before_expiration) { |obj| (obj.medical_certificate_expire_at - Time.zone.today).to_i }
@@ -43,11 +43,11 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         if current_admin_user.is_root?
           Organization.all.each do |organization|
-            render partial: 'admin/dashboard/grouped_users', locals: { organization: organization }
+            render partial: 'admin/dashboard/grouped_users', locals: { organization: }
           end
         else
           organization = current_admin_user.organization
-          render partial: 'admin/dashboard/grouped_users', locals: { organization: organization }
+          render partial: 'admin/dashboard/grouped_users', locals: { organization: }
         end
       end
     end

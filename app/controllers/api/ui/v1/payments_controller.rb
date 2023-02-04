@@ -8,29 +8,27 @@ class Api::Ui::V1::PaymentsController < Api::Ui::BaseController
     # Consente di filtrare tramite https://github.com/activerecord-hackery/ransack
     if params[:q].present?
       @payments = @payments.ransack(params[:q]).result
-    else
-      if params[:state].present?
-        if params[:state].downcase == 'active'
-          @payments = @payments.where(state: Payment::ACTIVE_STATES)
-          # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
-        elsif params[:state].downcase == 'closed'
-          @payments = @payments.where(state: Payment::UNACTIVE_STATES)
-          # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
-        elsif params[:state] == 'ALL'
-          # Do nothing
-        else
-          raise API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!"
-        end
-        # This params is only used to filter above
-        params.delete :state
+    elsif params[:state].present?
+      if params[:state].downcase == 'active'
+        @payments = @payments.where(state: Payment::ACTIVE_STATES)
+      # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+      elsif params[:state].downcase == 'closed'
+        @payments = @payments.where(state: Payment::UNACTIVE_STATES)
+      # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
+      elsif params[:state] == 'ALL'
+      # Do nothing
+      else
+        raise(API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!")
       end
+      # This params is only used to filter above
+      params.delete(:state)
     end
 
-    render :index
+    render(:index)
   end
 
   def show
-    render :show
+    render(:show)
   end
 
   def create
@@ -38,9 +36,9 @@ class Api::Ui::V1::PaymentsController < Api::Ui::BaseController
 
     Payment.transaction do
       if @payment.save
-        render :show, status: :created
+        render(:show, status: :created)
       else
-        render json: { errors: @payment.errors }, status: :unprocessable_entity
+        render(json: { errors: @payment.errors }, status: :unprocessable_entity)
       end
     end
   end

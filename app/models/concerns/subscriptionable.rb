@@ -3,6 +3,7 @@ module Subscriptionable
 
   included do
     attr_accessor :subscription
+
     delegate :uuid, :start_on, :end_on, :state, :max_accesses_number, :attendees, to: :subscription
     # validate :type_specific_validation
   end

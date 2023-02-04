@@ -7,6 +7,6 @@ class Penalty < ApplicationRecord
 
   enum state: {
     active: 10,
-    suspended: 20
+    suspended: 20,
   }, _suffix: true
 end

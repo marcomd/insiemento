@@ -7,7 +7,7 @@ class UserDocument < ApplicationRecord
 
   before_validation :set_default
 
-  validates_presence_of :title, :body, :state
+  validates :title, :body, :state, presence: true
 
   enum state: {
     draft: 10, # Write the text...
@@ -18,7 +18,7 @@ class UserDocument < ApplicationRecord
     viewed: 60, # The document has been signed by signer
     signed: 70, # The document has been signed by signer
     completed: 80, # The signed document has been sent to signer
-    expired: 100 # The document is no more valid
+    expired: 100, # The document is no more valid
   }, _suffix: true
 
   include AASM
@@ -53,27 +53,27 @@ class UserDocument < ApplicationRecord
   end
 
   # Used by User model to get active user document
-  scope :active, ->(date=Time.zone.today) { where.not(state: :expired).where('expire_on > ?', date) }
-  scope :to_expire, ->(date=Time.zone.today) { where.not(state: :expired).where('expire_on <= ?', date) }
+  scope :active, ->(date = Time.zone.today) { where.not(state: :expired).where('expire_on > ?', date) }
+  scope :to_expire, ->(date = Time.zone.today) { where.not(state: :expired).where('expire_on <= ?', date) }
 
   # def active?(date=Time.zone.today)
   #   expire_on > date
   # end
 
   def parsed_body
-    eval "\"#{body}\""
+    eval("\"#{body}\"")
   rescue StandardError
     "Error: #{$!.message}"
   end
 
   def pdf
     pdf = Prawn::Document.new
-    pdf.text parsed_body
+    pdf.text(parsed_body)
     pdf.render
   end
 
   def base64_pdf
-    Base64.strict_encode64 pdf
+    Base64.strict_encode64(pdf)
   end
 
   private
@@ -99,10 +99,9 @@ class UserDocument < ApplicationRecord
   # Vedi le sottoclassi sti per l'override dei valori
   def set_default
     self.uuid ||= SecureRandom.uuid
-    if user_document_model
-      self.title = user_document_model.title unless title.present?
-      self.body = user_document_model.body unless body.present?
-      self.expire_on = Time.zone.now + user_document_model.validity_days.days
-    end
+    return unless user_document_model
+    self.title = user_document_model.title unless title.present?
+    self.body = user_document_model.body unless body.present?
+    self.expire_on = Time.zone.now + user_document_model.validity_days.days
   end
 end

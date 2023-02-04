@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DeviseSendgridMailer, type: :mailer do
+describe DeviseSendgridMailer, type: :mailer do
   describe '#confirmation_instructions' do
     let(:user)    { User.first }
     let(:token)   { 'qwerty12345' }

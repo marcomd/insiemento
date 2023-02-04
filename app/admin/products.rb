@@ -1,4 +1,4 @@
-ActiveAdmin.register Product do
+ActiveAdmin.register(Product) do
   menu parent: 'products_management', if: proc { can?(:read, Product) }
 
   # See permitted parameters documentation:
@@ -19,8 +19,7 @@ ActiveAdmin.register Product do
   controller do
     def scoped_collection
       myscope = super
-      myscope = myscope.includes :organization, :category
-      myscope
+      myscope.includes(:organization, :category)
     end
   end
 
@@ -29,9 +28,12 @@ ActiveAdmin.register Product do
     id_column
     column(:organization) if current_admin_user.is_root?
     column(:category)
-    column(:product_type) { |obj| value = obj.product_type.downcase; span I18n.t("activerecord.attributes.product.product_types.#{value}"), class: "status_tag #{value}" }
+    column(:product_type) do |obj|
+      value = obj.product_type.downcase
+      span I18n.t("activerecord.attributes.product.product_types.#{value}"), class: "status_tag #{value}"
+    end
     column(:name)
-    column(:state) { |obj| span I18n.t("activerecord.attributes.product.states.#{obj.state}"), class: "status_tag #{obj.state}"}
+    column(:state) { |obj| span I18n.t("activerecord.attributes.product.states.#{obj.state}"), class: "status_tag #{obj.state}" }
     column(:price)
     column(:days)
     column(:max_accesses_number)
@@ -56,7 +58,10 @@ ActiveAdmin.register Product do
     columns do
       column do
         attributes_table do
-          row(:product_type) { |obj| value = obj.product_type.downcase; span I18n.t("activerecord.attributes.product.product_types.#{value}"), class: "status_tag #{value}" }
+          row(:product_type) do |obj|
+            value = obj.product_type.downcase
+            span I18n.t("activerecord.attributes.product.product_types.#{value}"), class: "status_tag #{value}"
+          end
           row(:name)
           row(:description)
           row(:price)
@@ -71,8 +76,11 @@ ActiveAdmin.register Product do
           table_for product.active_subscriptions.last(10) do
             column(:id) { |obj| link_to(obj.id, admin_subscription_path(obj.id)) }
             column(:user)
-            column(:subscription_type) { |obj| value = obj.subscription_type.downcase; span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}" }
-            column(:state) { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}"}
+            column(:subscription_type) do |obj|
+              value = obj.subscription_type.downcase
+              span I18n.t("activerecord.attributes.subscription.subscription_types.#{value}"), class: "status_tag #{value}"
+            end
+            column(:state) { |obj| span I18n.t("activerecord.attributes.subscription.states.#{obj.state}"), class: "status_tag #{obj.state}" }
             column(:start_on)
             column(:end_on)
             column(:max_accesses_number)
@@ -87,17 +95,17 @@ ActiveAdmin.register Product do
     f.inputs do
       f.semantic_errors(*f.object.errors.keys)
       if current_admin_user.is_root?
-        f.input :organization
+        f.input(:organization)
       else
-        f.input :organization, collection: [current_admin_user.organization]
+        f.input(:organization, collection: [current_admin_user.organization])
       end
-      f.input :product_type
-      f.input :category, collection: current_admin_user.categories
-      f.input :name
-      f.input :description
-      f.input :price
-      f.input :days
-      f.input :max_accesses_number
+      f.input(:product_type)
+      f.input(:category, collection: current_admin_user.categories)
+      f.input(:name)
+      f.input(:description)
+      f.input(:price)
+      f.input(:days)
+      f.input(:max_accesses_number)
     end
     f.actions
   end

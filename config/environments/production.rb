@@ -1,6 +1,6 @@
 other_hosts = ['dsmdanceschool.it']
 host = other_hosts.first # 'www.insiemento.com'
-Rails.application.default_url_options = { host: host, protocol: 'https://' }
+Rails.application.default_url_options = { host:, protocol: 'https://' }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -70,7 +70,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options   = { host: host }
+  config.action_mailer.default_url_options({ host: })
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.delivery_method = :smtp
@@ -82,7 +82,7 @@ Rails.application.configure do
     address: 'mail.smtp2go.com',
     port: '2525',
     authentication: :plain,
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
   }
 
   # Action cable configuration
@@ -105,7 +105,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'

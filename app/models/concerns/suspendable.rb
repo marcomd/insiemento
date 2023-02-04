@@ -7,7 +7,7 @@ module Suspendable
   end
 
   def activate!
-    update state: :active
+    update(state: :active)
   end
 
   def may_pause?
@@ -15,6 +15,6 @@ module Suspendable
   end
 
   def pause!
-    update state: :suspended
+    update(state: :suspended)
   end
 end

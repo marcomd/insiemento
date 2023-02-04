@@ -15,9 +15,7 @@ class PenaltyService
       puts "Organization id #{organization.id}: #{organization.name}" if debug && !Rails.env.test?
       records = []
       Penalty.active_state.where(organization_id: organization.id).each do |penalty|
-        if debug && !Rails.env.test?
-          puts "Penalty id #{penalty.id} category #{penalty.category_id} course #{penalty.course_id} days #{penalty.days}"
-        end
+        puts "Penalty id #{penalty.id} category #{penalty.category_id} course #{penalty.course_id} days #{penalty.days}" if debug && !Rails.env.test?
         course_event_search_attributes = { organization_id: organization.id }
         course_event_search_attributes[:category_id] = penalty.category_id if penalty.category_id
         course_event_search_attributes[:course_id] = penalty.course_id if penalty.course_id
@@ -33,7 +31,7 @@ class PenaltyService
                                                               subscription_id: attendee.subscription_id,
                                                               user_id: attendee.user_id,
                                                               attendee_id: attendee.id,
-                                                              inhibited_until: inhibited_until })
+                                                              inhibited_until: })
             # attendee.disable_bookability_checks = true
             # attendee.update inhibited_until: inhibited_until unless debug
           end
@@ -43,7 +41,7 @@ class PenaltyService
           puts "Penalties #{records}" unless Rails.env.test?
         else
           created_penalties = UserPenalty.create(records)
-          all_records_size += created_penalties.select { |record| !!record.id}.size
+          all_records_size += created_penalties.select { |record| !!record.id }.size
         end
       end
 

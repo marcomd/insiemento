@@ -8,7 +8,7 @@ describe Api::Ui::V1::ProductsController, type: :api do
     header 'Accept-Language', language
   end
   after(:all) do
-    ENV.delete 'ORGANIZATION'
+    ENV.delete('ORGANIZATION')
   end
   let(:user) { user_stefania }
   let(:jwt_token) { authenticated_user(user.email) }
@@ -20,7 +20,7 @@ describe Api::Ui::V1::ProductsController, type: :api do
 
     it 'returns a list' do
       action
-      expect(last_response.status).to eq 200
+      expect(last_response.status).to eq(200)
       expect(json).to be_a(Array)
     end
 
@@ -43,7 +43,7 @@ describe Api::Ui::V1::ProductsController, type: :api do
 
       expect(json).to be_a(Hash)
       expect(json['errors']).to be_nil
-      expect(last_response.status).to eq 200
+      expect(last_response.status).to eq(200)
 
       expect(json['product_type']).to be_present
       expect(json['category_name']).to be_present

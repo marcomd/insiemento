@@ -2,7 +2,7 @@ module Homepage
   class Feature < VirtualTable
     attr_accessor :title, :icon, :text, :dark, :color
 
-    def initialize(attr={})
+    def initialize(attr = {})
       @title  = attr[:title] || attr['title']
       @icon   = attr[:icon]  || attr['icon']
       @text   = attr[:text]  || attr['text']

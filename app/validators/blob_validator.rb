@@ -3,11 +3,7 @@ class BlobValidator < ActiveModel::EachValidator
     return unless values.attached?
 
     Array(values).each do |value|
-      if options[:max_size].present?
-        if value.blob.byte_size > options[:max_size]
-          record.errors.add(attribute, :max_size_error, max_size_error: ActiveSupport::NumberHelper.number_to_human_size(options[:max_size]))
-        end
-      end
+      record.errors.add(attribute, :max_size_error, max_size_error: ActiveSupport::NumberHelper.number_to_human_size(options[:max_size])) if options[:max_size].present? && (value.blob.byte_size > options[:max_size])
 
       record.errors.add(attribute, :content_type) unless valid_content_type?(value.blob)
     end

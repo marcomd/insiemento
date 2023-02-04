@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def status_tag_for(object, field: :state)
     value = object.send(field)
-    content_tag :span, class: "status_tag #{value}" do
+    content_tag(:span, class: "status_tag #{value}") do
       I18n.t!("activerecord.attributes.#{object.class.name.underscore}.#{field}s.#{value}")
     end
   end

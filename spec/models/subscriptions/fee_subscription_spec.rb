@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FeeSubscription, type: :model do
+describe FeeSubscription, type: :model do
   subject { user_stefania.active_subscriptions.where(subscription_type: 'fee').first }
 
   describe '#set_current_state' do
@@ -12,6 +12,6 @@ RSpec.describe FeeSubscription, type: :model do
       subject.end_on = '2020-08-03'
     end
 
-    it { expect(result).to eq 'active' }
+    it { expect(result).to eq('active') }
   end
 end

@@ -16,25 +16,25 @@ class UserDocumentJob < ApplicationJob
           email: user.email,
           phone_prefix: '39',
           phone_number: user.phone&.gsub('+39', ''),
-          language: 'it' }
+          language: 'it' },
       ],
       unsigned_document: {
         filename: "#{user_document.title&.parameterize&.underscore || 'file'}.pdf",
         content: user_document.base64_pdf,
         sign_points: [
-          { key: 'acceptance', label: 'Accetto', page: 1, top: 58, left: 45, required: true }
-        ]
+          { key: 'acceptance', label: 'Accetto', page: 1, top: 58, left: 45, required: true },
+        ],
       },
-      callback_states: %i[signed completed]
+      callback_states: %i[signed completed],
     }
-    service = OtpService.call(operation: :create, params: params)
+    service = OtpService.call(operation: :create, params:)
     if service.success?
       user_document.created_on_otpservice!
     else
       message = "UserDocumentJob failed: #{service.errors}"
-      SystemLog.create!(message: message, log_level: :error, organization_id: user_document.organization_id)
+      SystemLog.create!(message:, log_level: :error, organization_id: user_document.organization_id)
       user_document.error_on_otpservice!
-      raise message
+      raise(message)
     end
   end
 end

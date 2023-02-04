@@ -1,4 +1,4 @@
-ActiveAdmin.register ActiveStorage::Blob do
+ActiveAdmin.register(ActiveStorage::Blob) do
   menu parent: 'diagnostics', if: proc { can?(:manage, SystemLog) }
 
   # See permitted parameters documentation:

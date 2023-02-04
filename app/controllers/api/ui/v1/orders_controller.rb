@@ -10,29 +10,27 @@ class Api::Ui::V1::OrdersController < Api::Ui::BaseController
     # Consente di filtrare tramite https://github.com/activerecord-hackery/ransack
     if params[:q].present?
       @orders = @orders.ransack(params[:q]).result
-    else
-      if params[:state].present?
-        if params[:state].downcase == 'active'
-          @orders = @orders.where(state: Order::ACTIVE_STATES)
-          # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
-        elsif params[:state].downcase == 'closed'
-          @orders = @orders.where(state: Order::UNACTIVE_STATES)
-          # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
-        elsif params[:state] == 'ALL'
-          # Do nothing
-        else
-          raise API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!"
-        end
-        # This params is only used to filter above
-        params.delete :state
+    elsif params[:state].present?
+      if params[:state].downcase == 'active'
+        @orders = @orders.where(state: Order::ACTIVE_STATES)
+      # .where('event_date > ?', Time.zone.now+EVENT_TIME_OFFSET)
+      elsif params[:state].downcase == 'closed'
+        @orders = @orders.where(state: Order::UNACTIVE_STATES)
+      # .where('event_date < ?', Time.zone.now+EVENT_TIME_OFFSET)
+      elsif params[:state] == 'ALL'
+      # Do nothing
+      else
+        raise(API::Exceptions::BadRequest, "Parameter state '#{params[:state]}' not recognized!")
       end
+      # This params is only used to filter above
+      params.delete(:state)
     end
 
-    render :index
+    render(:index)
   end
 
   def show
-    render :show
+    render(:show)
   end
 
   def create
@@ -43,18 +41,18 @@ class Api::Ui::V1::OrdersController < Api::Ui::BaseController
 
     Order.transaction do
       if @order.save
-        render :show, status: :created
+        render(:show, status: :created)
       else
-        render json: { errors: @order.errors }, status: :unprocessable_entity
+        render(json: { errors: @order.errors }, status: :unprocessable_entity)
       end
     end
   end
 
   def update
     if @order.update(order_params)
-      render :show, status: :ok
+      render(:show, status: :ok)
     else
-      render json: { errors: @order.errors }, status: :unprocessable_entity
+      render(json: { errors: @order.errors }, status: :unprocessable_entity)
     end
   end
 
@@ -84,7 +82,7 @@ class Api::Ui::V1::OrdersController < Api::Ui::BaseController
 
   def destroy
     @order.destroy
-    head :no_content
+    head(:no_content)
   end
 
   private
