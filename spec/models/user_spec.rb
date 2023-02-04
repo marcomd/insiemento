@@ -83,14 +83,14 @@ describe User do
     let(:category_id) { nil }
     let(:course_id) { nil }
 
-    it { expect(result).to eq(false) }
+    it { expect(result).to be(false) }
 
     context 'when there is an inhibition' do
       # before { user_stefania.attendees.first.update_column(:inhibited_until, Time.zone.tomorrow) }
       before { create(:user_penalty, user: subject) }
 
       it do
-        expect(result).to eq(true)
+        expect(result).to be(true)
       end
     end
   end

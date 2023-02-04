@@ -65,7 +65,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         expect(json['room']).to be_present
         expect(json['trainer']).to be_present
         expect(json['attendees_count']).to be_present
-        expect(json['subscribed']).to eq(true)
+        expect(json['subscribed']).to be(true)
       end
     end
 
@@ -79,7 +79,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         expect(json['errors']).to be_nil
         expect(last_response.status).to eq(200)
 
-        expect(json['subscribed']).to eq(false)
+        expect(json['subscribed']).to be(false)
       end
     end
   end

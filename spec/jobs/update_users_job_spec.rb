@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UpdateUsersJob, type: :job do
+describe UpdateUsersJob do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UserPenaltyJob, type: :job do
+describe UserPenaltyJob do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }

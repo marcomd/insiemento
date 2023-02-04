@@ -1,4 +1,4 @@
-describe 'OrganizationRequest', type: :request do
+describe 'OrganizationRequest' do
   let!(:organization) { create(:organization, domain:) }
 
   context 'when host has subdomain dsm' do
@@ -82,7 +82,7 @@ describe 'OrganizationRequest', type: :request do
 
     it 'must set no organization' do
       get '/users'
-      expect(response.request.env['action_controller.instance'].send(:current_organization)).to eq(nil)
+      expect(response.request.env['action_controller.instance'].send(:current_organization)).to be_nil
       expect(response).to have_http_status(:ok)
     end
 

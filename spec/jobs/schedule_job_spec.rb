@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ScheduleJob, type: :job do
+describe ScheduleJob do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later }

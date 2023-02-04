@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DeviseMailer, type: :mailer do
+describe DeviseMailer do
   describe '#confirmation_instructions' do
     let(:organization) { Organization.first }
     let(:user) { create(:user, organization:) }

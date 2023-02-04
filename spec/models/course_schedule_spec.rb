@@ -20,7 +20,7 @@ describe CourseSchedule do
                            event_time: subject.event_time)
       end
       it do
-        expect(new_record.save).to eq(false)
+        expect(new_record.save).to be(false)
       end
     end
   end

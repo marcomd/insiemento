@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UserDocumentJob, type: :job do
+describe UserDocumentJob do
   include ActiveJob::TestHelper
 
   subject { described_class.perform_later(user_document) }

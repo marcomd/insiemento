@@ -22,7 +22,7 @@ describe OtpService do
       it 'returns the dossier' do
         VCR.use_cassette("otpservice/#{operation}_dossier_id_#{dossier_id}_status_#{expected_status}") do
           expect(service.errors).to_not be_present
-          expect(service.success?).to eq(true)
+          expect(service.success?).to be(true)
           expect(service.result).to be_present
           expect(service.result['id']).to eq(dossier_id)
           expect(service.result['recipients'].first['email']).to eq('plinio@rspec.com')
@@ -44,7 +44,7 @@ describe OtpService do
 
         it 'returns a status 404' do
           VCR.use_cassette("otpservice/#{operation}_dossier_id_#{dossier_id}_status_#{expected_status}") do
-            expect(service.success?).to eq(false)
+            expect(service.success?).to be(false)
             expect(service.result).to be_present
             expect(service.http_status).to eq(expected_status)
           end
@@ -67,7 +67,7 @@ describe OtpService do
       it 'returns the dossier' do
         VCR.use_cassette("otpservice/#{operation}_user_document_id_#{user_document_id}_status_#{expected_status}") do
           expect(service.errors).to_not be_present
-          expect(service.success?).to eq(true)
+          expect(service.success?).to be(true)
           expect(service.result).to be_present
           expect(service.result['recipients'].first['email']).to eq('plinio@rspec.com')
           expect(service.result['state']).to eq('notified')
@@ -80,7 +80,7 @@ describe OtpService do
 
         it 'returns a status 422' do
           VCR.use_cassette("otpservice/#{operation}_user_document_id_#{user_document_id}_status_#{expected_status}_already_exists") do
-            expect(service.success?).to eq(false)
+            expect(service.success?).to be(false)
             expect(service.result).to be_present
             expect(service.errors).to be_present
             expect(service.http_status).to eq(expected_status)
@@ -106,7 +106,7 @@ describe OtpService do
       it 'returns the dossier' do
         VCR.use_cassette("otpservice/#{operation}_user_document_id_#{user_document_id}_status_#{expected_status}") do
           expect(service.errors).to_not be_present
-          expect(service.success?).to eq(true)
+          expect(service.success?).to be(true)
           expect(service.result).to be_present
           expect(service.result['recipients'].first['email']).to eq('alaercio@rspec.com')
           expect(service.result['state']).to eq('notified')
@@ -121,7 +121,7 @@ describe OtpService do
 
         it 'returns a status 422' do
           VCR.use_cassette("otpservice/#{operation}_user_document_id_#{user_document_id}_status_#{expected_status}") do
-            expect(service.success?).to eq(false)
+            expect(service.success?).to be(false)
             expect(service.result).to be_present
             expect(service.errors).to be_present
             expect(service.http_status).to eq(expected_status)
