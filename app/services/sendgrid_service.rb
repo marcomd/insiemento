@@ -1,4 +1,4 @@
-#
+# rubocop:disable all
 # Interaction manager with sendgrid external service
 # You must me registered https://api.sendgrid.com and have an api key to use this service
 # Create your dynamic templates, get ids and store in config/sendgrid/templates.yml

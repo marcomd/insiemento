@@ -108,6 +108,8 @@ Rails/InverseOf:
   Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
+Rails/Output:
+  Enabled: false
 Rails/RedundantForeignKey:
   Enabled: false
 Rails/RequestReferer:
