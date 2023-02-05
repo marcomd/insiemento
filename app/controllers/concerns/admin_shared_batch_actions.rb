@@ -14,12 +14,12 @@ module AdminSharedBatchActions
     records.each do |record|
       raise("Operazione #{action_name} non valida!") if is_transaction && !record.send("may_#{action_name}?")
 
-      raise(record.errors.map { |e| e.message }.join(', ')) unless record.send("#{action_name}!")
+      raise(record.errors.map(&:message).join(', ')) unless record.send("#{action_name}!")
       ok << record.id
 
-    rescue StandardError
-      message = record.errors.map { |e| e.message }.join(', ') if record.errors.present?
-      err << "#{record.id}: #{message || $!.message}"
+    rescue StandardError => e
+      message = record.errors.map(&:message).join(', ') if record.errors.present?
+      err << "#{record.id}: #{message || e.message}"
     end
 
     if ok.any?

@@ -130,7 +130,7 @@ ActiveAdmin.register(UserDocument) do
           end
         end
         f.inputs do
-          f.semantic_errors(*f.object.errors.keys)
+          f.semantic_errors(*f.object.errors.attribute_names)
           f.input(:organization, collection: [current_admin_user.organization]) unless current_admin_user.is_root?
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
           f.input(:user_id, as: :search_select, url: admin_users_path(tmp_params),

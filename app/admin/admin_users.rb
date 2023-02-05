@@ -4,7 +4,7 @@ ActiveAdmin.register(AdminUser) do
   # permit_params :email, :password, :password_confirmation
   permit_params do
     permitted = %i[email firstname lastname password password_confirmation]
-    permitted.concat([:organization_id, :roles_mask, { roles: [] }]) if current_admin_user.is_root?
+    permitted.push(:organization_id, :roles_mask, { roles: [] }) if current_admin_user.is_root?
     permitted
   end
 
@@ -15,7 +15,7 @@ ActiveAdmin.register(AdminUser) do
     end
 
     def update
-      unless params[:admin_user][:password].present?
+      if params[:admin_user][:password].blank?
         params[:admin_user].delete('password')
         params[:admin_user].delete('password_confirmation')
       end

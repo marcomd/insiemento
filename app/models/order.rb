@@ -76,7 +76,7 @@ class Order < ApplicationRecord
 
   def set_amounts!
     self.disable_set_amounts = true
-    self.total_amount_cents = products.map(&:price_cents).sum
+    self.total_amount_cents = products.sum(&:price_cents)
     self.amount_to_pay_cents = total_amount_cents - discount_cents
     result = save!
     self.disable_set_amounts = nil

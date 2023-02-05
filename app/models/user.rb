@@ -65,7 +65,7 @@ class User < ApplicationRecord
 
   def has_active_document?(user_document_model_id)
     # active_user_documents.pluck(:user_document_model_id).include? user_document_model_id
-    active_user_documents.where(id: user_document_model_id).count > 0
+    active_user_documents.where(id: user_document_model_id).count.positive?
   end
 
   # Use it whether user must accepts all document before booking, work in progress...
@@ -98,13 +98,13 @@ class User < ApplicationRecord
     inhibitions = active_user_penalties # user_penalties.where('inhibited_until >= ?', Time.zone.today)
     inhibitions = inhibitions.where(category_id:) if category_id
     inhibitions = inhibitions.where(course_id:) if course_id
-    inhibitions.last(50).count > 0
+    inhibitions.last(50).count.positive?
   end
 
   private
 
   def set_state
-    any_active_subscriptions = active_subscriptions.count > 0
+    any_active_subscriptions = active_subscriptions.count.positive?
     if any_active_subscriptions
       self.state = :active unless active_state?
     elsif active_state?

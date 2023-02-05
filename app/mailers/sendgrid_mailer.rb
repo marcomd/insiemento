@@ -53,6 +53,6 @@ class SendgridMailer < ApplicationMailer
   private
 
   def get_remote_template_id(mailer)
-    YAML.load(File.read("#{Rails.root}/config/sendgrid/templates.yml")).fetch(mailer.to_s)
+    YAML.load(Rails.root.join('config/sendgrid/templates.yml').read).fetch(mailer.to_s)
   end
 end

@@ -41,7 +41,7 @@ class PenaltyService
           puts "Penalties #{records}" unless Rails.env.test?
         else
           created_penalties = UserPenalty.create(records)
-          all_records_size += created_penalties.select { |record| !!record.id }.size
+          all_records_size += created_penalties.select { |record| record.id.present? }.size
         end
       end
 

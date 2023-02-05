@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/AbcSize
 class BlobValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, values)
     return unless values.attached?
@@ -26,3 +27,4 @@ class BlobValidator < ActiveModel::EachValidator
     end
   end
 end
+# rubocop:enable Metrics/AbcSize

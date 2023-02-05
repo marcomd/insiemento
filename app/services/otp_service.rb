@@ -44,7 +44,7 @@ class OtpService
 
   def show(attributes)
     errors.add(:attributes, 'Invalid or missing params! Params must be an hash of attributes!') unless attributes.is_a?(Hash)
-    errors.add(:attributes, 'Invalid or missing params! Set dossier_id param') unless attributes[:dossier_id].present?
+    errors.add(:attributes, 'Invalid or missing params! Set dossier_id param') if attributes[:dossier_id].blank?
     return if errors.present?
     @response = http_action(:get, "#{URL}/dossiers/#{attributes[:dossier_id]}")
     body = JSON.parse(@response.body)
@@ -55,31 +55,31 @@ class OtpService
 
   def create(attributes, action_url: "#{URL}/dossiers")
     errors.add(:attributes, 'Invalid or missing params! Params must be an hash of attributes!') unless attributes.is_a?(Hash)
-    errors.add(:attributes, 'Invalid or missing params! Set customer_dossier_id param') unless attributes[:customer_dossier_id].present?
-    errors.add(:attributes, 'Invalid or missing params! Set recipients param') unless attributes[:recipients].present?
+    errors.add(:attributes, 'Invalid or missing params! Set customer_dossier_id param') if attributes[:customer_dossier_id].blank?
+    errors.add(:attributes, 'Invalid or missing params! Set recipients param') if attributes[:recipients].blank?
     if attributes[:recipients].present?
       attributes[:recipients].each do |recipient|
-        errors.add(:attributes, 'Invalid or missing params! Set recipient firstname param') unless recipient[:first_name].present?
-        errors.add(:attributes, 'Invalid or missing params! Set recipient lastname param') unless recipient[:last_name].present?
-        errors.add(:attributes, 'Invalid or missing params! Set recipient email param') unless recipient[:email].present?
-        errors.add(:attributes, 'Invalid or missing params! Set recipient phone_prefix param') unless recipient[:phone_prefix].present?
-        errors.add(:attributes, 'Invalid or missing params! Set recipient phone_number param') unless recipient[:phone_number].present?
+        errors.add(:attributes, 'Invalid or missing params! Set recipient firstname param') if recipient[:first_name].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set recipient lastname param') if recipient[:last_name].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set recipient email param') if recipient[:email].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set recipient phone_prefix param') if recipient[:phone_prefix].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set recipient phone_number param') if recipient[:phone_number].blank?
         errors.add(:attributes, 'Invalid phone_number param! It must not contain phone_prefix') if /\A(\+|00).+\Z/ === recipient[:phone_number]
-        errors.add(:attributes, 'Invalid or missing params! Set recipient language param') unless recipient[:language].present?
+        errors.add(:attributes, 'Invalid or missing params! Set recipient language param') if recipient[:language].blank?
       end
     end
 
-    errors.add(:attributes, 'Invalid or missing params! Set document params') unless attributes[:unsigned_document].present?
-    errors.add(:attributes, 'Invalid or missing params! Set document filename param') unless attributes.dig(:unsigned_document, :filename).present?
-    errors.add(:attributes, 'Invalid or missing params! Set document base64 content param') unless attributes.dig(:unsigned_document, :content).present?
-    errors.add(:attributes, 'Invalid or missing params! Set sign points params') unless attributes.dig(:unsigned_document, :sign_points).present?
+    errors.add(:attributes, 'Invalid or missing params! Set document params') if attributes[:unsigned_document].blank?
+    errors.add(:attributes, 'Invalid or missing params! Set document filename param') if attributes.dig(:unsigned_document, :filename).blank?
+    errors.add(:attributes, 'Invalid or missing params! Set document base64 content param') if attributes.dig(:unsigned_document, :content).blank?
+    errors.add(:attributes, 'Invalid or missing params! Set sign points params') if attributes.dig(:unsigned_document, :sign_points).blank?
     if attributes.dig(:unsigned_document, :sign_points).present?
       attributes.dig(:unsigned_document, :sign_points).each do |sign_point|
-        errors.add(:attributes, 'Invalid or missing params! Set sign point key param') unless sign_point[:key].present?
-        errors.add(:attributes, 'Invalid or missing params! Set sign point label param') unless sign_point[:label].present?
-        errors.add(:attributes, 'Invalid or missing params! Set sign point page param') unless sign_point[:page].present?
-        errors.add(:attributes, 'Invalid or missing params! Set sign point top param') unless sign_point[:top].present?
-        errors.add(:attributes, 'Invalid or missing params! Set sign point left param') unless sign_point[:left].present?
+        errors.add(:attributes, 'Invalid or missing params! Set sign point key param') if sign_point[:key].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set sign point label param') if sign_point[:label].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set sign point page param') if sign_point[:page].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set sign point top param') if sign_point[:top].blank?
+        errors.add(:attributes, 'Invalid or missing params! Set sign point left param') if sign_point[:left].blank?
       end
     end
 
@@ -93,7 +93,7 @@ class OtpService
   end
 
   def recreate(attributes)
-    errors.add(:attributes, 'Invalid or missing params! Set dossier_id param') unless attributes[:dossier_id].present?
+    errors.add(:attributes, 'Invalid or missing params! Set dossier_id param') if attributes[:dossier_id].blank?
     create(attributes, action_url: "#{URL}/dossiers/#{attributes[:dossier_id]}/recreate")
   end
 

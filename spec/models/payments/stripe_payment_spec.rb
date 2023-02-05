@@ -27,7 +27,7 @@ describe StripePayment do
         expect do
           result
           subject.order.reload
-        end.to_not change { subject.order.amount_paid_cents }
+        end.to_not(change { subject.order.amount_paid_cents })
       end
     end
 
@@ -38,7 +38,7 @@ describe StripePayment do
         expect do
           result
           subject.order.reload
-        end.to change { subject.order.amount_paid_cents }
+        end.to(change { subject.order.amount_paid_cents })
       end
     end
   end
@@ -58,7 +58,7 @@ describe StripePayment do
       expect do
         result
         subject.order.reload
-      end.to change { subject.order.amount_paid_cents }.to(amount_cents)
+      end.to(change { subject.order.amount_paid_cents }.to(amount_cents))
     end
   end
 
@@ -78,7 +78,7 @@ describe StripePayment do
       expect do
         result
         subject.order.reload
-      end.to change { subject.order.amount_paid_cents }
+      end.to(change { subject.order.amount_paid_cents })
     end
   end
 end

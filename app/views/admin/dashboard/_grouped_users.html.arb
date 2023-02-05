@@ -9,8 +9,8 @@ begin
               .where(organization_id: organization.id)
               .select("to_char(date(created_at),'YYYY-MM') as year_month, count(*)")
               .group(1).order(1).each { |g| h_last_users_started[g.year_month] = g.count }
-rescue StandardError
-  raise($!) if Rails.env.development? || Rails.env.test?
+rescue StandardError => e
+  raise(e) if Rails.env.development? || Rails.env.test?
 end
 
 columns do

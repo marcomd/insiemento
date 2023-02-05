@@ -18,7 +18,7 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
@@ -77,7 +77,7 @@ Rails.application.configure do
     authentication: :cram_md5,
   }
   config.action_mailer.perform_caching = false
-  config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
+  config.action_mailer.preview_path = Rails.root.join('app/mailers/previews')
 
   # Action cable configuration
   config.action_cable.url = "ws://#{host}:#{host_port}/cable"

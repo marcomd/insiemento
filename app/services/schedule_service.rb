@@ -1,6 +1,7 @@
 #
 # Add new events as defined in scheduling
 #
+require 'English'
 class ScheduleService
   prepend SimpleCommand
 
@@ -33,14 +34,13 @@ class ScheduleService
         end
         progressive_date = ce[:event_date].to_date - 1
       end
-      next unless attribute_course_events.present?
+      next if attribute_course_events.blank?
 
       begin
         CourseEvent.create!(attribute_course_events)
         all_attribute_course_events_size += attribute_course_events.size
-      rescue StandardError
-        # HERE!!!
-        SystemLog.create!(message: $!.message, log_level: :error, organization_id: organization.id)
+      rescue StandardError => e
+        SystemLog.create!(message: e.message, log_level: :error, organization_id: organization.id)
       end
     end
 

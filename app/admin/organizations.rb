@@ -62,6 +62,7 @@ ActiveAdmin.register(Organization) do
         end
       end
       column do
+        # Only to add a column
       end
     end
     columns do
@@ -113,6 +114,7 @@ ActiveAdmin.register(Organization) do
         end
       end
       column do
+        # Only to add a column
       end
     end
     columns do
@@ -130,7 +132,7 @@ ActiveAdmin.register(Organization) do
       end
       column do
         f.inputs('Homepage') do
-          f.semantic_errors(*f.object.errors.keys)
+          f.semantic_errors(*f.object.errors.attribute_names)
           f.input(:homepage_title)
           f.input(:homepage_description, as: :text, input_html: { class: 'autogrow', rows: 5 })
           f.input(:homepage_customer_title)

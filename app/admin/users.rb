@@ -25,7 +25,7 @@ ActiveAdmin.register(User) do
     end
 
     def update
-      unless params[:user][:password].present?
+      if params[:user][:password].blank?
         params[:user].delete('password')
         params[:user].delete('password_confirmation')
       end

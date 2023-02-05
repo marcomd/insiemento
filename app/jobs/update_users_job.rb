@@ -4,7 +4,7 @@ class UpdateUsersJob < ApplicationJob
   def perform
     User.find_in_batches(batch_size: 100) do |group|
       sleep(3) unless Rails.env.test?
-      group.each { |user| user.save }
+      group.each(&:save)
     end
   end
 end

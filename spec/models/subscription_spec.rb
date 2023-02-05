@@ -104,7 +104,7 @@ describe Subscription do
 
     context 'when scope is global' do
       context 'when date is after the end' do
-        let(:date) { Date.today + 370.days }
+        let(:date) { 370.days.from_now }
         it { expect(result).to eq(0) }
       end
     end

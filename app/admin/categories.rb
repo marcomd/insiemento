@@ -40,7 +40,7 @@ ActiveAdmin.register(Category) do
 
   form do |f|
     f.inputs do
-      f.semantic_errors(*f.object.errors.keys)
+      f.semantic_errors(*f.object.errors.attribute_names)
       if current_admin_user.is_root?
         f.input(:organization)
       else

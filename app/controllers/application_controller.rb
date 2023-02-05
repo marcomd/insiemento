@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
   rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |exception|
     respond_to do |format|
-      format.html { render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found }
+      format.html { render file: Rails.public_path.join('404.html'), layout: false, status: :not_found }
       format.json { render json: { error: exception.message }, status: :not_found }
     end
   end
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
         Organization.find(ENV['ORGANIZATION'])
       else
         domain = request.domain
-        if CONFIG[:domains] && !CONFIG[:domains].include?(domain)
+        if CONFIG[:domains]&.exclude?(domain)
           Organization.find_by(domain:) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
         else
           # Standard domain: insiemento.com ...

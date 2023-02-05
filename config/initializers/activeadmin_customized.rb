@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/AbcSize
 module ActiveAdmin
   module Views
     # Custom footer
@@ -15,13 +16,8 @@ module ActiveAdmin
           # if Rails.env.staging?
           #   ar_footer << "#{I18n.t('activeadmin.footer.last_commit')} <b>#{ProjectDiagnostic.get_last_deployed_commit}</b>"
           # end
-          para(ar_footer.join(', ').html_safe)
-          if Rails.env.production? || Rails.env.production_itw?
-            para(image_tag('logo_200.png', size: '50x50'))
-            para(''.gsub(/^              /, '').html_safe)
-          else
-            para(image_tag('logo_200.png', size: '50x50'))
-          end
+          para(ar_footer.join(' ').html_safe) # rubocop:disable Rails/OutputSafety
+          para(image_tag('logo_200.png', size: '50x50'))
         end
       end
     end
@@ -30,13 +26,10 @@ module ActiveAdmin
       def as_image_row(*args)
         title   = args[0]
         options = args.extract_options!
-        classes = [:row]
-        if options[:class]
-          classes << options[:class]
-        elsif title.present?
-          classes << "row-#{title.to_s.parameterize(separator: '_')}"
-        end
-        options[:class] = classes.join(' ')
+        options[:class] = [
+          :row,
+          options[:class].presence || "row-#{title.to_s.parameterize(separator: '_')}",
+        ].join(' ')
 
         @table << tr do
           th do
@@ -80,7 +73,7 @@ module ActiveAdmin
         options = {}
 
         options[:resource_errors] =
-          if resource && resource.errors.any?
+          if resource&.errors&.any?
             "#{resource.errors.full_messages.to_sentence}."
           else
             ''
@@ -91,3 +84,4 @@ module ActiveAdmin
     end
   end
 end
+# rubocop:enable Metrics/AbcSize

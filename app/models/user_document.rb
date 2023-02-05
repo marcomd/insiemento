@@ -62,8 +62,8 @@ class UserDocument < ApplicationRecord
 
   def parsed_body
     eval("\"#{body}\"")
-  rescue StandardError
-    "Error: #{$!.message}"
+  rescue StandardError => e
+    "Error: #{e.message}"
   end
 
   def pdf
@@ -100,8 +100,8 @@ class UserDocument < ApplicationRecord
   def set_default
     self.uuid ||= SecureRandom.uuid
     return unless user_document_model
-    self.title = user_document_model.title unless title.present?
-    self.body = user_document_model.body unless body.present?
+    self.title = user_document_model.title if title.blank?
+    self.body = user_document_model.body if body.blank?
     self.expire_on = Time.zone.now + user_document_model.validity_days.days
   end
 end

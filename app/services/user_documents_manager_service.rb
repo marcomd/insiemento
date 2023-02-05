@@ -43,7 +43,7 @@ class UserDocumentsManagerService
                         user_id: user.id,
                         state: :draft }
         if debug
-          puts "UserDocument #{attributes}" unless Rails.env.test?
+          Rails.logger.debug { "UserDocument #{attributes}" } unless Rails.env.test?
         else
           h_user_documents << attributes
         end

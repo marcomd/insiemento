@@ -14,7 +14,7 @@ class AdminUser < ApplicationRecord
   end
 
   def roles=(roles)
-    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
+    self.roles_mask = (roles & ROLES).sum { |r| 2**ROLES.index(r) }
   end
 
   def roles

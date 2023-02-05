@@ -2,7 +2,7 @@ module ApplicationHelper
   def get_organization_domain(organization)
     hostname = Rails.application.default_url_options[:host]
     domain = organization.domain
-    return hostname unless domain.present?
+    return hostname if domain.blank?
 
     if domain.include?('.')
       domain.include?('www.') ? domain : "www.#{domain}"

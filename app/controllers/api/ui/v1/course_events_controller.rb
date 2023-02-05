@@ -49,7 +49,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
           attendee = Attendee.new(user_id: current_user.id)
           @course_event.attendees << attendee
         else
-          attendee = @course_event.attendees.find_by_user_id(current_user.id)
+          attendee = @course_event.attendees.find_by(user_id: current_user.id)
           attendee&.destroy
         end
     end
@@ -73,7 +73,7 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
     if current_user.trainer_id && current_user.trainer_id == @course_event.trainer_id
       true_ids = course_event_filter_params[:presences].select { |_k, v| v }.keys
       @course_event.attendees.where(id: true_ids).update_all(presence: true, updated_at: Time.zone.now) if true_ids.present?
-      false_ids = course_event_filter_params[:presences].select { |_k, v| !v }.keys
+      false_ids = course_event_filter_params[:presences].reject { |_k, v| v }.keys
       @course_event.attendees.where(id: false_ids).update_all(presence: false, updated_at: Time.zone.now) if false_ids.present?
       render(json: { presences: course_event_filter_params[:presences] }, status: :ok)
     else

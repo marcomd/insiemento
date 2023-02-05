@@ -49,7 +49,7 @@ class Attendee < ApplicationRecord
     elsif course_event.closed?
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_closed'))
     end
-    !errors.present?
+    errors.blank?
   end
 
   def check_course_event_unsubscribable(datetime = Time.zone.now)

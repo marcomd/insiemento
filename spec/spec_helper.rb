@@ -99,6 +99,5 @@ RSpec.configure do |config|
   end
 
   config.include(ApiHelper, type: :api)
-  config.include(LocaleHelper)
   config.include(Requests::JsonHelpers, type: :api)
 end

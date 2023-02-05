@@ -18,7 +18,7 @@ class AuthenticateApiUser
   def user
     @user ||= begin
       user = User.find_by(email:)
-      if user && user.valid_password?(password)
+      if user&.valid_password?(password)
         if user.confirmed_at.nil?
           errors.add(:user_authentication, I18n.t('ui.users.alerts.unconfirmed'))
           nil

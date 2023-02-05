@@ -123,7 +123,7 @@ ActiveAdmin.register(CourseEvent) do
     columns do
       column do
         f.inputs do
-          f.semantic_errors(*f.object.errors.keys)
+          f.semantic_errors(*f.object.errors.attribute_names)
           # f.input :course_schedule, collection: f.object.course_id ? current_admin_user.course_schedules.where(course_id: f.object.course_id) : current_admin_user.course_schedules
           f.input(:course_schedule, collection: current_admin_user.course_schedules)
           if current_admin_user.is_root?
@@ -141,7 +141,7 @@ ActiveAdmin.register(CourseEvent) do
       end
       column do
         f.has_many(:attendees, allow_destroy: can?(:destroy, f.object), new_record: can?(:create, f.object)) do |ff|
-          ff.semantic_errors(*ff.object.errors.keys)
+          ff.semantic_errors(*ff.object.errors.attribute_names)
           tmp_params = current_admin_user.is_root? ? nil : { 'q[organization_id_equals]' => f.object.organization_id }
           ff.input(:user_id, as: :search_select, url: admin_users_path(tmp_params),
                              fields: %i[firstname lastname], display_name: :full_name, minimum_input_length: 3,

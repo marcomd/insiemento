@@ -38,8 +38,8 @@ ActiveAdmin.register(CourseSchedule) do
     column(:course)
     column(:room)
     column(:trainer)
-    column(:event_day) { |obj| obj.localized_event_day }
-    column(:event_time) { |obj| obj.event_time_short }
+    column(:event_day, &:localized_event_day)
+    column(:event_time, &:event_time_short)
     column(:state) { |obj| status_tag_for obj }
     column(:created_at)
     column(:updated_at)
@@ -69,7 +69,7 @@ ActiveAdmin.register(CourseSchedule) do
 
   form do |f|
     f.inputs do
-      f.semantic_errors(*f.object.errors.keys)
+      f.semantic_errors(*f.object.errors.attribute_names)
       if current_admin_user.is_root?
         f.input(:organization)
       else

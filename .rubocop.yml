@@ -200,6 +200,8 @@ RSpec/MultipleDescribes:
   Enabled: false
 RSpec/MultipleExpectations:
   Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 RSpec/MultipleSubjects:
   Enabled: false
 RSpec/NamedSubject:
@@ -277,7 +279,7 @@ Style/MethodCallWithArgsParentheses:
     - can
     - alias_action
     - puts
-RSpec/MultipleMemoizedHelpers:
+Style/Documentation:
   Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false

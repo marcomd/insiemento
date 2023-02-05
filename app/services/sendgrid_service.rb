@@ -38,7 +38,7 @@ class SendgridService
   #
   def evaluate_template
     template_name = params[:template_name]
-    raise('Template name must be set!') unless template_name.present?
+    raise('Template name must be set!') if template_name.blank?
 
     template_id = get_remote_template_id(template_name)
     @status_code, body = retrieve_single_template(template_id)
@@ -59,7 +59,7 @@ class SendgridService
   # Get remote template id by method_name
   #
   def get_remote_template_id(mailer)
-    YAML.load(File.read("#{Rails.root}/config/sendgrid/templates.yml").result).fetch(mailer.to_s)
+    YAML.load(Rails.root.join('config/sendgrid/templates.yml').read.result).fetch(mailer.to_s)
   end
 
   #
@@ -192,7 +192,7 @@ class SendgridService
   def post(method_name:, payload:, params: nil)
     endpoint = endpoints[method_name.to_sym]
     endpoint = (endpoint.gsub(/\w+/) { |m| params.fetch(m, m) }) if params
-    presets[method_name.to_sym].call if presets[method_name.to_sym]
+    presets[method_name.to_sym]&.call
     request(url: endpoint, payload:, method: :post)
   end
 
@@ -207,7 +207,7 @@ class SendgridService
       RestClient::Request.execute(
         method:,
         url: [CONFIG.dig(:sendgrid, :apipath), url].join('/'),
-        payload: (payload.to_json if payload),
+        payload: payload&.to_json,
         headers: { authorization: "Bearer #{Rails.application.credentials.sendgrid.dig(:apikey)}", 'Content-Type': 'application/json' },
       )
              rescue RestClient::ExceptionWithResponse => e

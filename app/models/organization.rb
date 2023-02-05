@@ -167,7 +167,7 @@ class Organization < ApplicationRecord
 
   def set_default_value
     self.uuid ||= SecureRandom.uuid
-    unless homepage_features.present?
+    if homepage_features.blank?
       self.homepage_features = [
         { title: 'Tanti corsi per tutti',
           icon: 'mdi-yoga',

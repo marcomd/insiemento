@@ -43,7 +43,7 @@ class CourseSchedule < ApplicationRecord
   end
 
   def event_time_short
-    event_time.strftime('%H:%M') if event_time
+    event_time&.strftime('%H:%M')
   end
 
   def localized_event_day

@@ -3,7 +3,7 @@
 # c.ignore_localhost = false
 describe OtpService do
   describe '#call' do
-    let(:params) {}
+    let(:params) { {} }
     let(:service) { described_class.call(operation:, params:) }
     let(:unsigned_document) do
       { filename: 'rspec.pdf',

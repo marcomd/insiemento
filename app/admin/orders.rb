@@ -14,7 +14,7 @@ ActiveAdmin.register(Order) do
     permitted = [:user_id, :state, :discount,
                  :currency, :paid_at, :start_on, :approver_admin_user_id,
                  { order_products_attributes: %i[id _destroy order_id product_id] }]
-    permitted = permitted.concat(%i[organization_id total_amount amount_to_pay amount_paid]) if current_admin_user.is_root? || params[:action] == 'create'
+    permitted.push(:organization_id, :total_amount, :amount_to_pay, :amount_paid) if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 

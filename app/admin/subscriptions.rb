@@ -12,7 +12,7 @@ ActiveAdmin.register(Subscription) do
   #
   permit_params do
     permitted = %i[code category_id product_id user_id start_on end_on subscription_type max_accesses_number]
-    permitted.concat(%i[organization_id state]) if current_admin_user.is_root? || params[:action] == 'create'
+    permitted.push(:organization_id, :state) if current_admin_user.is_root? || params[:action] == 'create'
     permitted
   end
 
