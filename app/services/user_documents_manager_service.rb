@@ -1,7 +1,6 @@
 #
 # Add new user documents for each user depending on active document models
 #
-# rubocop:disable Metrics/AbcSize
 class UserDocumentsManagerService
   prepend SimpleCommand
 

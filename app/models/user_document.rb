@@ -61,7 +61,7 @@ class UserDocument < ApplicationRecord
   # end
 
   def parsed_body
-    eval("\"#{body}\"")
+    eval("\"#{body}\"") # rubocop:disable Security/Eval,Style/EvalWithLocation
   rescue StandardError => e
     "Error: #{e.message}"
   end

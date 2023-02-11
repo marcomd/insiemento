@@ -64,8 +64,9 @@ Metrics/MethodLength:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
-
-
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+  Enabled: false
 
 Naming/AccessorMethodName:
   Enabled: false

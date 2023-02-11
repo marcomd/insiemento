@@ -1,8 +1,6 @@
 #
 # Add new events as defined in scheduling
 #
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/CyclomaticComplexity
 require 'English'
 class ScheduleService
   prepend SimpleCommand
@@ -13,6 +11,7 @@ class ScheduleService
     @debug = debug
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def call
     created_course_events = 0
     Organization.active.find_each do |organization|
@@ -31,6 +30,7 @@ class ScheduleService
 
     created_course_events
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
@@ -54,4 +54,3 @@ class ScheduleService
   end
 end
 # rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/CyclomaticComplexity

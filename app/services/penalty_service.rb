@@ -1,7 +1,6 @@
 #
 # Add penalties to users that misses booked sessions
 #
-# rubocop:disable Metrics/AbcSize
 class PenaltyService
   prepend SimpleCommand
 
@@ -33,7 +32,7 @@ class PenaltyService
       if debug
         puts penalties unless Rails.env.test?
       else
-        created_penalties = UserPenalty.create(records)
+        created_penalties = UserPenalty.create(penalties)
         created_penalties_size_for_organization += created_penalties.select { |record| record.id.present? }.size
       end
     end

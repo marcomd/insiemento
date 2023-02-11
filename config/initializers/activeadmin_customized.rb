@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/AbcSize
 module ActiveAdmin
   module Views
     # Custom footer
