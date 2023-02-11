@@ -51,19 +51,19 @@ class Subscription < ApplicationRecord
   end
 
   def add_attendee(course_event_id)
-    _attendee = Attendee.new(user_id:, course_event_id:)
-    attendees << _attendee
-    _attendee
+    attendee = Attendee.new(user_id:, course_event_id:)
+    attendees << attendee
+    attendee
   end
 
   private
 
-  def set_current_state(date = Time.zone.today)
-    _exceeded_caps = exceeded_caps(date)
+  def set_current_state(date: Time.zone.today)
+    caps = exceeded_caps(date:)
     self.state =
-      if _exceeded_caps.include?(:end_on)
+      if caps.include?(:end_on)
         :expired
-      elsif _exceeded_caps.include?(:start_on)
+      elsif caps.include?(:start_on)
         :new
       else
         :active
@@ -71,28 +71,34 @@ class Subscription < ApplicationRecord
     type.set_current_state
   end
 
-  def exceeded_caps(date = Time.zone.today)
-    _exceeded_caps = []
-    _exceeded_caps << :start_on if !start_on || date < start_on
-    _exceeded_caps << :end_on   if end_on && date > end_on
-    _exceeded_caps
+  def exceeded_caps(date: Time.zone.today)
+    caps = []
+    caps << :start_on if !start_on || date < start_on
+    caps << :end_on   if end_on && date > end_on
+    caps
   end
 
   def update_user_state
     user&.save
   end
 
+  def generate_code
+    ([*('A'..'Z'), *('0'..'9')] - %w[0 1 I O]).sample(14).join
+  end
+
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def set_default
-    self.code = ([*('A'..'Z'), *('0'..'9')] - %w[0 1 I O]).sample(14).join if code.blank?
+    self.code = generate_code if code.blank?
 
     # raise 'Product must exist to create a subscription' unless product
     self.state                  ||= :new
     self.start_on               ||= Time.zone.today if user
 
     return unless product
-    self.category_id          ||= product&.category_id
-    self.subscription_type    ||= product&.product_type
-    self.max_accesses_number  ||= product&.max_accesses_number
+    self.category_id          ||= product.category_id
+    self.subscription_type    ||= product.product_type
+    self.max_accesses_number  ||= product.max_accesses_number
     self.end_on               ||= self.start_on + product.days if start_on
   end
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 end

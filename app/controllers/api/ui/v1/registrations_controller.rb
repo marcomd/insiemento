@@ -34,19 +34,15 @@ class Api::Ui::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_and_sanitize_email_confirmation
-    errors = {}
-    if user_params[:email].blank?
-      errors[:email] ||= []
-      errors[:email] << 'is blank'
-    end
-    if user_params[:email_confirmation].blank?
-      errors[:email_confirmation] ||= []
-      errors[:email_confirmation] << 'is blank'
-    end
-    if errors.blank? && user_params[:email] != user_params[:email_confirmation]
-      errors[:email] ||= []
-      errors[:email] << 'does not coincide with email_confirmation'
-    end
+    errors = get_errors
     render(json: { success: false, errors: }, status: :unprocessable_entity) and return if errors.present?
+  end
+
+  def get_errors
+    errors = {}
+    errors[:email] = ['is blank'] if user_params[:email].blank?
+    errors[:email_confirmation] = ['is blank'] if user_params[:email_confirmation].blank?
+    errors[:email] = ['does not coincide with email_confirmation'] if errors.blank? && user_params[:email] != user_params[:email_confirmation]
+    errors
   end
 end

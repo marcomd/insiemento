@@ -1,5 +1,5 @@
 class Api::Ui::V1::UsersController < Api::Ui::BaseController
-  before_action :set_user, except: %i[index availability]
+  before_action :set_user, except: %i[availability]
   skip_before_action :authenticate_request, only: [:availability], raise: false
 
   respond_to :json
@@ -26,7 +26,7 @@ class Api::Ui::V1::UsersController < Api::Ui::BaseController
     permitted_params = %i[email format]
     email = params.permit(*permitted_params)[:email]
     raise(Api::BadRequestError, I18n.t('ui.users.errors.email_required')) unless email
-    email = URI.decode(email)
+    # email = CGI.unescape(email)
 
     regexp_email = /\A([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})\Z/
     raise(Api::BadRequestError, I18n.t('ui.users.errors.email_invalid_format')) unless regexp_email === email

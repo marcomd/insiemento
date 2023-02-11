@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  IGNORED_SUBDOMAINS = %w[www api insiemento].freeze
+
   rescue_from ::CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html { redirect_to root_url, alert: exception.message }
@@ -40,17 +42,26 @@ class ApplicationController < ActionController::Base
       else
         domain = request.domain
         if CONFIG[:domains]&.exclude?(domain)
-          Organization.find_by(domain:) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+          get_organization_from_customer_domain(domain)
         else
-          # Standard domain: insiemento.com ...
-          subdomain = parsed_subdomain
-          if subdomain.present?
-            Organization.find_by(domain: subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
-          elsif params.permit(:organization)[:organization].present?
-            Organization.find_by(uuid: params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
-          end
+          get_organization_from_standard_domain
         end
       end
+  end
+
+  # A customer can have domain and wee use it to obtain the organization
+  def get_organization_from_customer_domain(domain)
+    Organization.find_by(domain:) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+  end
+
+  # Standard domain: insiemento.com ... can use the subdomain to obtain the organization
+  def get_organization_from_standard_domain
+    subdomain = parsed_subdomain
+    if subdomain.present?
+      Organization.find_by(domain: subdomain) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+    elsif params.permit(:organization)[:organization].present?
+      Organization.find_by(uuid: params.permit(:organization)[:organization]) || raise(ActionController::RoutingError, t('activerecord.errors.messages.organization_not_found'))
+    end
   end
 
   def json_request?
@@ -106,7 +117,7 @@ class ApplicationController < ActionController::Base
   def parsed_subdomain
     parsed_subdomains = request.subdomains.reject do |subdomain|
       # We discard the standard subdomains
-      %w[www api insiemento].include?(subdomain)
+      IGNORED_SUBDOMAINS.include?(subdomain)
     end
     parsed_subdomains.join('.')
   end

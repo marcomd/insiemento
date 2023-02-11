@@ -72,7 +72,7 @@ ActiveAdmin.register(UserDocument) do
                         return_scope_if_error: I18n.t('activerecord.attributes.user_document.states.draft').downcase
   end
   batch_action :annulla_invio, if: proc { @current_scope && @current_scope.scope_method == :ready && current_admin_user.is_root? },
-                               confirm: 'Confermi di voler annullare l''invio delle pratiche selezionate?' do |selection|
+                               confirm: "Confermi di voler annullare l'invio delle pratiche selezionate?" do |selection|
     shared_batch_action class_object: UserDocument, selection:,
                         action_name: 'not_ready_anymore', is_transaction: true,
                         return_scope_if_ok: I18n.t('activerecord.attributes.user_document.states.draft').downcase,

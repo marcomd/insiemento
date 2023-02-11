@@ -4,6 +4,7 @@ module AdminSharedBatchActions
   extend ActiveSupport::Concern
 
   # See https://github.com/activeadmin/activeadmin/issues/3673
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/ParameterLists,Rails/OutputSafety
   def shared_batch_action(class_object:, action_name:, selection: nil, records: nil, is_transaction: false, return_scope_if_ok: nil, return_scope_if_error: nil)
     raise('Please set selection ids or records param!') unless selection || records
 
@@ -46,4 +47,5 @@ module AdminSharedBatchActions
 
     redirect_to(collection_path(scope: return_scope))
   end
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/ParameterLists,Rails/OutputSafety
 end

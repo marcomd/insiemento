@@ -48,7 +48,7 @@ describe Subscription do
   end
 
   describe '#set_current_state' do
-    let(:result) { subject.send(:set_current_state, current_date) }
+    let(:result) { subject.send(:set_current_state, date: current_date) }
     subject { build(:subscription, subscription_type: :fee, state: :active, start_on: '2020-08-02', end_on: '2020-08-03') }
     let(:current_date) { Date.new(2020, 8, 2) }
 
@@ -73,8 +73,9 @@ describe Subscription do
   end
 
   describe '#add_attendee' do
-    let(:result) { subject.add_attendee(course_event_id) }
     subject { user_stefania.active_subscriptions.where(subscription_type: 'fee').first }
+
+    let(:result) { subject.add_attendee(course_event_id) }
     let(:course_event) { CourseEvent.find(course_event_id) }
 
     context 'when course event is subscribable' do
@@ -96,6 +97,12 @@ describe Subscription do
       it { expect(result.errors).to be_present }
       it { expect { result }.to_not change(Attendee, :count) }
     end
+  end
+
+  describe '#generate_code' do
+    subject { build(:subscription).send(:generate_code) }
+
+    it { is_expected.to match('\A[A-Z0-9]{14}\Z') }
   end
 
   describe '.active_at' do

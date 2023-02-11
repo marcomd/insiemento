@@ -4,7 +4,7 @@ describe FeeSubscription do
   subject { user_stefania.active_subscriptions.where(subscription_type: 'fee').first }
 
   describe '#set_current_state' do
-    let(:result) { subject.send(:set_current_state, current_date) }
+    let(:result) { subject.send(:set_current_state, date: current_date) }
     let(:current_date) { Date.new(2020, 8, 2) }
 
     before do

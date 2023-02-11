@@ -1,4 +1,5 @@
 module EmailHelper
+  # rubocop:disable Metrics/PerceivedComplexity,Metrics/ParameterLists
   def email_image_tag(image_name, path: 'app/assets/images', image: nil, binary: nil, size: '100%', style: nil, preview: nil)
     if preview
       if binary
@@ -26,4 +27,5 @@ module EmailHelper
       image_tag(attachments[image_name].url, size:, style:)
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity,Metrics/ParameterLists
 end

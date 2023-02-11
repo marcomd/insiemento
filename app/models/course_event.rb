@@ -27,6 +27,7 @@ class CourseEvent < ApplicationRecord
 
   private
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def set_default
     self.state ||= :active
 
@@ -37,4 +38,5 @@ class CourseEvent < ApplicationRecord
     self.trainer ||= course_schedule.trainer
     self.room ||= course_schedule.room
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

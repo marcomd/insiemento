@@ -4,7 +4,7 @@ describe ConsumptionSubscription do
   subject { user_linda.active_subscriptions.where(subscription_type: 'consumption').first }
 
   describe '#set_current_state' do
-    let(:result) { subject.send(:set_current_state, current_date) }
+    let(:result) { subject.send(:set_current_state, date: current_date) }
     let(:current_date) { Date.new(2020, 8, 2) }
     let(:course_event) { CourseEvent.find(course_event_id) }
 

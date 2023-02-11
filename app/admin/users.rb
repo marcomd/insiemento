@@ -73,6 +73,7 @@ ActiveAdmin.register(User) do
   filter :updated_at
 
   show do |user|
+    # rubocop:disable Rails/OutputSafety
     script do
       raw "
       $(document).ready(function($) {
@@ -85,6 +86,7 @@ ActiveAdmin.register(User) do
       })
       "
     end
+    # rubocop:enable Rails/OutputSafety
     columns do
       column do
         attributes_table do

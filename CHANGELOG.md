@@ -8,7 +8,7 @@
 
 # v1.28.6 18/09/2022
 
-- Updated rails, ruby and a fix to course schedule admin UI
+- Updated rails, ruby and a fix to coursenew schedule admin UI
   - Updated rails from 6.1.6.1 to 6.1.7
   - Updated ruby from 2.7.5. to 2.7.6
   - When adding course schedule, only active courses are now shown

@@ -58,7 +58,6 @@ class Attendee < ApplicationRecord
     if datetime >= (course_event.event_date - course.end_booking_minutes.minutes)
       errors.add(:course_event_id, I18n.t('errors.messages.course_event_not_unsubscribable'))
       throw(:abort)
-      false
     end
     true
   end

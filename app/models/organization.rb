@@ -33,6 +33,8 @@ class Organization < ApplicationRecord
   STATES = { activating: 10, active: 20, suspended: 30 }.freeze
   enum state: STATES
 
+  HOMEPAGE_THEMES = %w[dark].freeze
+
   include Storext.model
   store_attributes :theme do
     dark_mode         Boolean, default: false
@@ -80,7 +82,7 @@ class Organization < ApplicationRecord
     attributes.each do |_index, attrs|
       next if attrs.delete('_destroy') == '1'
 
-      %w[dark].each do |field_name|
+      HOMEPAGE_THEMES.each do |field_name|
         field_value = attrs[field_name]
         field_value = true if field_value == '1'
         field_value = false if field_value == '0'
@@ -101,10 +103,11 @@ class Organization < ApplicationRecord
 
   def homepage_contacts_attributes=(attributes)
     homepage_contacts = []
+
     attributes.each do |_index, attrs|
       next if attrs.delete('_destroy') == '1'
 
-      %w[dark].each do |field_name|
+      HOMEPAGE_THEMES.each do |field_name|
         field_value = attrs[field_name]
         field_value = true if field_value == '1'
         field_value = false if field_value == '0'
@@ -125,10 +128,11 @@ class Organization < ApplicationRecord
 
   def homepage_socials_attributes=(attributes)
     homepage_socials = []
+
     attributes.each do |_index, attrs|
       next if attrs.delete('_destroy') == '1'
 
-      %w[dark].each do |field_name|
+      HOMEPAGE_THEMES.each do |field_name|
         field_value = attrs[field_name]
         field_value = true if field_value == '1'
         field_value = false if field_value == '0'
@@ -138,25 +142,6 @@ class Organization < ApplicationRecord
     end
     self.homepage_socials = homepage_socials
   end
-
-  # def homepage_images
-  #   read_attribute(:images)&.map {|v| Homepage::Social.new({}.merge(v)) }
-  # end
-  #
-  # def homepage_images_attributes=(attributes)
-  #   homepage_images = []
-  #   attributes.each do |index, attrs|
-  #     next if attrs.delete('_destroy') == '1'
-  #     %w[dark].each do |field_name|
-  #       field_value = attrs[field_name]
-  #       field_value = true if field_value == '1'
-  #       field_value = false if field_value == '0'
-  #       attrs[field_name] = field_value
-  #     end
-  #     homepage_images << attrs
-  #   end
-  #   self.images = homepage_images
-  # end
 
   def site_url
     str_domain = domain.include?('.') ? domain : "#{domain}.#{CONFIG[:domains].first}"

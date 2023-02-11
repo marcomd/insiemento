@@ -8,6 +8,7 @@ module Homepage
       @text   = attr[:text]  || attr['text']
       @dark   = attr[:dark]  || attr['dark']
       @color = attr[:color] || attr['color']
+      super
     end
 
     validates :title, :icon, :text, presence: true
