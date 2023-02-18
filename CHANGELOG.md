@@ -1,5 +1,32 @@
 # CHANGELOG
 
+# v1.31.0 18/02/2023
+
+- Updated Vuetify from 2.4 to 2.6
+
+# v1.30.1 04/02/2023
+
+- Fixed images size in the organization show page on the admin ui
+
+# v1.30.0 21/01/2023
+
+- Updated to node 16, webpacker 5 and many other js packages
+  - Updated node from 14 to 16
+  - Updated webpacker from 4 to 5
+  - Moved from sass to dart-sass
+  - Updated node-sass from 4 to 7
+  - Updated rails packages from 6.0 to 6.1
+  - Updated other js packages
+
+# v1.29.1 07/01/2023
+
+- Fixed images size in the organization show page on the admin ui
+- Updated many gems
+
+# v1.29.0 07/01/2023
+
+- Updated active admin
+
 # v1.28.7 19/09/2022
 
 - Rubocop's fixes
