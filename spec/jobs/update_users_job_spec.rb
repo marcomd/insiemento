@@ -20,9 +20,9 @@ describe UpdateUsersJob do
     context 'when active user have to be suspended' do
       let(:user) { create(:user, state: :new, organization_id: 1) }
 
-      before { User.where(id: user.id).update_all(state: :active) }
+      before { user.update_column(:state, :active) }
+
       it do
-        user.reload
         expect do
           perform_enqueued_jobs { subject }
           user.reload
@@ -30,11 +30,12 @@ describe UpdateUsersJob do
       end
     end
 
-    context 'when unactive user have to be activate' do
+    context 'when unactive user have to be activated' do
       let(:user) { user_stefania }
-      before { User.where(id: user_stefania.id).update_all(state: :new) }
+
+      before { user.update_column(:state, :new) }
+
       it do
-        user.reload
         expect do
           perform_enqueued_jobs { subject }
           user.reload

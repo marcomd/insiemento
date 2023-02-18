@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.32.0 18/02/2023
+
+- Added UpdateSubscriptionsJob
+  - This new job activates/deactivates subscriptions daily. Previously only users were updated, but which based their 
+    state on subscriptions. This fixes a bug that didn't change the state of expired subscriptions (but only the 
+    state because they were no longer accepted due to a check on the end_to) and thus also the user state.
+
 # v1.31.0 18/02/2023
 
 - Updated Vuetify from 2.4 to 2.6

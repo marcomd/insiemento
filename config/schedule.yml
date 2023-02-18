@@ -17,8 +17,12 @@ create_course_events:
   cron: "30 12 * * 6"
   class: ScheduleJob
   queue: course_events
+update_subscriptions:
+  cron: "6 0 * * *"
+  class: UpdateSubscriptionsJob
+  queue: users
 update_users:
-  cron: "13 0 * * *"
+  cron: "9 0 * * 0"
   class: UpdateUsersJob
   queue: users
 news:

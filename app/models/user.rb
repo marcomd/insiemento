@@ -27,10 +27,10 @@ class User < ApplicationRecord
   validates :medical_certificate, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'], max_size: 2.megabytes }
 
   validates :email, uniqueness: { allow_blank: false, if: :email_changed? }
-  validates     :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true, if: :email_changed? }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true, if: :email_changed? }
 
-  validates     :password, presence: { if: :password_required? }
-  validates     :firstname, :lastname, presence: true
+  validates :password, presence: { if: :password_required? }
+  validates :firstname, :lastname, presence: true
   validates :password, confirmation: { if: :password_required? }
   validates :password, length: { within: 8..64, allow_blank: true }
   validates :phone, numericality: { allow_blank: true }
