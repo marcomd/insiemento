@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.32.1 18/02/2023
+
+- Fixed subscription filter state list on admin ui
+  - The list now contains correct value
+
 # v1.32.0 18/02/2023
 
 - Added UpdateSubscriptionsJob

@@ -53,7 +53,7 @@ ActiveAdmin.register(Subscription) do
   filter :product, collection: proc { current_admin_user.products }
   filter :user, collection: proc { current_admin_user.users }
   filter :order, collection: proc { current_admin_user.orders }
-  filter :state, as: :select, collection: Order.localized_states
+  filter :state, as: :select, collection: Subscription.localized_states
   filter :code
   filter :start_on
   filter :end_on
