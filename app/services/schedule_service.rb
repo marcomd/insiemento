@@ -5,16 +5,18 @@ require 'English'
 class ScheduleService
   prepend SimpleCommand
 
-  def initialize(starting_date: Time.zone.today, debug: false)
+  def initialize(starting_date: Time.zone.today, organization_ids: [], debug: false)
     @starting_date = starting_date
     @progressive_date = starting_date
+    @organization_ids = organization_ids
     @debug = debug
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def call
     created_course_events = 0
-    Organization.active.find_each do |organization|
+
+    organizations.find_each do |organization|
       puts "Organization id #{organization.id}: #{organization.name}" if debug && !Rails.env.test?
       organization_course_events = build_course_events(organization)
       next if organization_course_events.blank?
@@ -34,7 +36,7 @@ class ScheduleService
 
   private
 
-  attr_reader :starting_date, :progressive_date, :debug
+  attr_reader :starting_date, :progressive_date, :debug, :organization_ids
 
   def build_course_events(organization)
     organization_course_events = []
@@ -51,6 +53,10 @@ class ScheduleService
       organization_course_events << ce
     end
     organization_course_events
+  end
+
+  def organizations
+    @organizations ||= organization_ids.present? ? Organization.where(id: organization_ids) : Organization.active
   end
 end
 # rubocop:enable Metrics/AbcSize

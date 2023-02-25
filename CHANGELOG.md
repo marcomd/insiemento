@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.33.0 25/02/2023
+
+- Possibility of creating sessions for certain organizations only
+  - It is now possible to specify organizations to which to create sessions. ScheduleService now accepts 
+    the new parameter organization_ids. If it is set, sessions are created only for these.  
+
 # v1.32.1 18/02/2023
 
 - Fixed subscription filter state list on admin ui
