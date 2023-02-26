@@ -8,9 +8,8 @@
         <slot />
       </base-info-card>
 
-      <template v-for="({ icon, text, title: t }, i) in elements">
+      <template v-for="({ icon, text, title: t }, i) in elements" :key="i">
         <base-avatar-card
-          :key="i"
           :icon="icon"
           :outlined="false"
           :title="!dense ? t : undefined"

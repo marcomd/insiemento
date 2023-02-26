@@ -19,7 +19,7 @@
 
         <v-card-text>
           <strong>{{ course.name }}</strong> {{ `${$t('commons.with')} ${trainer_name}` }}
-          </span><br>
+          <br>
           <span><v-icon>mdi-calendar-arrow-right</v-icon> <strong>{{ formattedDateTime(course_event.event_date) }}</strong></span><br>
           <span>{{ $t('course_event.attributes.attendees_count') }}: {{ course_event.attendees_count }} / {{ room.max_attendees }}</span>
           <span v-if="course_event.subscribed">{{ $t('course_event.attributes.subscribed') }}  <v-icon color="success">mdi-check-bold</v-icon></span>
@@ -34,8 +34,7 @@
           </v-btn>
         </v-card-actions>
       </router-link>
-    </v-card
-      class="mx-auto ma-6">
+    </v-card>
 </template>
 
 <script>

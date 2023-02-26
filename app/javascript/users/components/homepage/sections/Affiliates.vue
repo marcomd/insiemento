@@ -8,9 +8,8 @@
       <base-section-heading title="Chi sta usando Insiemento?" />
 
       <v-slide-group>
-        <template v-for="(affiliate, index) in affiliates">
+        <template v-for="(affiliate, index) in affiliates" :key="index">
           <v-slide-item
-            :key="index"
             class="align-self-center"
           >
             <a :href="affiliate.url">
