@@ -1,5 +1,6 @@
-import Vue from 'vue'
 import router from '../../router'
+// import axios from "axios"
+const axios = require('axios').default
 
 export const namespaced = true
 
@@ -16,7 +17,7 @@ export const mutations = {
   LOGOUT(state) {
     state.authToken = null
     localStorage.removeItem('authToken')
-    Vue.http.headers.common['X-Auth-Token'] = null
+    axios.defaults.headers.common['X-Auth-Token'] = null
   }
 }
 
@@ -24,26 +25,28 @@ export const actions = {
   login({ commit, dispatch, rootState }, credentials) {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
-      Vue.http.post(rootState.application.urls.login, credentials)
-      .then(response => {
-        const body = response.body
-        const authToken = body.auth_token
-        const userAttributes = body.user
-        if (credentials.rememberMe) localStorage.setItem('authToken', authToken)
-        Vue.http.headers.common['X-Auth-Token'] = 'Bearer ' + authToken
-        commit('LOGIN_SUCCESS', authToken)
-        if (!!userAttributes) {
-          dispatch('profile/setUser', userAttributes, { root: true })
-        } else {
-          // ...se per qualche motivo non si dovessero ricevere i dati del user dalla authenticate
-          // si tenta una chiamata specifica
-          dispatch('profile/fetchUser', null, { root: true })
-        }
-        resolve(body)
-      }, error => {
-        commit('LOGOUT')
-        reject(error)
-      }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
+      axios
+        .post(rootState.application.urls.login, credentials)
+        .then(response => {
+          const body = response.data
+          const authToken = body.auth_token
+          const userAttributes = body.user
+          if (credentials.rememberMe) localStorage.setItem('authToken', authToken)
+          axios.defaults.headers.common['X-Auth-Token'] = 'Bearer ' + authToken
+          commit('LOGIN_SUCCESS', authToken)
+          if (!!userAttributes) {
+            dispatch('profile/setUser', userAttributes, { root: true })
+          } else {
+            // ...se per qualche motivo non si dovessero ricevere i dati del user dalla authenticate
+            // si tenta una chiamata specifica
+            dispatch('profile/fetchUser', null, { root: true })
+          }
+          resolve(body)
+        }, error => {
+          commit('LOGOUT')
+          reject(error)
+        })
+        .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
   logout({ commit, dispatch }, force) {
@@ -55,7 +58,7 @@ export const actions = {
   signUp({ commit, dispatch, rootState }, userData) {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
-      Vue.http.post(rootState.application.urls.signUp, {
+      axios.post(rootState.application.urls.signUp, {
         user: userData
       }).then(response => {
         resolve(response)
@@ -67,7 +70,7 @@ export const actions = {
   passwordReset({ commit, dispatch, rootState }, email) {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
-      Vue.http.post(rootState.application.urls.passwordReset, {
+      axios.post(rootState.application.urls.passwordReset, {
         user: { email: email }
       }).then(response => {
         router.push({ name: 'login' })
@@ -88,7 +91,7 @@ export const actions = {
   newPassword({ commit, dispatch, rootState }, data) {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
-      Vue.http.put(rootState.application.urls.passwordReset, {
+      axios.put(rootState.application.urls.passwordReset, {
         user: {
           password: data.password,
           reset_password_token: data.token
@@ -112,7 +115,7 @@ export const actions = {
   sendConfirmationEmail({ commit, dispatch, rootState }, email) {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
-      Vue.http.post(rootState.application.urls.confirmationEmail, {
+      axios.post(rootState.application.urls.confirmationEmail, {
         user: { email: email }
       }).then(response => {
         router.push({ name: 'login' })

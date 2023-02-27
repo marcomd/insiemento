@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from "axios"
 
 export const namespaced = true
 
@@ -38,7 +38,7 @@ export const actions = {
       // console.log(`fetchSubscriptions rootState ${rootState.application.urls.subscriptions_index}`)
       let url = rootState.application.urls.subscriptions_index
       if (state_param) url += `?state=${state_param}`
-      Vue.http.get(url, null, {
+      axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
         let subscriptions = response.data
@@ -67,7 +67,7 @@ export const actions = {
       } else {
         dispatch('layout/set_loading', true, { root: true })
         let url = rootState.application.urls.subscription_show.replace(':id', id)
-        return Vue.http.get(url, null, {
+        return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {
             subscription = response.data

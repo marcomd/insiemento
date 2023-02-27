@@ -20,6 +20,8 @@ Vue.use(VueResource)
 Vue.use(VueI18n)
 Vue.use(Vuelidate)
 
+import axios from 'axios'
+
 const init = function() {
   let el = document.getElementById('users-vue-wrapper')
   if (el !== null) {
@@ -63,7 +65,7 @@ const init = function() {
     // })
 
     let locale = localStorage.getItem('userLocale') || el.getAttribute('data-locale') || 'it'
-    Vue.http.headers.common['Accept-Language'] = locale
+    axios.defaults.headers.common['Accept-Language'] = locale
     moment.locale(locale)
 
     let i18n = new VueI18n({

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from "axios"
 
 export const namespaced = true
 
@@ -48,7 +48,7 @@ export const actions = {
       dispatch('layout/set_loading', true, { root: true })
       // console.log(`fetchProducts rootState ${rootState.application.urls.products_index}`)
       let url = `${rootState.application.urls.products_index}?state=${state_param}`
-      Vue.http.get(url, null, {
+      axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
         let products = response.data
@@ -77,7 +77,7 @@ export const actions = {
       } else {
         dispatch('layout/set_loading', true, { root: true })
         let url = rootState.application.urls.product_show.replace(':id', id)
-        return Vue.http.get(url, null, {
+        return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {
             product = response.data

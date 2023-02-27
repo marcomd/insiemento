@@ -12,13 +12,14 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+  // import Vue from 'vue'
   import { mapGetters } from 'vuex'
   import Header from './layout/header'
   import Sidebar from './layout/sidebar'
   import Footer from './layout/footer'
   import Alerts from './layout/alerts'
   import Snackbar from './layout/snackbar'
+  import axios from 'axios'
 
   export default {
     components: {
@@ -61,9 +62,18 @@
           if (this.current_organization.theme.warning_color)    this.$vuetify.theme.themes.light.warning = this.current_organization.theme.warning_color
         }
       }
+      axios.interceptors.request.use(request => {
+        // Do something before request is sent
+        console.log('Intercepted request', request)
+        return request;
+      }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+      });
 
-      Vue.http.interceptors.push(request => {
-        if (request.skipInterceptors) return
+      axios.interceptors.response.use(response => {
+        console.log('Intercepted response', response)
+        if (response.data.skipInterceptors) return {}
 
         // Perchè un clear globale? Non consente di mostrare i messaggi impostati prima del routing
         // this.$store.dispatch('layout/clearAlerts')
@@ -90,6 +100,8 @@
           //   this.$store.dispatch('session/logout', true)
           // }
         }
+      }, error => {
+        return Promise.reject(error)
       })
 
       this.$store.dispatch('application/loadInitialProps', {
@@ -99,7 +111,7 @@
       })
 
       if (this.isLoggedIn) {
-        Vue.http.headers.common['X-Auth-Token'] = 'Bearer ' + this.$store.state.session.authToken
+        axios.defaults.headers.common['X-Auth-Token'] = 'Bearer ' + this.$store.state.session.authToken
         this.$store.dispatch('profile/fetchUser')
       }
     }

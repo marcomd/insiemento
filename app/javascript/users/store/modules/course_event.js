@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from 'axios'
 
 export const namespaced = true
 
@@ -54,7 +54,7 @@ export const actions = {
       dispatch('layout/set_loading', true, { root: true })
       // console.log(`fetchCourseEvents rootState ${rootState.application.urls.course_events_index}`)
       let url = `${rootState.application.urls.course_events_index}?state=${state_param}`
-      Vue.http.get(url, null, {
+      axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
         let course_events = response.data
@@ -83,7 +83,7 @@ export const actions = {
       } else {
         dispatch('layout/set_loading', true, { root: true })
         let url = rootState.application.urls.course_event_show.replace(':id', id)
-        return Vue.http.get(url, null, {
+        return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {
             course_event = response.data
@@ -105,7 +105,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.course_event_subscribe.replace(':id', course_event_id)
       let course_event
-      Vue.http.put(url, params)
+      axios.put(url, params)
         .then(response => {
           course_event = response.body
           console.log(`updateSubscription course_event`, course_event)
@@ -123,7 +123,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.course_event_attendees.replace(':id', course_event_id)
       let course_event
-      Vue.http.get(url, null, {
+      axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
         let attendees = response.data
@@ -142,7 +142,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.course_event_audit.replace(':id', course_event_id)
       let course_event
-      Vue.http.put(url, params)
+      axios.put(url, params)
         .then(response => {
           course_event = response.body
           console.log(`updateSubscription course_event`, course_event)

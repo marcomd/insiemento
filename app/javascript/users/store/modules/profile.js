@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from "axios"
 
 export const namespaced = true
 
@@ -14,7 +14,7 @@ export const mutations = {
 
 export const actions = {
   fetchUser({ commit, dispatch, rootState }) {
-    Vue.http.get(rootState.application.urls.profile)
+    axios.get(rootState.application.urls.profile)
     .then(response => {
       commit('SET_USER', response.body)
       const orderAttributes = response.body.pending_order
@@ -32,7 +32,7 @@ export const actions = {
   },
   update({ commit, dispatch, rootState }, payload) {
     return new Promise((resolve, reject) => {
-      Vue.http.put(rootState.application.urls.profile, { user: payload })
+      axios.put(rootState.application.urls.profile, { user: payload })
       .then(response => {
         commit('SET_USER', response.body)
         resolve(response)

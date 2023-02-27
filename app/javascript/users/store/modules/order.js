@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from "axios"
 
 export const namespaced = true
 
@@ -52,7 +52,7 @@ export const actions = {
       dispatch('layout/set_loading', true, { root: true })
       // console.log(`fetchOrders rootState ${rootState.application.urls.orders_index}`)
       let url = `${rootState.application.urls.orders}?state=${state_param}`
-      Vue.http.get(url, null, {
+      axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
         let orders = response.data
@@ -81,7 +81,7 @@ export const actions = {
       } else {
         dispatch('layout/set_loading', true, { root: true })
         let url = rootState.application.urls.order.replace(':id', id)
-        return Vue.http.get(url, null, {
+        return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {
             order = response.data
@@ -106,7 +106,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.orders
       let order
-      Vue.http.post(url, params)
+      axios.post(url, params)
         .then(response => {
           order = response.body
           console.log(`create order`, order)
@@ -124,7 +124,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.order.replace(':id', order_id)
       let order
-      Vue.http.put(url, params)
+      axios.put(url, params)
         .then(response => {
           order = response.body
           console.log(`update order`, order)
@@ -148,7 +148,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.order_add_product.replace(':id', order_id).replace(':product_id', product_id)
       let order
-      Vue.http.put(url, params)
+      axios.put(url, params)
         .then(response => {
           order = response.body
           console.log(`update order`, order)
