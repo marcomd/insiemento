@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.34.0 04/03/2023
+
+- Inactive organizations do not return the course list 
+  - In the future we will create a specific result so that the reason for the absence of courses is more clear
+
 # v1.33.0 25/02/2023
 
 - Possibility of creating sessions for certain organizations only

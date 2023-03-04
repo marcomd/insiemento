@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Api::Ui::V1::CourseEventsController, type: :api do
   let(:organization_id) { 1 }
+  let(:organization) { Organization.find(organization_id) }
 
   before do
-    ENV['ORGANIZATION'] = '1'
+    ENV['ORGANIZATION'] = organization_id.to_s
     header 'Content-Type', 'application/json; charset=utf-8'
     header 'Accept-Language', language
     header 'X-Auth-Token', jwt_token
@@ -27,12 +28,23 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
       expect(json).to be_a(Array)
     end
 
-    context 'without authentication' do
+    context 'when user is NOT authenticated' do
       let(:jwt_token) { nil }
 
       it 'has no authorization' do
         action
         expect(last_response).to be_unauthorized
+      end
+    end
+
+    context 'when organization state is NOT active' do
+      before { organization.update_column(:state, :suspended) }
+
+      it 'returns a blank list' do
+        action
+        expect(last_response.status).to eq(200)
+        expect(json).to be_a(Array)
+        expect(json).to be_blank
       end
     end
   end
@@ -106,7 +118,6 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
     context 'when single request' do
       context 'when user tries to subscribe' do
         context 'when event is expired' do
-          let(:organization) { Organization.find(organization_id) }
           let(:course_schedule) { organization.course_schedules.first }
           let(:event_date) { Time.zone.now - 1 }
           let(:course_event_id) { course_event.id }
@@ -123,7 +134,6 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
 
         context 'when event is not ready yet' do
-          let(:organization) { Organization.find(organization_id) }
           let(:course_schedule) { organization.course_schedules.first }
           let(:event_date) { 8.days.from_now }
           let(:course_event_id) { course_event.id }
@@ -156,7 +166,6 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
 
         context 'when user has not yet subscribed' do
-          let(:organization) { Organization.find(organization_id) }
           let(:course_schedule) { organization.course_schedules.first }
           let(:course_event_id) { course_event.id }
           let(:event_date) { 2.hours.from_now }
@@ -235,7 +244,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
         end
       end
 
-      # HERE !!! Verificare che lo user riattivi l'abbonamento a consumo
+      # TODO: Check that user reactivates the consumption subscription
       context 'when user tries to UNsubscribe' do
         let(:subscribe) { false }
 

@@ -9,6 +9,8 @@ class Api::Ui::V1::CourseEventsController < Api::Ui::BaseController
   def index
     # To simulate a network delay...
     simulate_delay_for_development
+    return [] unless Organization::ACTIVE_STATES.include?(@organization.state)
+
     @course_events = @organization.course_events.includes(:course, :room, :trainer).order('course_events.event_date')
     # .where(course_event_filter_params)
     @course_events = @course_events.where(user_id: current_user.id) if params[:subscribed]
