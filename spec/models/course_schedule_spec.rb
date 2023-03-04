@@ -44,7 +44,7 @@ describe CourseSchedule do
         let(:starting_date) { Date.parse('2020-02-10') }
         let(:expected_date) { Date.parse('2020-02-17') }
 
-        it 'returns the monday 10 feb' do
+        it 'returns the next monday 17 feb' do
           expect(result).to eq(expected_date)
         end
       end

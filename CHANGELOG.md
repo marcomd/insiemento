@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.34.2 04/03/2023
+
+- Bugfix creation of course events with unsorted course schedules
+  - Now the course events are created ordered and in the current week even if the schedules are not. 
+    Previously this broke since the scheduling was changed with find_each
+
 # v1.34.1 04/03/2023
 
 - Fixed course events list for inactive organizations
