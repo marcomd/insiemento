@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.34.1 04/03/2023
+
+- Fixed course events list for inactive organizations
+
 # v1.34.0 04/03/2023
 
 - Inactive organizations do not return the course list 

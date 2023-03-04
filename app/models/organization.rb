@@ -32,7 +32,6 @@ class Organization < ApplicationRecord
 
   STATES = { activating: 10, active: 20, suspended: 30 }.freeze
   enum state: STATES
-  ACTIVE_STATES = %i[active].freeze
 
   HOMEPAGE_THEMES = %w[dark].freeze
 

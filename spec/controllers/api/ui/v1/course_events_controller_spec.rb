@@ -26,6 +26,7 @@ describe Api::Ui::V1::CourseEventsController, type: :api do
       action
       expect(last_response.status).to eq(200)
       expect(json).to be_a(Array)
+      expect(json).to be_present
     end
 
     context 'when user is NOT authenticated' do
