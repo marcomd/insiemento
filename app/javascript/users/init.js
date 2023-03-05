@@ -6,7 +6,6 @@ import router from './router'
 
 import moment from 'moment'
 
-import VueResource from 'vue-resource'
 import VueI18n from 'vue-i18n'
 import Vuelidate from 'vuelidate'
 
@@ -16,7 +15,6 @@ import './plugins'
 // import * as VueGoogleMaps from 'vue2-google-maps'
 import ActionCableVue from 'actioncable-vue'
 
-Vue.use(VueResource)
 Vue.use(VueI18n)
 Vue.use(Vuelidate)
 
@@ -38,31 +36,6 @@ const init = function() {
     } else {
       console.error("Please set props -> options -> websocketUrl")
     }
-    // Vue.use(VueGoogleMaps, {
-    //   load: {
-    //     key: 'AIzaSyAtHxouX3MKalgzR2gA7QP9CnONNDBBej8',
-    //     v: '3.26',
-    //     libraries: 'places', // This is required if you use the Autocomplete plugin
-    //     // OR: libraries: 'places,drawing'
-    //     // OR: libraries: 'places,drawing,visualization'
-    //     // (as you require)
-    //
-    //     //// If you want to set the version, you can do so:
-    //     // v: '3.26',
-    //   },
-    //
-    //   //// If you intend to programmatically custom event listener code
-    //   //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
-    //   //// instead of going through Vue templates (e.g. `<GmapMap @zoom_changed="someFunc">`)
-    //   //// you might need to turn this on.
-    //   // autobindAllEvents: false,
-    //
-    //   //// If you want to manually install components, e.g.
-    //   //// import {GmapMarker} from 'vue2-google-maps/src/components/marker'
-    //   //// Vue.component('GmapMarker', GmapMarker)
-    //   //// then disable the following:
-    //   // installComponents: true,
-    // })
 
     let locale = localStorage.getItem('userLocale') || el.getAttribute('data-locale') || 'it'
     axios.defaults.headers.common['Accept-Language'] = locale

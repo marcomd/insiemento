@@ -128,11 +128,27 @@ Currently, only administrators can associate a subscription with a customer but 
 - [x] Milestone2: Organizations for multitenant management `v0.5.0`
 - [x] Products management
 - [x] Customers subscription management `v0.6.0`
-- [ ] Orders and payments management, in progress `v0.12.0`
+- [ ] Orders and payments management, started with `v0.12.0` and to complete
 - [ ] Organizations fee management
 - [x] Homepage `v0.26.0`
 - [x] Complete emails management, internal + sendgrid `v0.44.0`
 - [x] Self Certification management (for covid) `v0.45.0`
+- [x] News management on backend and frontend `v1.10.0`
+- [x] Websocket connection to provide server feedbacks in realtime `v1.21.0`
+- [x] User penalties configuration to handle when users miss booked events `v1.24.0`
+
+## Javascript / Frontend issues
+
+- The user UI is created with Vue2 and the migration to Vue3 is currently in progress.
+- vue-resource has been replaced with axios in order to make the vue migration simpler `v1.35.0`
+
+This package `@babel/plugin-proposal-private-methods` has been added to remove the warning (see [this](https://github.com/rails/webpacker/issues/3008) topic):
+
+```
+The "loose" option must be the same for @babel/plugin-proposal-class-properties, @babel/plugin-proposal-private-methods and @babel/plugin-proposal-private-property-in-object (when they are enabled): you can silence this warning by explicitly adding
+	["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
+to the "plugins" section of your Babel config.
+```
 
 ## Run locally
 
