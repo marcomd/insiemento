@@ -16,8 +16,10 @@ export const actions = {
   fetchUser({ commit, dispatch, rootState }) {
     axios.get(rootState.application.urls.profile)
     .then(response => {
-      commit('SET_USER', response.body)
-      const orderAttributes = response.body.pending_order
+      //console.log('profile fetchUser response', response)
+      const body = response.data
+      commit('SET_USER', body)
+      const orderAttributes = body.pending_order
       if (!!orderAttributes) {
         dispatch('order/setOrder', orderAttributes, { root: true })
       }
@@ -34,7 +36,8 @@ export const actions = {
     return new Promise((resolve, reject) => {
       axios.put(rootState.application.urls.profile, { user: payload })
       .then(response => {
-        commit('SET_USER', response.body)
+        const body = response.data
+        commit('SET_USER', body)
         resolve(response)
       }, error => {
         reject(error)

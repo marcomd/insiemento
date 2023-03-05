@@ -48,7 +48,7 @@ class ScheduleService
         trainer_id: cs.trainer_id,
         course_schedule_id: cs.id,
         event_date: cs.next_event_datetime(progressive_date),
-        state: cs.state
+        state: cs.state,
       }
       @progressive_date = ce[:event_date].to_date - 1 # It makes sure the next event calculation starts from the event date
       ce

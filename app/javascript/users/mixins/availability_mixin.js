@@ -23,15 +23,17 @@ export const availabilityMixin = {
       const url = `${this.$store.state.application.urls.available_user}?email=${escaped_email}`
       return axios.get(url, { skipInterceptors: true })
         .then(response => {
-          this.resultAvailability = response.body.available === true
-          this.resultCustomerCreatedByWeb = response.body.web
+          const body = response.data
+          this.resultAvailability = body.available === true
+          this.resultCustomerCreatedByWeb = body.web
           if (!!this.serverSideErrors) this.serverSideErrors = {}
           this.serverSideErrors['email'] = this.resultAvailability ? null : [this.$t('errors.already_exists')]
           return this.resultAvailability
         }, err => {
           console.log('checkEmailAvailability', err)
+          const body = err.data
           if (!!this.serverSideErrors) this.serverSideErrors = {}
-          this.serverSideErrors['email'] = [err.body ? err.body.error : err]
+          this.serverSideErrors['email'] = [body ? body.error : err]
           this.resultCustomerCreatedByWeb = null
           this.resultAvailability = false
           return false

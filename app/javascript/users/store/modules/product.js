@@ -47,11 +47,11 @@ export const actions = {
     return new Promise((resolve, reject) => {
       dispatch('layout/set_loading', true, { root: true })
       // console.log(`fetchProducts rootState ${rootState.application.urls.products_index}`)
-      let url = `${rootState.application.urls.products_index}?state=${state_param}`
+      const url = `${rootState.application.urls.products_index}?state=${state_param}`
       axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
-        let products = response.data
+        const products = response.data
         commit('SET_PRODUCTS', products)
         dispatch('layout/set_loading', false, { root: true })
         resolve(products)
@@ -76,7 +76,7 @@ export const actions = {
         resolve(product)
       } else {
         dispatch('layout/set_loading', true, { root: true })
-        let url = rootState.application.urls.product_show.replace(':id', id)
+        const url = rootState.application.urls.product_show.replace(':id', id)
         return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {

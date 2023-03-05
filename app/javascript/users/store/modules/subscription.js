@@ -41,7 +41,7 @@ export const actions = {
       axios.get(url, null, {
         responseType: 'json',
       }).then(response => {
-        let subscriptions = response.data
+        const subscriptions = response.data
         commit('SET_SUBSCRIPTIONS', subscriptions)
         dispatch('layout/set_loading', false, { root: true })
         resolve(subscriptions)
@@ -66,7 +66,7 @@ export const actions = {
         resolve(subscription)
       } else {
         dispatch('layout/set_loading', true, { root: true })
-        let url = rootState.application.urls.subscription_show.replace(':id', id)
+        const url = rootState.application.urls.subscription_show.replace(':id', id)
         return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {

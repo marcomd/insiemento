@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.35.0 05/03/2023
+
+- Replaced vue-resource with axios
+  - vue-resource does not support vue3 and to simplify the migration it has been replaced with axios
+
 # v1.34.2 04/03/2023
 
 - Bugfix creation of course events with unsorted course schedules

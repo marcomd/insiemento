@@ -28,6 +28,7 @@ export const actions = {
       axios
         .post(rootState.application.urls.login, credentials)
         .then(response => {
+          //console.log('login response', response)
           const body = response.data
           const authToken = body.auth_token
           const userAttributes = body.user

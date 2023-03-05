@@ -62,14 +62,14 @@
           if (this.current_organization.theme.warning_color)    this.$vuetify.theme.themes.light.warning = this.current_organization.theme.warning_color
         }
       }
-      axios.interceptors.request.use(request => {
-        // Do something before request is sent
-        console.log('Intercepted request', request)
-        return request;
-      }, function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-      });
+      // axios.interceptors.request.use(request => {
+      //   // Do something before request is sent
+      //   console.log('Intercepted request', request)
+      //   return request;
+      // }, function (error) {
+      //   // Do something with request error
+      //   return Promise.reject(error);
+      // });
 
       axios.interceptors.response.use(response => {
         console.log('Intercepted response', response)
@@ -77,29 +77,20 @@
 
         // Perchè un clear globale? Non consente di mostrare i messaggi impostati prima del routing
         // this.$store.dispatch('layout/clearAlerts')
-        // this.$store.dispatch('layout/submitting_request', true)
-
-        return response => {
-          // this.$store.dispatch('layout/submitting_request', false)
-
-          switch (response.status) {
-            case 401:
-              this.$store.dispatch('layout/clearAlerts')
-              this.$store.dispatch('session/logout', true)
-              break
-            case 500:
-              console.log('Catched a 500!', response.body)
-              this.$store.dispatch('layout/replaceAlert', {
-                type: 'error',
-                key: 'error_500'
-              })
-              break
-          }
-          // if (response.status === 401) {
-          //   this.$store.dispatch('layout/clearAlerts')
-          //   this.$store.dispatch('session/logout', true)
-          // }
+        switch (response.status) {
+          case 401:
+            this.$store.dispatch('layout/clearAlerts')
+            this.$store.dispatch('session/logout', true)
+            break
+          case 500:
+            console.log('Catched a 500!', response.body)
+            this.$store.dispatch('layout/replaceAlert', {
+              type: 'error',
+              key: 'error_500'
+            })
+            break
         }
+        return response
       }, error => {
         return Promise.reject(error)
       })

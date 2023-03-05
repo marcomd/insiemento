@@ -105,37 +105,14 @@ export const actions = {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.orders
-      let order
-      axios.post(url, params)
-        .then(response => {
-          order = response.body
-          console.log(`create order`, order)
-          commit('SET_ORDER', order)
-          commit('REFRESH_ORDER_IN_ORDERS', order)
-          resolve(response)
-        }, error => {
-          reject(error)
-        })
-        .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
+
+      return refreshOrder({ url, params, commit, f: axios.post })
     })
   },
   update({ commit, dispatch, rootState }, { order_id, params }) {
-    dispatch('layout/submitting_request', true, { root: true })
-    return new Promise((resolve, reject) => {
-      const url = rootState.application.urls.order.replace(':id', order_id)
-      let order
-      axios.put(url, params)
-        .then(response => {
-          order = response.body
-          console.log(`update order`, order)
-          commit('SET_ORDER', order)
-          commit('REFRESH_ORDER_IN_ORDERS', order)
-          resolve(response)
-        }, error => {
-          reject(error)
-        })
-        .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
-    })
+    const url = rootState.application.urls.order.replace(':id', order_id)
+
+    return refreshOrder({ url, params, commit, f: axios.put })
   },
   addProductToCart({ commit }, product) {
     commit('ADD_PRODUCT', product)
@@ -144,23 +121,26 @@ export const actions = {
     commit('REMOVE_PRODUCT', product_id)
   },
   addProductToOrder({ commit, dispatch, rootState }, { order_id, product_id, params }) {
-    dispatch('layout/submitting_request', true, { root: true })
-    return new Promise((resolve, reject) => {
-      const url = rootState.application.urls.order_add_product.replace(':id', order_id).replace(':product_id', product_id)
-      let order
-      axios.put(url, params)
-        .then(response => {
-          order = response.body
-          console.log(`update order`, order)
-          commit('SET_ORDER', order)
-          commit('REFRESH_ORDER_IN_ORDERS', order)
-          resolve(response)
-        }, error => {
-          reject(error)
-        })
-        .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
-    })
+    const url = rootState.application.urls.order_add_product.replace(':id', order_id).replace(':product_id', product_id)
+
+    return refreshOrder({ url, params, commit, f: axios.put })
   },
+}
+
+const refreshOrder = ({ url, params, commit, f }) => {
+  dispatch('layout/submitting_request', true, { root: true })
+
+  return f(url, params)
+      .then(response => {
+        const order = response.data
+        //console.log(`refresh order`, order, f)
+        commit('SET_ORDER', order)
+        commit('REFRESH_ORDER_IN_ORDERS', order)
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+      .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
 }
 
 export const getters = {

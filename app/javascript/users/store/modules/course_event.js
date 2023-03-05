@@ -86,6 +86,7 @@ export const actions = {
         return axios.get(url, null, {
           responseType: 'json',
           }).then(response => {
+            // console.log('fetchCourseEvent response', response)
             course_event = response.data
             commit('SET_COURSE_EVENT', course_event)
             commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS_OR_ADD', course_event)
@@ -104,11 +105,11 @@ export const actions = {
     dispatch('layout/submitting_request', true, { root: true })
     return new Promise((resolve, reject) => {
       const url = rootState.application.urls.course_event_subscribe.replace(':id', course_event_id)
-      let course_event
+
       axios.put(url, params)
         .then(response => {
-          course_event = response.body
-          console.log(`updateSubscription course_event`, course_event)
+          const course_event = response.data
+          // console.log(`updateSubscription course_event`, course_event)
           commit('SET_COURSE_EVENT', course_event)
           commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS_OR_ADD', course_event)
           resolve(response)
@@ -144,7 +145,7 @@ export const actions = {
       let course_event
       axios.put(url, params)
         .then(response => {
-          course_event = response.body
+          course_event = response.data
           console.log(`updateSubscription course_event`, course_event)
           resolve(response)
         }, error => {
