@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  // import Vue from 'vue'
   import { mapGetters } from 'vuex'
   import Header from './layout/header'
   import Sidebar from './layout/sidebar'
@@ -40,7 +39,7 @@
       ])
     },
     created() {
-      console.log('index.vue urls', this.urls)
+      // console.log('index.vue urls', this.urls)
       if (this.current_organization.theme) {
         if (this.current_organization.theme.dark_mode) {
           this.$vuetify.theme.dark = true
@@ -75,7 +74,7 @@
         //console.log('Intercepted response', response)
         if (response.data.skipInterceptors) return {}
 
-        // Perchè un clear globale? Non consente di mostrare i messaggi impostati prima del routing
+        // Prevent showing messages set before routing
         // this.$store.dispatch('layout/clearAlerts')
         switch (response.status) {
           case 401:

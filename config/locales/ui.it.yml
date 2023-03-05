@@ -209,7 +209,7 @@ it:
         login_success: Login effettuato con successo
         login_error: Email o password errate
         signed_up: Registrazione effettuata con successo
-        sign_up_error: Errore, ricontrolla i dati inseriti
+        sign_up_error: Oh oh, ricontrolla i dati inseriti
         logout: Sessione chiusa con successo
         force_logout: Errore, è necessario autenticarsi nuovamente
         password_reset_sent: Utilizza il link che hai ricevuto per modificare la tua password.
@@ -218,7 +218,7 @@ it:
         new_password_error: Errore, password non valida
         confirmation_email_sent: Controlla la tua casella email per confermare la tua registrazione
         confirmation_email_error: Non è possibile confermare questo indirizzo email, probabilmente è stato già confermato
-        profile_error: Errore, ricontrolla i dati inseriti
+        profile_error: Si è verificato un errore, ricontrolla i dati inseriti
         profile_updated: Profilo aggiornato con successo!
         profile_completed: Profilo completato, ora sei pronto per iniziare!
         generic_api_error: Un problema sta impedendo la connessione al cloud, riprova fra qualche minuto
