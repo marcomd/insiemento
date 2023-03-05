@@ -39,7 +39,7 @@ export const courseEventMixin = {
     },
     isCourseEventUncancelable() {
       const result = moment().diff(this.cancelBookingUntil, 'minutes')
-      console.log('isCourseEventCancelable', result)
+      //console.log('isCourseEventCancelable', result)
       return result > 0
     },
   },

@@ -45,7 +45,7 @@ export const actions = {
           resolve(body)
         }, error => {
           commit('LOGOUT')
-          reject(error)
+          reject(error.response)
         })
         .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
@@ -64,7 +64,7 @@ export const actions = {
       }).then(response => {
         resolve(response)
       }, error => {
-        reject(error)
+        reject(error.response)
       }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
@@ -85,7 +85,7 @@ export const actions = {
           type: 'error',
           key: 'password_reset_error'
         }, { root: true })
-        reject(error)
+        reject(error.response)
       }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
@@ -109,7 +109,7 @@ export const actions = {
           type: 'error',
           key: 'new_password_error'
         }, { root: true })
-        reject(error)
+        reject(error.response)
       }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   },
@@ -130,7 +130,7 @@ export const actions = {
           type: 'error',
           key: 'confirmation_email_error'
         }, { root: true })
-        reject(error)
+        reject(error.response)
       }).finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
   }

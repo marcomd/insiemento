@@ -72,7 +72,7 @@
       // });
 
       axios.interceptors.response.use(response => {
-        console.log('Intercepted response', response)
+        //console.log('Intercepted response', response)
         if (response.data.skipInterceptors) return {}
 
         // Perchè un clear globale? Non consente di mostrare i messaggi impostati prima del routing

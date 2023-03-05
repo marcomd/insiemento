@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v1.35.1 05/03/2023
+
+- Login now shows the exact error message
+  - Login now shows the exact error message and not the generic one. This has been corrected by returning 
+    the response and not the whole axios object.
+
 # v1.35.0 05/03/2023
 
 - Replaced vue-resource with axios

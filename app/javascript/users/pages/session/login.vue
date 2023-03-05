@@ -140,19 +140,19 @@
             type: 'success',
             key: 'login_success'
           })
-        })
-        .catch(error => {
+        }, error => {
           console.log('login error', error)
           let message = error
-          if (error && error.body) {
-            if (error.body.errors) {
-              if (error.body.errors.user_authentication) {
-                message = error.body.errors.user_authentication
+          const body = error?.data
+          if (body) {
+            if (body.errors) {
+              if (body.errors.user_authentication) {
+                message = body.errors.user_authentication
               } else {
-                message = error.body.errors
+                message = body.errors
               }
             } else {
-              message = error.body
+              message = body
             }
           }
           if (!!error && ![500].includes(error.status)) {
