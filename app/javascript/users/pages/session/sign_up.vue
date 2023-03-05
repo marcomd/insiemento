@@ -333,7 +333,7 @@
               type: 'error',
               key: 'sign_up_error'
             }, { root: true })
-            this.serverSideErrors = error.body ? error.body.errors : error
+            this.serverSideErrors = error.data ? error.data.errors : error
           }
         })
       },

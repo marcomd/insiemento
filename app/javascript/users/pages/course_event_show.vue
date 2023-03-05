@@ -130,8 +130,8 @@
             // console.log(`updateCourseEventSubscription OK to ${this.course_event.subscribed}`)
           })
           .catch(error => {
-            // const myObject = error && error.body ? error.body : error
-            const message = error && error.body ? (error.body.errors && error.body.errors.course_event_id ? error.body.errors.course_event_id.join(', ') : error.body.error || error.body) : error
+            const body = error?.data
+            const message = body ? (body.errors && body.errors.course_event_id ? body.errors.course_event_id.join(', ') : body.error || body) : error
             // const message = Object.keys(myObject).map( (key, index) => myObject[key]).join(', ')
 
             this.$store.dispatch('layout/replaceAlert', {

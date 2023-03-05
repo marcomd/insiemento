@@ -114,7 +114,7 @@ export const actions = {
           commit('REFRESH_COURSE_EVENT_IN_COURSE_EVENTS_OR_ADD', course_event)
           resolve(response)
         }, error => {
-          reject(error)
+          reject(error.response)
         })
         .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })
@@ -134,7 +134,7 @@ export const actions = {
       }).catch(error => {
         dispatch('layout/set_loading', false, { root: true })
         console.log('getAttendees There was an error:', error.response ? error.response : error)
-        reject(error)
+        reject(error.response)
       })
     })
   },
@@ -149,7 +149,7 @@ export const actions = {
           console.log(`updateSubscription course_event`, course_event)
           resolve(response)
         }, error => {
-          reject(error)
+          reject(error.response)
         })
         .finally(() => (dispatch('layout/submitting_request', false, { root: true })))
     })

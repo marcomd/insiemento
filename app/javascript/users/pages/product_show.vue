@@ -86,7 +86,8 @@
                   console.log(`addToCart OK`)
                 })
                 .catch(error => {
-                  const message = error && error.body ? (error.body.product_id ? error.body.product_id.join(', ') : error.body.error || error.body) : error
+                  const body = error?.data
+                  const message = body ? (body.product_id ? body.product_id.join(', ') : body.error || body) : error
                   this.$store.dispatch('layout/replaceAlert', {
                     type: 'error',
                     message: message
@@ -96,42 +97,44 @@
       },
       removeFromCart() {
         console.log(`removeFromCart product ${this.product.id} `)
-        this.$store.dispatch(`order/removeProductFromCart`, this.product.id)
-                .then( _ => {
-                  console.log(`removeFromCart OK`)
-                })
-                .catch(error => {
-                  const message = error && error.body ? (error.body.product_id ? error.body.product_id.join(', ') : error.body.error || error.body) : error
-                  this.$store.dispatch('layout/replaceAlert', {
-                    type: 'error',
-                    message: message
-                  })
-                  console.log(`Cannot removeFromCart ${this.product.id}`, error)
-                })
-      },
-      updateOrder() {
-        console.log(`updateOrder add product ${this.product.id}`)
-        this.$store
-          .dispatch(`order/update`, {
-                    product_id: this.product.id,
-                    params: {subscribe: !this.product.subscribed}
-                  }
-          )
+        this
+          .$store.dispatch(`order/removeProductFromCart`, this.product.id)
           .then( _ => {
-            console.log(`updateOrder OK to ${this.product.subscribed}`)
+            console.log(`removeFromCart OK`)
           })
           .catch(error => {
-            // const myObject = error && error.body ? error.body : error
-            const message = error && error.body ? (error.body.product_id ? error.body.product_id.join(', ') : error.body.error || error.body) : error
-            // const message = Object.keys(myObject).map( (key, index) => myObject[key]).join(', ')
-
+            const body = error?.body
+            const message = body ? (body.product_id ? body.product_id.join(', ') : body.error || body) : error
             this.$store.dispatch('layout/replaceAlert', {
               type: 'error',
               message: message
             })
-            console.log(`Cannot updateOrder`, error)
+            console.log(`Cannot removeFromCart ${this.product.id}`, error)
           })
       },
+      // updateOrder() {
+      //   console.log(`updateOrder add product ${this.product.id}`)
+      //   this.$store
+      //     .dispatch(`order/update`, {
+      //               product_id: this.product.id,
+      //               params: {subscribe: !this.product.subscribed}
+      //             }
+      //     )
+      //     .then( _ => {
+      //       console.log(`updateOrder OK to ${this.product.subscribed}`)
+      //     })
+      //     .catch(error => {
+      //       const body = error?.data
+      //       const message = body ? (body.product_id ? body.product_id.join(', ') : body.error || body) : error
+      //       // const message = Object.keys(myObject).map( (key, index) => myObject[key]).join(', ')
+      //
+      //       this.$store.dispatch('layout/replaceAlert', {
+      //         type: 'error',
+      //         message: message
+      //       })
+      //       console.log(`Cannot updateOrder`, error)
+      //     })
+      // },
     }
   }
 </script>

@@ -121,7 +121,7 @@
           token: this.$route.query.reset_password_token
         })
         .catch(err => {
-          this.serverSideErrors = err.body ? err.body.errors : {}
+          this.serverSideErrors = err?.data ? err.data.errors : {}
         })
       }
     }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.35.2 05/03/2023
+
+- Fix many http answers accessing data in the body tag, with axios being in the data tag
+
 # v1.35.1 05/03/2023
 
 - Login now shows the exact error message
