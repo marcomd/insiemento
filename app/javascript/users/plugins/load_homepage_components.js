@@ -4,21 +4,25 @@
 // Imports
 // import * as Vue from 'vue'
 
+// Used in the homepage
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
+
 export default function LoadHomepageComponents(app) {
-  // Used in the homepage
-  import upperFirst from 'lodash/upperFirst'
-  import camelCase from 'lodash/camelCase'
+  const requireComponent = Object.values(
+      import.meta.glob('../components/homepage/base/*.vue', { eager: true })
+  )
 
-  const requireComponent = require.context('../components/homepage/base', true, /\.vue$/)
-
-  for (const file of requireComponent.keys()) {
-    const componentConfig = requireComponent(file)
-    const name = file
+  //console.log('requireComponent', requireComponent)
+  for (const file of requireComponent) {
+    // const componentConfig = requireComponent(file)
+    const name = file.default.__file
         .replace(/index.js/, '')
         .replace(/^\.\//, '')
         .replace(/\.\w+$/, '')
     const componentName = upperFirst(camelCase(name))
 
-    app.component(`Base${componentName}`, componentConfig.default || componentConfig)
+    // app.component(`Base${componentName}`, componentConfig.default || componentConfig)
+    app.component(`Base${componentName}`)
   }
 }

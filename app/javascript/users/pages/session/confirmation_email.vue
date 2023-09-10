@@ -35,7 +35,7 @@
               type='submit'
               form='email-confirmation-form'
               color='primary'
-              :disabled='$v.$invalid'
+              :disabled='v$.$invalid'
               :loading='submitting'
               class='mr-2 mb-2'
             >
@@ -49,17 +49,24 @@
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate'
-  import { required, email } from 'vuelidate/lib/validators'
+  // import { validationMixin } from 'vuelidate'
+  // import { required, email } from 'vuelidate/lib/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, email } from '@vuelidate/validators'
+
   import { mapState } from 'vuex'
 
   export default {
-    mixins: [ validationMixin ],
+    setup () {
+      return { v$: useVuelidate() }
+    },
+
     validations() {
       return {
         email: { required, email }
       }
     },
+
     data() {
       return {
         email: '',
@@ -72,21 +79,22 @@
       }),
       emailErrors() {
         const errors = []
-        if (!this.$v.email.$dirty) return errors
+        if (!this.v$.email.$dirty) return errors
         !!this.serverSideErrors.email && errors.push(this.serverSideErrors.email.join(' - '))
-        !this.$v.email.email && errors.push(this.$t('errors.email_invalid_format'))
-        !this.$v.email.required && errors.push(this.$t('errors.email_required'))
+        !this.v$.email.email && errors.push(this.$t('errors.email_invalid_format'))
+        !this.v$.email.required && errors.push(this.$t('errors.email_required'))
         return errors
       }
     },
+
     methods: {
       touchEmail: function() {
-        this.$v.email.$touch()
+        this.v$.email.$touch()
         this.serverSideErrors.email = null
       },
       sendConfirmationEmail: function() {
-        this.$v.$touch()
-        if (this.$v.$invalid) return
+        this.v$.$touch()
+        if (this.v$.$invalid) return
 
         this.$store.dispatch('session/sendConfirmationEmail', this.email)
         //  Redirect spostata nell'action
@@ -98,6 +106,7 @@
         })
       }
     },
+
     created() {
       if (this.$route.query.confirmed === 'false') {
         this.$store.dispatch('layout/addAlert', {

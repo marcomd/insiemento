@@ -10,12 +10,12 @@
 
 <script>
   // Components
-  import Measurable from 'vuetify/lib/mixins/measurable'
+  // import Measurable from 'vuetify/lib/mixins/measurable'
 
   export default {
     name: 'BaseSection',
 
-    mixins: [Measurable],
+    // mixins: [Measurable],
 
     props: {
       space: {
@@ -26,12 +26,12 @@
 
     computed: {
       styles () {
-        const space = this.$vuetify.breakpoint.mdAndUp
+        const space = this.$vuetify.display.mdAndUp
           ? this.space
           : this.space / 2
 
         return {
-          ...this.measurableStyles,
+          // ...this.measurableStyles,
           padding: `${space}px 0`,
         }
       },

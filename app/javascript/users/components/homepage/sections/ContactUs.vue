@@ -9,7 +9,7 @@
         <v-row justify="center">
           <v-col cols="10">
             <base-title
-              :space="$vuetify.breakpoint.mdAndUp ? 0 : 4"
+              :space="$vuetify.display.mdAndUp ? 0 : 4"
               title="DOMANDE?"
             />
 
@@ -25,7 +25,7 @@
             md="2"
           >
             <base-btn
-              :block="$vuetify.breakpoint.smAndDown"
+              :block="$vuetify.display.smAndDown"
               color="white"
               :href="`mailto:${organizationEmail}?subject=Informazioni%20servizio%20palestre`"
               large

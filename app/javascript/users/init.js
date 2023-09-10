@@ -1,36 +1,28 @@
-// import Vue from 'vue'
-// import './plugins'
+import { createApp } from 'vue'
 
+import App from './components/index'
+import store from './store/store'
+import router from './router'
 
-// import * as VueGoogleMaps from 'vue2-google-maps'
+import moment from 'moment'
+
+// import Vuelidate from 'vuelidate'
+import { createI18n } from 'vue-i18n'
+
+import vuetify from './plugins/vuetify'
+
+import LoadHomepageComponents from './plugins/load_homepage_components'
+
 import ActionCableVue from 'actioncable-vue'
 import axios from "axios"
 
 const init = function() {
-  import { createApp } from 'vue'
-  const app = createApp({})
-
-  import App from './components/index'
-  import store from './store/store'
-  import router from './router'
-
-  import moment from 'moment'
-
-  import VueI18n from 'vue-i18n'
-  import Vuelidate from 'vuelidate'
-
-  import vuetify from './plugins/vuetify'
-
-  import LoadHomepageComponents from './plugins/load_homepage_components'
-  LoadHomepageComponents(app)
-
-  app.use(VueI18n)
-  app.use(Vuelidate)
-
   let el = document.getElementById('users-vue-wrapper')
   if (el !== null) {
     let id = '#' + el.getAttribute('id')
     let props = JSON.parse(el.getAttribute('data-props'))
+
+    const app = createApp(App, { ...props })
 
     if (props?.options?.websocketUrl) {
       app.use(ActionCableVue, {
@@ -47,21 +39,31 @@ const init = function() {
     axios.defaults.headers.common['Accept-Language'] = locale
     moment.locale(locale)
 
-    let i18n = new VueI18n({
+    const i18n = createI18n({
       locale: locale,
       messages: JSON.parse(el.getAttribute('data-i18n'))
     })
 
-    window.uiApp = new Vue({
-      i18n,
-      vuetify,
-      store,
-      router,
-      el: id,
-      render: h => h(App, {
-        props
-      })
-    })
+    LoadHomepageComponents(app)
+    // app.use(Vuelidate)
+
+    app.use(i18n)
+        // .use(Vuelidate)
+        .use(vuetify)
+        .use(store)
+        .use(router)
+        .mount(id)
+
+    // window.uiApp = new Vue({
+    //   i18n,
+    //   vuetify,
+    //   store,
+    //   router,
+    //   el: id,
+    //   render: h => h(App, {
+    //     props
+    //   })
+    // })
   }
 }
 

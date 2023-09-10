@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
+
 import * as application from './modules/application'
 import * as session from './modules/session'
 import * as layout from './modules/layout'
@@ -9,11 +9,9 @@ import * as product from './modules/product'
 import * as subscription from './modules/subscription'
 import * as order from './modules/order'
 
-Vue.use(Vuex)
-
 const debug = process.env.NODE_ENV !== 'production'
 
-export default new Vuex.Store({
+const store = createStore({
   modules: {
     application,
     session,
@@ -27,3 +25,6 @@ export default new Vuex.Store({
   state: {},
   strict: debug,
 })
+
+// export store to use in init.js
+export default store

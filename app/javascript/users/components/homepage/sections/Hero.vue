@@ -18,12 +18,12 @@
           <base-body :html="organizationDescription" />
 
           <div
-            :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
+            :class="$vuetify.display.smAndDown ? 'flex-column align-start' : 'align-center'"
             class="d-flex flex-wrap"
             v-if="organizationEmail"
           >
             <base-btn
-                :block="$vuetify.breakpoint.smAndDown"
+                :block="$vuetify.display.smAndDown"
                 :href="`mailto:${organizationEmail}?subject=Informazioni%20servizio%20palestre`"
                 large
                 target="_blank"
@@ -37,7 +37,7 @@
           <base-body>{{ organizationCustomerDescription }}</base-body>
           <div v-if="isCurrentOrganizationPresent">
             <base-btn
-                :block="$vuetify.breakpoint.smAndDown"
+                :block="$vuetify.display.smAndDown"
                 large
                 :to="{name: 'signUp'}"
             >
@@ -47,7 +47,7 @@
             <span class="font-weight-bold mx-4 my-4">o</span>
 
             <base-btn
-                :block="$vuetify.breakpoint.smAndDown"
+                :block="$vuetify.display.smAndDown"
                 class="pa-1"
                 outlined
                 :to="{name: 'login'}"
@@ -77,7 +77,7 @@
 
     computed: {
       minHeight () {
-        const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+        const height = this.$vuetify.display.mdAndUp ? '100vh' : '50vh'
 
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },

@@ -59,8 +59,9 @@
         return !!this.current_organization.name
       },
       organizationLogo() {
+        const imageUrl = new URL('../../../../assets/images/logo_100.png', import.meta.url)
         // if (this.current_organization.logo) console.log('ATTENZIONE: caricare il logo per la compagnia ', this.current_organization.id)
-        return this.current_organization.logo || require('../../../../assets/images/logo_100.png') //
+        return this.current_organization.logo || imageUrl //
       },
       organizationName() {
         return this.current_organization.name || 'INSIEMENTO'

@@ -18,7 +18,7 @@
                         single-line
                         hide-details
                         clearable
-                        v-if="$vuetify.breakpoint.smAndUp"
+                        v-if="$vuetify.display.smAndUp"
                 ></v-text-field>
             </v-card-title>
             <v-data-table
@@ -97,7 +97,7 @@
         return Array.from(new Set(this.products.map(product => product.category_name)))
       },
       itemsPerPage() {
-        return this.$vuetify.breakpoint.xsOnly ? 1 : (this.$vuetify.breakpoint.mdAndUp ? 15 : 5)
+        return this.$vuetify.display.xsOnly ? 1 : (this.$vuetify.display.mdAndUp ? 15 : 5)
       },
     },
 

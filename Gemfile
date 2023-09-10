@@ -16,7 +16,11 @@ gem 'puma', '~> 5.6.5'
 gem 'sass-rails', '~> 6.0.0'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
+# gem 'webpacker', '~> 4.0'
+
+# gem 'zeitwerk', '2.6.7'
+# gem 'rack', '2.2.6.4'
+# gem 'vite_ruby', '3.3.2'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -124,12 +128,18 @@ gem 'groupdate', '~> 5.2.2'
 gem 'matrix', '~> 0.4.2'
 gem 'psych', '< 4'
 
+# It provides a complete setup for Rails applications, allowing you to leverage Vite to power the frontend of your Rails app.
+# Vite is to frontend tooling as Ruby to programming, pure joy! 😍
+gem 'vite_rails', '~> 3.0'
+
+gem 'foreman'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: %i[mri mingw x64_mingw]
 
   # RSpec for Rails - Need to be in development for mail preview
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails', '~> 5.1.2'
 
   # fixtures replacement with a straightforward definition syntax
   gem 'factory_bot', '5.1.1'

@@ -18,8 +18,8 @@
                     prepend-icon='mdi-account'
                     :label='labelFor("firstname")'
                     :error-messages='firstNameErrors'
-                    @input='$v.firstname.$touch()'
-                    @blur='$v.firstname.$touch()'
+                    @input='v$.firstname.$touch()'
+                    @blur='v$.firstname.$touch()'
                   />
                 </v-col>
                 <v-col>
@@ -28,8 +28,8 @@
                     prepend-icon='mdi-account'
                     :label='labelFor("lastname")'
                     :error-messages='lastNameErrors'
-                    @input='$v.lastname.$touch()'
-                    @blur='$v.lastname.$touch()'
+                    @input='v$.lastname.$touch()'
+                    @blur='v$.lastname.$touch()'
                   />
                 </v-col>
               </v-row>
@@ -40,8 +40,8 @@
                     v-model='gender'
                     :error-messages="genderErrors"
                     :prepend-icon="!!gender ? (gender == 'M' ? 'mdi-gender-male' : (gender == 'F' ? 'mdi-gender-female' : 'mdi-android')) : 'mdi-gender-male-female'"
-                    @change="$v.gender.$touch()"
-                    @blur="$v.gender.$touch()"
+                    @change="v$.gender.$touch()"
+                    @blur="v$.gender.$touch()"
                   >
                     <v-radio
                       :label='$t("profile.attributes.genders.male")'
@@ -62,8 +62,8 @@
                               :label='labelFor("child_account")'
                               persistent-hint
                               :hint='$t("session.hints.child_account")'
-                              @input='$v.child_account.$touch()'
-                              @blur='$v.child_account.$touch()'>
+                              @input='v$.child_account.$touch()'
+                              @blur='v$.child_account.$touch()'>
                   </v-checkbox>
                 </v-col>
               </v-row>
@@ -76,8 +76,8 @@
                           prepend-icon='mdi-account-supervisor'
                           :label='labelFor("child_firstname")'
                           :error-messages='firstNameErrors'
-                          @input='$v.child_firstname.$touch()'
-                          @blur='$v.child_firstname.$touch()'
+                          @input='v$.child_firstname.$touch()'
+                          @blur='v$.child_firstname.$touch()'
                       />
                     </v-col>
                     <v-col cols='12' sm='6'>
@@ -86,8 +86,8 @@
                           prepend-icon='mdi-account-supervisor'
                           :label='labelFor("child_lastname")'
                           :error-messages='lastNameErrors'
-                          @input='$v.child_lastname.$touch()'
-                          @blur='$v.child_lastname.$touch()'
+                          @input='v$.child_lastname.$touch()'
+                          @blur='v$.child_lastname.$touch()'
                       />
                     </v-col>
                 </v-row>
@@ -100,8 +100,8 @@
                     prepend-icon='mdi-at'
                     :label='labelFor("email")'
                     :error-messages='emailErrors'
-                    @input='$v.email.$touch()'
-                    @blur='$v.email.$touch()'
+                    @input='v$.email.$touch()'
+                    @blur='v$.email.$touch()'
                     persistent-hint
                     :hint='$t("profile.hints.email")'
                   >
@@ -115,7 +115,7 @@
                           indeterminate
                         />
                         <div v-else key='result'>
-                          <v-icon key='available' v-if='showAvailabilityIcon && !$v.email.$error' color="success">mdi-check-bold</v-icon>
+                          <v-icon key='available' v-if='showAvailabilityIcon && !v$.email.$error' color="success">mdi-check-bold</v-icon>
                           <v-icon key='not-available' v-if='showNotAvailabilityIcon' color="error">mdi-alert-circle-outline</v-icon>
                         </div>
                       </v-fade-transition>
@@ -144,8 +144,8 @@
                     prepend-icon='mdi-at'
                     :label='labelFor("email_confirmation")'
                     :error-messages='emailConfirmationErrors'
-                    @input='$v.email_confirmation.$touch()'
-                    @blur='$v.email_confirmation.$touch()'
+                    @input='v$.email_confirmation.$touch()'
+                    @blur='v$.email_confirmation.$touch()'
                   />
                 </v-col>
               </v-row>
@@ -163,8 +163,8 @@
                     minlength='8'
                     :error-messages='passwordErrors'
                     @click:append="showPassword = !showPassword"
-                    @input='$v.password.$touch()'
-                    @blur='$v.password.$touch()'
+                    @input='v$.password.$touch()'
+                    @blur='v$.password.$touch()'
                   />
                 </v-col>
                 <v-col>
@@ -177,15 +177,15 @@
                     counter
                     :error-messages='passwordConfirmationErrors'
                     @click:append="showPasswordConfirmation = !showPasswordConfirmation"
-                    @input='$v.password_confirmation.$touch()'
-                    @blur='$v.password_confirmation.$touch()'
+                    @input='v$.password_confirmation.$touch()'
+                    @blur='v$.password_confirmation.$touch()'
                   />
                 </v-col>
               </v-row>
 
               <v-checkbox v-model="terms_and_conditions"
-                          @input='$v.terms_and_conditions.$touch()'
-                          @blur='$v.terms_and_conditions.$touch()'>
+                          @input='v$.terms_and_conditions.$touch()'
+                          @blur='v$.terms_and_conditions.$touch()'>
                 <template v-slot:label>
                   <div>
                     {{ $t('commons.accept') }}
@@ -214,7 +214,7 @@
               type='submit'
               form='sign-up-form'
               color='primary'
-              :disabled='$v.$invalid || !terms_and_conditions'
+              :disabled='v$.$invalid || !terms_and_conditions'
               :large='true'
               :loading='submitting'
               class='mr-2 mb-2'
@@ -229,23 +229,27 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import { validationMixin } from 'vuelidate'
+  // import { validationMixin } from 'vuelidate'
+  // import { required, requiredIf, email, sameAs, minLength } from 'vuelidate/lib/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, requiredIf, email, sameAs, minLength } from '@vuelidate/validators'
   import { accountDataMixin } from '../../mixins/account_data_mixin'
   import { utilityMixin } from '../../mixins/utility_mixin'
   import { sessionMixin } from "../../mixins/session_mixin"
   import { availabilityMixin} from "../../mixins/availability_mixin"
-  import { required, requiredIf, email, sameAs, minLength } from 'vuelidate/lib/validators'
   import { mapState } from 'vuex'
 
   export default {
     mixins: [
-      validationMixin,
       accountDataMixin,
       utilityMixin,
       sessionMixin,
       availabilityMixin,
     ],
+
+    setup () {
+      return { v$: useVuelidate() }
+    },
 
     validations() {
       return {
@@ -307,8 +311,8 @@
         return 'session.attributes'
       },
       signUp() {
-        this.$v.$touch()
-        if (this.$v.$invalid) return
+        this.v$.$touch()
+        if (this.v$.$invalid) return
 
         this.$store.dispatch('session/signUp', {
           firstname: this.firstname,

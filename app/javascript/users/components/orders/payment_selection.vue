@@ -56,8 +56,10 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { validationMixin } from 'vuelidate'
-  import { required, requiredIf } from 'vuelidate/lib/validators'
+  // import { validationMixin } from 'vuelidate'
+  // import { required, requiredIf } from 'vuelidate/lib/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { required } from '@vuelidate/validators'
   import { utilityMixin } from '../../mixins/utility_mixin'
   import { Card, confirmPaymentIntent } from 'vue-stripe-elements-plus'
 
@@ -75,18 +77,25 @@
         type: Object,
       },
     },
+
     mixins: [
-      validationMixin,
       utilityMixin,
     ],
+
     components: {
       Card,
     },
+
+    setup () {
+      return { v$: useVuelidate() }
+    },
+
     validations() {
       return {
         payment_type: { required },
       }
     },
+
     data() {
       return {
         payment_type: null,
@@ -98,13 +107,14 @@
         complete: null,
       }
     },
+
     computed: {
       // ccErrors() {
       //   const errors = []
-      //   if (!this.$v.cc || !this.$v.cc.$dirty) return errors
+      //   if (!this.v$.cc || !this.v$.cc.$dirty) return errors
       //   !!this.serverSideErrors.cc && errors.push(this.show_error_form_field(this.serverSideErrors.cc))
-      //   !this.$v.cc.required && errors.push(this.$t('errors.required'))
-      //   !this.$v.cc.otpValidator && errors.push(this.$t('payment.errors.cc_not_valid'))
+      //   !this.v$.cc.required && errors.push(this.$t('errors.required'))
+      //   !this.v$.cc.otpValidator && errors.push(this.$t('payment.errors.cc_not_valid'))
       //   return errors
       // },
       ...mapState('application', ['current_organization']),
@@ -112,6 +122,7 @@
         return this.current_organization.s_pk
       },
     },
+
     methods: {
       labelsPrefix() {
         return 'payment.attributes'
@@ -149,8 +160,8 @@
         //   })
       },
       confirmPayment() {
-        // this.$v.$touch()
-        // if (this.$v.$invalid) return
+        // this.v$.$touch()
+        // if (this.v$.$invalid) return
 
         console.log(`confirmPayment ${this.payment_token}`)
         this.confirmPaymentSuccess = true

@@ -36,8 +36,8 @@
                 counter
                 :error-messages='passwordConfirmationErrors'
                 @click:append="showPasswordConfirmation = !showPasswordConfirmation"
-                @input='$v.passwordConfirmation.$touch()'
-                @blur='$v.passwordConfirmation.$touch()'
+                @input='v$.passwordConfirmation.$touch()'
+                @blur='v$.passwordConfirmation.$touch()'
               />
             </v-form>
           </v-card-text>
@@ -52,7 +52,7 @@
             <v-btn large
               type='submit'
               color='primary'
-              :disabled='$v.$invalid'
+              :disabled='v$.$invalid'
               :loading='submitting'
               class='mr-2 mb-2'
               @click='newPassword'
@@ -67,18 +67,25 @@
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate'
-  import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+  // import { validationMixin } from 'vuelidate'
+  // import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, sameAs, minLength } from '@vuelidate/validators'
+
   import { mapState } from 'vuex'
 
   export default {
-    mixins: [ validationMixin ],
+    setup () {
+      return { v$: useVuelidate() }
+    },
+
     validations() {
       return {
         password: { required, minLength: minLength(8) },
         passwordConfirmation: { sameAsPassword: sameAs('password') }
       }
     },
+
     data() {
       return {
         password: '',
@@ -88,33 +95,35 @@
         serverSideErrors: {}
       }
     },
+
     computed: {
       ...mapState('layout', [
         'submitting'
       ]),
       passwordErrors() {
         const errors = []
-        if (!this.$v.password.$dirty) return errors
+        if (!this.v$.password.$dirty) return errors
         !!this.serverSideErrors.password && errors.push(this.serverSideErrors.password.join(' - '))
-        !this.$v.password.required && errors.push(this.$t('errors.password_required'))
-        !this.$v.password.minLength && errors.push(this.$t('errors.password_too_short'))
+        !this.v$.password.required && errors.push(this.$t('errors.password_required'))
+        !this.v$.password.minLength && errors.push(this.$t('errors.password_too_short'))
         return errors
       },
       passwordConfirmationErrors() {
         const errors = []
-        if (!this.$v.passwordConfirmation.$dirty) return errors
-        !this.$v.passwordConfirmation.sameAsPassword && errors.push(this.$t('errors.password_confirmation_not_equal'))
+        if (!this.v$.passwordConfirmation.$dirty) return errors
+        !this.v$.passwordConfirmation.sameAsPassword && errors.push(this.$t('errors.password_confirmation_not_equal'))
         return errors
       }
     },
+
     methods: {
       touchPassword: function() {
-        this.$v.password.$touch()
+        this.v$.password.$touch()
         this.serverSideErrors.password = null
       },
       newPassword: function() {
-        this.$v.$touch()
-        if (this.$v.$invalid) return
+        this.v$.$touch()
+        if (this.v$.$invalid) return
 
         this.$store.dispatch('session/newPassword', {
           password: this.password,

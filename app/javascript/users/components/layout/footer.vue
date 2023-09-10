@@ -2,7 +2,7 @@
   <v-footer
       color="primary py-1 white--text"
       padless
-      v-if="$vuetify.breakpoint.mdAndUp"
+      v-if="$vuetify.display.mdAndUp"
   >
     <v-row
         justify="center"

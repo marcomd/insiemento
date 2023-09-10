@@ -87,7 +87,7 @@
         return classes
       },
       fontSize () {
-        return this.$vuetify.breakpoint.width >= this.mobileBreakPoint
+        return this.$vuetify.display.width >= this.mobileBreakPoint
           ? this.size
           : this.mobileSize
       },

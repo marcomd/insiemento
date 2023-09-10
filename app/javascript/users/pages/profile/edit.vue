@@ -28,8 +28,8 @@
                     prepend-icon='mdi-account-outline'
                     :label='labelFor("firstname")'
                     :error-messages='firstNameErrors'
-                    @input='$v.firstname.$touch()'
-                    @blur='$v.firstname.$touch()'
+                    @input='v$.firstname.$touch()'
+                    @blur='v$.firstname.$touch()'
                     :disabled="disableForm"
                   />
                 </v-col>
@@ -39,8 +39,8 @@
                     prepend-icon='mdi-account'
                     :label='labelFor("lastname")'
                     :error-messages='lastNameErrors'
-                    @input='$v.lastname.$touch()'
-                    @blur='$v.lastname.$touch()'
+                    @input='v$.lastname.$touch()'
+                    @blur='v$.lastname.$touch()'
                     :disabled="disableForm"
                   />
                 </v-col>
@@ -52,8 +52,8 @@
                     v-model='gender'
                     :error-messages="genderErrors"
                     :prepend-icon="!!gender ? (gender == 'M' ? 'mdi-gender-male' : (gender == 'F' ? 'mdi-gender-female' : 'mdi-android')) : 'mdi-gender-male-female'"
-                    @change="$v.gender.$touch()"
-                    @blur="$v.gender.$touch()"
+                    @change="v$.gender.$touch()"
+                    @blur="v$.gender.$touch()"
                     :disabled="disableForm"
                   >
                     <!--span class='mr-4'>{{ $t('user.attributes.gender') }}</span-->
@@ -101,8 +101,8 @@
                             :locale='$i18n.locale'
                             :max="new Date().toISOString().substr(0, 10)"
                             min="1900-01-01"
-                            @input="$v.birthdate.$touch()"
-                            @blur="$v.birthdate.$touch()"
+                            @input="v$.birthdate.$touch()"
+                            @blur="v$.birthdate.$touch()"
                             @click:date="$refs.menu_birthdate.save(birthdate)"
                     />
                   </v-menu>
@@ -115,8 +115,8 @@
                               :label='labelFor("child_account")'
                               persistent-hint
                               :hint='$t("session.hints.child_account")'
-                              @input='$v.child_account.$touch()'
-                              @blur='$v.child_account.$touch()'>
+                              @input='v$.child_account.$touch()'
+                              @blur='v$.child_account.$touch()'>
                   </v-checkbox>
                 </v-col>
               </v-row>
@@ -129,8 +129,8 @@
                         prepend-icon='mdi-account-supervisor'
                         :label='labelFor("child_firstname")'
                         :error-messages='childFirstNameErrors'
-                        @input='$v.child_firstname.$touch()'
-                        @blur='$v.child_firstname.$touch()'
+                        @input='v$.child_firstname.$touch()'
+                        @blur='v$.child_firstname.$touch()'
                     />
                   </v-col>
                   <v-col cols='12' sm='6'>
@@ -139,8 +139,8 @@
                         prepend-icon='mdi-account-supervisor'
                         :label='labelFor("child_lastname")'
                         :error-messages='childLastNameErrors'
-                        @input='$v.child_lastname.$touch()'
-                        @blur='$v.child_lastname.$touch()'
+                        @input='v$.child_lastname.$touch()'
+                        @blur='v$.child_lastname.$touch()'
                     />
                   </v-col>
                   <v-col cols='12' sm='6' v-if="child_account">
@@ -173,8 +173,8 @@
                           :locale='$i18n.locale'
                           :max="new Date().toISOString().substr(0, 10)"
                           min="1900-01-01"
-                          @input="$v.child_birthdate.$touch()"
-                          @blur="$v.child_birthdate.$touch()"
+                          @input="v$.child_birthdate.$touch()"
+                          @blur="v$.child_birthdate.$touch()"
                           @click:date="$refs.menu_child_birthdate.save(child_birthdate)"
                       />
                     </v-menu>
@@ -191,8 +191,8 @@
                     persistent-hint
                     :hint='$t("profile.hints.phone")'
                     :error-messages='phoneErrors'
-                    @input='$v.phone.$touch()'
-                    @blur='$v.phone.$touch()'
+                    @input='v$.phone.$touch()'
+                    @blur='v$.phone.$touch()'
                     :disabled="disableForm"
                   />
                 </v-col>
@@ -202,8 +202,8 @@
                           prepend-icon='mdi-at'
                           :label='labelFor("email")'
                           :error-messages='emailErrors'
-                          @input='$v.email.$touch()'
-                          @blur='$v.email.$touch()'
+                          @input='v$.email.$touch()'
+                          @blur='v$.email.$touch()'
                           persistent-hint
                           :hint='$t("profile.hints.email")'
                           :disabled="disableForm"
@@ -225,7 +225,7 @@
               type='submit'
               form='edit-profile-form'
               color='primary'
-              :disabled='$v.$invalid || disableForm'
+              :disabled='v$.$invalid || disableForm'
               :large='true'
               :loading='submitting'
               class='mr-2 mb-2'
@@ -240,8 +240,10 @@
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate'
-  import { required, requiredIf, email, numeric } from 'vuelidate/lib/validators'
+  // import { validationMixin } from 'vuelidate'
+  // import { required, requiredIf, email, numeric } from 'vuelidate/lib/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, requiredIf, email, numeric } from '@vuelidate/validators'
   import { mapState, mapGetters } from 'vuex'
   import { accountDataMixin } from '../../mixins/account_data_mixin'
   import { currentUserMixin } from '../../mixins/current_user_mixin'
@@ -249,11 +251,14 @@
 
   export default {
     mixins: [
-      validationMixin,
       accountDataMixin,
       utilityMixin,
       currentUserMixin,
     ],
+
+    setup () {
+      return { v$: useVuelidate() }
+    },
 
     validations() {
       return {
@@ -323,7 +328,7 @@
       phoneErrors() {
         const errors = []
         !!this.serverSideErrors.phone && errors.push(this.show_error_form_field(this.serverSideErrors.phone))
-        !this.$v.phone.required && errors.push(this.$t('errors.required'))
+        !this.v$.phone.required && errors.push(this.$t('errors.required'))
         return errors
       },
       disableForm() {
@@ -336,8 +341,8 @@
         return 'profile.attributes'
       },
       updateProfile: function() {
-        this.$v.$touch()
-        if (this.$v.$invalid) return
+        this.v$.$touch()
+        if (this.v$.$invalid) return
 
         this.$store.dispatch('profile/update', {
           firstname: this.firstname,

@@ -13,7 +13,7 @@
                             clearable
                         ></v-select>
                     </v-col>
-                    <v-col v-if="$vuetify.breakpoint.smAndUp">
+                    <v-col v-if="$vuetify.display.smAndUp">
                         <v-spacer></v-spacer>
                     </v-col>
                     <v-col cols="12" sm="12" md="4">
@@ -109,7 +109,7 @@
         return Array.from(new Set(this.course_events.map(course_event => course_event.course.name)))
       },
       itemsPerPage() {
-        return this.$vuetify.breakpoint.xsOnly ? 1 : (this.$vuetify.breakpoint.mdAndUp ? 15 : 5)
+        return this.$vuetify.display.xsOnly ? 1 : (this.$vuetify.display.mdAndUp ? 15 : 5)
       },
     },
 

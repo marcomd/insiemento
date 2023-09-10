@@ -113,7 +113,7 @@
 
     computed: {
       minHeight () {
-        const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+        const height = this.$vuetify.display.mdAndUp ? '100vh' : '50vh'
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },
     }

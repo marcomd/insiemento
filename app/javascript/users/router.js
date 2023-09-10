@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import store from './store/store'
 
 //
@@ -7,6 +8,7 @@ import store from './store/store'
 //
 
 import Login from './pages/session/login'
+import Test from './pages/session/test'
 import SignUp from './pages/session/sign_up'
 import SignedUp from './pages/session/signed_up'
 import PasswordReset from './pages/session/password_reset'
@@ -25,8 +27,6 @@ import OrderShow from './pages/order_show'
 import Privacy from './pages/privacy'
 import TermsAndConditions from './pages/terms_and_conditions'
 import Cookie from './pages/cookie'
-
-Vue.use(VueRouter)
 
 // all routes are private by default
 const routes = [
@@ -160,7 +160,8 @@ const routes = [
     component: OrderShow,
   },
   {
-    path: '*',
+    path: "/:catchAll(.*)",
+    name: "NotFound",
     component: NotFound,
     meta: {
       public: true
@@ -168,9 +169,11 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: 'users',
+const router = createRouter({
+  // mode: 'history',
+  history: createWebHistory('users'),
+  //history: createWebHistory(import.meta.env.VITE_BASE_URL),
+  // base: 'users',
   routes: routes,
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
