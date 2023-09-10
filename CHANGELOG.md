@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.34.4 10/09/2023
+
+- Removed auto deploy on master, a new branch has been defined to do this `master-auto-deploy`
+
 # v1.34.3 10/09/2023
 
 - Changed course creation time to 12

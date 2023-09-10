@@ -33,7 +33,7 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: master-auto-deploy
 #      - heroku-db-migrate:
 #          requires:
 #            - build
