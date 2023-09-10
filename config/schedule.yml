@@ -14,7 +14,7 @@ user_documents_manager:
   class: UserDocumentsManagerJob
   queue: user_documents
 create_course_events:
-  cron: "30 12 * * 6"
+  cron: "0 12 * * 6"
   class: ScheduleJob
   queue: course_events
 update_subscriptions:

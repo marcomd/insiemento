@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.34.3 10/09/2023
+
+- Changed course creation time to 12
+
 # v1.34.2 04/03/2023
 
 - Bugfix creation of course events with unsorted course schedules
