@@ -287,8 +287,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     netrc (0.11.0)
-    nio4r (2.5.8)
-    nokogiri (1.14.0)
+    nio4r (2.5.9)
+    nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     numerizer (0.1.1)
@@ -304,11 +304,11 @@ GEM
       ttfunk (~> 1.7)
     psych (3.3.4)
     public_suffix (4.0.6)
-    puma (5.6.5)
+    puma (5.6.7)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.2)
-    rack (2.2.6.2)
+    rack (2.2.6.4)
     rack-proxy (0.7.6)
       rack
     rack-test (2.0.2)
@@ -443,7 +443,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.3)
-    spring (4.1.0)
+    spring (4.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     spring-watcher-listen (2.1.0)
@@ -545,7 +545,7 @@ DEPENDENCIES
   pg (~> 1.2.3, < 2.0)
   prawn (~> 2.4.0)
   psych (< 4)
-  puma (~> 5.6.5)
+  puma (~> 5.6.7)
   rails (~> 6.1.7)
   rest-client (~> 2.0.2)
   rspec-rails (~> 4.0.0)
@@ -562,7 +562,7 @@ DEPENDENCIES
   sidekiq-status (~> 1.1.4)
   simple_command!
   simplecov (~> 0.18.5)
-  spring
+  spring (~> 4.1.1)
   spring-commands-rspec
   spring-watcher-listen (~> 2.1.0)
   storext (~> 3.3.0)

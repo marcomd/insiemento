@@ -7,13 +7,21 @@
 # v1.35.1 05/03/2023
 
 - Login now shows the exact error message
-  - Login now shows the exact error message and not the generic one. This has been corrected by returning 
+  - Login now shows the exact error message and not the generic one. This has been corrected by returning
     the response and not the whole axios object.
 
 # v1.35.0 05/03/2023
 
 - Replaced vue-resource with axios
   - vue-resource does not support vue3 and to simplify the migration it has been replaced with axios
+
+# v1.34.4 10/09/2023
+
+- Removed auto deploy on master, a new branch has been defined to do this `master-auto-deploy`
+
+# v1.34.3 10/09/2023
+
+- Changed course creation time to 12
 
 # v1.34.2 04/03/2023
 
