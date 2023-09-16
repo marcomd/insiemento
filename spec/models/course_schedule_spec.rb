@@ -8,6 +8,11 @@ describe CourseSchedule do
     it { expect(subject).to belong_to(:room) }
     it { expect(subject).to belong_to(:trainer) }
 
+    specify do
+      expect(subject).to validate_presence_of(:event_day)
+      expect(subject).to validate_presence_of(:event_time)
+    end
+
     context 'when schedule already exists' do
       subject { CourseSchedule.first }
       let(:new_record) do

@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.36.0 16/09/2023
+
+- Course and course schedule validation and other minor changes
+  - Added validations to course and course schedule
+  - Improved some spec
+  - Rails defaults config increased from 6.0 to 6.1
+
 # v1.35.2 05/03/2023
 
 - Fix many http answers accessing data in the body tag, with axios being in the data tag

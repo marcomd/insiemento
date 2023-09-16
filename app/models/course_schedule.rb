@@ -10,7 +10,9 @@ class CourseSchedule < ApplicationRecord
 
   has_many :course_events, dependent: :restrict_with_error
 
-  before_validation :set_default
+  validates :event_day, :event_time, presence: true
+
+  after_initialize :set_default
 
   EVENT_DAYS = {
     sunday: 0,
