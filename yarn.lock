@@ -2821,10 +2821,10 @@ vuetify-loader@^1.3.0:
     file-loader "^6.2.0"
     loader-utils "^2.0.0"
 
-vuetify@^3.1.8:
-  version "3.1.8"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.1.8.tgz#15a1b1713d1374c87f1a65dabaf185e820f410f6"
-  integrity sha512-yODCnRxERSvcBwC6qPiySVhmZzNZ2Yme6b2lNLY1G8W/hbipAtbTCFVGB4ZY/qY7D7JNQBxzgVfZme7bDY9ZrQ==
+vuetify@^3.3.19:
+  version "3.3.19"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.3.19.tgz#cd27f38c226a9f0faa5cdc163b1a7709f0c75a12"
+  integrity sha512-6/byccc79pq2LmveSgte/AXqyEXkq3aFMxKMwoizsDzDPH4vz/44wRx0+TxhiDk4+n8WOhMa2VlXq1xsJIi1HA==
 
 vuex@^4.1.0:
   version "4.1.0"

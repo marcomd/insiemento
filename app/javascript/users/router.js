@@ -171,12 +171,11 @@ const routes = [
 
 const router = createRouter({
   // mode: 'history',
-  history: createWebHistory('users'),
-  //history: createWebHistory(import.meta.env.VITE_BASE_URL),
   // base: 'users',
-  routes: routes,
+  history: createWebHistory('users'),
+  routes,
   scrollBehavior(to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    return { left: 0, top: 0 }
   }
 })
 
