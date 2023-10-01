@@ -232,7 +232,7 @@
 // import { validationMixin } from 'vuelidate'
 // import { required, requiredIf, email, sameAs, minLength } from 'vuelidate/lib/validators'
 import { useVuelidate } from '@vuelidate/core'
-import { required, requiredIf, email, sameAs, minLength } from '@vuelidate/validators'
+import { required, requiredIf, email, sameAs, minLength, helpers } from '@vuelidate/validators'
 import { accountDataMixin } from '../../mixins/account_data_mixin'
 import { utilityMixin } from '../../mixins/utility_mixin'
 import { sessionMixin } from "../../mixins/session_mixin"
@@ -263,13 +263,15 @@ export default {
         isAvailable(value) {
           // no need to check availability via API if email is not present or invalid
           this.resultAvailability = null
-          if (!required(value) || !email(value)) return true
+          // if (!required(value) || !email(value)) return true
+          const emailRegex = /^(?:[A-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i;
+          if (!helpers.req(value) || !value.match(emailRegex)) return true
           return this.checkEmailAvailability(value)
         }
       },
-      email_confirmation:     { required, email, sameAsEmail: sameAs('email') },
+      email_confirmation:     { required, email, sameAsEmail: sameAs(this.email) },
       password:               { required, minLength: minLength(8) },
-      password_confirmation:  { required, sameAsPassword: sameAs('password') },
+      password_confirmation:  { required, sameAsPassword: sameAs(this.password) },
       terms_and_conditions:   { required },
       child_account:          { required: requiredIf(_ => { return false }) },
       child_firstname:        { required: requiredIf(_ => { return this.child_account }) },

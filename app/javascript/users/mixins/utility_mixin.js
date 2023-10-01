@@ -80,9 +80,10 @@ export const utilityMixin = {
     isRequired(field) {
       // If the field in vuelidate is present, different objects may exist in different paths and
       // the choice of the correct one unfortunately complicates the following code ...
-      if (!!this.$v && !!this.$v[field] && (!!this.$v[field].$params.required &&
-        (this.$v[field].$params.required.type == 'required' ||
-          (this.$v[field].$params.required.type == 'requiredIf' && this.$v[field].$params.required.prop() )))) {
+      // console.log(field, this.v$[field])
+      if (!!this.v$ && !!this.v$[field] && (!!this.v$[field].required &&
+        (this.v$[field].required.$params.type == 'required' ||
+          (this.v$[field].required.$params.type == 'requiredIf' && this.v$[field].required.$params.prop() )))) {
         return true
       } else {
         return false

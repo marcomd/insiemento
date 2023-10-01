@@ -18,6 +18,7 @@ export const availabilityMixin = {
   },
   methods: {
     checkEmailAvailability(email) {
+      console.log('checkEmailAvailability', email)
       this.checkingAvailability = true
       const escaped_email = escape(email.replace('+', '%2B'))
       const url = `${this.$store.state.application.urls.available_user}?email=${escaped_email}`

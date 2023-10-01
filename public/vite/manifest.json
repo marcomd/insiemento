@@ -40,7 +40,7 @@
       "users/components/homepage/sections/News.vue",
       "users/components/homepage/sections/ProFeatures.vue"
     ],
-    "file": "assets/application-b48e8703.js",
+    "file": "assets/application-a0822c23.js",
     "isEntry": true,
     "src": "entrypoints/application.js"
   },
@@ -61,7 +61,7 @@
     "src": "materialdesignicons-webfont.woff2"
   },
   "users/components/homepage/sections/Affiliates.vue": {
-    "file": "assets/Affiliates-56194bd6.js",
+    "file": "assets/Affiliates-c7a365f5.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -69,7 +69,7 @@
     "src": "users/components/homepage/sections/Affiliates.vue"
   },
   "users/components/homepage/sections/AppFeatures.vue": {
-    "file": "assets/AppFeatures-ed89393c.js",
+    "file": "assets/AppFeatures-bfe6a8ea.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -77,7 +77,7 @@
     "src": "users/components/homepage/sections/AppFeatures.vue"
   },
   "users/components/homepage/sections/Carousel.vue": {
-    "file": "assets/Carousel-48a91d50.js",
+    "file": "assets/Carousel-e8eb11c5.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -85,7 +85,7 @@
     "src": "users/components/homepage/sections/Carousel.vue"
   },
   "users/components/homepage/sections/ContactUs.vue": {
-    "file": "assets/ContactUs-d6323323.js",
+    "file": "assets/ContactUs-f3670495.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -93,7 +93,7 @@
     "src": "users/components/homepage/sections/ContactUs.vue"
   },
   "users/components/homepage/sections/Features.vue": {
-    "file": "assets/Features-bcff9ba0.js",
+    "file": "assets/Features-66a8c103.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -101,7 +101,7 @@
     "src": "users/components/homepage/sections/Features.vue"
   },
   "users/components/homepage/sections/Hero.vue": {
-    "file": "assets/Hero-34c7a902.js",
+    "file": "assets/Hero-23611169.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -116,7 +116,7 @@
     "css": [
       "assets/Info-aec6aa50.css"
     ],
-    "file": "assets/Info-17ad0464.js",
+    "file": "assets/Info-602842d5.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -124,7 +124,7 @@
     "src": "users/components/homepage/sections/Info.vue"
   },
   "users/components/homepage/sections/News.vue": {
-    "file": "assets/News-b8ba2273.js",
+    "file": "assets/News-eee02e5c.js",
     "imports": [
       "entrypoints/application.js"
     ],
@@ -132,7 +132,7 @@
     "src": "users/components/homepage/sections/News.vue"
   },
   "users/components/homepage/sections/ProFeatures.vue": {
-    "file": "assets/ProFeatures-59a5ff11.js",
+    "file": "assets/ProFeatures-506b3f6e.js",
     "imports": [
       "entrypoints/application.js"
     ],
