@@ -124,6 +124,12 @@ gem 'groupdate', '~> 5.2.2'
 gem 'matrix', '~> 0.4.2'
 gem 'psych', '< 4'
 
+# Vite is to frontend tooling as Ruby to programming, pure joy! 😍
+gem 'vite_rails', '~> 3.0', '>= 3.0.16'
+
+# Manage Procfile-based applications
+gem 'foreman'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.0.1', platforms: %i[mri mingw x64_mingw]

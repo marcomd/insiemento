@@ -36,7 +36,7 @@
 
 <script>
   export default {
-    name: 'BaseBusinessContact',
+    name: 'BaseSocial',
 
     props: {
       dark: Boolean,

@@ -7,7 +7,8 @@ import router from './router'
 import moment from 'moment'
 
 import VueI18n from 'vue-i18n'
-import Vuelidate from 'vuelidate'
+// import Vuelidate from 'vuelidate'
+
 
 import vuetify from './plugins/vuetify'
 import './plugins'
@@ -16,7 +17,7 @@ import './plugins'
 import ActionCableVue from 'actioncable-vue'
 
 Vue.use(VueI18n)
-Vue.use(Vuelidate)
+// Vue.use(Vuelidate)
 
 import axios from 'axios'
 

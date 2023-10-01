@@ -2,7 +2,7 @@
   import Heading from './Heading'
 
   export default {
-    name: 'BaseTitle',
+    name: 'BaseSubheading',
 
     extends: Heading,
 

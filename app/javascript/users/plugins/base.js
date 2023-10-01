@@ -8,15 +8,15 @@ import Vue from 'vue'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 
-const requireComponent = require.context('../components/homepage/base', true, /\.vue$/)
+const requireComponent = Object.values(
+    import.meta.glob('../components/homepage/base/*.vue', { eager: true })
+)
+// console.log('Loading base components globally', requireComponent)
 
-for (const file of requireComponent.keys()) {
-  const componentConfig = requireComponent(file)
-  const name = file
-    .replace(/index.js/, '')
-    .replace(/^\.\//, '')
-    .replace(/\.\w+$/, '')
+for (const file of requireComponent) {
+  const name = file.default.name
   const componentName = upperFirst(camelCase(name))
 
-  Vue.component(`Base${componentName}`, componentConfig.default || componentConfig)
+  // console.log(componentName, file.default)
+  Vue.component(componentName, file.default)
 }
