@@ -109,7 +109,9 @@ ActiveAdmin.register(Organization) do
           f.input(:domain)
           f.input(:email)
           f.input(:phone)
-          f.input(:state) # , collection: Organization::STATES
+          if current_admin_user.is_root?
+            f.input(:state) # , collection: Organization::STATES
+          end
           f.input(:analytics_tag)
         end
       end

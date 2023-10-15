@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.36.1 15/10/2023
+
+- Non-root administrators can no longer update organization state
+
 # v1.36.0 16/09/2023
 
 - Course and course schedule validation and other minor changes
