@@ -71,8 +71,13 @@
       // });
 
       axios.interceptors.response.use(response => {
-        //console.log('Intercepted response', response)
+        console.log('Intercepted response', response)
         if (response.data.skipInterceptors) return {}
+
+        return response
+      }, error => {
+        // console.log('Intercepted response error', error)
+        const response = error.response
 
         // Prevent showing messages set before routing
         // this.$store.dispatch('layout/clearAlerts')
@@ -89,8 +94,7 @@
             })
             break
         }
-        return response
-      }, error => {
+
         return Promise.reject(error)
       })
 
@@ -102,7 +106,7 @@
 
       if (this.isLoggedIn) {
         axios.defaults.headers.common['X-Auth-Token'] = 'Bearer ' + this.$store.state.session.authToken
-        this.$store.dispatch('profile/fetchUser')
+        this.$store.dispatch('profile/fetchUser' )
       }
     }
   }

@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v1.36.2 15/10/2023
+
+- Fixed the expired token bug and undefined showing in the profile
+  - When a login is attempted with an expired or invalid authentication token, the 401 response from the server is now intercepted and done as intended. This is a regression introduced by the migration from http resources to axios.
+  - Fixed axios interceptors, http errors are now correctly intercepted
+  - The fetchUser method of the profile module in the store now intercepts the error
+
 # v1.36.1 15/10/2023
 
 - Non-root administrators can no longer update organization state

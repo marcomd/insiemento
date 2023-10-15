@@ -14,16 +14,21 @@ export const mutations = {
 
 export const actions = {
   fetchUser({ commit, dispatch, rootState }) {
-    axios.get(rootState.application.urls.profile)
-    .then(response => {
-      //console.log('profile fetchUser response', response)
-      const body = response.data
-      commit('SET_USER', body)
-      const orderAttributes = body.pending_order
-      if (!!orderAttributes) {
-        dispatch('order/setOrder', orderAttributes, { root: true })
-      }
-    })
+    axios
+      .get(rootState.application.urls.profile)
+      .then(response => {
+        // console.log('profile fetchUser response', response)
+        const body = response.data
+        commit('SET_USER', body)
+        const orderAttributes = body.pending_order
+        if (!!orderAttributes) {
+          dispatch('order/setOrder', orderAttributes, { root: true })
+        }
+      })
+      .catch( error => {
+        // console.log('profile fetchUser error', error)
+      })
+
   },
   setUser({ commit, dispatch }, attributes) {
     commit('SET_USER', attributes)
@@ -34,14 +39,15 @@ export const actions = {
   },
   update({ commit, dispatch, rootState }, payload) {
     return new Promise((resolve, reject) => {
-      axios.put(rootState.application.urls.profile, { user: payload })
-      .then(response => {
-        const body = response.data
-        commit('SET_USER', body)
-        resolve(response)
-      }, error => {
-        reject(error)
-      })
+      axios
+        .put(rootState.application.urls.profile, { user: payload })
+        .then(response => {
+          const body = response.data
+          commit('SET_USER', body)
+          resolve(response)
+        }, error => {
+          reject(error)
+        })
     })
   }
 }
