@@ -1,6 +1,7 @@
 import router from '../../router'
 // import axios from "axios"
-const axios = require('axios').default
+// const axios = require('axios').default
+import axios from "axios"
 
 export const namespaced = true
 
