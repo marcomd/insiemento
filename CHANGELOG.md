@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v1.40.0 01/09/2024
+
+- Updated activeadmin and other minor components 
+  - updated activeadmin from 2.13.1 to 2.14.0
+
 # v1.39.0 01/09/2024
 
 - Updated sidekiq and related components
