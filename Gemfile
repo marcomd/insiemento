@@ -45,13 +45,13 @@ gem 'activeadmin', '~> 2.13.1'
 gem 'devise', '~> 4.7.0'
 
 # Simple, efficient background processing for Ruby
-gem 'sidekiq', '~> 6.3.1'
+gem 'sidekiq', '~> 6.5.0'
 
 # A scheduling add-on for Sidekiq.
-gem 'sidekiq-cron', '~> 1.2.0'
+gem 'sidekiq-cron', '~> 1.12.0'
 
 # An extension to the sidekiq message processing to track your jobs
-gem 'sidekiq-status', '~> 1.1.4'
+gem 'sidekiq-status', '~> 3.0.3'
 
 # A simple, standardized way to build and use Service Objects (aka Commands) in Ruby
 gem 'simple_command', github: 'nebulab/simple_command'

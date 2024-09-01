@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# v1.39.0 01/09/2024
+
+- Updated sidekiq and related components
+  - updated sidekiq from 6.3.1 to 6.5.12
+  - updated redis from 4.5.1 to 4.8.1
+  - updated sidekiq-cron from 1.2.0 to 1.12.0
+  - updated sidekiq-status from 1.1.4 to 3.0.3
+  - and other minor components
+
 # v1.38.0 01/09/2024
 
 - Updated many components on the frontend
