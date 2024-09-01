@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.37.0 01/09/2024
+
+- Updated rails from 6.1.7 to 6.1.7.8
+
 # v1.36.2 15/10/2023
 
 - Fixed the expired token bug and undefined showing in the profile
