@@ -57,15 +57,16 @@ GEM
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
     active_material (1.4.2)
-    activeadmin (2.14.0)
+    activeadmin (3.2.2)
       arbre (~> 1.2, >= 1.2.1)
-      formtastic (>= 3.1, < 5.0)
-      formtastic_i18n (~> 0.4)
+      csv
+      formtastic (>= 3.1)
+      formtastic_i18n (>= 0.4)
       inherited_resources (~> 1.7)
-      jquery-rails (~> 4.2)
-      kaminari (~> 1.0, >= 1.2.1)
-      railties (>= 6.1, < 7.1)
-      ransack (>= 2.1.1, < 4)
+      jquery-rails (>= 4.2)
+      kaminari (>= 1.2.1)
+      railties (>= 6.1)
+      ransack (>= 4.0)
     activeadmin_addons (1.7.1)
       active_material
       railties
@@ -155,6 +156,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    csv (3.3.0)
     date (3.3.4)
     debug_inspector (1.1.0)
     descendants_tracker (0.0.4)
@@ -186,8 +188,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    formtastic (4.0.0)
-      actionpack (>= 5.2.0)
+    formtastic (5.0.0)
+      actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -343,7 +345,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.2.1)
-    ransack (3.2.1)
+    ransack (4.2.1)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
@@ -518,7 +520,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (~> 5.1.1)
-  activeadmin (~> 2.14.0)
+  activeadmin (~> 3.2.2)
   activeadmin-minicolors!
   activeadmin_addons
   awesome_print (~> 1.8.0)
