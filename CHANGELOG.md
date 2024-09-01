@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.41.0 01/09/2024
+
+- Updated puma from 5.6.7 to 6.4.2
+
 # v1.40.0 01/09/2024
 
 - Updated activeadmin and other minor components 
