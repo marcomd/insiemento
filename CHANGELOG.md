@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v1.38.0 01/09/2024
+
+- Updated many components on the frontend
+
 # v1.37.0 01/09/2024
 
 - Updated rails from 6.1.7 to 6.1.7.8
