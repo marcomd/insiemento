@@ -31,7 +31,7 @@
     "trim-newlines": "3.0.1",
     "turbolinks": "^5.2.0",
     "uuid": "^3.4.0",
-    "vue": "^2.7.16",
+    "vue": "^3.0.0",
     "vue-i18n": "^8.28.2",
     "vue-loader": "^15.10.1",
     "vue-router": "^3.6.5",
